@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title></title>
+    <!-- 引入样式 -->
+    <!-- search style -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/default.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/search-form.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/element.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/zxx.lib.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/app.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/map_pro.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/bigmap.css">
+    <link href="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.css" rel="stylesheet" type="text/css"
+    />
+    <!-- 底部控件 -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/big_screen_dock.css">
+    <script src="../../static/js/common/config.js"></script>
+    <style>
+       .jwcolor{ color:#fff;background: #3A254F;padding: 5px;border: 2px solid #F9C520;border-radius:25px;}
+       .h25{height: 25px;} .h515{height: 515px;}
+       .h65{height: 65%;} .wh240{width: 240;}
+       .icont:hover{background: rgba(0,0,0,0.3);}
+    </style>
+</head>
+
+<body class="fw map-bg">
+    <input id="isTrafficOpen" type="hidden" value="1" />
+    <input id="shuiyuan" type="hidden" value="1" />
+    <input id="duizhan" type="hidden" value="1" />
+    <input id="cheliang" type="hidden" value="1" />
+    <input id="wx" type="hidden" value="1" />
+    <input id="zhong" type="hidden" value="1" />
+    <div id="app">
+        <div class="application-boxs tc abs" style="top:0px;">
+            <!-- 左侧 -->
+            <div class="map-menu-left p10 map-bglf">
+                <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+                <div id="menu-box" class="f12">
+                    <el-form ref="form" :model="form" label-width="80px">
+                        <!-- lxy start -->
+                        <div class="h65">
+                            <div class="search_top h25" style="margin-top:20px;">
+                                <el-select style="border: 2px solid #647AAE;border-radius:5px;" placeholder="请输入地址" v-model="searchForm.xzqhmc" class="input-with-select map_slt l b_r" >
+                                    <el-option v-for="data in selqhmc" :key="data.xzqh" :label="data.xzqhmc" :value="data"></el-option>
+                                </el-select>
+                                <el-button class="l ml5" style="background:#1E2B3F;border: 2px solid #647AAE;border-radius:5px;margin-left: 1px;height: 29px;" type="primary" @click="searchClick">搜索</el-button>
+                            </div>
+                            <div class="h515"  style="margin-top: 10px; overflow-y:auto !important;height:515px;">
+                                <div id="shengshizs">
+                                    <el-card v-for="data in shengshizs.slice((currentPage-1)*pageSize,currentPage*pageSize) " :body-style="{ padding: '0px' }"
+                                        style="background-color:#3A254F;color:#fff;border: 2px solid #F9C520;border-radius:5px;">
+                                        <div @click="shengshiClick(data)">
+                                            <div class="l cell_bk">队站名称：{{data.xzqhmc }}</div>
+                                            <div class="l cell_bk">重点单位数量：{{data.zddwsl }}</div>
+                                        </div>
+                                    </el-card>
+                                </div>
+                                <div id="zddwxx">
+                                    <el-card v-for="data in zddwxx.slice((currentPage-1)*pageSize,currentPage*pageSize)" :body-style="{ padding: '0px' }" style="border-radius:5px;background-color:#3A254F;color:#fff;border: 2px solid #E05E63;">
+                                        <div @click="zddwxxClick(data)">
+                                            <div slot="header">
+                                                <strong>{{data.dwmc }}</strong>&nbsp&nbsp
+                                                <!-- <el-tag color="" size="medium">{{data.dwxzmc}}</el-tag> -->
+                                            </div>
+                                            <div class="l cell_bk">地址：{{data.dwdz }}</div>
+                                            <div class="l cell_bk">电话：{{data.zbdh }}</div>
+                                        </div>
+                                    </el-card>
+                                </div>
+                            </div>
+                            <!-- 分页 -->
+                            <div id="zddwxxTool" class="pagenum">
+                                <div type="flex" justify="end">
+                                    <el-pagination @current-change="handleCurrentChange" :current-page="currentPage" :page-size="pageSize" :pager-count="5" background
+                                        layout="total,prev,jumper,next" :total=parseInt(total)>
+                                    </el-pagination>
+                                </div>
+                            </div>
+                            <!-- end -->
+                        </div>
+                    </el-form>
+                </div>
+                <!-- lxy end -->
+            </div>
+            <div id="BMap" class="map-main tc" v-loading="loading" element-loading-text="加载中">
+            </div>
+            <!-- db start -->
+            <!-- zjc start -->
+            <!-- <form onSubmit="submitFn(this, event);" >
+                <div class="search-wrapper">
+                    <div class="input-holder">
+                        <input type="text" class="search-input" placeholder="请输入关键词" />
+                        <button class="search-icon" onClick="searchToggle(this, event);"><span></span></button>
+                    </div>
+                    <span class="close" onClick="searchToggle(this, event);"></span>
+                    <div class="result-container">
+                    </div>
+                </div>
+            </form> -->
+            <!-- zjc end -->
+            <div class="search" style="position:fixed;top:8px;left: 600px;">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" style="color:#fff;background:#3A254F;height: 30px !important;top:5px;" data-toggle="dropdown">
+                            {{searchSource}}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" style="margin-top:5px;background:rgba(89,99,160,0.7);color: #fff;">
+                            <li>
+                                <a href="#" @click="showSuggestId()" style="color:rgb(246, 250, 0);">搜索百度库</a>
+                            </li>
+                            <li>
+                                <a href="#" @click="showAdvancedId()" style="color: rgb(246, 250, 0);">搜索消防库</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <input id="suggestId" style="color:#fff;width: 240px;top:5px;height: 30px !important;background: rgba(0,0,0,0.6);" type="search" class="form-control" v-model="searchBaiduCond" placeholder="名称|地址~">
+                    <input style="color:#fff;width: 240px; display: none;top:5px;height: 30px !important;background: rgba(0,0,0,0.6);" type="search" class="form-control" placeholder="名称|地址~" v-model="searchCond" v-on:keyup.enter="doSearch(event.keyCode||event.which)" id="advancedId">
+                    <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div> 
+                    <!-- <a style="position:fixed;left: 670px;top:11px;color: #000;" class="glyphicon glyphicon-remove btn form-control-feedback"
+                        style="pointer-events: auto"></a>  -->
+                </div>
+            </div>
+            <!-- db end -->
+            <div class="jwd" style="position:fixed;top:13px;left: 260px;">
+                <span class="jwcolor">经度</span>
+                <input type="text" style="padding:10px;width:91px;border-radius:25px;height: 30px !important;border: 2px solid #F9C520;background: rgba(0,0,0,0.5);color: #fff;" id="lng" />
+                <span class="jwcolor">纬度</span>
+                <input type="text" style="padding:10px;width:91px;border-radius:25px;height: 30px !important;border: 2px solid #F9C520;background: rgba(0,0,0,0.5);color: #fff;" id="lat" />
+            </div>
+            <div id="btn"  style="position:fixed;bottom:20px;left: 40%;display:none" >
+                <div id="container">
+                    <div id="dock">
+                        <ul>
+                            <li>
+                                <span>消防队站</span>
+                                <a href="#" @click="showOverdz()">
+                                    <img src="../../static/images/dock-1.png">
+                                </a>
+                            </li>
+                            <li>
+                                <span>微型消防站</span>
+                                <a href="#" @click="showOverwx()">
+                                    <img src="../../static/images/dock-2.png">
+                                </a>
+                            </li>
+                            <li>
+                                <span>消防水源</span>
+                                <a href="#" @click="showOvera()">
+                                    <img src="../../static/images/dock-3.png">
+                                </a>
+                            </li>
+                            <li>
+                                <span>消防车辆</span>
+                                <a href="#" @click="showOvercl()">
+                                    <img src="../../static/images/dock-4.png">
+                                </a>
+                            </li>
+                            <li>
+                                <span>消防药剂</span>
+                                <a href="#">
+                                    <img src="../../static/images/dock-5.png">
+                                </a>
+                            </li>
+                            <li>
+                                <span>周围路况</span>
+                                <a href="#" @click="lukuang()">
+                                    <img src="../../static/images/dock-6.png">
+                                </a>
+                            </li>
+                            <li>
+                                <span>装备器材</span>
+                                <a href="#">
+                                    <img src="../../static/images/dock-7.png">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 右侧工具 -->
+            <div style="width: 230px; position:fixed;top:3px;right: 10px;">
+                <div @click="Reset()" style="width:52px;height:52px;margin:2px;"  class="icont"   data-container="body"
+                     data-content="重置"  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="重置">
+                    <img src="../../static/images/new/icon_refresh.png" />
+                </div>
+                <div @click="showOverzddw()" style="width:52px;height:52px;margin:2px;"  class="icont" 
+                    data-container="body"  data-content="重点单位" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="重点单位">
+                    <img src="../../static/images/new/icon_unit.png" />
+                </div>
+                <div @click="showOvera()" style="width:52px;height:52px;margin:2px;"  class="icont" 
+                    data-container="body"  data-content="水源"  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="消防水源">
+                    <img src="../../static/images/new/icon_water.png" />
+                </div>
+                <div class="dropdown"  >
+                    <div style="width:52px;height:52px;margin:2px;" class="icont"  type="button" class="btn btn-success" type="button" class="btn dropdown-toggle"
+                        id="dropdownMenu1" data-toggle="dropdown" type="button">
+                        <img src="../../static/images/new/icon_APP.png" / data-toggle="tooltip" data-placement="bottom" title="地图切换">
+                    </div>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="background:rgba(89, 99, 160,0.7);width:280px;height:160px;margin-top:60px;margin-left: -60px;">
+                        <li role="presentation" style="margin:8px;font-weight:bold;font-family:'微软雅黑';">选项
+                            <a style="color: #000;margin-top:9px;" class="glyphicon glyphicon-remove btn form-control-feedback" style="pointer-events: auto"></a>
+                        </li>
+                        <!-- 路况 -->
+                        <li role="presentation" style="padding:8px;font-weight:bold;font-family:'微软雅黑';background:#F6F7F8;">底图
+                            <span style="font-size:12px;margin-left:160px;">
+                                <!-- <img style="height:15px;width:43px;" src="../../static/images/maptool/fireengine.png"/> -->
+                            </span>
+                        </li>
+                        <li role="presentation">
+                            <div @click="EwOver()" style="width:60px;height:68px;margin:8px;margin-left:25px;" class="icont mapz" type="button" class="btn btn-success"
+                                data-container="body" data-placement="left">
+                                <img style="width:70px;height: 40px;" src="../../static/images/maptool/icon_2d_btn.png" />
+                                <p style="color:#d1d1d1">平面图</p>
+                            </div>
+                            <div @click="WxOver()" style="width:60px;height:68px;margin:8px;margin-left:20px;" class="icont mapz" type="button" class="btn btn-success"
+                                data-container="body" data-placement="left">
+                                <img style="width:70px;height: 40px;" src="../../static/images/maptool/icon_satellite_btn.png" />
+                                <p style="color:#d1d1d1">卫星图</p>
+                            </div>
+                            <div @click="SwOver()" style="width:60px;height:68px;margin:8px;margin-left:20px;" class="icont mapz" type="button" class="btn btn-success"
+                                data-container="body"  class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="目前仅北京有三维地图">
+                                <img style="width:70px;height: 40px;" src="../../static/images/maptool/icon_3d_btn.png" />
+                                <p style="color:#d1d1d1">三维图</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- 引入js -->
+<script src="../../static/js/lib.js"></script>
+
+<script src="../../static/js/menu.js"></script>
+<script src="../../static/js/zzzlib/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $("[data-toggle='popover']").popover(
+            {
+                html: true,
+                content: "<div> <img  src='../../static/images/maptool/icon_2d_btn.png'> </div>" + "<img src='../../static/images/maptool/icon_satellite_btn.png'>",
+
+            }
+        );
+    });
+</script>
+<script>
+   $(function () { $("[data-toggle='tooltip']").tooltip(); }); 
+</script>
+<!-- 引入地图 -->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vRjF5BxHdpmTZZfuSzXeV2ZKLNNv7nKn"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+<script type="text/javascript" src="../../static/js/bigscreen/MarkerClusterer.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.js"></script>
+<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+<script type="text/javascript" src="../../static/js/bigscreen/mapmain.js"></script>
+<script type="text/javascript" src="../../static/js/zzzlib/jquery-3.2.1.min.js"></script>
+<script>
+    $(function () {
+            //判断是否宽屏
+            var winWide = window.screen.availWidth;
+            // alert(winWide);
+            var wideScreen = false;
+            var zm = winWide / 1920;
+            document.body.style.zoom = zm * 1.3;
+            // body{zoom:1.25;}
+        })
+</script> 
+<!-- tooljs的引入 -->
+<script type="text/javascript"></script>
+<script>
+    $('#menu-toggle-btn').click(function () {
+        var left = $('.map-menu-left'),
+            main = $('.map-main'),
+            $this = $(this);
+        if (left.hasClass('damin')) {
+            left.removeClass('damin').css('left', '0px');
+            main.css('padding-left', '240px');
+            setTimeout(function () {
+                $this.removeClass('menu-toggle-bg').css({ "right": "0", "transform": "rotateY(0)" });
+            }, 300);
+        } else {
+            left.addClass('damin').css('left', '-240px');
+            main.css('padding-left', 0);
+            setTimeout(function () {
+                $this.addClass('menu-toggle-bg').css({ "right": "-25px", "transform": "rotateY(180deg)" });
+            }, 300);
+        }
+    });
+    //预案下载
+    function downloadPlan() {
+        window.open("http://10.119.119.232:18080/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
+    }
+</script>
+</html>

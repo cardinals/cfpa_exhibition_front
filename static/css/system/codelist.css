@@ -1,0 +1,11 @@
+@charset "utf-8";
+.addEditFormInput {
+    width: 220px;
+}
+.el-form-item__error {
+    width: 220px;
+}
+.cell{
+    display: block;
+    width: 100%;
+}

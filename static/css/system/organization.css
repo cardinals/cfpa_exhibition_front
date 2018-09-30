@@ -1,0 +1,49 @@
+.el-card {
+    box-shadow: 0 0 0 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
+}
+.el-card__header {
+    padding: 13px 15px 5px;
+}
+.card_style {
+    margin-bottom: 0.3%;
+    height: 100%;
+}
+.el-card__body {
+    padding: 5px;
+}
+.el-tree {
+    cursor: default;
+    background: #F5FAFC;
+    border: 1px solid #d1dbe5;
+}
+.frame_left_card {
+    float: left; 
+    width: 30%;
+    height: 490px;
+}
+.frame_right_card {
+    float: left;
+    margin-left: 0.3%;
+    width: 69.7%;
+    overflow-x: hidden;
+}
+.frame_right_top {
+    height: 30%;
+}
+.frame_right_bottom {
+    height: 70%
+}
+.src_slt{
+    margin-top: 1px;
+    margin-left: 5px;
+    overflow-x: hidden;
+    /* height: 4px; */
+}
+.card-inform-margin{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.detailTable{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

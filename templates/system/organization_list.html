@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="../../static/css/system/organization.css">
+	<title>组织机构管理</title>
+</head>
+<style>
+	.custom-tree-node {
+	  flex: 1;
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  font-size: 14px;
+	  padding-right: 8px;
+	}
+</style>
+
+<body class="fw f14 main-index-body">
+	<div id="app">
+		<div class="main-box">
+			<div class="main-container">
+			<div id="lib :: main_container_header('组织机构','组织机构')"></div>
+			<!-- 面包屑 -->
+			<div id="breadcrumb_box"></div>
+			<div class="frame">
+				<div class="frame_left_card">
+					<el-card class="card_style">
+						<div slot="header" class="clearfix">
+							<div>
+								<strong class="card_title_font">组织机构树</strong>
+								<el-input placeholder="查询" size="small" style="float:right; padding:3px 0; width:70%; margin-top:-8px;"  v-model="filterText"></el-input>
+							</div>
+						</div>
+						<div scroll="no" class="src_slt">
+							<el-tree
+									class="filter-tree"
+									:data="tableData"
+									:props="jgidprops"
+									accordion
+									:filter-node-method="filterNode"
+									node-key="uuid"
+									ref="tree2"
+									@current-change="currentNodeChange"
+									style=" font-weight:bold;
+											width:100%;
+											font-weight:100px;
+											border:none;
+											">
+							</el-tree>
+						</div>
+					</el-card>		
+				</div>
+				<div class="frame_right_card" scroll="no">
+					<div class="frame_right_top" scroll="no">
+						<el-card class="card_style m0">
+							<div slot="header" class="clearfix" style="padding-bottom: 8px;">
+								<div>
+									<strong class="card_title_font">组织机构详情</strong>
+								</div>
+							</div>
+							<div>
+								<el-row class=" -bottom">
+									<el-col :span="12">
+										<div>
+											<span class="dtdlStyle">机构名称：</span>
+											<v-text v-text="detailData.jgmc||'无'"></v-text>
+										</div>
+									</el-col>
+									<el-col :span="12">
+										<div>
+											<span class="dtdlStyle">机构简称：</span>
+											<v-text v-text="detailData.jgjc||'无'"></v-text>
+										</div>
+									</el-col>
+								</el-row>
+								<el-row class="card-inform-margin">
+									<el-col :span="12">
+										<div>
+											<span class="dtdlStyle">机构性质：</span>
+											<v-text v-text="detailData.jgxzmc||'无'"></v-text>
+										</div>
+									</el-col>
+									<el-col :span="12">
+										<div>
+											<span class="dtdlStyle">机构地址：</span>
+											<v-text v-text="detailData.jgdz||'无'"></v-text>
+										</div>
+									</el-col>
+								</el-row>
+								<el-row class="card-inform-margin">
+									<el-col :span="24">
+										<div>
+											<span class="dtdlStyle">机构描述：</span>
+											<v-text v-text="detailData.jgms||'无'"></v-text>
+										</div>
+									</el-col>
+								</el-row>
+								<el-row class="card-inform-margin">
+									<el-col :span="12">
+										<div>
+											<span class="dtdlStyle">行政区划：</span>
+											<v-text v-text="detailData.xzqhmc||'无'"></v-text>
+										</div>
+									</el-col>
+									<el-col :span="12">
+										<div>
+											<span class="dtdlStyle">传真号码：</span>
+											<v-text v-text="detailData.czhm||'无'"></v-text>
+										</div>
+									</el-col>
+								</el-row>
+								<el-row class="card-inform-margin">
+									<el-col :span="12">
+										<div>
+											<span class="dtdlStyle">联系人：</span>
+											<v-text v-text="detailData.lxr||'无'"></v-text>
+										</div>
+									</el-col>
+									<el-col :span="12">
+										<div>
+											<span class="dtdlStyle">联系电话：</span>
+											<v-text v-text="detailData.lxdh||'无'"></v-text>
+										</div>
+									</el-col>
+								</el-row>
+								<el-row class="card-inform-margin">
+									<el-col :span="12">
+										<div>
+											<span class="dtdlStyle">辖区面积(㎡)：</span>
+											<v-text v-text="detailData.xqmj||'无'"></v-text>
+										</div>
+									</el-col>
+									<el-col :span="12">
+										<div>
+											<span class="dtdlStyle">辖区范围：</span>
+											<v-text v-text="detailData.xqfw||'无'"></v-text>
+										</div>
+									</el-col>
+								</el-row>
+							</div>
+						</el-card>
+						
+					</div>
+					<div class="frame_right_bottom" scroll="no">
+						<el-card class="card_style m0">
+							<div slot="header" class="clearfix" style="padding-bottom: 8px;">
+								<div>
+									<strong class="card_title_font">用户列表</strong>
+								</div>
+								
+							</div>
+							<div class="table_container">
+								<el-table border id="table" :data="userData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+								class="detailTable" :height="tableheight">
+									<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
+									<el-table-column prop="username" show-overflow-tooltip label="用户名" min-width="30%" align="center"></el-table-column>
+									<el-table-column prop="realname" show-overflow-tooltip label="真实姓名" min-width="20%" align="center"></el-table-column>
+									<el-table-column prop="mobile" show-overflow-tooltip label="手机号" min-width="25%" align="center"></el-table-column>
+									<el-table-column prop="email" show-overflow-tooltip label="邮箱" min-width="25%" align="center"></el-table-column>
+								</el-table>
+		
+								<!--列表底部工具条和分页符-->
+								<el-row type="flex" justify="end">
+									<el-col :span="18">
+										<el-pagination 
+											@size-change="pageSizeChange" 
+											@current-change="currentPageChange" 
+											:current-page="currentPage"
+												:page-sizes="[10, 20, 30, 50]" 
+												:page-size="pageSize" 
+												layout="total, prev, pager, next, jumper" 
+												:total=parseInt(total)>
+										</el-pagination>
+									</el-col>
+								</el-row>
+							</div>
+						</el-card>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		
+</body>
+<script src="../../static/js/system/organization.js"></script>
+</html>

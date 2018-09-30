@@ -1,0 +1,13 @@
+.hiddenInput{
+    display: none;
+}
+.cell{
+    display: block;
+    width: 100%;
+}
+.el-date-editor.el-input {
+    width: 100%;
+}
+.el-form-item__error{
+    line-height: 0;
+}

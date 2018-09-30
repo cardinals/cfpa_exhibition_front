@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>全国数据总览</title>
+	<link rel="stylesheet" type="text/css" href="../../static/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/zxx.lib.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/app.css">
+	<!-- <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/tagscloud2.css"> -->
+	<link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/scroll.css">
+	<script type="text/javascript" src="../../static/js/zzzlib/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css">
+
+</head>
+
+<style>
+	
+	* {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		text-decoration: none;
+		font-weight: normal;
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		box-sizing: border-box;
+	}
+	h5 {
+        width: 60px;
+        height: 25px;
+        margin: 0;
+        float: left;
+		text-align: center;
+		color: slategrey;
+	}
+	.selected {
+        color: white;
+    }
+</style>
+
+<body  id='allbody' style="visibility:hidden;" onload="init()"   class="fw bg_tm">
+	<div id="app">
+		<div class="application-box tc abs">
+			<!-- 头部分 -->
+			<div class="application-div h20">
+				<div class="h100 w25 l p5">
+					<div class="application-text map-bg2">
+						<div class="application-imge2" style="background-image: url(../../static/images/icon_unit.png);"></div>
+						<div class="application-name2">重点单位总数（个)</div>
+						<div class="application-num2" v-text=totalDate.zddw></div>
+					</div>
+				</div>
+				<div class="h100 w25 l p5">
+					<div class="application-text map-bg2">
+						<div class="application-imge2" style="background-image: url(../../static/images/icon_building.png);"></div>
+						<div class="application-name2">建筑信息总数（个）</div>
+						<div class="application-num2" v-text=totalDate.jzxx></div>
+					</div>
+				</div>
+				<div class="h100 w25 l p5">
+					<div class="application-text map-bg2">
+						<div class="application-imge2" style="background-image: url(../../static/images/icon_emergency.png);"></div>
+						<div class="application-name2">数字化预案总数（个）</div>
+						<div class="application-num2" v-text=totalDate.szhya></div>
+					</div>
+				</div>
+				<div class="h100 w25 l p5">
+					<div class="application-text map-bg2">
+						<div class="application-imge2" style="background-image: url(../../static/images/icon_ranks.png);"></div>
+						<div class="application-name2">消防队站总数（个）</div>
+						<div class="application-num2" v-text=totalDate.xfdz></div>
+					</div>
+				</div>
+			</div>
+			<!-- 左侧部分 -->
+			<div class="l h80 w25">
+				<div class="application-div h60 p5">
+					<div class="application-text map-bg2">
+						<div class="application-subtitle l">总队预案数量排行(Top10)</div>
+						<div class="application-subtitle" style="position: absolute;text-align:right;"><a href="#" @click="top10jump()">更多</a></div>
+						<div id="top10Bar" class="application-boxs"></div>
+					</div>
+				</div>
+				<!-- <div class="application-div h30 p5">
+					<div class="application-text map-bg2">
+						
+					</div>
+				</div> -->
+				<div class="application-div h40 p5">
+					<!--
+						<div class="application-text map-bg2">
+						<div class="application-subtitle l">预案提醒</div>
+						<div class="application-subtitle" style="position: absolute;text-align:right;"><a href="#" @click="jump()">更多</a></div>
+						<div class="application-boxs flex pl10 pr10 pb10">
+							<div id="scroll" class="application-text">
+								<ul>
+									<li v-for="data in scrollData">
+										<!-- <a href="../digitalplan/digitalplan_approve.html" v-text="data.zddwmc"></a> -->
+						<!--				<a href="#" @click="jump()" style="color:#29bb9d;" v-text="data.zddwmc"></a>
+										<div style="color:#ff6364;" v-if="data.type == '1'" v-text="'待审核'"></div>
+										<div style="color:#fdc107;" v-if="data.type == '2'" v-text="'待更新'+ data.count"></div>
+									</li>
+								</ul>
+							</div>
+							<!-- <div id="tagscloud" class="application-boxs">
+											<a class="tagc1" v-text="'辽宁省人民法院'"></a>
+											<a class="tagc2" v-text="'辽宁省政府'"></a>
+											<a class="tagc3" v-text="'辽宁省就业局'"></a>
+											<a class="tagc4" v-text="'沈阳市城市规划管理局'"></a>
+											<a class="tagc2" v-text="'沈阳市公安局'"></a>
+											<a class="tagc3" v-text="'沈阳市地铁二号线'"></a>
+											<a class="tagc3" v-text="'青岛市塑性加工园'"></a>
+											<a class="tagc4" v-text="'泰安市城建局'"></a>
+											<a class="tagc2" v-text="'河北省国土资源厅'"></a>
+											<a class="tagc1" v-text="'秦皇岛市林业局'"></a>
+										</div> -->
+				<!--		</div>
+					</div>
+					-->
+					<div class="application-text map-bg2">
+						<div class="application-subtitle l" id="tab-head">
+							<h5 id="tab1" @click="changeTab(0)" class="selected">待审核</h2>
+							<h5 id="tab2" @click="changeTab(1)">待更新</h2>
+						</div>
+							
+						<div class="application-boxs flex pl10 pr10 pb10" v-if="isDSH">
+							<div id="scroll" class="application-text">
+								<ul>
+									<li v-for="data in scrollData_DSH">
+										<a href="#" @click="jump()" style="color:#29bb9d;" v-text="data.name"></a>
+										<div style="color:#ff6364;" v-text="'待审核'"></div>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="application-boxs flex pl10 pr10 pb10" v-if="isDGX">
+								<div id="scroll" class="application-text">
+									<ul>
+										<li v-for="data in scrollData_DGX">
+											<a style="color:#29bb9d;text-decoration:none; " v-text="data.name"></a>
+											<div style="color:#fdc107;" v-text="'待更新'+ data.value"></div>
+										</li>
+									</ul>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 中央部分 -->
+			<div class="l h80 w50">
+				<div class="application-div h100">
+					<div id="map" class="application-text"></div>
+				</div>
+				<!-- <div class="application-div h25">
+					<div id="barmax" class="application-text"></div>
+				</div> -->
+			</div>
+			<!-- 右侧部分 -->
+			<div class="l h80 w25">
+				<div class="application-div h50 p5">
+					<div class="application-text map-bg2">
+						<div class="application-subtitle l">各级重点单位占比</div>
+						<div id="pie" class="application-boxs"></div>
+					</div>
+				</div>
+				<div class="application-div h50 p5">
+					<div class="application-text map-bg2">
+						<div class="application-subtitle l">各类数字化预案数量</div>
+						<div class="application-subtitle" style="position: absolute;text-align:right;"><a href="#" @click="barjump()">更多</a></div>
+						<div id="bar" class="application-boxs"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /application-box -->
+	</div>
+
+</body>
+
+<script type="text/javascript" src="../../static/js/lib.js"></script>
+<script type="text/javascript" src="../../static/js/echarts-2/echarts-all.js"></script>
+<script type="text/javascript" src="../../static/js/echarts-4/echarts.js"></script>
+<!-- <script type="text/javascript" src="../../static/js/bigscreen/tagscloud.js"></script> -->
+<script type="text/javascript" src="../../static/js/bigscreen/scroll.js"></script>
+<script type="text/javascript" src="../../static/js/bigscreen/big_screen_overview.js"></script>
+	<script>
+		$(function () {
+				
+				//判断是否宽屏
+				var winWide = window.screen.availWidth;
+				// alert(winWide);
+				var wideScreen = false;
+				var zm = winWide / 1920;
+				var bmt = zm*420;
+				document.body.style.marginTop = bmt +'px';
+				document.body.style.transform = 'scale('+zm*1.5+')';
+				
+			})	
+
+			function init(){
+				document.getElementById("allbody").style.visibility = 'visible';
+			}
+	</script>
+</html>
+

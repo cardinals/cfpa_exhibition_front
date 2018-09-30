@@ -1,0 +1,48 @@
+#sideToolbar {
+    display: flex !important;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.side-toolbar {
+    clear: both;
+}
+#sideToolbar-btn {
+    float: left;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    background: url("../images/sideToolbar.png") no-repeat scroll 0 0 transparent;
+}
+#sideToolbar-btn.disable {
+    background: url("../images/sideToolbar.png") no-repeat scroll -104px 0 transparent;
+}
+#sideToolbar-btn.disable:hover {
+    background: url("../images/sideToolbar.png") no-repeat scroll -154px 0 transparent;
+}
+#sideToolbar-up {
+    float: left;
+    width: 45px;
+    height: 45px;
+    margin-left: 8px;
+    border-radius: 2px;
+    background: url("../images/sideToolbar.png") no-repeat scroll -1px -62px transparent;    
+}
+#sideToolbar-up:hover {
+    background: url("../images/sideToolbar.png") no-repeat scroll -74px -62px transparent;
+}
+#sideToolbar-fullscreen {
+    float: left;
+    width: 45px;
+    height: 45px;
+    margin-left: 8px;
+    border-radius: 2px;
+    background: url("../images/sideToolbar.png") no-repeat scroll -1px -119px transparent;    
+}
+#sideToolbar-fullscreen:hover {
+    background: url("../images/sideToolbar.png") no-repeat scroll -74px -119px transparent;
+}

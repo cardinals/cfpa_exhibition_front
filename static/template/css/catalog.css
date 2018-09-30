@@ -1,0 +1,178 @@
+#sideCatalog {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    font-family: "宋体";
+    font-size: 14px;
+    line-height: 19px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+#sideCatalog a {
+    color: #333;
+    font-weight: 500;
+    text-decoration: none;
+}
+#sideCatalog a:hover {
+    color: #36c;
+    text-decoration: underline;
+}
+#sideCatalog span.catalog-index1 {
+    color: #999;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: bold;
+    padding-right: 5px;
+}
+#sideCatalog span.sideCatalog-index2 {
+    color: #999;
+    font-family: Arail;
+    font-size: 14px;
+    padding-right: 5px;
+}
+#sidebar {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    height: 100%;
+    width: 0;
+    background-color: #eaeaea;
+    border-left: 1px solid #eaeaea;
+    border-right: 1px solid #eaeaea;
+}
+#sidebar .sidebar-top, 
+#sidebar .sidebar-bottom {
+    position: absolute;
+    left: -5px;
+    width: 10px;
+    height: 10px;
+    background: url("../images/sideToolbar.png") no-repeat scroll 0 -199px transparent;
+    overflow: hidden; 
+    cursor: pointer;
+}
+#sidebar .sidebar-top {
+    top: 0;
+}
+#sidebar .sidebar-bottom {
+    bottom: 0;
+}
+#sidebar .sidebar-top:hover,
+#sidebar .sidebar-bottom:hover {
+    background-position: 0 -185px;
+}
+.catalog-item1, 
+.catalog-item2 {
+    margin: 0 0 6px;
+    padding: 0 7px;
+    position: relative;
+}
+.catalog-item1:hover, 
+.catalog-item2:hover {
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    /* box-shadow: 0 1px 0 #eaeaea; */
+}
+.catalog-item2 {
+    padding-left: 21px;
+}
+#sideCatalog .catalog-item1 a, 
+#sideCatalog .catalog-item2 a {
+    text-decoration: none;
+}
+#sideCatalog .catalog-item1 a:hover, 
+#sideCatalog .catalog-item2 a:hover {
+    color: #36c;
+}
+#sideCatalog .catalog-item1 a {
+    color: #555;
+    font-weight: bold;
+}
+#sideCatalog .catalog-item2 a {
+    color: #666;
+}
+.sideCatalog-dot {
+    position: absolute;
+    left: -21px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 4px;
+    border: 2px solid #fff;
+    background-color: #bbb;
+}
+.sideCatalog-dot:hover {
+    background-position: 0 -245px;
+}
+
+#catalog {
+    height: 100%;
+    padding-left: 23px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
+#catalog::-webkit-scrollbar-button {
+    width: 4px;
+    height: 4px;
+}
+
+#catalog::-webkit-scrollbar-track {
+    background: transparent;
+    border: thin solid rgba(80, 80, 80, 0);
+    box-shadow: 0 0 3px rgba(80, 80, 80, 0) inset;
+    border-radius: 2px;
+}
+
+#catalog::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+#catalog::-webkit-scrollbar-thumb {
+    background: rgba(80, 80, 80, 0.2);
+    border: thin solid rgba(255, 255, 255, 0);
+    border-radius: 2px;
+}
+#catalog dl {
+    position: relative;
+}
+.highlight span.sideCatalog-dot {
+    width: 22px;
+    height: 16px;
+    background: url(../images/sideToolbar.png) no-repeat scroll -271px -35px transparent;
+    left: -23px;
+    top: 0px;
+    border: none;
+    border-radius: 0;
+}
+#catalog-updown { 
+    position: absolute;
+    right: 10px;
+    bottom: 160px;   
+    width: 22px;
+    height: 50px;    
+    z-index: 100;
+    visibility: hidden;
+}
+#catalog-up,
+#catalog-down { 
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+.catalog-up-enable {
+    background: url("../images/sideToolbar.png") no-repeat scroll -245px -83px transparent;
+}
+.catalog-up-disable {
+    background: url("../images/sideToolbar.png") no-repeat scroll -272px -83px transparent;
+}
+.catalog-down-enable {
+    background: url("../images/sideToolbar.png") no-repeat scroll -245px -108px transparent;
+}
+.catalog-down-disable {
+    background: url("../images/sideToolbar.png") no-repeat scroll -272px -108px transparent;
+}

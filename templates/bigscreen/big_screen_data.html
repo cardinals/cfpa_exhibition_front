@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/element.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/zxx.lib.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/app.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/sync.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css">
+   
+    <!-- 引入js -->
+    <script src="../../static/js/zzzlib/jquery-3.2.1.min.js"></script>
+    <script src="../../static/js/zzzlib/bootstrap.min.js"></script>
+    <script src="../../static/js/zzzlib/vue.min.js"></script>
+    <script src="../../static/js/zzzlib/element.js" charset="utf-8"></script>
+    <script src="../../static/js/echarts-2/echarts-all.js"></script>
+    <script src="../../static/js/echarts-4/echarts.js"></script>
+    <script type="text/javascript" src="../../static/js/zzzlib/vue.js"></script>
+    <script type="text/javascript" src="../../static/js/bigscreen/tagscloud.js"></script>
+
+
+ <style>
+            * { padding: 0; margin: 0; }
+            table {
+                border-collapse: collapse;
+                border-spacing: 0;
+                border: 1px solid #00008B;
+                
+            }
+    
+            th,td {
+                border: 1px solid #00008B;
+                color: #fff;
+                padding: 4px;
+                height: 3px;
+            }
+
+            th {
+                padding: 8px;
+                font: bold 16px "微软雅黑";
+                color: rgb(129, 129, 247);
+            }
+    
+            td {
+                font: 10px "微软雅黑";
+                height:1px;
+            }
+           
+            tbody tr:hover {
+                cursor: pointer;
+            
+            }
+
+</style>
+<style>
+    .run{
+            -webkit-animation:run 6s linear 0s infinite;
+        }
+    .run:hover{  
+        -webkit-animation-play-state:paused;  
+    }  
+
+
+    @-webkit-keyframes run{  
+        from{  
+            -webkit-transform:rotate(0deg);  
+        }  
+        to{  
+            -webkit-transform:rotate(360deg);  
+        }  
+    }  
+        
+        </style>
+</head>
+
+<body class="fw map-bg">
+    <div id="app">
+
+        <div class="application-box tc abs" > 
+            <div class="sync-main tc map-bg left" >
+                <img src="../../static/images/bg_0101.png" style= "position: fixed;left:40.5px;top:40.5px; width: 750px;height: 410px; border:1px solid #00008B;"/>
+                <img class="run" src="../../static/images/center_05.png" style= "position: fixed;left:318px;top:98px; width: 205px;height: 205px;"/>
+                <a @click="loadChart" style= "position: fixed;left:400px;top:172px; width: 40px;height: 60px;color:#fff;font-size:18px;padding:1px;">
+                 数据汇集
+                </a>
+                <!-- <div @click="loadChart" style= "position: fixed;left:322px;top:100px; width: 200px;height: 200px;background-image: url('../../static/images/center_01.png');background-size:200px 200px"></div> -->
+                <!-- <a @click="loadChart" style="position:fixed;left:390px;top:180px;color:#fff;">数据汇集</a> -->
+                 <img src="../../static/images/center_02.png" style= "position: fixed;left:95px;top:120px; width: 650px;height: 310px;"/>
+                <!--<img src="../images/center_02.png" style= "position: fixed;left: 295px;top:175px; width: 850px;height:330px;"/>-->
+                <div id="province01" class="sync-province-box" >
+                    <div class="sync-province-icon01"></div>
+                </div>
+            	<div id="province0" class="sync-province-box0">
+                    <span class="sync-province-lebal0">公安部消防局数字化预案管理平台</span>
+                </div>
+                 <div id="province1" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class=" btn btn-success"   
+                    data-container="body" data-toggle="popover" 
+                    ></div>
+                    <span    class="sync-province-lebal topdaohang" >北京</span>
+                </div>
+
+                <div id="province2" class="sync-province-box">
+                    <div class="sync-province-icon2 blink" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    data-content="故障信息：xinxixinxixinxixi
+                    故障开始时间：2018.1.1:0
+                    故障持续时间：213213s"></div>
+                    <span class="sync-province-lebal">天津</span>
+                </div>
+                <div id="province3" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover"  
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">重庆</span>
+                </div>
+                <div id="province4" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">上海</span>
+                </div>
+                <div id="province5" class="sync-province-box" >
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">辽宁</span>
+                </div>
+                <div id="province6" class="sync-province-box" type="button" class="btn btn-success"   
+                data-container="body" data-toggle="popover" data-placement="bottom">
+                    <div class="sync-province-icon" ></div>
+                    <span class="sync-province-lebal topdaohang">新疆</span>
+                </div>
+                <div id="province7" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">内蒙古</span>
+                </div>
+                <div id="province8" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">西藏</span>
+                </div>
+                <div id="province9" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">广西</span>
+                </div>
+                <div id="province10" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                   ></div>
+                    <span class="sync-province-lebal topdaohang">宁夏</span>
+                </div>
+                <div id="province11" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">黑龙江</span>
+                </div>
+                <div id="province12" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                   ></div>
+                    <span class="sync-province-lebal topdaohang">吉林</span>
+                </div>
+                <div id="province13" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                   ></div>
+                    <span class="sync-province-lebal topdaohang">河北</span>
+                </div>
+                <div id="province14" class="sync-province-box">
+                    <div class="sync-province-icon2 blink" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    data-content="故障信息：xinxixinxixinxixi
+                    故障开始时间：2018.1.1:0
+                    故障持续时间：213213s"></div>
+                    <span class="sync-province-lebal ">河南</span>
+                </div>
+                <div id="province15" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">山东</span>
+                </div>
+                <div id="province16" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                   ></div>
+                    <span class="sync-province-lebal topdaohang">山西</span>
+                </div>
+
+                <div id="province17" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">陕西</span>
+                </div>
+
+                <div id="province18" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">湖南</span>
+                </div>
+                <div id="province19" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom"></div>
+                    <span class="sync-province-lebal topdaohang">湖北</span>
+                </div>
+                <div id="province20" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom"></div>
+                    <span class="sync-province-lebal topdaohang">四川</span>
+                </div>
+                <div id="province21" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom"></div>
+                    <span class="sync-province-lebal topdaohang">青海</span>
+                </div>
+                <div id="province22" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" ></div>
+                    <span class="sync-province-lebal topdaohang">甘肃</span>
+                </div>
+                <div id="province23" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" ></div>
+                    <span class="sync-province-lebal topdaohang">江苏</span>
+                </div>
+                <div id="province24" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" ></div>
+                    <span class="sync-province-lebal topdaohang">浙江</span>
+                </div>
+                <div id="province25" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" ></div>
+                    <span class="sync-province-lebal topdaohang">安徽</span>
+                </div>
+                 <div id="province26" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">江西</span>
+                </div>
+                <div id="province27" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">福建</span>
+                </div>
+                <div id="province28" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">广东</span>
+                </div>
+                <div id="province29" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">海南</span>
+                </div>
+                <div id="province30" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">云南</span>
+                </div>
+                <div id="province31" class="sync-province-box">
+                    <div class="sync-province-icon" type="button" class="btn btn-success"   
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    ></div>
+                    <span class="sync-province-lebal topdaohang">贵州</span>
+                </div>
+                <hr class="line1"/>
+                <hr class="line2"/>
+                <hr class="line3"/>
+                <hr class="line4"/>
+                <hr class="line5"/>
+                <hr class="line6"/>
+                <hr class="line7"/>
+                <hr class="line8"/>
+               
+                <div class="data_right" style="position:fixed;left:795px;top:40px;width:444px;height:500px; ">
+                        <!-- style="position:fixed;left:795px;top:40px;width:444px;height:500px; border:1px solid #00008B;" -->
+                    <table>
+                        <thead>
+                            <tr>        
+                                <th>省份</th>
+                                <th style="width:110px;">同步次数</th>
+                                <th style="width:150px;">同步结构化数据量</th>
+                                <th>同步文件数</th>
+                            </tr>
+                        </thead>
+                         <tbody id="J_TbData">
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="data_bottom" style="position:fixed;left:40px;top:455px;width:751px;height:85px;">
+                    
+                    <div class="map-bg2" style="position:fixed;left:40px;top:455px;width:293px;height:85px;">
+                        <div class="application-div h35 p5" style="position:fixed;top:445px;left:10px;width:295px;height:105px;">
+                            <div class="application-text flex ">
+                                <!-- <div style="color:#fff;">数据类型</div> -->
+                                <div id="pie" class="application-text"></div>
+                            </div>
+
+                            <a @click="loadChart" style= "text-decoration:none;position: fixed;left:400px;top:172px; width: 40px;height: 60px;color:#fff;font-size:18px;padding:1px;">
+                                    数据汇集 </a>
+
+                        </div> 
+                    </div>
+                  
+                    <div class="map-bg2" style="position:fixed;left:347px;top:455px;width:140px;height:85px;">
+                        <div id="provincetest" class="sync-province-box"  >
+                            <img class="sync-icon" src="../../static/images/sync-fwjd.png">
+                            <span class="sync-lebal">数据节点</span>
+                            <span class="sync-txts-normal">{{sjjd}}</span>
+                        </div>
+
+                   </div>
+                   <div class="map-bg2" style="position:fixed;left:500px;top:455px;width:140px;height:85px;">
+                     <div id="provincetest1" class="sync-province-box"  >
+                        <img class="sync-icon" src="../../static/images/sync-fwjd.png">
+                        <span class="sync-lebal">服务节点</span>
+                        <span class="sync-txts-normal">{{fwjd}}</span>
+                     </div>
+                   </div>
+                   <div class="map-bg2" style="position:fixed;left:652px;top:455px;width:140px;height:85px;">
+                     <div id="provincetest2" class="sync-province-box"  >
+                        <img class="sync-icon" src="../../static/images/sync-gzjd.png">
+                        <span class="sync-lebal">故障节点</span>
+                        <span class="sync-txts-attention">{{gzjd}}</span>
+                     </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script>
+    $(function () { $("[data-toggle='popover']").popover(); }); 
+</script>
+<script type="text/javascript">  
+  
+  $(function (){   
+      var ulstring="<ul id='sss' style='width:150px;top: 50px;color:#fff;'>"  
+          +"<a style='margin-left:-10px;color:#fff;'>上次同步时间：2018-4-1</a><br>"
+          +"<a  style='margin-left:-10px;color:#fff;'>上次同步数量：213334</a><br>" 
+          +"<a  style='margin-left:-10px;color:#fff;'>上次同步文件量：21421</a><br>" 
+          +"</ul>";  
+      $(".topdaohang").popover({   
+          trigger:'manual',//manual 触发方式  
+          placement : 'top',    
+           
+          html: 'true',   
+          content : ulstring,  //这里可以直接写字符串，也可以 是一个函数，该函数返回一个字符串；  
+          animation: false  
+      }) .on("mouseenter", function () {  
+                  var _this = this;  
+                  $(this).popover("show");  
+                  $(this).siblings(".popover").on("mouseleave", function () {  
+                      $(_this).popover('hide');  
+                  });  
+              }).on("mouseleave", function () {  
+                  var _this = this;  
+                  setTimeout(function () {  
+                      if (!$(".popover:hover").length) {  
+                          $(_this).popover("hide")  
+                      }  
+                  }, 100);  
+                  });    
+  });  
+
+
+
+</script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+          data: {
+            sjjd: '31',
+            fwjd: '29',
+            gzjd: '02',
+            flag: {
+                北京: true,
+                天津: true,
+                重庆: true,
+                上海: true,
+                辽宁: true,
+                新疆: true,
+                内蒙古: true,
+                西藏: true,
+                广西: true,
+                宁夏: true,
+                黑龙江: true,
+                吉林: true,
+                河北: true,
+                河南: true,
+                山东: true,
+                山西: true,
+                陕西: true,
+                湖南: true,
+                湖北: true,
+                四川: true,
+                青海: true,
+                甘肃: true,
+                江苏: true,
+                浙江: true,
+                安徽: true,
+                江西: true,
+                福建: true,
+                广东: true,
+                海南: true,
+                云南: true,
+                贵州: true
+            },
+           
+        },
+		methods: {
+			
+		    echarts3:function () {
+
+				var myPieChart = echarts.init(document.getElementById('pie'));
+
+				PieOption = {
+									tooltip: {
+										trigger: 'item',
+										formatter: "{a} <br/>{b}: {c} ({d}%)"
+									},
+									color: ['rgb(53, 148, 211)', 'rgb(25, 60, 83)'],
+									legend: {
+										orient: 'vertical',
+										x: '60%',
+										y: 'center',
+										itemGap: 16,
+										itemWidth: 18,
+										data: ['结构化数据', '文件数据'],
+										textStyle: {
+											color: 'white'
+										},
+										align: 'left'
+									},
+									series: [
+										
+										{
+											name: '数据类型',
+											type: 'pie',
+											center: ['35%', '50%'],
+											radius: ['46%', '75%'],
+											label: {
+												normal: {
+													show: false
+												}
+											},
+											data: [
+												{ value: 400, name: '结构化数据' },
+												{ value: 600, name: '文件数据' },
+											
+											]
+										}
+									]
+								};
+
+				myPieChart.setOption(PieOption);
+			},
+
+			loadChart: function () {
+				window.location.assign("big_screen_data_main.html");
+			},
+			autoAdd: function () {
+				this.yags++
+				this.zddw++
+			}
+		},
+		mounted() {
+			this.echarts3()
+			setInterval(() => {
+				this.autoAdd()
+			}, 1200)
+		}
+
+    })
+    
+</script>
+
+<script>
+        var data = [{
+            name: "北京",
+            url: "3334241",
+            type: "13123",
+            lv:"16.5%"
+         }
+        ,{
+            name: "上海",
+            url: "213123",
+            type: "13123",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "重庆",
+            url: "1132177",
+            type: "155244",
+            lv:"12.5%"
+        },{
+            name: "辽宁",
+            url: "2331321",
+            type: "255433",
+            lv:"18.5%"
+        }
+        ,{
+            name: "新疆",
+            url: "120981",
+            type: "198674",
+            lv:"16.5%"
+        },{
+            name: "内蒙古",
+            url: "1332132",
+            type: "522552",
+            lv:"21%"
+        },{
+            name: "西藏",
+            url: "1321323",
+            type: "205525",
+            lv:"19.5%"
+        },{
+            name: "广西",
+            url: "132133",
+            type: "55252",
+            lv:"10.5%"
+        },{
+            name: "宁夏",
+            url: "3213321",
+            type: "522552",
+            lv:"16.5%"
+        },{
+            name: "黑龙江",
+            url: "1321323",
+            type: "155987",
+            lv:"19.5%"
+        },{
+            name: "吉林",
+            url: "1213233",
+            type: "300252",
+            lv:"19.5%"
+        },{
+            name: "河北",
+            url: "3212133",
+            type: "145202",
+            lv:"14.5%"
+        },{
+            name: "河南",
+            url: "2331321",
+            type: "252097",
+            lv:"13.5%"
+        }
+        ,{
+            name: "山东",
+            url: "4313213",
+            type: "352552",
+            lv:"31.5%"
+        },{
+            name: "山西",
+            url: "2133213",
+            type: "225552",
+            lv:"16.5%"
+        }
+        ,{
+            name: "陕西",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "湖南",
+            url: "2213133",
+            type: "552252",
+            lv:"21.5%"
+        },{
+            name: "湖北",
+            url: "1322133",
+            type: "225552",
+            lv:"19.5%"
+        }
+        ,{
+            name: "四川",
+            url: "2132133",
+            type: "225552",
+            lv:"14.5%"
+        }
+        ,{
+            name: "青海",
+            url: "1212333",
+            type: "175283",
+            lv:"18.5%"
+        }
+        // ,{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // }
+        
+        ];
+
+        $(function(){
+            //第一种：动态创建表格的方式，使用拼接html的方式 （推荐）
+            // var html = "";
+            // for( var i = 0; i < data.length; i++ ) {
+            //     html += "<tr>";
+            //     html +=     "<td>" + data[i].name + "</td>"
+            //     html +=     "<td>" + data[i].url + "</td>"
+            //     html +=     "<td>" + data[i].type + "</td>"
+            //     html += "</tr>";
+            // }
+            // $("#J_TbData").html(html);
+
+            //第二种： 动态创建表格的方式，使用动态创建dom对象的方式
+            //清空所有的子节点
+            $("#J_TbData").empty();
+
+            // $("#J_TbData").remove();
+
+            for( var i = 0; i < data.length; i++ ) {
+                //动态创建一个tr行标签,并且转换成jQuery对象
+                var $trTemp = $("<tr></tr>");
+
+                //往行里面追加 td单元格
+                $trTemp.append("<td>"+ data[i].name +"</td>");
+                $trTemp.append("<td>"+ data[i].url +"</td>");
+                $trTemp.append("<td>"+ data[i].type +"</td>");
+                $trTemp.append("<td>"+ data[i].lv +"</td>");
+                // $("#J_TbData").append($trTemp);
+                $trTemp.appendTo("#J_TbData");
+            }
+        });
+    </script>
+
+
+
+
+
+</html>

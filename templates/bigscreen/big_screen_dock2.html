@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Dock2</title>
+	<style>
+		body {
+			margin: 0;
+		}
+
+		.menu {
+			position: absolute;
+			width: 100%;
+			/* width: 340px; */
+			bottom: 0;
+			text-align: center;
+		}
+
+		.gray {
+			-webkit-filter: grayscale(100%);
+			-moz-filter: grayscale(100%);
+			-ms-filter: grayscale(100%);
+			-o-filter: grayscale(100%);
+			filter: grayscale(100%);
+			filter: gray;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="menu" class="menu">
+		<img src="../../static/images/dock-1.png" alt="" style="min-width: 42px;min-height: 42px;" />
+		<img src="../../static/images/dock-2.png" alt="" style="min-width: 42px;min-height: 42px;" />
+		<img src="../../static/images/dock-3.png" alt="" style="min-width: 42px;min-height: 42px;" />
+		<img src="../../static/images/dock-4.png" alt="" style="min-width: 42px;min-height: 42px;" />
+		<img src="../../static/images/dock-5.png" alt="" style="min-width: 42px;min-height: 42px;" />
+		<img src="../../static/images/dock-6.png" alt="" style="min-width: 42px;min-height: 42px;" />
+		<img src="../../static/images/dock-7.png" alt="" style="min-width: 42px;min-height: 42px;" />
+	</div>
+</body>
+<script src="../../static/js/bigscreen/big_screen_dock2.js"></script>
+<script>
+	dockEffect({
+		el: 'menu'
+	});
+</script>
+
+</html>

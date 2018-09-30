@@ -1,0 +1,395 @@
+.sync-left {
+    /* float: left;*/
+     left: 0;
+     width: 160px;
+     height: 100%;
+     border: 1px solid #330066;
+   }
+   .sync-main {
+     float: right;
+     width: 1040px;
+     height: 100%;
+     margin: 0;
+     background-size: 100% 100%;
+   }
+   .sync-box {
+     width: 100%;
+     height: 120px;
+     border-bottom: 1px solid #330066;
+   }
+   .sync-contain {
+     width: 100px;
+     height: 120px;
+   }
+   .sync-icon {
+     margin: 20px;
+     margin-top: 20px;
+   }
+   .sync-lebal {
+     position: relative;
+     left: 10px;
+     top: -105px;
+     color: #77bafe;
+     font-family: "微软雅黑";
+     font-size: 20px;
+     
+   }
+   .sync-txts-normal {
+     float: left;
+     font-family: "微软雅黑";
+     font-size: 40px;
+     color: #00ffff;
+     margin-left: 80px;
+     margin-top: -105px
+   }
+   .sync-txts-attention  {
+     float: left;
+     font-family: "微软雅黑";
+     font-size: 40px;
+     color: #f9885c;
+     margin-left: 80px;
+     margin-top: -105px
+   }
+   
+   .sync-province-box02 {
+     float: left;
+     width: 100px;
+     height: 100px;
+     position: fixed;
+     border: 2px solid #D2ECFF;
+     border-radius:1000px;
+     box-shadow:0px 0px 2px 2px #abcdef;
+     background-color: #000066;
+   }
+   .sync-province-box {
+     float: left;
+     width: 80px;
+     height: 80px;
+     position: fixed;
+   }
+   
+   .sync-province-box00{
+       float: left;
+     width: 50px;
+     height: 80px;
+     position: fixed;
+   }
+   .sync-province-box0 {
+     float: left;
+     width: 360px;
+     height: 80px;
+     position: fixed;
+   }
+   
+   .sync-province-icon01{
+     width: 40px;
+     height: 40px;
+     margin: 16px;
+     margin-top: 16px;
+     background-image: url(../images/xf-logo_01.png);
+     background-size: 40px 40px;
+   }
+   .sync-province-icon0{
+     width: 48px;
+     height: 48px;
+     margin: 16px;
+     margin-top: 16px;
+     background-image: url(../images/LOGO3_1.png);
+     background-size: 48px 48px;
+   }
+   
+   
+   
+   .sync-province-icon {
+     width: 38px;
+     height: 38px;
+     margin: 16px;
+     margin-top: 16px;
+     background-image: url("../images/sync-fwjd.png");
+     background-size: 38px 38px;
+   }
+   .sync-province-icon2 {
+     width: 38px;
+     height: 38px;
+     margin: 16px;
+     margin-top: 16px;
+     background-image: url("../images/sync-gzjd.png");
+     background-size: 38px 38px;
+   }
+   .sync-province-lebal02{
+       position: relative;
+       font-size: 24px;
+       top:15px;
+       color: #FFFFFF;
+       font-family: "微软雅黑";
+       
+      
+   }
+   .sync-province-lebal0{
+       position: fixed;
+       font-size: 20px;
+       left: 271px;
+       top: 95px;
+       color: #FFFFFF;
+       font-family: "微软雅黑";
+      
+   }
+   .sync-province-lebal00{
+       position: relative;
+       font-size: 24px;
+       top: -26px;
+       color: #FFFFFF;
+       font-family: "微软雅黑";
+      
+   }
+   .sync-province-lebal {
+       position: relative;
+       font-size:10px;
+       left: 20x;
+       top: -26px;
+       color: #77bafe;
+       font-family: "微软雅黑";
+       margin-right: 8px;
+   }
+   
+   /* 底部 */
+   #provincetest{
+       top: 463px;
+       left:351px;
+      
+   }
+   #provincetest1{
+       top: 463px;
+       left:505px;
+   }
+   #provincetest2{
+       top: 463px;
+       left:655px;
+   }
+
+
+
+   #province0{
+       top: 140px;
+       left:540px;
+   }
+   #province01{
+       top: 34px;
+       left:385px;
+   }
+   #province02{
+       top: 214px;
+       left:671px;
+   }
+   #province03{
+       top: 254px;
+       left:696px;
+   }
+
+   /* bj */
+   #province1 {
+       top: 95px;
+       left: 55px;
+   }
+
+   #province2 {
+       top: 132px;
+       left: 162px;
+   }
+   #province3 {
+    top: 165px;
+    left: 55px;
+   }
+   #province4 {
+       top: 200px;
+       left: 162px;
+   }
+   #province5 {
+       top: 235px;
+       left: 55px;
+   }
+   #province6 {
+       top: 95px;
+       left: 715px;
+   }
+   #province7 {
+       top: 132px;
+       left: 608px;
+   }
+   #province8 {
+       top:165px;
+       left:715px;
+   }
+   #province9 {
+       top: 200px;
+       left: 608px;
+   }
+   #province10 {
+       top: 235px;
+       left: 715px;
+   }
+   #province11 {
+       top: 286px;
+       left: 105px;
+   }
+   #province12 {
+       top: 286px;
+       left: 162px;
+   }
+   #province13 {
+       top: 286px;
+       left: 219px;
+   }
+
+
+
+   #province14 {
+       top: 286px;
+       left: 551px;
+   }
+   #province15 {
+       top: 286px;
+       left: 608px;
+   }
+   #province16 {
+
+       top: 286px;
+       left: 665px;
+   }
+
+/*  */
+
+   #province17 {
+       top: 337px;
+       left: 162px;
+   }
+   #province18 {
+       top: 337px;
+       left: 219px;
+   }
+   #province19 {
+       top: 337px;
+       left: 275px;
+   }
+   #province20 {
+       top: 337px;
+       left: 330px;
+   }
+   #province21 {
+       top: 337px;
+       left: 385px;
+   }
+   #province22 {
+       top: 337px;
+       left: 440px;
+   }
+   #province23 {
+       top: 337px;
+       left:495px;
+   }
+   #province24 {
+       top: 337px;
+       left: 552px;
+   }
+   #province25 {
+       top: 337px;
+       left: 609px;
+   }
+
+
+   /*  */
+
+   #province26 {
+       top: 383px;
+       left: 108px;
+   }
+   #province27 {
+       top: 383px;
+       left: 162px;
+   }
+   #province28 {
+       top: 383px;
+       left: 219px;
+   }
+   #province29 {
+       top: 383px;
+       left: 552px;
+   }
+   #province30 {
+       top: 383px;
+       left: 609px;
+   }
+   #province31 {
+       top: 383px;
+       left: 665px;
+   }
+   .blink {
+       animation:blink 0.5s linear infinite alternate;
+   }
+   @keyframes blink {
+     0% {opacity: 0.4;}
+     100% {opacity: 1;}
+   }
+   
+   
+   .line1{
+       border: 1px solid #abcdef;
+       position: fixed;
+       top: 301px;
+       left: 156px;
+       width: 25px;
+      
+   }
+   .line2{
+       border: 1px solid #abcdef;
+       position: fixed;
+       top: 301px;
+       left: 213px;
+       width: 25px;
+   }
+  
+   .line3{
+    border: 1px solid #abcdef;
+       position: fixed;
+       top: 301px;
+       left: 602px;
+       width: 25px;
+}
+.line4{
+    border: 1px solid #abcdef;
+       position: fixed;
+       top: 301px;
+       left: 659px;
+       width: 25px;
+}
+/*  */
+
+.line5{
+    border: 1px solid #abcdef;
+    position: fixed;
+    top: 400px;
+    left: 157px;
+    width: 24px;
+}
+.line6{
+    border: 1px solid #abcdef;
+    position: fixed;
+    top: 400px;
+    left: 213px;
+    width: 25px;
+
+}
+.line7{
+    border: 1px solid #abcdef;
+       position: fixed;
+       top: 400px;
+       left: 602px;
+       width: 25px;
+}
+.line8{
+    border: 1px solid #abcdef;
+    position: fixed;
+    top: 400px;
+    left: 659px;
+    width: 25px;
+}
