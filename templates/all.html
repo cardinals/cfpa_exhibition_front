@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>数字化预案管理平台</title>
+    <title>消防协会展会系统</title>
     <link rel="stylesheet" type="text/css" href="../static/css/lib.css">
 </head>
 
@@ -28,11 +28,13 @@
             <!-- /navbar-header -->
             <nav class="navbar-collapse collapse" id="bs-nav">
                 <ul class="nav navbar-nav navbar-right">
+                    <!--进入大屏页按钮隐藏
                     <li>
                         <a class="fix" id="zhanshi" href="/templates/bigscreen/big_screen_all.html">
                             <img src="../../static/images/shishizhanshi.png">
                         </a>
                     </li>
+                    -->
                     <!--
                     <li v-if="hasPermission('system/user:select')">
                         <a class="glyphicon glyphicon-cog" href="/templates/all.html?url=/system/user"></a>
@@ -44,19 +46,16 @@
                             <span id="realname"></span>&nbsp;&nbsp;
                             <span class="glyphicon glyphicon-triangle-top oscar-arrow frame-duration"></span>
                             <div class="dada abs ovh">
-                                <!--
-                                <div class="dada-item">
+                                <div class="dada-item" id="personal">
                                     <span class="glyphicon glyphicon-user"></span>
                                     <span class="ml5">个人中心</span>
                                 </div>
-                                -->
                                 <form id="login-out-form" action="/xfxhapi/logout" method="get" onsubmit="return false;" style="display:none"></form>
                                 <div class="dada-item" id="logout" onclick="logOut()">
                                     <span class="glyphicon glyphicon-off"></span>
                                     <span class="ml5">退出</span>
                                 </div>
                             </div>
-                            <!-- /dada -->
                         </a>
                     </li>
                 </ul>
