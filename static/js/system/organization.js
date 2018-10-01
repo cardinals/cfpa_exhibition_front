@@ -70,7 +70,7 @@ new Vue({
 
         //获取所有机构
         getJgidData: function(){
-            axios.post('/api/organization/getOrganizationtree').then(function(res){
+            axios.post('/xfxhapi/organization/getOrganizationtree').then(function(res){
                 this.tableData = res.data.result;
             }.bind(this),function(error){
                 console.log(error);
@@ -82,7 +82,7 @@ new Vue({
         },
         //组织机构详情
         getJgxqById: function(jgid){
-            axios.get('/api/organization/doFindById/' + jgid).then(function (res) {
+            axios.get('/xfxhapi/organization/doFindById/' + jgid).then(function (res) {
                 this.detailData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -90,7 +90,7 @@ new Vue({
         },
         //组织机构下的用户
         getUserlistByJgid: function(jgid){
-            axios.get('/api/user/findByJGID/' + jgid).then(function (res) {
+            axios.get('/xfxhapi/user/findByJGID/' + jgid).then(function (res) {
                 this.userData = res.data.result;
                 this.total = res.data.result.length;                
             }.bind(this), function (error) {
@@ -115,7 +115,7 @@ new Vue({
         
         //机构性质
         JGXZDM: function () {
-            axios.get('/api/codelist/getCodetype/JGXZ').then(function (res) {
+            axios.get('/xfxhapi/codelist/getCodetype/JGXZ').then(function (res) {
                 this.YAZL_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -123,7 +123,7 @@ new Vue({
         },
         //行政区划
         XZQH: function () {
-            axios.get('/api/codelist/getCodetype/XZQH').then(function (res) {
+            axios.get('/xfxhapi/codelist/getCodetype/XZQH').then(function (res) {
                 this.YAZL_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -156,7 +156,7 @@ new Vue({
             var params = {
                 jgsearch: this.searchForm.jgsearch
             }
-            axios.post('/api/organization/findByVO', params).then(function (res) {
+            axios.post('/xfxhapi/organization/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 for (var i = 0; i < this.tableData.length; i++) {
                     //预案类型转码

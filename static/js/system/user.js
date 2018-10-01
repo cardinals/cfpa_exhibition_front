@@ -121,7 +121,7 @@ var vue = new Vue({
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
-            axios.post('/api/user/findByVO', params).then(function (res) {
+            axios.post('/xfxhapi/user/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 _self.loading = false;
@@ -131,7 +131,7 @@ var vue = new Vue({
         },
         //制作机构级联选择
         getZzjgData: function(val) {
-            // axios.post('/api/organization/getOrganizationtree').then(function (res) {
+            // axios.post('/xfxhapi/organization/getOrganizationtree').then(function (res) {
             //     this.zzjgData = res.data.result;
             //     if(this.dialogTitle == "用户编辑"){
             //         this.editSearch(val);
@@ -200,7 +200,7 @@ var vue = new Vue({
         roleDetails: function(id){
             var _self = this;
             _self.roleDetailVisible = true;
-            axios.get('/api/role/getRole/' + id).then(function(res){
+            axios.get('/xfxhapi/role/getRole/' + id).then(function(res){
                 this.roleDetailList = res.data.result;
                 for(var i=0;i<this.roleDetailList.length;i++){
                     this.roleDetailSelect.push(this.roleDetailList[i].rolename);
@@ -211,7 +211,7 @@ var vue = new Vue({
         },
         //获取所有的角色
         getAllRoles: function () {
-            axios.get('/api/role/getAll').then(function (res) {
+            axios.get('/xfxhapi/role/getAll').then(function (res) {
                 this.allRoles = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
@@ -240,7 +240,7 @@ var vue = new Vue({
             var params = {
                 pkid: val.pkid
             };
-            axios.post('/api/user/findByVO', params).then(function(res) {
+            axios.post('/xfxhapi/user/findByVO', params).then(function(res) {
                 this.editForm = res.data.result[0];
                 //密码、再次密码置空
                 this.editForm.password = '';
@@ -391,14 +391,14 @@ var vue = new Vue({
                         });
                         return false;
                     }
-                    axios.get('/api/account/getNum/' + this.editForm.username).then(function(res){
+                    axios.get('/xfxhapi/account/getNum/' + this.editForm.username).then(function(res){
                         if(res.data.result != 0){
                             this.$message({
                                 message: "用户名已存在!",
                                 type: "error"
                             });
                         }else{
-                            axios.post('/api/user/insertByVO', params).then(function(res){
+                            axios.post('/xfxhapi/user/insertByVO', params).then(function(res){
                                 var addData = res.data.result;
                                 this.tableData.unshift(addData);
                                 this.total = this.tableData.length;
@@ -415,7 +415,7 @@ var vue = new Vue({
                     params.userid = val.userid;
                     params.alterId = this.shiroData.userid;
                     params.alterName = this.shiroData.realName;
-                    axios.post('/api/user/updateByVO', params).then(function (res){
+                    axios.post('/xfxhapi/user/updateByVO', params).then(function (res){
                         var result = res.data.result;
                         this.tableData[this.editIndex].username = result.username;
                         this.tableData[this.editIndex].realname = result.realname;
@@ -467,7 +467,7 @@ var vue = new Vue({
                     email: val.email,
                     roles: val.roles
                 };
-                axios.post('/api/user/updateByVO', params).then(function (res) {
+                axios.post('/xfxhapi/user/updateByVO', params).then(function (res) {
                     this.tableData[this.selectIndex].username = val.username;
                     this.tableData[this.selectIndex].realname = val.realname;
                     this.tableData[this.selectIndex].birth = val.birth;
@@ -498,7 +498,7 @@ var vue = new Vue({
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                axios.post('/api/user/deleteByIds', this.multipleSelection).then(function (res) {
+                axios.post('/xfxhapi/user/deleteByIds', this.multipleSelection).then(function (res) {
                     this.$message({
                         message: "成功删除" + res.data.result + "条用户信息",
                         showClose: true,

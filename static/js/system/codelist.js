@@ -113,7 +113,7 @@ var vue = new Vue({
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             };
-            axios.post('/api/codelist/findByVO', params).then(function (res) {
+            axios.post('/xfxhapi/codelist/findByVO', params).then(function (res) {
                 var tableTemp = new Array((this.currentPage-1)*this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
@@ -146,7 +146,7 @@ var vue = new Vue({
         //新建：保存
         addSubmit: function (val) {
             var _self = this;
-            axios.get('/api/codelist/getNum/' + this.addForm.codetype).then(function (res) {
+            axios.get('/xfxhapi/codelist/getNum/' + this.addForm.codetype).then(function (res) {
                 if (res.data.result != 0) {
                     _self.$message({
                         message: "代码集类型已存在!",
@@ -158,7 +158,7 @@ var vue = new Vue({
                         codetypeName: val.codetypeName.trim(),
                         remark: val.remark.trim()
                     }
-                    axios.post('/api/codelist/insertByVO', params).then(function (res) {
+                    axios.post('/xfxhapi/codelist/insertByVO', params).then(function (res) {
                         var addData = res.data.result;
                         addData.createTime = new Date();
                         _self.tableData.unshift(addData);
@@ -202,7 +202,7 @@ var vue = new Vue({
                     remark: val.remark,
                     language: val.language
                 };
-                axios.post('/api/codelist/updateByVO', params).then(function (res) {
+                axios.post('/xfxhapi/codelist/updateByVO', params).then(function (res) {
                     this.tableData[this.selectIndex].codetype = val.codetype;
                     this.tableData[this.selectIndex].codetypeName = val.codetypeName;
                     this.tableData[this.selectIndex].remark = val.remark;
@@ -231,7 +231,7 @@ var vue = new Vue({
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                axios.post('/api/codelist/deleteByIds', this.multipleSelection).then(function (res) {
+                axios.post('/xfxhapi/codelist/deleteByIds', this.multipleSelection).then(function (res) {
                     this.$message({
                         message: "成功删除" + res.data.result + "条代码集信息",
                         showClose: true,

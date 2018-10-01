@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>数字化预案管理平台</title>
+    <title>消防协会展会系统</title>
     <meta charset="UTF-8">
     <meta http-equiv="x-dns-prefetch-control" content="on" />
     <meta name="renderer" content="webkit" />
@@ -73,7 +73,7 @@
                     <div class="Login">
                         <div class="Login_n">
                             <div class="Login_nTop"><span class="logina">用户登录</span> | <span class="loginb">数据采集</span></div>
-                            <form id="login-form" autocomplete="off" name="login-form" action="/api/login" method="post">
+                            <form id="login-form" autocomplete="off" name="login-form" action="/xfxhapi/login" method="post">
                                 <ul id="froma" style="display:block;">
                                     <li class="I1">
                                         <i id="icon-user"></i>
@@ -202,10 +202,10 @@
             validateCode: "",
             messages: "",
             unscid: "",
-            src: "/api/imageCode"
+            src: "/xfxhapi/imageCode"
         },
         created: function () {
-            axios.get('/api/shiro').then(function(res) {
+            axios.get('/xfxhapi/shiro').then(function(res) {
                 if (res.data != null && res.data.username != null && res.data.username != "") {
                     window.location.href = "../templates/bigscreen/big_screen_all.html";
                 }
@@ -249,7 +249,7 @@
                 this.password = "";
             },
             reloadCode: function () {
-                $('#checkCode').attr('src', '/api/imageCode?' + ((new Date()).valueOf()));
+                $('#checkCode').attr('src', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
             }
         }
     });

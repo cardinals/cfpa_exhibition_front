@@ -20,7 +20,7 @@ function logOut(){
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var menuData=[];
-axios.get(baseUrl+'/api/getMenu')				
+axios.get(baseUrl+'/xfxhapi/getMenu')				
     .then(function(res){
         for(var i=0;i<res.data.result.length;i++){
             var obj=res.data.result[i];

@@ -8,7 +8,7 @@ $(function () {
 var shiroGlobal = "";
 var realname = "";
 var permissions = [];
-axios.get('/api/shiro').then(function (res) {
+axios.get('/xfxhapi/shiro').then(function (res) {
     if(res.data.organizationVO == null || res.data.organizationVO == ""){
         res.data.organizationVO = {
             uuid: "",

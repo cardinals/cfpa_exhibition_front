@@ -62,7 +62,7 @@ var vue = new Vue({
             pageSize: this.pageSize,
             pageNum: this.currentPage
         };
-        axios.post('/api/codelist/detail/doFindByCodeid', params).then(function (res) {
+        axios.post('/xfxhapi/codelist/detail/doFindByCodeid', params).then(function (res) {
             var tableTemp = new Array((this.currentPage-1)*this.pageSize);
             this.tableData = tableTemp.concat(res.data.result.list);
             this.total = res.data.result.total;
@@ -84,7 +84,7 @@ var vue = new Vue({
         },
 
         codetypeCilck: function (val) {
-            window.location.href = this.$http.options.root + "/api/codelist/getDetailPage/" + val.codeid;
+            window.location.href = this.$http.options.root + "/xfxhapi/codelist/getDetailPage/" + val.codeid;
         },
 
         //查询，初始化
@@ -103,7 +103,7 @@ var vue = new Vue({
                 pageNum: this.currentPage
             };
 
-            axios.post('/api/codelist/detail/findByVO', params).then(function (res) {
+            axios.post('/xfxhapi/codelist/detail/findByVO', params).then(function (res) {
                 var tableTemp = new Array((this.currentPage-1)*this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
@@ -138,7 +138,7 @@ var vue = new Vue({
         //新建：保存
         addSubmit: function (val) {
             var _self = this;
-            axios.get('/api/codelist/detail/getNum/' + this.codeid + '/' + this.addForm.codeValue).then(function (res) {
+            axios.get('/xfxhapi/codelist/detail/getNum/' + this.codeid + '/' + this.addForm.codeValue).then(function (res) {
                 if (res.data.result != 0) {
                     _self.$message({
                         message: "代码值已存在!",
@@ -151,7 +151,7 @@ var vue = new Vue({
                         codeName: val.codeName.trim(),
                         remark: val.remark
                     }
-                    axios.post('/api/codelist/detail/insertByVO', params).then(function (res) {
+                    axios.post('/xfxhapi/codelist/detail/insertByVO', params).then(function (res) {
                         var addData = res.data.result;
                         addData.createTime = new Date();
                         _self.tableData.unshift(addData);
@@ -192,7 +192,7 @@ var vue = new Vue({
                 codeName: val.codeName.trim(),
                 remark: val.remark
             };
-            axios.post('/api/codelist/detail/updateByVO', params).then(function (res) {
+            axios.post('/xfxhapi/codelist/detail/updateByVO', params).then(function (res) {
                 this.tableData[this.selectIndex].codeValue = val.codeValue;
                 this.tableData[this.selectIndex].codeName = val.codeName;
                 this.tableData[this.selectIndex].remark = val.remark;
@@ -211,7 +211,7 @@ var vue = new Vue({
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                axios.post('/api/codelist/detail/deleteByIds', this.multipleSelection).then(function (res) {
+                axios.post('/xfxhapi/codelist/detail/deleteByIds', this.multipleSelection).then(function (res) {
                     this.$message({
                         message: "成功删除" + res.data.result + "条代码集信息",
                         showClose: true,

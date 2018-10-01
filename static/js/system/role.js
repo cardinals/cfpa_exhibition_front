@@ -98,14 +98,14 @@ var vue = new Vue({
     methods: {
         //所有的角色列表
         getAllRoles: function() {
-            axios.get('/api/role/getAll').then(function (res) {
+            axios.get('/xfxhapi/role/getAll').then(function (res) {
                 this.allRoles = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
         getAllResources: function () {
-            axios.get('/api/resource/getAll').then(function (res) {
+            axios.get('/xfxhapi/resource/getAll').then(function (res) {
                 this.allResourceList = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -137,7 +137,7 @@ var vue = new Vue({
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             };
-            axios.post('/api/role/findByVO', params).then(function (res) {
+            axios.post('/xfxhapi/role/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 _self.loading = false;
@@ -150,7 +150,7 @@ var vue = new Vue({
         resourceDetails: function (id) {
             var _self = this;
             _self.resourceVisible = true;
-            axios.get('/api/resource/getResource/' + id).then(function (res) {
+            axios.get('/xfxhapi/resource/getResource/' + id).then(function (res) {
                 this.resourceList = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
@@ -182,7 +182,7 @@ var vue = new Vue({
         //新建：提交
         addSubmit: function (val) {
             var _self = this;
-            axios.get('/api/role/getNum/' + this.addForm.rolename).then(function (res) {
+            axios.get('/xfxhapi/role/getNum/' + this.addForm.rolename).then(function (res) {
                 if (res.data.result != 0) {
                     _self.$message({
                         message: "角色名已存在!",
@@ -195,7 +195,7 @@ var vue = new Vue({
                         roleinfo: val.roleinfo,
                         resources: val.resource
                     }
-                    axios.post('/api/role/insertByVO', params).then(function (res) {
+                    axios.post('/xfxhapi/role/insertByVO', params).then(function (res) {
                         var addData = res.data.result;
                         addData.createTime = new Date();
                         _self.tableData.unshift(addData);
@@ -232,7 +232,7 @@ var vue = new Vue({
                     var params = {
                         ids: ids
                     }
-                    axios.post('/api/role/deleteByIds', params).then(function (res) {
+                    axios.post('/xfxhapi/role/deleteByIds', params).then(function (res) {
                         for (var d = 0; d < ids.length; d++) {
                             for (var k = 0; k < _self.tableData.length; k++) {
                                 if (_self.tableData[k].roleid == ids[d]) {
@@ -260,7 +260,7 @@ var vue = new Vue({
         editClick: function (val) {
             var _self = this;
             var roleid = val.roleid;
-            axios.get('/api/resource/getChildren/' + roleid).then(function (res) {
+            axios.get('/xfxhapi/resource/getChildren/' + roleid).then(function (res) {
                 this.defaultCheckKeys = res.data.result;
                 //获取选择的行号
                 for (var k = 0; k < _self.tableData.length; k++) {
@@ -288,7 +288,7 @@ var vue = new Vue({
                 roleinfo: val.roleinfo,
                 resources: val.resource
             };
-            axios.post('/api/role/updateByVO', params).then(function (res) {
+            axios.post('/xfxhapi/role/updateByVO', params).then(function (res) {
                 this.tableData[this.selectIndex].rolename = val.rolename;
                 this.tableData[this.selectIndex].roleinfo = val.roleinfo;
                 this.tableData[this.selectIndex].alterName = res.data.result.alterName;

@@ -20,7 +20,7 @@ function logOut(){
 axios.defaults.withCredentials = true;
 var menuData=[];
 
-axios.get(baseUrl+'/api/getMenu').then(function(res){
+axios.get(baseUrl+'/xfxhapi/getMenu').then(function(res){
         for(var i=0;i<res.data.result.length;i++){
             var obj=res.data.result[i];
             menuData.push({

@@ -66,7 +66,7 @@ var vue = new Vue({
     methods: {
         //所有的权限列表
         getAllPermissions: function () {
-            axios.get('/api/permission/getAll').then(function (res) {
+            axios.get('/xfxhapi/permission/getAll').then(function (res) {
                 this.allPermissions = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -100,7 +100,7 @@ var vue = new Vue({
                 pageNum: this.currentPage
             };
 
-            axios.post('/api/permission/findByVO', params).then(function (res) {
+            axios.post('/xfxhapi/permission/findByVO', params).then(function (res) {
                 var tableTemp = new Array((this.currentPage-1)*this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
@@ -135,7 +135,7 @@ var vue = new Vue({
         //新建：保存
         addSubmit: function (val) {
             var _self = this;
-            axios.get('/api/permission/getNum/' + this.addForm.permissionname).then(function (res) {
+            axios.get('/xfxhapi/permission/getNum/' + this.addForm.permissionname).then(function (res) {
                 if (res.data.result != 0) {
                     _self.$message({
                         message: "权限名已存在!",
@@ -146,7 +146,7 @@ var vue = new Vue({
                         permissionname: val.permissionname,
                         permissioninfo: val.permissioninfo
                     }
-                    axios.post('/api/permission/insertByVO', params).then(function (res) {
+                    axios.post('/xfxhapi/permission/insertByVO', params).then(function (res) {
                         var addData = res.data.result;
                         addData.createTime = new Date();
                         _self.tableData.unshift(addData);
@@ -184,7 +184,7 @@ var vue = new Vue({
                 permissionname: val.permissionname,
                 permissioninfo: val.permissioninfo
             };
-            axios.post('/api/permission/updateByVO', params).then(function (res) {
+            axios.post('/xfxhapi/permission/updateByVO', params).then(function (res) {
                 this.tableData[this.selectIndex].permissionname = val.permissionname;
                 this.tableData[this.selectIndex].permissioninfo = val.permissioninfo;
                 this.tableData[this.selectIndex].alterName = res.data.result.alterName;
@@ -216,7 +216,7 @@ var vue = new Vue({
                     var params = {
                         ids: ids
                     }
-                    axios.post('/api/permission/deleteByIds', params).then(function (res) {
+                    axios.post('/xfxhapi/permission/deleteByIds', params).then(function (res) {
                         for (var d = 0; d < ids.length; d++) {
                             for (var k = 0; k < _self.tableData.length; k++) {
                                 if (_self.tableData[k].permissionid == ids[d]) {

@@ -370,7 +370,7 @@ var vm = new Vue({
         //组织机构
         getJgidData: function () {
             var params = {};
-            axios.post('/api/organization/getOrganizationtree', params).then(function (res) {
+            axios.post('/xfxhapi/organization/getOrganizationtree', params).then(function (res) {
                 this.zzData = res.data.result;
                 if (this.zzData !== []) {
                 }

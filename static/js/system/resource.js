@@ -42,7 +42,7 @@ var vm = new Vue({
         };
       },
       mounted:function(){
-        axios.get(baseUrl+'/api/resource/getAll').then(function(res){
+        axios.get(baseUrl+'/xfxhapi/resource/getAll').then(function(res){
             this.tableData = res.data.result;
         }.bind(this),function(error){
             console.log(error)
@@ -94,7 +94,7 @@ var vm = new Vue({
           type:this.resourceForm.type,
           permissions:permission
         }
-        axios.post('/api/resource/updateByVO', params).then(function(res){
+        axios.post('/xfxhapi/resource/updateByVO', params).then(function(res){
           this.resourceForm = res.data.result;
           this.changeTreeLable(this.tableData,this.resourceForm.resourceid);
           this.$message({
@@ -130,7 +130,7 @@ var vm = new Vue({
           type: 'warning'
         }).then(() => {
           var id = data.resourceid;
-          axios.get('/api/resource/deleteOneById/'+ id).then(function(res){
+          axios.get('/xfxhapi/resource/deleteOneById/'+ id).then(function(res){
             store.remove(data);
             this.$message({
               showClose: true,
@@ -149,7 +149,7 @@ var vm = new Vue({
       },
       //获取权限列表
       getAllPermissions: function(){
-        axios.get('/api/permission/getAll').then(function(res){
+        axios.get('/xfxhapi/permission/getAll').then(function(res){
           this.allPermissionList = res.data.result;
         }.bind(this),function (error) {
           console.log(error);
@@ -157,7 +157,7 @@ var vm = new Vue({
       },
       //资源详情
       findResourceById:function(resourceid){
-        axios.get('/api/resource/'+resourceid).then(function(res){
+        axios.get('/xfxhapi/resource/'+resourceid).then(function(res){
           this.resourceForm = res.data.result;
         }.bind(this),function (error) {
             console.log(error);
@@ -165,7 +165,7 @@ var vm = new Vue({
       },
       //根据资源ID查询其权限
       permissionDetails: function(id){
-        axios.get('/api/permission/getPermission/' + id).then(function(res){
+        axios.get('/xfxhapi/permission/getPermission/' + id).then(function(res){
             this.permissionDetailList = res.data.result;
             if(this.permissionDetailList.length>0){
               for(var i=0;i<this.permissionDetailList.length;i++){
@@ -233,7 +233,7 @@ var vm = new Vue({
         var params = {
           resourcename:this.addForm.resourcename,
         }
-        axios.post('/api/resource/list', params).then(function(res){
+        axios.post('/xfxhapi/resource/list', params).then(function(res){
           var addData = res.data.result;
           if(addData.length != 0){
             this.$message({
@@ -265,7 +265,7 @@ var vm = new Vue({
         type:this.addForm.type,
         permissions:permission
       }
-      axios.post('/api/resource/insertByVO', params).then(function(res){
+      axios.post('/xfxhapi/resource/insertByVO', params).then(function(res){
         this.$message({
           showClose: true,
           message: '新增成功',
