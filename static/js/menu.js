@@ -63,6 +63,7 @@ treeMenuTemplate.push('</li>');
             var paramUrl = getQueryString("url");
             if(paramUrl == null){
                 this.theId = "1";
+                history.replaceState(null, null, top.location.href.substr(0,top.location.href.indexOf("?")) + "?url=" + menuData[0].url);
             }else{
                 for(var i=0;i<menuData.length;i++){
                     if(paramUrl == menuData[i].url){
