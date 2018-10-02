@@ -1,9 +1,8 @@
 //设置全局地址
-axios.get('/dpapi/getPath')
-    .then(function(res){
-        Vue.http.options.root = res.data;
+axios.get('/dpapi/getPath').then(function(res){
+    Vue.http.options.root = res.data;
 }.bind(this),function(error){
-        console.log(error)
+    console.log(error)
 });
 
 $('#oscar-nav-btn').click(function () {
@@ -11,7 +10,7 @@ $('#oscar-nav-btn').click(function () {
 });
 
 //引入上导航
-$("#header_box").load("../../templates/header_box.html");
+// $("#header_box").load("../../templates/header_box.html");
 
 //退出登录
 function logOut(){
@@ -20,27 +19,31 @@ function logOut(){
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var menuData=[];
-axios.get(baseUrl+'/xfxhapi/getMenu')				
-    .then(function(res){
+
+axios.get(baseUrl+'/xfxhapi/getMenu').then(function(res){
         for(var i=0;i<res.data.result.length;i++){
             var obj=res.data.result[i];
             menuData.push({
-                "index":obj.index,
-                "resourceinfo":obj.resourceinfo,
-                "children":obj.children,
-                "url":obj.url,
+                "index": obj.index,
+                "resourceinfo": obj.resourceinfo,
+                "children": obj.children,
+                "url": obj.url,
+                "icon": "background:url(../../static/images/" + obj.icon + ") no-repeat"
             });
     }
 }.bind(this),function(error){
     console.log(error);
     window.location.href = baseUrl+"/templates/login.html";
-});   
+});
+//全局菜单
+// Vue.prototype.menues = menuData;
 
-// 定义树节点
+//定义树节点
 var treeMenuTemplate = [];
 treeMenuTemplate.push('<li class="el-submenu" :class="[open ? \'\': \'\', selected ? \'is-active\':\'\']">');
-treeMenuTemplate.push('<a class="db el-submenu__title" :id="model.index" @click="toggle" v-menu-animation="open" :style="{paddingLeft: paddingLeft + \'px\'}" :href="getUrl">');
-treeMenuTemplate.push('<i class="el-icon-message" v-if="level == 1"></i>');
+treeMenuTemplate.push('<a class="db el-submenu__title" :id="model.index" @click="toggle" v-menu-animation="open" :style="{paddingLeft: paddingLeft + \'px\'}" href="javascript:;">');
+treeMenuTemplate.push('<i v-if="level == 1" v-bind:style="model.icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>');
+// treeMenuTemplate.push('<i v-else style="background:url(../../static/images/menu/menu-child.png) no-repeat">&nbsp;&nbsp;&nbsp;&nbsp;</i>');
 treeMenuTemplate.push('<template v-if="hasChildren()">');
 treeMenuTemplate.push('<i class="el-submenu__icon-arrow" :class="[open ? \'el-icon-arrow-up\': \'el-icon-arrow-down\']"></i>');
 treeMenuTemplate.push('</template>');
@@ -55,7 +58,28 @@ treeMenuTemplate.push('</li>');
     template: treeMenuTemplate.join(''),
 
     created: function () {
-        // debugger;
+        /**跳转形式，非点击事件菜单选中  by li.xue 20180627 */
+        if(this.theId == "-1"){
+            var paramUrl = getQueryString("url");
+            if(paramUrl == null){
+                this.theId = "1";
+            }else{
+                for(var i=0;i<menuData.length;i++){
+                    if(paramUrl == menuData[i].url){
+                        this.theId = menuData[i].index;
+                        break;
+                    }else{
+                        var tempChildren = menuData[i].children;
+                        for(var j=0;j<tempChildren.length;j++){
+                            if(paramUrl == tempChildren[j].url){
+                                this.theId = tempChildren[j].index;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }  
+        }
         var index = this.model.index;
         var hasIndex = this.theId.search(index);
         var lala = index.replace(this.theId, '');
@@ -70,110 +94,6 @@ treeMenuTemplate.push('</li>');
     props: ['model', 'level', 'theId'],
 
     computed: {
-        getUrl: function () {
-            if (this.hasChildren()) {
-                return "javascript:;";
-            }
-            var realUrl="";
-            // 1
-            if(this.model.url=="/home"){
-                realUrl=baseUrl+"/templates/home.html"
-            }
-            // 2
-            else if(this.model.url=="/digitalplan/advancedsearch"){
-                realUrl=baseUrl+"/templates/digitalplan/advancedsearch.html"
-            }
-            // 3
-            else if(this.model.url=="/digitalplan/digitalplan"){
-                realUrl=baseUrl+"/templates/digitalplan/digitalplan_list.html"
-            }
-            else if(this.model.url=="/digitalplan/guardobjectsplan"){
-                realUrl=baseUrl+"/templates/digitalplan/guardobjectsplan_list.html"
-            }
-            else if(this.model.url=="/digitalplan/otherobjectsplan"){
-                realUrl=baseUrl+"/templates/digitalplan/otherobjectsplan_list.html"
-            }
-            else if(this.model.url=="/digitalplan/digitalplan_approve"){
-                realUrl=baseUrl+"/templates/digitalplan/digitalplan_approve.html"
-            }
-            else if(this.model.url=="/digitalplan/digitalplan_distribute"){
-                realUrl=baseUrl+"/templates/digitalplan/digitalplan_distribute.html"
-            }
-            // 4
-            else if(this.model.url=="/planobject/importantunits"){
-                realUrl=baseUrl+"/templates/planobject/importantunits_list.html"
-            }
-            else if(this.model.url=="/planobject/otherobjects"){
-                realUrl=baseUrl+"/templates/planobject/otherobjects_list.html"
-            }
-            else if(this.model.url=="/planobject/guardobjects"){
-                realUrl=baseUrl+"/templates/planobject/guardobjects_list.html"
-            }
-            // 5
-            else if(this.model.url=="/building_zoning"){
-                realUrl=baseUrl+"/templates/buildingzoning/building_zoning_list.html"
-            }
-            // 6
-            else if(this.model.url=="/basicinfo/firewater"){
-                realUrl=baseUrl+"/templates/basicinfo/firewater_list.html"
-            }
-            else if(this.model.url=="/basicinfo/equipment"){
-                realUrl=baseUrl+"/templates/basicinfo/equipment_list.html"
-            }
-            else if(this.model.url=="/basicinfo/equipmentstock"){
-                realUrl=baseUrl+"/templates/basicinfo/equipmentstock_list.html"
-            }
-            else if(this.model.url=="/basicinfo/fireengine"){
-                realUrl=baseUrl+"/templates/basicinfo/fireengine_list.html"
-            }
-            else if(this.model.url=="/basicinfo/firedrug"){
-                realUrl=baseUrl+"/templates/basicinfo/firedrug_list.html"
-            }
-            else if(this.model.url=="/basicinfo/firestation"){
-                realUrl=baseUrl+"/templates/basicinfo/firestation_list.html"
-            }
-            // 7
-            else if(this.model.url=="/auxiliarydecision/danger"){
-                realUrl=baseUrl+"/templates/auxiliarydecision/danger_list.html"
-            }
-            else if(this.model.url=="/auxiliarydecision/firecalculation"){
-                realUrl=baseUrl+"/templates/auxiliarydecision/firecalculation_list.html"
-            }
-            // 8
-            else if(this.model.url=="/report/report1"){
-                realUrl=baseUrl+"/templates/report/report1.html"
-            }
-            else if(this.model.url=="/report/report3"){
-                realUrl=baseUrl+"/templates/report/report3.html"
-            }
-            // 9
-            else if(this.model.url=="/user"){
-                realUrl=baseUrl+"/templates/system/user_list.html";
-            }
-            else if(this.model.url=="/role"){
-                realUrl=baseUrl+"/templates/system/role_list.html"
-            }
-            else if(this.model.url=="/permission"){
-                realUrl=baseUrl+"/templates/system/permission_list.html"
-            }
-            else if(this.model.url=="/resource"){
-                realUrl=baseUrl+"/templates/system/resource_list.html"
-            }
-            else if(this.model.url=="/codelist"){
-                realUrl=baseUrl+"/templates/system/codelist_list.html"
-            }
-            else if(this.model.url=="/imgupload"){
-                realUrl=baseUrl+"/templates/system/imgupload_list.html"
-            }
-            else if(this.model.url=="/basicinfo/organization"){
-                realUrl=baseUrl+"/templates/system/organization_list.html"
-            }
-            //10
-            else if(this.model.url=="/jxcsplan/jxcsplan_approve"){
-                realUrl=baseUrl+"/templates/jxcsplan/jxcsplan_approve.html"
-            }
-            return realUrl+"?index="+this.model.index;
-        }
     },
 
     data: function () {
@@ -197,17 +117,59 @@ treeMenuTemplate.push('</li>');
                 this.open = !this.open;
             }
             */
-           var p = this.$parent.$children;
-           for(var i=0;i<p.length;i++){
+            var p = this.$parent.$children;
+            for(var i=0;i<p.length;i++){
                 if(p[i] !== this)
                    p[i].open = false;
-           }
-           if (this.hasChildren()) {
-                this.open = !this.open;
+                   /**清除菜单选中 by li.xue 20180627 */
+                   p[i].selected = false;
+                   var pm = p[i].$children;
+                   for(var j=0;j<pm.length;j++){
+                       if(pm[j].model.url != Vue.prototype.lastUrl){
+                            pm[j].selected = false;
+                       }
+                   }
             }
-        },
+            /**菜单动态跳转 by li.xue 20180627 */
+            if (this.hasChildren()) {
+                this.open = !this.open;
+            }else{
+                var url = this.model.url;
+                var index = this.model.index;
+                //定义全局菜单url
+                Vue.prototype.lastUrl = url;
+                //菜单选中
+                this.selected = true;
+                //更新地址栏
+                if(url.indexOf('http')!= -1){
+                    
+                }
+                var shortURL = window.location.href.substr(0, top.location.href.indexOf("?")) + "?url=" + url;
+                //二维标绘
+                if(url.indexOf('http')!= -1){
+                    shortURL = window.location.href.substr(0, top.location.href.indexOf("?")) + "?url=/home";
+                }
+                // var shortURL = window.location.href.substr(0, top.location.href.indexOf("templates")+9) + url + '.html';style="padding-left:18%"
+                history.replaceState(null, null, shortURL);
+                 //判断是否为外挂链接(lxy20180912)
+                if(url.indexOf('http')!= -1){
+                    var html='<div class="main-box"><iframe src="'+url+'"   width="100%" height="100%"></iframe></div>';
+                    $("#app").html(html);
+                    return;
+                }else{
+                    //加载页面
+                    $.ajax({
+                        url: '../../../templates' + urlRewrite(url) + '.html',
+                        cache: true,
+                        async: true,
+                        success: function (html) {
+                            $("#app").html(html);
+                        }
+                    });
+                }
+            }
+        }
     }
-
 });
 
 Vue.directive('menu-animation', function (el, binding) {
@@ -234,8 +196,12 @@ Vue.component('big-tree', {
     props: ['defaultActive'],
 
     created: function () {
-        var value = $("#activeIndex").val();
-        this.defaultActive = value;
+        var paramIndex = getQueryString("index");
+        if(paramIndex == "undefined" || paramIndex == "" || paramIndex == null){
+            this.defaultActive = "-1";
+        }else{
+            this.defaultActive = getQueryString("index");
+        }
     },
 
     data: function () {
@@ -274,4 +240,3 @@ $('#menu-toggle-btn').click(function () {
         }, 300);
     }
 });
-
