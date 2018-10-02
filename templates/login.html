@@ -207,7 +207,7 @@
         created: function () {
             axios.get('/xfxhapi/shiro').then(function(res) {
                 if (res.data != null && res.data.username != null && res.data.username != "") {
-                    window.location.href = "../templates/bigscreen/big_screen_all.html";
+                    window.location.href = "../templates/all.html";
                 }
             }.bind(this), function (error) {
                 console.log(error);
