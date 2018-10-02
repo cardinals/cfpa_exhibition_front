@@ -15,8 +15,6 @@ var vue = new Vue({
             tableData: [],
             //后台返回全部资源列表
             allPermissionList: [],
-            //表高度变量
-            tableheight: 443,
             //显示加载中样
             loading: false,
             //多选值

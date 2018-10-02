@@ -14,8 +14,6 @@ var vue = new Vue({
                 createTime:new Array()
             },
             tableData: [],
-            //表高度变量
-            tableheight: 443,
             //显示加载中样
             loading: false,
             //多选值

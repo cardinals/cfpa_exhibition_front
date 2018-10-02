@@ -23,7 +23,7 @@ var vue = new Vue({
             //图片预览
             imgPreviewData:{},
             //表高度变量
-            tableheight: 443,
+            // tableheight: 455,
             //显示加载中样
             loading: false,          
             labelPosition: 'right',

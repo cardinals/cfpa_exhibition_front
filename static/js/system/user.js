@@ -13,8 +13,6 @@ var vue = new Vue({
             //表数据
             tableData: [],
             allRoles: [],
-            //表高度变量
-            tableheight: 443,
             //显示加载中样
             loading: false,          
             labelPosition: 'right',

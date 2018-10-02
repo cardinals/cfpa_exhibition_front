@@ -792,6 +792,25 @@ margin-top: 10px;
   color:#82848a;
   outline:0
 }
+
+.el-table__header th,
+.el-table__header tr {
+  border-color: #dfe6ec;
+  background-color: #eef1f6;
+  color: black;
+}
+
+.el-table__body td,
+.el-table__body th {
+  padding: 0px;
+}
+
+.el-table__header td,
+.el-table__header th {
+  padding: 6px 0px;
+}
+
+
 .el-table a{
   cursor: pointer;
   text-decoration: none;

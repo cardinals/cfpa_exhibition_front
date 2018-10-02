@@ -5,7 +5,6 @@ var vue = new Vue({
     data: function () {
         return {
             visible: false,
-            tableheight: 441,//表高度变量
             //角色下拉框
             allRoles: [],
             //查询表单
