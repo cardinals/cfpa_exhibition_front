@@ -1,5 +1,5 @@
 //设置全局地址
-axios.get('/dpapi/getPath').then(function(res){
+axios.get('/xfxhapi/getPath').then(function(res){
     Vue.http.options.root = res.data;
 }.bind(this),function(error){
     console.log(error)

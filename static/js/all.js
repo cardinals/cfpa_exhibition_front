@@ -41,15 +41,7 @@ new Vue({
         }
     },
     created: function () {
-        //菜单选中
-        /**
-        var index = getQueryString("index");
-        if(index=="" || index == ""){
-            index = "1";
-        }
-        $("#activeIndex").val(index);
-        this.activeIndex = index;
-        */
+        
     },
     methods: {
        
