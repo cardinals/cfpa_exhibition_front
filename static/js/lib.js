@@ -73,14 +73,9 @@ window.backToLast = function(){
 
 //urlRewrite
 window.urlRewrite = function(url){
-    if(url=='/digitalplan/digitalplan_approve' || 
-        url=='/digitalplan/digitalplan_distribute' || 
-        url=='/digitalplan/advancedsearch' ||
-        url=='/jxcsplan/jxcsplan_approve' || 
-        url=='/report/report1' ||
-        url=='/report/report3' ||
-        url=='/home' ||
-        url=='/planobject/importantunits_detail'){
+    if(url=='/prediction/exhprediction_edit' || 
+        url=='/signin/personal_edit'
+        ){
         return url;
     }else{
         return url + "_list"
