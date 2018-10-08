@@ -76,19 +76,22 @@
             <div class="login_center">
                 <div class="Login_img">
                     <div class="Login">
-                        <div class="Login_n">
-                            <div class="Login_nTop"><span class="logina">用户登录</span> | <span class="loginb">数据采集</span></div>
+                        <div id="login" class="Login_n">
+                            <div class="Login_nTop"><span class="logina">用户登录</span> | <span class="loginb">数据采集</span>
+                                <div style="float:right;font-size: 12px;">没有账户？<a href="/">去注册</a></div>
+                            </div>
                             <form id="login-form" autocomplete="off" name="login-form" action="/xfxhapi/login" method="post">
                                 <ul id="forma" style="display:block;">
-                                    <li class="I1">
-                                        <i id="icon-user"></i>
+                                    <li>
+                                        <i class="icon-user"></i>
                                         <input type="text" class="inputstyle" v-model="username" name="username" id="username" placeholder="用户名">
                                     </li>
-                                    <li class="I2">
-                                        <i id="icon-password"></i>
+                                    <li>
+                                        <i class="icon-password"></i>
                                         <input type="password" class="inputstyle" v-model="password" name="password" id="password" placeholder="密码">
                                     </li>
-                                    <li class="I3">
+                                    <li>
+                                        <i class="icon-verficode"></i>
                                         <input type="text" class="inputstyle" v-model="validateCode" name="validateCode" id="validateCode" placeholder="验证码" @keyup.enter="login()">
                                         <a href="javascript:;" @click="reloadCode()">
                                             <img v-bind:src="src" id="checkCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';" style="vertical-align: bottom"
@@ -97,15 +100,16 @@
                                     </li>
                                 </ul>
                                 <ul id="formb" style="display:none;">
-                                    <li class="I1">
+                                    <li>
                                         <i class="icon-jxcs"></i>
                                         <input type="text" class="inputstyle" v-model="unscid" name="unscid" id="unscid" placeholder="统一社会信用代码">
                                     </li>
-                                    <li class="I2" style="visibility: hidden;">
-                                        <i id="icon-password"></i>
+                                    <li style="visibility: hidden;">
+                                        <i class="icon-password"></i>
                                         <input type="password" class="inputstyle">
                                     </li>
-                                    <li class="I3" style="visibility: hidden;">
+                                    <li style="visibility: hidden;">
+                                        <i class="icon-verficode"></i>
                                         <input type="text" class="inputstyle">
                                         <a href="javascript:;">
                                             <img v-bind:src="src" id="checkCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';" style="vertical-align: bottom"
@@ -118,17 +122,47 @@
                                     <a @click="nlogin()" id="nlg" style="display:none;">登录</a>
                                 </div>
                                 <div class="formbar">
-                                        <!-- <a href="/">重置账号</a>
-                                        <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
-                                        <a href="/">忘记密码</a>
-                                        <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
-                                        <a href="/">忘记用户名</a> -->
-                                        <input type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
-                                        <span>记住我</span>
-                                    </div>
-                                <input type="hidden" id="loginType" name="loginType" />
+                                    <a href="/">重置账号</a>
+                                    <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+                                    <a href="/">忘记密码</a>
+                                    <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+                                    <a href="/">忘记用户名</a>
+                                    <input type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
+                                    <span>记住我</span>
+                                </div>
+                                <input type="hidden" class="loginType" name="loginType" />
                             </form>
                         </div>
+                        <!-- <div id="reg" class="Login_n">
+                            <div class="Login_nTop"><span class="logina">用户注册</span>
+                                <div style="float:right;font-size: 12px;">已有账户？<a href="/">去登录</a></div>
+                            </div>
+                            <form id="reg-form" autocomplete="off" name="login-form" action="/xfxhapi/login" method="post">
+                                <ul id="form" style="display:block;">
+                                    <li>
+                                        <i class="icon-call"></i>
+                                        <input type="text" class="inputstyle" v-model="mobile" name="mobile" id="mobile" placeholder="手机号">
+                                    </li>
+                                    <li>
+                                        <i class="icon-code"></i>
+                                        <input type="text" class="inputstyle" v-model="mobile2" name="mobile2" id="mobile2" placeholder="用户名">
+                                    </li>
+                                    <li>
+                                        <i class="icon-password"></i>
+                                        <input type="password" class="inputstyle" v-model="password" name="password" id="password" placeholder="密码">
+                                    </li>
+                                    <li>
+                                        <i class="icon-password"></i>
+                                        <input type="password" class="inputstyle" v-model="password2" name="password2" id="password2" placeholder="确认密码">
+                                    </li>
+                                </ul>
+                                <div class="LoginBtn">
+                                    <a @click="login()" id="lg" style="display:block;">登录</a>
+                                    <a @click="nlogin()" id="nlg" style="display:none;">登录</a>
+                                </div>
+                                <input type="hidden" class="loginType" name="loginType" />
+                            </form>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -148,7 +182,7 @@
 <script src="../static/js/zzzlib/axios.min.js"></script>
 <script>
     $(document).ready(function () {
-        $("#loginType").val("MyShiro");
+        $(".loginType").val("MyShiro");
         $('.logina').click(function () {
             document.getElementById("formb").style.display = 'none';
             document.getElementById("forma").style.display = 'block';
@@ -156,7 +190,7 @@
             document.getElementById("lg").style.display = 'block';
             $('.logina').addClass("current").siblings().removeClass("current");
             $('.loginb').addClass("currentb").siblings().removeClass("currentb");
-            $("#loginType").val("MyShiro");
+            $(".loginType").val("MyShiro");
         })
         $('.loginb').click(function () {
             document.getElementById("forma").style.display = 'none';
@@ -165,7 +199,7 @@
             document.getElementById("nlg").style.display = 'block';
             $('.loginb').addClass("current").siblings().removeClass("current");
             $('.logina').addClass("currentb").siblings().removeClass("currentb");
-            $("#loginType").val("InfoCollect");
+            $(".loginType").val("InfoCollect");
         })
     })
 </script>
@@ -209,6 +243,9 @@
         data: {
             username: "",
             password: "",
+            mobile: "",
+            mobile2: "",
+            password2: "",
             validateCode: "",
             messages: "",
             unscid: "",
