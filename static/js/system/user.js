@@ -120,7 +120,7 @@ var vue = new Vue({
             var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
-                deptid: this.editForm.deptid,
+                deptid: this.searchForm.deptid,
                 username: this.searchForm.username,
                 realname: this.searchForm.realname,
                 pageSize: this.pageSize,
