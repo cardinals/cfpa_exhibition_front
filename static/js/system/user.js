@@ -7,10 +7,14 @@ var vue = new Vue({
             //搜索表单
             searchForm: {
                 id: "",
+                //用户类型
+
                 deptid: "ZSYH",
                 username: "",
                 realname: "",
             },
+            //用户类型lable显示
+            yhlx: "ZSYH",
             //用户类型Data
             yhlxData: [
                 {codeValue: "ZSYH", codeName: "展商用户"},
@@ -133,6 +137,15 @@ var vue = new Vue({
             }.bind(this), function (error) {
                 console.log(error)
             })
+        },
+
+        //用户类型下拉框Change
+        yhlxChange: function(){
+            if(this.searchForm.deptid == 'GLYH'){
+                this.yhlx = 'GLYH';
+            }else if(this.searchForm.deptid == 'ZHYH'){
+                this.yhlx = 'ZHYH';
+            }
         },
         //制作机构级联选择
         getZzjgData: function(val) {
