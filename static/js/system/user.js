@@ -7,9 +7,19 @@ var vue = new Vue({
             //搜索表单
             searchForm: {
                 id: "",
+                //用户类型
+
+                deptid: "ZSYH",
                 username: "",
                 realname: "",
             },
+            //用户类型lable显示
+            yhlx: "ZSYH",
+            //用户类型Data
+            yhlxData: [
+                {codeValue: "ZSYH", codeName: "展商用户"},
+                {codeValue: "GLYH", codeName: "管理用户"},
+            ],
             //表数据
             tableData: [],
             allRoles: [],
@@ -114,6 +124,7 @@ var vue = new Vue({
             var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
+                deptid: this.searchForm.deptid,
                 username: this.searchForm.username,
                 realname: this.searchForm.realname,
                 pageSize: this.pageSize,
@@ -126,6 +137,15 @@ var vue = new Vue({
             }.bind(this), function (error) {
                 console.log(error)
             })
+        },
+
+        //用户类型下拉框Change
+        yhlxChange: function(){
+            if(this.searchForm.deptid == 'GLYH'){
+                this.yhlx = 'GLYH';
+            }else if(this.searchForm.deptid == 'ZHYH'){
+                this.yhlx = 'ZHYH';
+            }
         },
         //制作机构级联选择
         getZzjgData: function(val) {

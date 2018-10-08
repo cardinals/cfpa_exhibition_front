@@ -24,17 +24,15 @@
 							<el-row>
 								<el-col :span="1">&nbsp;</el-col>
 								<el-col :span="9" class="searchInline">
-									<el-form-item label="图片类型">
-										<el-select size="small" v-model="searchForm.pic_type" placeholder="全部" class="searchSelect" clearable>
-											<el-option v-for="type in allSavedTypes" :label="type.picTypename" :value="type.picType" :key="type.picType"></el-option>
-										</el-select>
-									</el-form-item>
+									<label class="el-form-item__label searchLabel">图片类型</label>
+									<el-select size="small" v-model="searchForm.pic_type" placeholder="全部" class="searchSelect" clearable>
+										<el-option v-for="type in allSavedTypes" :label="type.picTypename" :value="type.picType" :key="type.picType"></el-option>
+									</el-select>
 								</el-col>
 								<el-col :span="2">&nbsp;</el-col>
 								<el-col :span="9" class="searchInline">
-									<el-form-item label="图片名称">
-										<el-input size="small" v-model="searchForm.pic_name" placeholder="图片名称"></el-input>
-									</el-form-item>
+									<label class="el-form-item__label searchLabel">图片名称</label>
+									<el-input size="small" v-model="searchForm.pic_name" placeholder="图片名称"></el-input>
 								</el-col>
 								<el-col :span="2">&nbsp;</el-col>
 							</el-row>
@@ -50,7 +48,7 @@
 									<el-col :span="12" class="btnSearchPlus">
 										<el-form-item>
 											<el-button type="primary" icon="el-icon-search" size="small" @click="searchClick">查询</el-button>
-											<el-button type="clear" icon="el-icon-delete" size="small" @click="clearClick">重置</el-button>
+											<el-button type="clear" icon="el-icon-refresh" size="small" @click="clearClick">重置</el-button>
 										</el-form-item>
 									</el-col>
 								</el-form>
@@ -60,7 +58,7 @@
 					<div class="table_container">
 						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
 						 class="tableStyle" :height="tableheight">
-							<el-table-column type="selection" min-width="5%"></el-table-column>
+							<el-table-column type="selection" min-width="35"></el-table-column>
 							<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
 							<el-table-column prop="picName" show-overflow-tooltip label="图片名称" min-width="35%" align="center"></el-table-column>
 							<el-table-column prop="picValue" show-overflow-tooltip label="图片代码" min-width="15%" align="center"></el-table-column>

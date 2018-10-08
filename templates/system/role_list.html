@@ -18,26 +18,23 @@
                     <el-row>
                         <el-form label-width="75px" :inline="true" class="el-form demo-form-inline" v-model="searchForm">
                             <el-row>
-                                <el-col :span="6" class="searchInline">
-                                    <el-form-item label="角色名称">
-                                        <el-input size="small" v-model="searchForm.rolename" placeholder="角色名称"></el-input>
-                                    </el-form-item>
+                                <el-col :span="8" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">角色名称</label>
+                                    <el-input size="small" v-model="searchForm.rolename" placeholder="角色名称" clearable></el-input>
                                 </el-col>
-                                <el-col :span="6" class="searchInline">
-                                    <el-form-item label="角色描述">
-                                        <el-select size="small" v-model="searchForm.roleinfo" placeholder="全部" class="searchSelect" clearable>
-                                            <el-option v-for="role in allRoles" :label="role.roleinfo" :value="role.roleinfo" :key="role.rolename"></el-option>
-                                        </el-select>
-                                    </el-form-item>
+                                <el-col :span="8" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">角色描述</label>
+                                    <el-select size="small" v-model="searchForm.roleinfo" placeholder="全部" class="searchSelect" clearable>
+                                        <el-option v-for="role in allRoles" :label="role.roleinfo" :value="role.roleinfo" :key="role.rolename"></el-option>
+                                    </el-select>
                                 </el-col>
-                                <el-col :span="12" class="searchInline">
-                                    <el-form-item label="创建时间">
-                                        <el-date-picker type="daterange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.createTime"
-                                            range-separator="至" placeholder="创建时间" start-placeholder="开始日期" end-placeholder="结束日期"
-                                            class="searchDatePicker">
-                                        </el-date-picker>
-                                    </el-form-item>
-                                </el-col>
+                                <el-col :span="8" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">创建时间</label>
+                                    <el-date-picker type="daterange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.createTime"
+                                        range-separator="~" placeholder="创建时间" start-placeholder="开始日期" end-placeholder="结束日期"
+                                        class="searchDatePicker">
+                                    </el-date-picker>
+                                </el-col>                               
                             </el-row>
                             <div>
                                 <el-form>
@@ -51,7 +48,7 @@
                                     <el-col :span="12" class="btnSearchPlus">
                                         <el-form-item>
                                             <el-button type="primary" icon="el-icon-search" size="small" @click="searchClick">查询</el-button>
-                                            <el-button type="clear" icon="el-icon-delete" size="small" @click="clearClick">重置</el-button>
+                                            <el-button type="clear" icon="el-icon-refresh" size="small" @click="clearClick">重置</el-button>
                                         </el-form-item>
                                     </el-col>
                                 </el-form>
@@ -64,7 +61,7 @@
                         <el-table class="tableStyle" border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
                             :height="tableheight">
 
-                            <el-table-column type="selection" width="45"></el-table-column>
+                            <el-table-column type="selection" width="35"></el-table-column>
                             <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
                             <el-table-column prop="rolename" show-overflow-tooltip label="角色名称" min-width="14%" align="center"></el-table-column>
                             <el-table-column prop="roleinfo" show-overflow-tooltip label="角色描述" min-width="12%" align="center"></el-table-column>

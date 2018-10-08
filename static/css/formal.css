@@ -152,7 +152,7 @@ body{height:100%;overflow:hidden;}
 .searchLabel{
     width: 155px; 
     vertical-align: middle; 
-    line-height: 8px;
+    line-height: 30px;
 }
 .searchSelect{
     width: 100%;
@@ -168,9 +168,6 @@ body{height:100%;overflow:hidden;}
 }
 .searchDatePicker{
     width: 100% !important;
-}
-.el-input__icon{
-    height: 82%;
 }
 .danger_icon{
     margin-top: -1px;
@@ -240,4 +237,16 @@ body{height:100%;overflow:hidden;}
 }
 .editform-button {
     text-align: center;
+}
+.el-date-editor .el-range-separator{
+    padding: 0 0px;
+}
+.el-range-editor.el-input__inner{
+    padding: 3px 3px 3px 10px;
+}
+.el-date-editor .el-range-input{
+    width: 50%;
+}
+.el-date-editor .el-range__close-icon{
+    width: 15px;
 }

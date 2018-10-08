@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-	<link rel="stylesheet" type="text/css" href="../../static/css/system/userlist.css">
+	<!-- <link rel="stylesheet" type="text/css" href="../../static/css/system/userlist.css"> -->
 	<title>用户管理</title>
 </head>
 
@@ -17,19 +17,22 @@
 						<el-row>
 							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
 								<el-row>
-									<el-col :span="1">&nbsp;</el-col>
-									<el-col :span="9" class="searchInline">
-										<el-form-item label="用户名">
-											<el-input size="small" v-model="searchForm.username" placeholder="用户名"></el-input>
-										</el-form-item>
+									<el-col :span="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">用户类型</label>
+										<el-select size="small" v-model="searchForm.deptid" placeholder="全部" class="searchSelect" clearable @change="yhlxChange">
+											<el-option v-for="item in yhlxData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
 									</el-col>
-									<el-col :span="2">&nbsp;</el-col>
-									<el-col :span="9" class="searchInline">
-										<el-form-item label="真实姓名">
-											<el-input size="small" v-model="searchForm.realname" placeholder="真实姓名"></el-input>
-										</el-form-item>
+									<el-col :span="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">用户名</label>
+										<el-input size="small" v-model="searchForm.username" placeholder="用户名" clearable></el-input>
 									</el-col>
-									<el-col :span="2">&nbsp;</el-col>
+									<el-col :span="8" class="searchInline">
+										<label v-if="yhlx=='GLYH'" class="el-form-item__label searchLabel">真实姓名</label>
+										<label v-else class="el-form-item__label searchLabel">公司名称</label>
+										<el-input v-if="yhlx=='GLYH'" size="small" v-model="searchForm.realname" placeholder="真实姓名" clearable></el-input>
+										<el-input v-else size="small" v-model="searchForm.realname" placeholder="公司名称" clearable></el-input>
+									</el-col>
 								</el-row>
 								<div>
 									<el-form>
@@ -44,7 +47,7 @@
 										<el-col :span="12" class="btnSearchPlus">
 											<el-form-item>
 												<el-button type="primary" icon="el-icon-search" size="small" @click="searchClick">查询</el-button>
-												<el-button type="clear" icon="el-icon-delete" size="small" @click="clearClick">重置</el-button>
+												<el-button type="clear" icon="el-icon-refresh" size="small" @click="clearClick">重置</el-button>
 											</el-form-item>
 										</el-col>
 									</el-form>
@@ -54,7 +57,7 @@
 						<div class="table_container">
 							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 								@selection-change="selectionChange" class="tableStyle" :height="tableheight" row-style="height:40px">
-								<el-table-column type="selection" width="45"></el-table-column>
+								<el-table-column type="selection" width="35"></el-table-column>
 								<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
 								<el-table-column prop="username" show-overflow-tooltip label="用户名" min-width="14%" align="center"></el-table-column>
 								<el-table-column prop="realname" show-overflow-tooltip label="真实姓名" min-width="12%" align="center"></el-table-column>

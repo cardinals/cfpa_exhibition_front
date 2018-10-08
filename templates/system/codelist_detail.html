@@ -20,15 +20,13 @@
                             <el-row>
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="9" class="searchInline">
-                                    <el-form-item label="代码值">
-                                        <el-input size="small" v-model="searchForm.codeValue" placeholder="请输入代码值" prefix-icon="el-icon-search"></el-input>
-                                    </el-form-item>
+                                    <label class="el-form-item__label searchLabel">代码值</label>
+                                    <el-input size="small" v-model="searchForm.codeValue" placeholder="代码值" prefix-icon="el-icon-search"></el-input>
                                 </el-col>
                                 <el-col :span="2">&nbsp;</el-col>
                                 <el-col :span="9" class="searchInline">
-                                    <el-form-item label="代码名称">
-                                        <el-input size="small" v-model="searchForm.codeName" placeholder="请输入代码名称" prefix-icon="el-icon-search"></el-input>
-                                    </el-form-item>
+                                    <label class="el-form-item__label searchLabel">代码名称</label>
+                                    <el-input size="small" v-model="searchForm.codeName" placeholder="代码名称" prefix-icon="el-icon-search"></el-input>
                                 </el-col>
                                 <el-col :span="2">&nbsp;</el-col>
                             </el-row>
@@ -44,7 +42,7 @@
                                     <el-col :span="12" class="btnSearchPlus">
                                         <el-form-item>
                                             <el-button type="primary" icon="el-icon-search" size="small" @click="searchClick">查询</el-button>
-                                            <el-button type="clear" icon="el-icon-delete" size="small" @click="clearClick">重置</el-button>
+                                            <el-button type="clear" icon="el-icon-refresh" size="small" @click="clearClick">重置</el-button>
                                         </el-form-item>
                                     </el-col>
                                 </el-form>
@@ -55,7 +53,7 @@
                     <div class="table_container">
                         <el-table class="table-formal" border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
                             :height="tableheight">
-                            <el-table-column type="selection" width="45"></el-table-column>
+                            <el-table-column type="selection" width="35"></el-table-column>
                             <el-table-column type="index" show-overflow-tooltip label="序号" align="center" width="65"></el-table-column>
                             <el-table-column prop="codeValue" show-overflow-tooltip label="代码值" min-width="10%" align="center"></el-table-column>
                             <el-table-column prop="codeName" show-overflow-tooltip label="代码名称" min-width="15%" align="center"></el-table-column>
