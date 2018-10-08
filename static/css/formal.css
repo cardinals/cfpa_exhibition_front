@@ -169,9 +169,6 @@ body{height:100%;overflow:hidden;}
 .searchDatePicker{
     width: 100% !important;
 }
-.el-input__icon{
-    height: 82%;
-}
 .danger_icon{
     margin-top: -1px;
 }
