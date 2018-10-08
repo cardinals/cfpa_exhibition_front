@@ -240,4 +240,13 @@ body{height:100%;overflow:hidden;}
 }
 .el-date-editor .el-range-separator{
     padding: 0 0px;
-  }
+}
+.el-range-editor.el-input__inner{
+    padding: 3px 3px 3px 10px;
+}
+.el-date-editor .el-range-input{
+    width: 50%;
+}
+.el-date-editor .el-range__close-icon{
+    width: 15px;
+}
