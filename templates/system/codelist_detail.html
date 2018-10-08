@@ -20,15 +20,13 @@
                             <el-row>
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="9" class="searchInline">
-                                    <el-form-item label="代码值">
-                                        <el-input size="small" v-model="searchForm.codeValue" placeholder="请输入代码值" prefix-icon="el-icon-search"></el-input>
-                                    </el-form-item>
+                                    <label class="el-form-item__label searchLabel">代码值</label>
+                                    <el-input size="small" v-model="searchForm.codeValue" placeholder="代码值" prefix-icon="el-icon-search"></el-input>
                                 </el-col>
                                 <el-col :span="2">&nbsp;</el-col>
                                 <el-col :span="9" class="searchInline">
-                                    <el-form-item label="代码名称">
-                                        <el-input size="small" v-model="searchForm.codeName" placeholder="请输入代码名称" prefix-icon="el-icon-search"></el-input>
-                                    </el-form-item>
+                                    <label class="el-form-item__label searchLabel">代码名称</label>
+                                    <el-input size="small" v-model="searchForm.codeName" placeholder="代码名称" prefix-icon="el-icon-search"></el-input>
                                 </el-col>
                                 <el-col :span="2">&nbsp;</el-col>
                             </el-row>

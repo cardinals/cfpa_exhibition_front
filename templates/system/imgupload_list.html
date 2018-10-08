@@ -24,17 +24,15 @@
 							<el-row>
 								<el-col :span="1">&nbsp;</el-col>
 								<el-col :span="9" class="searchInline">
-									<el-form-item label="图片类型">
-										<el-select size="small" v-model="searchForm.pic_type" placeholder="全部" class="searchSelect" clearable>
-											<el-option v-for="type in allSavedTypes" :label="type.picTypename" :value="type.picType" :key="type.picType"></el-option>
-										</el-select>
-									</el-form-item>
+									<label class="el-form-item__label searchLabel">图片类型</label>
+									<el-select size="small" v-model="searchForm.pic_type" placeholder="全部" class="searchSelect" clearable>
+										<el-option v-for="type in allSavedTypes" :label="type.picTypename" :value="type.picType" :key="type.picType"></el-option>
+									</el-select>
 								</el-col>
 								<el-col :span="2">&nbsp;</el-col>
 								<el-col :span="9" class="searchInline">
-									<el-form-item label="图片名称">
-										<el-input size="small" v-model="searchForm.pic_name" placeholder="图片名称"></el-input>
-									</el-form-item>
+									<label class="el-form-item__label searchLabel">图片名称</label>
+									<el-input size="small" v-model="searchForm.pic_name" placeholder="图片名称"></el-input>
 								</el-col>
 								<el-col :span="2">&nbsp;</el-col>
 							</el-row>
