@@ -19,17 +19,17 @@
 								<el-row>
 									<el-col :span="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">用户类型</label>
-										<el-select size="small" v-model="searchForm.reserve1" placeholder="全部" class="searchSelect" clearable>
+										<el-select size="small" v-model="searchForm.deptid" placeholder="全部" class="searchSelect" clearable>
 											<el-option v-for="item in yhlxData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>
 									<el-col :span="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">用户名</label>
-										<el-input size="small" v-model="searchForm.username" placeholder="用户名"></el-input>
+										<el-input size="small" v-model="searchForm.username" placeholder="用户名" clearable></el-input>
 									</el-col>
 									<el-col :span="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">真实姓名</label>
-										<el-input size="small" v-model="searchForm.realname" placeholder="真实姓名"></el-input>
+										<el-input size="small" v-model="searchForm.realname" placeholder="真实姓名" clearable></el-input>
 									</el-col>
 								</el-row>
 								<div>

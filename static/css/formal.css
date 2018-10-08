@@ -238,3 +238,6 @@ body{height:100%;overflow:hidden;}
 .editform-button {
     text-align: center;
 }
+.el-date-editor .el-range-separator{
+    padding: 0 0px;
+  }

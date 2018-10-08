@@ -7,7 +7,7 @@ var vue = new Vue({
             //搜索表单
             searchForm: {
                 id: "",
-                reserve1: "",
+                deptid: "ZSYH",
                 username: "",
                 realname: "",
             },
@@ -120,6 +120,7 @@ var vue = new Vue({
             var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
+                deptid: this.editForm.deptid,
                 username: this.searchForm.username,
                 realname: this.searchForm.realname,
                 pageSize: this.pageSize,
