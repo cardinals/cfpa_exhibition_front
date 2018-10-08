@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-	<link rel="stylesheet" type="text/css" href="../../static/css/system/userlist.css">
+	<!-- <link rel="stylesheet" type="text/css" href="../../static/css/system/userlist.css"> -->
 	<title>用户管理</title>
 </head>
 
@@ -17,19 +17,20 @@
 						<el-row>
 							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
 								<el-row>
-									<el-col :span="1">&nbsp;</el-col>
-									<el-col :span="9" class="searchInline">
-										<el-form-item label="用户名">
-											<el-input size="small" v-model="searchForm.username" placeholder="用户名"></el-input>
-										</el-form-item>
+									<el-col :span="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">用户类型</label>
+										<el-select size="small" v-model="searchForm.reserve1" placeholder="全部" class="searchSelect" clearable>
+											<el-option v-for="item in yhlxData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
 									</el-col>
-									<el-col :span="2">&nbsp;</el-col>
-									<el-col :span="9" class="searchInline">
-										<el-form-item label="真实姓名">
-											<el-input size="small" v-model="searchForm.realname" placeholder="真实姓名"></el-input>
-										</el-form-item>
+									<el-col :span="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">用户名</label>
+										<el-input size="small" v-model="searchForm.username" placeholder="用户名"></el-input>
 									</el-col>
-									<el-col :span="2">&nbsp;</el-col>
+									<el-col :span="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">真实姓名</label>
+										<el-input size="small" v-model="searchForm.realname" placeholder="真实姓名"></el-input>
+									</el-col>
 								</el-row>
 								<div>
 									<el-form>

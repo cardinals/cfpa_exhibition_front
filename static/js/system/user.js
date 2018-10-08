@@ -7,9 +7,15 @@ var vue = new Vue({
             //搜索表单
             searchForm: {
                 id: "",
+                reserve1: "",
                 username: "",
                 realname: "",
             },
+            //用户类型Data
+            yhlxData: [
+                {codeValue: "ZSYH", codeName: "展商用户"},
+                {codeValue: "GLYH", codeName: "管理用户"},
+            ],
             //表数据
             tableData: [],
             allRoles: [],
