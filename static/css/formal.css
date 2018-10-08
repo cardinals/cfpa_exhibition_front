@@ -152,7 +152,7 @@ body{height:100%;overflow:hidden;}
 .searchLabel{
     width: 155px; 
     vertical-align: middle; 
-    line-height: 8px;
+    line-height: 30px;
 }
 .searchSelect{
     width: 100%;
