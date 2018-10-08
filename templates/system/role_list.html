@@ -61,7 +61,7 @@
                         <el-table class="tableStyle" border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
                             :height="tableheight">
 
-                            <el-table-column type="selection" width="45"></el-table-column>
+                            <el-table-column type="selection" width="35"></el-table-column>
                             <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
                             <el-table-column prop="rolename" show-overflow-tooltip label="角色名称" min-width="14%" align="center"></el-table-column>
                             <el-table-column prop="roleinfo" show-overflow-tooltip label="角色描述" min-width="12%" align="center"></el-table-column>

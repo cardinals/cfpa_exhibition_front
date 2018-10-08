@@ -59,7 +59,7 @@
 					<div class="table_container">
 						<el-table class="tableStyle" border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
 						 :height="tableheight">
-							<el-table-column type="selection" width="45"></el-table-column>
+							<el-table-column type="selection" width="35"></el-table-column>
 							<el-table-column type="index" show-overflow-tooltip label="序号" align="center" width="65"></el-table-column>
 							<el-table-column prop="permissionname" show-overflow-tooltip label="权限名称" min-width="20%" align="center"></el-table-column>
 							<el-table-column prop="permissioninfo" show-overflow-tooltip label="权限描述" min-width="15%" align="center"></el-table-column>
