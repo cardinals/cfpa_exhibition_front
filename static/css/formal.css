@@ -21,6 +21,7 @@ body{height:100%;overflow:hidden;}
 .table_container{
     border: 1px solid #eee;
     border-radius:2px;
+    margin-top: 8px;
 }
 .table-title{
     background-color: #eee;
