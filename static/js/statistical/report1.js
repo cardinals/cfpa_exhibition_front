@@ -40,6 +40,24 @@ var vue = new Vue({
 		}
 	},
 	methods: {
+		//获取统计分析图表数据
+		getCPLX: function () {
+			
+            var params = {
+				cplx: cplx,
+				czqysl:czqysl,
+				bzzwsl:bzzwsl,
+				gdzwmj:gdzwmj,
+			};
+			axios.post('/xfxhapi/qyzwyx/dofindtjfx', params).then(function (res) {
+				this.tableData = res.data.result;
+				this.loading = false;
+			}.bind(this), function (error) {
+				console.log(error)
+			})
+			
+		},
+
 		// 中央下部按产品分类柱状图
 		echarts1: function () {
 			var myBarChart = echarts.init(document.getElementById('bar'));
@@ -136,7 +154,6 @@ var vue = new Vue({
 						type: 'bar',
 						barWidth: '100%',
 						barWidth: '45',
-						// data: [null,1335, 335, 1035, 935, 335, 1335, 335, 670, 335, 1335, 335, 335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335,],
 						data: this.getList('zongdui'),
 					},
 					{
@@ -145,7 +162,6 @@ var vue = new Vue({
 						barWidth: '100%',
 						barWidth: '45',
 						yAxisIndex: 1,
-						// data: [null,1335, 335, 1035, 935, 335, 1335, 335, 670, 335, 1335, 335, 335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335,],
 						data: this.getList('zhidui'),
 					},
 					{
@@ -154,7 +170,6 @@ var vue = new Vue({
 						barWidth: '100%',
 						barWidth: '45',
 						yAxisIndex: 2,
-						// data: [null,1335, 335, 1035, 935, 335, 1335, 335, 670, 335, 1335, 335, 335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335,],
 						data: this.getList('dazhongdui'),
 					}
 				
