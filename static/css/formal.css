@@ -250,3 +250,6 @@ body{height:100%;overflow:hidden;}
 .el-date-editor .el-range__close-icon{
     width: 15px;
 }
+.el-date-editor.el-input{
+    width: 100%;
+}

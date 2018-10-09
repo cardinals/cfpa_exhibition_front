@@ -17,22 +17,18 @@
 						<el-row>
 							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
 								<el-row>
-									<el-col :span="8" class="searchInline">
-										<label class="el-form-item__label searchLabel">用户类型</label>
-										<el-select size="small" v-model="searchForm.deptid" placeholder="全部" class="searchSelect" clearable @change="yhlxChange">
-											<el-option v-for="item in yhlxData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
-										</el-select>
-									</el-col>
-									<el-col :span="8" class="searchInline">
+									<el-col :span="1" class="searchInline">&nbsp;</el-col>
+									<el-col :span="9" class="searchInline">
 										<label class="el-form-item__label searchLabel">用户名</label>
 										<el-input size="small" v-model="searchForm.username" placeholder="用户名" clearable></el-input>
 									</el-col>
-									<el-col :span="8" class="searchInline">
-										<label v-if="yhlx=='GLYH'" class="el-form-item__label searchLabel">真实姓名</label>
-										<label v-else class="el-form-item__label searchLabel">公司名称</label>
-										<el-input v-if="yhlx=='GLYH'" size="small" v-model="searchForm.realname" placeholder="真实姓名" clearable></el-input>
-										<el-input v-else size="small" v-model="searchForm.realname" placeholder="公司名称" clearable></el-input>
+									<el-col :span="2" class="searchInline">&nbsp;</el-col>
+									<el-col :span="1" class="searchInline">&nbsp;</el-col>
+									<el-col :span="9" class="searchInline">
+										<label class="el-form-item__label searchLabel">真实姓名</label>
+										<el-input size="small" v-model="searchForm.realname" placeholder="真实姓名" clearable></el-input>
 									</el-col>
+									<el-col :span="2" class="searchInline">&nbsp;</el-col>
 								</el-row>
 								<div>
 									<el-form>
@@ -131,6 +127,8 @@
 									</el-col>
 									<el-col :span="1">&nbsp;</el-col>
 								</el-row>
+								<!--组织机构隐藏-->
+								<!--
 								<el-row>
 									<el-col :span="23">
 										<el-form-item label="组织机构" prop="organizationId">
@@ -139,6 +137,7 @@
 									</el-col>
 									<el-col :span="1">&nbsp;</el-col>
 								</el-row>
+								-->
 								<el-row>
 									<el-col :span="11">
 										<el-form-item label="手机号" prop="mobile">
@@ -178,7 +177,7 @@
 											<el-checkbox-group v-model="editForm.roles" size="small" style="float:left;width:90%;">
 												<el-checkbox v-for="role in allRoles" :label="role.rolename" :key="role.id">{{role.roleinfo}}</el-checkbox>
 											</el-checkbox-group>
-											<el-button id="roleSpread" size="mini" type="primary" plain style="float:right;margin-top:7px;" @click="spread">展开</el-button>
+											<el-button id="roleSpread" size="mini" type="primary" plain style="float:right;margin-top:6px;" @click="spread">展开</el-button>
 										</el-form-item>
 									</el-col>
 									<el-col :span="1">&nbsp;</el-col>

@@ -4,7 +4,7 @@ document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzl
 document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzlib/element-ui/lib/index.js'+'"></scr' + 'ipt>');
 document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzlib/axios.min.js'+'"></scr' + 'ipt>');
 document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzlib/vue-resource.min.js'+'"></scr' + 'ipt>');
-document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/parameters.js'+'"></scr' + 'ipt>');
+document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/common/parameters.js'+'"></scr' + 'ipt>');
 
 
 
