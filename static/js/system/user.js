@@ -7,19 +7,9 @@ var vue = new Vue({
             //搜索表单
             searchForm: {
                 id: "",
-                //用户类型
-
-                deptid: "ZSYH",
                 username: "",
                 realname: "",
             },
-            //用户类型lable显示
-            yhlx: "ZSYH",
-            //用户类型Data
-            yhlxData: [
-                {codeValue: "ZSYH", codeName: "展商用户"},
-                {codeValue: "GLYH", codeName: "管理用户"},
-            ],
             //表数据
             tableData: [],
             allRoles: [],
@@ -124,7 +114,7 @@ var vue = new Vue({
             var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
-                deptid: this.searchForm.deptid,
+                deptid: "GLYH",
                 username: this.searchForm.username,
                 realname: this.searchForm.realname,
                 pageSize: this.pageSize,
@@ -139,14 +129,6 @@ var vue = new Vue({
             })
         },
 
-        //用户类型下拉框Change
-        yhlxChange: function(){
-            if(this.searchForm.deptid == 'GLYH'){
-                this.yhlx = 'GLYH';
-            }else if(this.searchForm.deptid == 'ZHYH'){
-                this.yhlx = 'ZHYH';
-            }
-        },
         //制作机构级联选择
         getZzjgData: function(val) {
             // axios.post('/xfxhapi/organization/getOrganizationtree').then(function (res) {
@@ -240,7 +222,8 @@ var vue = new Vue({
         addClick: function () {
             this.dialogTitle = "用户新增";
             this.getAllRoles();
-            this.getZzjgData(null);
+            /**组织机构隐藏 */
+            /**this.getZzjgData(null);*/
             this.editFormVisible = true;
         },
         //表格修改事件
@@ -248,7 +231,9 @@ var vue = new Vue({
             this.editIndex = index;
             this.dialogTitle = "用户编辑";
             this.getAllRoles();
-            this.getZzjgData(val);
+            /**组织机构隐藏 */
+            /**this.getZzjgData(val)*/;
+            this.editSearch(val);
             this.editFormVisible = true;
         },
 
@@ -270,7 +255,8 @@ var vue = new Vue({
                 }
                 this.editForm.roles = roles;
                 //组织机构联动下拉框赋值
-                
+                /**组织机构隐藏 */
+                /**
                 var zzjgArray = [];
                 var temp = this.editForm.organizationId;
                 if(temp!=null && temp!=""){
@@ -305,6 +291,7 @@ var vue = new Vue({
                     }  
                 }
                 this.editForm.organizationId = zzjgArray;
+                */
             }.bind(this), function (error) {
                 console.log(error)
             }) 
