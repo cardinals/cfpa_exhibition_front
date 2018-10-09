@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<!-- <link rel="stylesheet" type="text/css" href="../../static/css/system/userlist.css"> -->
+	<title>用户管理</title>
+</head>
+
+<body class="fw f14 main-index-body">
+	<div id="app">
+			<div class="main-box">
+				<div class="main-container" v-loading="loading" element-loading-text="加载中">
+					<!-- 面包屑 -->
+					<div id="breadcrumb_box"></div>
+					<div id="tableView">
+						<el-row>
+							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+								<el-row>
+									<el-col :span="1" class="searchInline">&nbsp;</el-col>
+									<el-col :span="9" class="searchInline">
+										<label class="el-form-item__label searchLabel">用户名</label>
+										<el-input size="small" v-model="searchForm.username" placeholder="用户名" clearable></el-input>
+									</el-col>
+									<el-col :span="2" class="searchInline">&nbsp;</el-col>
+									<el-col :span="1" class="searchInline">&nbsp;</el-col>
+									<el-col :span="9" class="searchInline">
+										<label class="el-form-item__label searchLabel">中文公司名称</label>
+										<el-input size="small" v-model="searchForm.zwgsmc" placeholder="中文公司名称" clearable></el-input>
+									</el-col>
+									<el-col :span="2" class="searchInline">&nbsp;</el-col>
+								</el-row>
+								<div>
+									<el-form>
+										<el-col :span="12" class="btnEditDelete">
+											<el-form-item align="left">
+                                                <!--
+                                                <el-button v-if="hasPermission('prediction/exhibitor:add')" type="success" icon="el-icon-plus" size="small" @click="addClick">新增</el-button>
+                                                <el-button v-if="hasPermission('prediction/exhibitor:delete')" type="danger" icon="el-icon-delete" size="small" @click="removeSelection">删除</el-button>
+                                                -->
+												<el-button type="success" icon="el-icon-plus" size="small" @click="addClick">新增</el-button>
+												<el-button type="danger" icon="el-icon-delete" size="small" @click="removeSelection">删除</el-button>
+											</el-form-item>
+										</el-col>
+										<el-col :span="12"></el-col>
+										<el-col :span="12" class="btnSearchPlus">
+											<el-form-item>
+												<el-button type="primary" icon="el-icon-search" size="small" @click="searchClick">查询</el-button>
+												<el-button type="clear" icon="el-icon-refresh" size="small" @click="clearClick">重置</el-button>
+											</el-form-item>
+										</el-col>
+									</el-form>
+								</div>
+							</el-form>
+						</el-row>
+						<div class="table_container">
+							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+								@selection-change="selectionChange" class="tableStyle" :height="tableheight" row-style="height:40px">
+								<el-table-column type="selection" width="35"></el-table-column>
+								<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
+								<el-table-column prop="username" show-overflow-tooltip label="用户名" min-width="17%" align="center"></el-table-column>
+								<el-table-column prop="zwgsmc" show-overflow-tooltip label="中文公司名称" min-width="25%" align="center"></el-table-column>
+								<el-table-column prop="lxr" show-overflow-tooltip label="联系人" min-width="10%" align="center"></el-table-column>
+                                <el-table-column prop="dzyx" show-overflow-tooltip label="电子邮箱" min-width="15%" align="center"></el-table-column>
+                                <!--
+                                <el-table-column label="操作" width="65" align="center" v-if="hasPermission('prediction/exhibitor:edit')">
+                                -->
+                                <el-table-column label="重置" width="100" align="center">
+                                    <template slot-scope="scope">
+                                        <el-button type="text" @click="resetClick(scope.row,scope.$index)">重置密码</el-button>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="操作" width="65" align="center">
+                                    <template slot-scope="scope">
+                                        <el-button type="text" @click="editClick(scope.row,scope.$index)">编辑</el-button>
+                                    </template>
+                                </el-table-column>
+							</el-table>
+	
+							<!--列表底部工具条和分页符-->
+							<el-row type="flex" justify="end">
+								<el-col :span="18">
+									<el-pagination 
+										@size-change="pageSizeChange" 
+										@current-change="currentPageChange" 
+										:current-page="currentPage"
+											:page-sizes="[10, 20, 30, 50]" 
+											:page-size="pageSize" 
+											layout="total, prev, pager, next, jumper" 
+											:total=parseInt(total)>
+									</el-pagination>
+								</el-col>
+							</el-row>
+						</div>
+	
+						<!-- 编辑-->
+						<el-dialog :title="dialogTitle" :visible.sync="editFormVisible" @close="closeDialog(editForm)" :close-on-click-modal="false">
+							<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
+								<el-row>
+                                    <el-col :span="1">&nbsp;</el-col>
+									<el-col :span="22">
+										<el-form-item label="用户名" prop="username">
+											<el-input v-model="editForm.username" placeholder="请输入手机号" size="small" auto-complete="off" clearable></el-input>
+										</el-form-item>
+									</el-col>
+									<el-col :span="1">&nbsp;</el-col>
+                                </el-row>
+								<el-row v-if="editPasswordShow">
+                                    <el-col :span="1">&nbsp;</el-col>
+									<el-col :span="22">
+										<el-form-item label="密码" prop="password">
+											<el-input v-model="editForm.password" type="password" placeholder="请输入密码" size="small" auto-complete="off" clearable></el-input>
+										</el-form-item>
+									</el-col>
+									<el-col :span="1">&nbsp;</el-col>
+								</el-row>
+								<el-row v-if="editPasswordShow">
+                                    <el-col :span="1">&nbsp;</el-col>
+                                    <el-col :span="22">
+                                        <el-form-item label="确认密码" prop="checkPass">
+                                            <el-input v-model="editForm.checkPass" type="password" placeholder="请确认密码" size="small" auto-complete="off" clearable></el-input>
+                                        </el-form-item>
+                                    </el-col>
+									<el-col :span="1">&nbsp;</el-col>
+								</el-row>
+								<el-row class="mt35 mb20">
+									<el-row>
+										<el-col :span="24" style="text-align: center">
+                                            <el-button v-if="dialogTitle == '展商用户编辑'" type="warning" icon="edit" size="small" @click="editPassword">修改密码</el-button>
+											<el-button type="clear" icon="close" size="small" class="btn_submit" @click="closeDialog(editForm)"> 取消</el-button>
+											<el-button type="success" icon="check" size="small" class="btn_save" @click="editSubmit(editForm)">保存</el-button>
+										</el-col>
+									</el-row>
+								</el-row>
+							</el-form>
+						</el-dialog>
+	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="../../static/js/prediction/exhibitor_list.js"></script>
+</html>
