@@ -76,7 +76,8 @@ window.backToLast = function(){
 window.urlRewrite = function(url){
     if(url=='/prediction/exhprediction_edit' || 
         url=='/signin/personal_edit' ||
-        url=='/home'
+        url=='/home' ||
+        url=='/prediction/exhprediction_approve'
         ){
         return url;
     }else{
