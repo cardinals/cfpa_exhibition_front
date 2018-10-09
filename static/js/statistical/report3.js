@@ -11,88 +11,68 @@ var vue = new Vue({
 			},
 			//barData
 			barData: {
-				name: ['化危品火灾爆炸', '建筑堆场类', '交通运输类', '危化品泄露事故', '交通事故',
-					'建筑物坍塌事故', '自然灾害事故', '公共突发事件', '群众遇险事件', '群众求助救援'],
-				value: [935, 535, 814, 232, 851, 332, 235, 156, 72, 74],
+				name: ['24-50 m²', '50-100 m²', '100-200 m²', '200 m²', '以上'],
+				value: [935, 535, 814, 232, 851],
 			},
 			//pieTitle
 			pieTitle: '',
-			pieTitle0: '各类型预案数量比例图',
-			pieTitle1: '化危品火灾爆炸',
-			pieTitle2: '建筑堆场类',
-			pieTitle3: '交通运输类',
-			pieTitle4: '危化品泄露事故',
-			pieTitle5: '交通事故',
-			pieTitle6: '建筑物坍塌事故',
-			pieTitle7: '自然灾害事故',
-			pieTitle8: '公共突发事件',
-			pieTitle9: '群众遇险事件',
-			pieTitle10: '群众求助救援',
+			pieTitle0: '按光地展位面积范围统计展会预报名情况比例图',
+			pieTitle1: '24-50 m² 产品类型统计占比',
+			pieTitle2: '50-100 m² 产品类型统计占比',
+			pieTitle3: '100-200 m² 产品类型统计占比',
+			pieTitle4: '200 m² 产品类型统计占比',
+			pieTitle5: '以上面积 产品类型统计占比',
+			
 			//pieData
 			pieData: [],
 			pieData0: [
-				{ value: 400, name: '化危品火灾爆炸' },
-				{ value: 310, name: '建筑堆场类' },
-				{ value: 204, name: '交通运输类' },
-				{ value: 175, name: '危化品泄露事故' },
-				{ value: 120, name: '交通事故' },
-				{ value: 400, name: '建筑物坍塌事故' },
-				{ value: 310, name: '自然灾害事故' },
-				{ value: 204, name: '公共突发事件' },
-				{ value: 175, name: '群众遇险事件' },
-				{ value: 90, name: '群众求助救援' }
-			],
+				{ value: 190, name: '24-50 m²' },
+				{ value: 290, name: '50-100 m²' },
+				{ value: 350, name: '100-200 m²' },
+				{ value: 400, name: '200 m²' },
+				{ value: 500, name: '以上' }
+			 ],
 			pieData1: [
-				{ value: 400, name: '爆炸' },
-				{ value: 215, name: '可燃气体' },
-				{ value: 124, name: '易燃液体' },
-				{ value: 524, name: '易燃固体、自燃物品和遇湿易燃物品' },
-				{ value: 221, name: '氧化剂和有机过氧化物' }
+				{ value: 400, name: '产品类型1' },
+				{ value: 215, name: '产品类型2' },
+				{ value: 124, name: '产品类型3' },
+				{ value: 524, name: '产品类型4' },
+				{ value: 221, name: '产品类型5' },
+				{ value: 321, name: '产品类型6' }
 			],
 			pieData2: [
-				{ value: 400, name: '高层建筑' },
-				{ value: 310, name: '人员密集场所' },
-				{ value: 204, name: '地下建筑、隧道' },
-				{ value: 175, name: '古建筑' },
-				{ value: 124, name: '堆垛仓库' }
+				{ value: 400, name: '产品类型1' },
+				{ value: 310, name: '产品类型2' },
+				{ value: 204, name: '产品类型3' },
+				{ value: 175, name: '产品类型4' },
+				{ value: 221, name: '产品类型5' },
+				{ value: 124, name: '产品类型6' }
 			],
 			pieData3: [
-				{ value: 400, name: '机动车' },
-				{ value: 310, name: '列车' },
-				{ value: 204, name: '船舶' },
-				{ value: 175, name: '飞行器' },
-				{ value: 120, name: '城市轨道交通工具' }
+				{ value: 400, name: '产品类型1' },
+				{ value: 310, name: '产品类型2' },
+				{ value: 204, name: '产品类型3' },
+				{ value: 175, name: '产品类型4' },
+				{ value: 221, name: '产品类型5' },
+				{ value: 120, name: '产品类型6' }
 			],
 			pieData4: [
-				{ value: 90, name: '危险化学品泄漏事故' }
+				{ value: 400, name: '产品类型1' },
+				{ value: 310, name: '产品类型2' },
+				{ value: 204, name: '产品类型3' },
+				{ value: 175, name: '产品类型4' },
+				{ value: 221, name: '产品类型5' },
+				{ value: 120, name: '产品类型6' }
 			],
 			pieData5: [
-				{ value: 400, name: '交通事故' }
+				{ value: 400, name: '产品类型1' },
+				{ value: 310, name: '产品类型2' },
+				{ value: 204, name: '产品类型3' },
+				{ value: 175, name: '产品类型4' },
+				{ value: 221, name: '产品类型5' },
+				{ value: 120, name: '产品类型6' }
 			],
-			pieData6: [
-				{ value: 204, name: '建筑物垮塌事故' }
-			],
-			pieData7: [
-				{ value: 270, name: '洪涝' },
-				{ value: 120, name: '地震' },
-				{ value: 123, name: '台风' },
-				{ value: 51, name: '海啸' },
-				{ value: 14, name: '雪灾' },
-				{ value: 152, name: '地质灾害' }
-			],
-			pieData8: [
-				{ value: 120, name: '恐怖袭击' },
-				{ value: 204, name: '群体性治安事件' },
-				{ value: 90, name: '重大环境污染' },
-				{ value: 175, name: '公共卫生事件' },
-				{ value: 120, name: '城市给水管网爆裂' }
-			],
-			pieData9: [
-				{ value: 400, name: '群众遇险事件' }
-			],
-			pieData10: [
-				{ value: 400, name: '群众求助救援' }
-			],
+			
 			//tabledata
 			tabledata: [
 				{ name: '化危品火灾爆炸', childrenName: '爆炸', count: '2999', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
@@ -159,9 +139,9 @@ var vue = new Vue({
 		/**面包屑 by li.xue 20180628*/
 		var type = getQueryString("type");
 		if (type == "DPYL") {
-			loadBreadcrumb("统计分析", "各类型预案数量统计页面");
+			loadBreadcrumb("统计分析", "按面积范围");
 		} else {
-			loadBreadcrumb("各类型预案数量统计页面", '-1');
+			loadBreadcrumb("按面积范围", '-1');
 		}
 	},
 	methods: {
@@ -170,7 +150,7 @@ var vue = new Vue({
 			var myChart = echarts.init(document.getElementById('bar'));
 			option = {
 				title: {
-					text: '各类型预案数量柱状图',
+					text: '按光地展位面积范围统计展会预报名情况柱状图',
 					x: 'center'
 				},
 				tooltip: {
@@ -192,18 +172,12 @@ var vue = new Vue({
 						data: this.barData.name,
 						axisLabel: {
 							interval: 0,
-							/*
-							formatter:function(value)  
-							{  
-							   return value.split("").join("\n");  
-							},
-							*/
-							rotate: "45"
 						},
 					}
 				],
 				yAxis: [
-					{
+					{ 
+						name:'数量',
 						type: 'value',
 						splitLine: {
 							show: false
@@ -212,11 +186,11 @@ var vue = new Vue({
 				],
 				series: [
 					{
-						name: '预案数量',
+						name: '数量',
 						type: 'bar',
 						barWidth: '100%',
-						stack: '预案',
-						barWidth: '16',
+						stack: '面积',
+						barWidth: '45',
 						data: this.barData.value,
 						smooth: true,
 						itemStyle: {
@@ -233,13 +207,13 @@ var vue = new Vue({
 			};
 			myChart.on('click', function (param) {
 				var index = param.dataIndex + 1;
-				vm.pieData = eval("vm.pieData" + index);
-				vm.pieTitle = eval("vm.pieTitle" + index);
+				vue.pieData = eval("vue.pieData" + index);
+				vue.pieTitle = eval("vue.pieTitle" + index);
 				var pieChart = echarts.getInstanceByDom(document.getElementById("pie"));
 				if (pieChart != null && pieChart != "" && pieChart != undefined) {
 					pieChart.dispose();
 				}
-				vm.pieChart();
+				vue.pieChart();
 			});
 			// 此外param参数包含的内容有：
 			// param.seriesIndex：系列序号（series中当前图形是第几个图形第几个，从0开始计数）
