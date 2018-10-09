@@ -145,6 +145,27 @@ var vue = new Vue({
 		}
 	},
 	methods: {
+		//获取产品类型
+		getCPLX: function () {
+
+            var params = {
+				CPLX: CPLX,
+				BZZWGS:BZZWGS,
+				SNGDZW:SNGDZW,
+				SWGDZW:SWGDZW,
+				QYIDSL
+			};
+
+			axios.post('/xfxhapi/codelist/detail/doFindByCodeid', params).then(function (res) {
+				this.tableData = tableTemp.concat(res.data.result.list);
+				this.total = res.data.result.total;
+				this.loading = false;
+			}.bind(this), function (error) {
+				console.log(error)
+			})
+			
+			
+		},
 		// 左侧柱状图
 		barChart: function () {
 			var myChart = echarts.init(document.getElementById('bar'));
