@@ -93,7 +93,9 @@ var vue = new Vue({
             //操作方式
             operation: "insert",
             //登陆用户
-            shiroData: ""
+            shiroData: "",
+            //修改密码是否显示
+            editPasswordShow: false,
         }
     },
     created: function () {
@@ -221,6 +223,7 @@ var vue = new Vue({
         //新增事件
         addClick: function () {
             this.dialogTitle = "用户新增";
+            this.editPasswordShow = true;
             this.getAllRoles();
             /**组织机构隐藏 */
             /**this.getZzjgData(null);*/
@@ -230,11 +233,18 @@ var vue = new Vue({
         editClick: function(val, index) {
             this.editIndex = index;
             this.dialogTitle = "用户编辑";
+            this.editPasswordShow = false;
             this.getAllRoles();
             /**组织机构隐藏 */
             /**this.getZzjgData(val)*/;
             this.editSearch(val);
             this.editFormVisible = true;
+        },
+
+        //修改密码
+        editPassword: function(){
+            var flag = this.editPasswordShow;
+            this.editPasswordShow = !flag;
         },
 
         //修改时查询方法
@@ -311,13 +321,17 @@ var vue = new Vue({
                     showClose: true
                 });
                 return false;
-            }else if(this.editForm.organizationId=="" || this.editForm.organizationId==null || this.editForm.organizationId==[]){
+            }
+            /**
+            else if(this.editForm.organizationId=="" || this.editForm.organizationId==null || this.editForm.organizationId==[]){
                 this.$message.warning({
                     message: '请选择组织机构！',
                     showClose: true
                 });
                 return false;
-            }else if(this.editForm.mobile!="" && this.editForm.mobile!=null){
+            }
+             */
+            else if(this.editForm.mobile!="" && this.editForm.mobile!=null){
                 var mobileReg = '/^[1][3,4,5,7,8][0-9]{9}$/';
                 if (!mobileReg.test(this.editForm.mobile)){
                     this.$message.warning({
@@ -332,12 +346,6 @@ var vue = new Vue({
                     showClose: true
                 });
                 return false;
-            }else if(this.editForm.roles==[]){
-                this.$message.warning({
-                    message: '请选择用户角色！',
-                    showClose: true
-                });
-                return false;
             }
             return true;
         },
@@ -346,17 +354,19 @@ var vue = new Vue({
         editSubmit: function(val) {
             if(this.validateSave()){
                 //组织机构
+                /**
                 var organizationIdString = "";
                 if(val.organizationId.length>0){
                     organizationIdString = val.organizationId[val.organizationId.length-1];
                 }
+                 */
                 //角色
                 var roleList = [];
                 for(var i=0;i<val.roles.length;i++){
                     for(var j=0;j<this.allRoles.length;j++){
                         if(val.roles[i] == this.allRoles[j].rolename){
                             var temp = {
-                                roleid : this.allRoles[j].roleid,
+                                roleid: this.allRoles[j].roleid,
                                 rolename: this.allRoles[j].rolename,
                                 roleinfo: this.allRoles[j].roleinfo
                             }
@@ -369,14 +379,15 @@ var vue = new Vue({
                     username: val.username,
                     password: val.password,
                     realname: val.realname,
-                    organizationId: organizationIdString,
+                    //organizationId: organizationIdString,
                     birth: val.birth,
                     sex: val.sex,
                     mobile: val.mobile,
                     email: val.email,
-                    roles: roleList
+                    roles: roleList,
+                    deptid: 'GLYH'
                 }
-                if(this.dialogTitle == "用户新增"){
+                if(this.editPasswordShow){
                     if(this.editForm.password=="" || this.editForm.password==null){
                         this.$message.warning({
                             message: '请输入密码！',
@@ -396,6 +407,8 @@ var vue = new Vue({
                         });
                         return false;
                     }
+                }
+                if(this.dialogTitle == "用户新增"){
                     axios.get('/xfxhapi/account/getNum/' + this.editForm.username).then(function(res){
                         if(res.data.result != 0){
                             this.$message({
