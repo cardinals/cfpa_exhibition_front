@@ -49,7 +49,7 @@ var vue = new Vue({
     methods: {
         //审核状态下拉框
         getShztData: function () {
-            axios.get('/api/codelist/getCodetype/SHZT').then(function (res) {
+            axios.get('/xfxhapi/codelist/getCodetype/SHZT').then(function (res) {
                 this.shztData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -70,13 +70,13 @@ var vue = new Vue({
                 yjdz: this.searchForm.yjdz,
                 shzt: this.searchForm.shzt,
                 approveflag: 'y',
-                jdh: this.shiroData.organizationVO.jgid.substr(0, 2) + '000000',
                 pageSize: this.pageSize,
                 pageNum: this.currentPage,
                 orgUuid: this.shiroData.organizationVO.uuid,
                 orgJgid: this.shiroData.organizationVO.jgid
             }
             axios.post('/zhapi/qyjbxx/page', params).then(function (res) {
+                //debugger
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
