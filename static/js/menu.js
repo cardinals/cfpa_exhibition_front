@@ -23,12 +23,16 @@ var menuData=[];
 axios.get(baseUrl+'/xfxhapi/getMenu').then(function(res){
         for(var i=0;i<res.data.result.length;i++){
             var obj=res.data.result[i];
+            var icon = obj.icon;
+            if(obj.parentId=='-1' && icon == null){
+                icon = "menu/menu-init.png"
+            }
             menuData.push({
                 "index": obj.index,
                 "resourceinfo": obj.resourceinfo,
                 "children": obj.children,
                 "url": obj.url,
-                "icon": "background:url(../../static/images/" + obj.icon + ") no-repeat"
+                "icon": "background:url(../../static/images/" + icon + ") no-repeat"
             });
     }
 }.bind(this),function(error){
