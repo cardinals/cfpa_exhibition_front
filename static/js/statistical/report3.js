@@ -211,8 +211,7 @@ var vue = new Vue({
 						barWidth: '45',
 
 						//柱状图
-						// data: this.tjfxs1,
-
+						// data: this.getList(),
 						data:this.tjfxs1,
 
 						smooth: true,
@@ -250,6 +249,13 @@ var vue = new Vue({
 			// param.type：点击事件均为click
 			myChart.setOption(option);
 		},
+		getList: function () {
+			var list = new Array();
+			for (var i=1; i<=4;i++) {
+				list.push(eval("vue.tjfxs" + i))
+			   }
+			return list;
+			},
 		// 右侧玫瑰图
 		pieChart: function () {
 			var myChart = echarts.init(document.getElementById('pie'));
