@@ -42,28 +42,30 @@ new Vue({
         //企业基本信息
         getJbxxData: function (val) {
             this.loading = true;
-            axios.get('/zhapi/qyjbxx/' + val).then(function (res) {
+            axios.get('/zhapi/qyjbxx/doFindJbxxById/' + val).then(function (res) {
                 this.jbxxData = res.data.result;
-                //创建时间格式化
-                if (this.jbxxData.cjsj == null || this.jbxxData.cjsj == "") {
-                    this.jbxxData.cjsj = '';
-                } else {
-                    this.jbxxData.cjsj = dateFormat(this.jbxxData.cjsj);
+                if (this.jbxxData != null) {
+                    //创建时间格式化
+                    if (this.jbxxData.cjsj == null || this.jbxxData.cjsj == "") {
+                        this.jbxxData.cjsj = '';
+                    } else {
+                        this.jbxxData.cjsj = dateFormat(this.jbxxData.cjsj);
+                    }
+                    //修改时间格式化
+                    if (this.jbxxData.xgsj == null || this.jbxxData.xgsj == "") {
+                        this.jbxxData.xgsj = '';
+                    } else {
+                        this.jbxxData.xgsj = dateFormat(this.jbxxData.xgsj);
+                    }
+                    //审核时间格式化
+                    if (this.jbxxData.shsj == null || this.jbxxData.shsj == "") {
+                        this.jbxxData.shsj = '';
+                    } else {
+                        this.jbxxData.shsj = dateFormat(this.jbxxData.shsj);
+                    }
+                    var photo = document.getElementById("photo");
+                    photo.src = "data:image/png;base64," + this.jbxxData.yyzzBase64
                 }
-                //修改时间格式化
-                if (this.jbxxData.xgsj == null || this.jbxxData.xgsj == "") {
-                    this.jbxxData.xgsj = '';
-                } else {
-                    this.jbxxData.xgsj = dateFormat(this.jbxxData.xgsj);
-                }
-                //审核时间格式化
-                if (this.jbxxData.shsj == null || this.jbxxData.shsj == "") {
-                    this.jbxxData.shsj = '';
-                } else {
-                    this.jbxxData.shsj = dateFormat(this.jbxxData.shsj);
-                }
-                var photo = document.getElementById("photo");
-                photo.src = "data:image/png;base64," + Base64.decode(this.jbxxData.yyzz)
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -73,17 +75,19 @@ new Vue({
         getKpxxData: function (val) {
             axios.get('/zhapi/qykpxx/' + val).then(function (res) {
                 this.kpxxData = res.data.result;
-                //创建时间格式化
-                if (this.kpxxData.cjsj == null || this.kpxxData.cjsj == "") {
-                    this.kpxxData.cjsj = '';
-                } else {
-                    this.kpxxData.cjsj = dateFormat(this.kpxxData.cjsj);
-                }
-                //修改时间格式化
-                if (this.kpxxData.xgsj == null || this.kpxxData.xgsj == "") {
-                    this.kpxxData.xgsj = '';
-                } else {
-                    this.kpxxData.xgsj = dateFormat(this.kpxxData.xgsj);
+                if (this.kpxxData != null) {
+                    //创建时间格式化
+                    if (this.kpxxData.cjsj == null || this.kpxxData.cjsj == "") {
+                        this.kpxxData.cjsj = '';
+                    } else {
+                        this.kpxxData.cjsj = dateFormat(this.kpxxData.cjsj);
+                    }
+                    //修改时间格式化
+                    if (this.kpxxData.xgsj == null || this.kpxxData.xgsj == "") {
+                        this.kpxxData.xgsj = '';
+                    } else {
+                        this.kpxxData.xgsj = dateFormat(this.kpxxData.xgsj);
+                    }
                 }
             }.bind(this), function (error) {
                 console.log(error)
@@ -101,8 +105,10 @@ new Vue({
         getQyjsData: function (val) {
             axios.get('/zhapi/qyjs/' + val).then(function (res) {
                 this.qyjsData = res.data.result;
-                var photo = document.getElementById("imgLogo");
-                photo.src = "data:image/png;base64," + Base64.decode(this.qyjsData.logo)
+                if (this.qyjsData != null) {
+                    var photo = document.getElementById("imgLogo");
+                    photo.src = "data:image/png;base64," + this.qyjsData.logo;
+                }
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -111,8 +117,10 @@ new Vue({
         getCpjsData: function (val) {
             axios.get('/zhapi/qycpjs/' + val).then(function (res) {
                 this.cpjsData = res.data.result;
-                var photo = document.getElementById("imgProduct");
-                photo.src = "data:image/png;base64," + Base64.decode(this.cpjsData.cptp)
+                if (this.cpjsData != null) {
+                    var photo = document.getElementById("imgProduct");
+                    photo.src = "data:image/png;base64," + this.cpjsData.cptp
+                }
             }.bind(this), function (error) {
                 console.log(error)
             })
