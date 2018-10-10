@@ -13,7 +13,7 @@ var vue = new Vue({
 			tjfxbarData:"",
 
 			barData: {
-				name: ['24-50 m²', '50-100 m²', '100-200 m²', '200 m²', '以上'],
+				name: ['24-50 m²', '50-100 m²', '100-200 m²', '200 m²以上'],
 				value: [935, 535, 814, 232, 851],
 			},
 
@@ -39,8 +39,7 @@ var vue = new Vue({
 				{ value: 190, name: '24-50 m²' },
 				{ value: 290, name: '50-100 m²' },
 				{ value: 350, name: '100-200 m²' },
-				{ value: 400, name: '200 m²' },
-				{ value: 500, name: '以上' }
+				{ value: 400, name: '200 m²以上' }
 			 ],
 			pieData1: [
 				{ value: 400, name: '产品类型1' },
@@ -140,11 +139,12 @@ var vue = new Vue({
 		}
 	},
 	mounted: function () {
-		this.getCPLX();
+	
 		this.barChart();
 		this.pieData=this.pieData0;
 		this.pieTitle=this.pieTitle0;
 		this.pieChart();
+		this.getCPLX();
 	},
 	created: function () {
 		/**菜单选中 by li.xue 20180628*/
@@ -162,7 +162,7 @@ var vue = new Vue({
 		getCPLX: function () {
 			var params = {};
 			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {
-				debugger;
+				
 				this.tjfxtabledata = res.data.result;
 				console.log(error)
 			})
