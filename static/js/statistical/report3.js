@@ -202,6 +202,7 @@ var vue = new Vue({
 						},
 					}
 				],
+				
 				series: [
 					{
 						name: '数量',
