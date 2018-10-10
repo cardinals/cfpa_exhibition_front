@@ -9,15 +9,10 @@ var vue = new Vue({
 				dateStart: "",
 				dateEnd: "",
 			},
+			//tjfx
+			tjfxdata:[],
 			//tabledata
-			tabledata: [
-				{ name: '产品类型1', count: '2999',  zongdui: '1335', zhidui: '1335', dazhongdui: '3335', zz: '135', kk: '135' },
-				{ name: '产品类型2', count: '1142',  zongdui: '335', zhidui: '335', dazhongdui: '1335', zz: '135', kk: '135' },
-				{ name: '产品类型3', count: '1218',  zongdui: '1035', zhidui: '670', dazhongdui: '6035', zz: '135', kk: '135' },
-				{ name: '产品类型4', count: '1021',  zongdui: '935', zhidui: '1035', dazhongdui: '1935', zz: '135', kk: '135' },
-				{ name: '产品类型5', count: '1455',  zongdui: '335', zhidui: '500', dazhongdui: '1335', zz: '135', kk: '135' },
-				{ name: '产品类型6', count: '1919',  zongdui: '1335', zhidui: '670', dazhongdui: '4335', zz: '135', kk: '135' }
-			],
+			tabledata: [],
 			//表高度变量
 			tableheight: 1360,
 			//显示加载中样
@@ -26,6 +21,8 @@ var vue = new Vue({
 		}
 	},
 	mounted: function () {
+		//图标数据
+		this.getCPLX();
 		this.echarts1();
 	},
 	created: function () {
@@ -42,15 +39,9 @@ var vue = new Vue({
 	methods: {
 		//获取统计分析图表数据
 		getCPLX: function () {
-			
-            var params = {
-				cplx: cplx,
-				czqysl:czqysl,
-				bzzwsl:bzzwsl,
-				gdzwmj:gdzwmj,
-			};
-			axios.post('/xfxhapi/qyzwyx/dofindtjfx', params).then(function (res) {
-				this.tableData = res.data.result;
+			var params = {};
+			axios.post('/zhapi/qyzwyx/dofindtjfx',params).then(function (res) {
+				this.tjfxdata = res.data.result;
 				this.loading = false;
 			}.bind(this), function (error) {
 				console.log(error)
@@ -60,6 +51,7 @@ var vue = new Vue({
 
 		// 中央下部按产品分类柱状图
 		echarts1: function () {
+			
 			var myBarChart = echarts.init(document.getElementById('bar'));
 			BarmaxOption = {
 				title: {
@@ -78,7 +70,8 @@ var vue = new Vue({
 					y: '20px',
 					iGap: 16,
 					iWidth: 18,
-					data: this.tabledata.name,
+					data:this.tjfxdata.cplxmc,
+					// data: this.tabledata.name,
 					align: 'left',
 					iGap: 8,
 				},
@@ -154,7 +147,8 @@ var vue = new Vue({
 						type: 'bar',
 						barWidth: '100%',
 						barWidth: '45',
-						data: this.getList('zongdui'),
+						data: this.getList('czqysl'),
+						// data: this.getList('zongdui'),
 					},
 					{
 						name: '标准展位数量',
@@ -162,7 +156,8 @@ var vue = new Vue({
 						barWidth: '100%',
 						barWidth: '45',
 						yAxisIndex: 1,
-						data: this.getList('zhidui'),
+						data: this.getList('bwzwgssl'),
+						// data: this.getList('zhidui'),
 					},
 					{
 						name: '光地展位面积m2',
@@ -170,7 +165,8 @@ var vue = new Vue({
 						barWidth: '100%',
 						barWidth: '45',
 						yAxisIndex: 2,
-						data: this.getList('dazhongdui'),
+						data: this.getList('gdzwmj'),
+						// data: this.getList('dazhongdui'),
 					}
 				
 				]
@@ -213,5 +209,23 @@ var vue = new Vue({
 			}
 			return list;
 		},
+		//真实数据
+		// getList: function (column) {
+		// 	var list = new Array();
+		// 	if ('czqysl' == column) {
+		// 		for (var i in this.tjfxdata) {
+		// 			list.push(this.tjfxdata[i].czqysl;
+		// 		}
+		// 	} else if ('bzzwgs' == column) {
+		// 		for (var i in this.tjfxdata) {
+		// 			list.push(this.tjfxdata[i].bwzwgssl)
+		// 		}
+		// 	} else if ('sngdzw' == column) {
+		// 		for (var i in this.tjfxdata) {
+		// 			list.push(this.tjfxdata[i].gdzwsl)
+		// 		}
+		// 	} 
+		// 	return list;
+		// },
 	}
 })
