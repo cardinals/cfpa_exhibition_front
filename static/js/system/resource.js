@@ -17,6 +17,9 @@ var vm = new Vue({
           permissionDetailList: [],
           permissionDetailSelect:[],
           addVisible:false,
+          //资源类型
+          typeData: [{codeValue:'1',codeName:'菜单'},
+                {codeValue:'2',codeName:'操作'}],
           addForm: {
             parentid:"",
             resourcename:"",
@@ -32,12 +35,10 @@ var vm = new Vue({
             resourceinfo: [
                 { required: true, message: '请输入资源描述', trigger: 'blur' },
             ],
-            /** 
-            seqno: [
-                { required: true, message: '请输入顺序', trigger: 'blur' }
+            type: [
+                { required: true, message: '请选择资源类型', trigger: 'blur' }
                
             ],
-            */
           },
         };
       },
@@ -184,7 +185,7 @@ var vm = new Vue({
       },
     //左侧树显示的label
     renderContent(createElement, { node, data, store }) {
-        // if(data.parentId == -1){
+        if(data.type == '1'){
           return createElement(
             'span',
             {},
@@ -192,33 +193,32 @@ var vm = new Vue({
               createElement('span',{},[createElement('span',node.label)]),
               createElement('span',{},[
                 createElement('el-button',{
-                                          style:{'font-size':' 14px','float':'right','margin-right':'10px'},
+                                          style:{'font-size':' 15px','float':'right','margin-right':'10px'},
                                           attrs:{'type':'text'},
                                           on:{click:function(){vm.remove(store, data);}},
                                           domProps: {innerHTML: '-'}}),
                 createElement('el-button',{
-                                        style:{'font-size':' 14px','float':'right','margin-right':'20px'},
+                                        style:{'font-size':' 15px','float':'right','margin-right':'20px'},
                                         attrs:{'type':'text'},
                                         on:{click:function(){vm.append(store, data);}},
                                         domProps: {innerHTML: '+'}})
               ])
             ]
           );
-        // }else{
-        //   return createElement(
-        //     'span',
-        //     {},
-        //     [
-        //       createElement('span',{},[createElement('span',node.label)]),
-        //       createElement('span',{},[
-        //         createElement('el-button',{style:{'font-size':' 14px','float':'right',
-        //                                     'margin-right':'10px'},attrs:{'type':'text'},on:{click:function(){
-        //                                       vm.remove(store, data);}},domProps: {innerHTML: '-'}})
-        //       ])
-        //     ]
-        //   );
-        // }
-        
+        }else{
+          return createElement(
+            'span',
+            {},
+            [
+              createElement('span',{},[createElement('span',node.label)]),
+              createElement('span',{},[
+                createElement('el-button',{style:{'font-size':' 15px','float':'right',
+                                            'margin-right':'10px'},attrs:{'type':'text'},on:{click:function(){
+                                              vm.remove(store, data);}},domProps: {innerHTML: '-'}})
+              ])
+            ]
+          );
+        }
       },
     //新增事件
     checkAdd:function(val) {
