@@ -11,7 +11,22 @@ new Vue({
             //进度条
             active: 0,
             //基本信息表单
-            baseInforForm: [],
+            baseInforForm: {
+                zwgsmc:'',
+                ywgsmc:'',
+                frdb:'',
+                frdbdh:'',
+                yjdzsheng:'',
+                yjdzshi:'',
+                yjdzxx:'',
+                bgdh:'',
+                cz:'',
+                lxr:'',
+                lxrsj:'',
+                wz:'',
+                dzyx:'',
+                yyzz:'',
+            },
             //开票信息表单
             kpxxForm: [],
             //问卷调查表单
@@ -64,6 +79,108 @@ new Vue({
             hyxydj_data: [],
             //产品所属分类
             cpssfl_data: [],
+            
+            baseInforRules: {
+                zwgsmc: [
+                  { required: true, message: '请输入中文公司名称', trigger: 'blur' }
+                ],
+                xzqh: [
+                    { required: true, message: '请选择邮寄地址省市', trigger: 'change' }
+                ],
+                yjdzxx: [
+                  { required: true, message: '请输入详细地址', trigger: 'blur' }
+                ],
+                bgdh: [
+                    { required: true, message: '请输入办公电话', trigger: 'blur' }
+                  ],
+                frdb: [
+                    { required: true, message: '请输入法人代表', trigger: 'blur' }
+                  ],
+                frdbdh: [
+                    { required: true, message: '请输入法人代表电话', trigger: 'blur' }
+                  ],
+                lxr: [
+                    { required: true, message: '请输入联系人', trigger: 'blur' }
+                  ],
+                lxrsj: [
+                    { required: true, message: '请输入联系人手机号码', trigger: 'blur' }
+                  ],
+                wz: [
+                    { required: true, message: '请输入网址', trigger: 'blur' }
+                  ],
+                dzyx: [
+                    { required: true, message: '请输入邮箱', trigger: 'blur' }
+                  ]
+              },
+            kpxxRules: {
+                kplx: [
+                    { required: true, message: '请选择开票类型', trigger: 'change' }
+                  ],
+                kpgsmc: [
+                  { required: true, message: '请输入开票公司名称', trigger: 'blur' }
+                ],
+                tyshxydm: [
+                    { required: true, message: '请输入统一社会信用代码', trigger: 'blur' },
+                    { min: 18, max: 18, message: '请输入18位统一社会信用代码', trigger: 'blur' }
+                ],
+                gsdz: [
+                  { required: true, message: '请输入公司地址', trigger: 'blur' }
+                ],
+                dhhm: [
+                  { required: true, message: '请输入电话号码', trigger: 'blur' }
+                ],
+                khyh: [
+                  { required: true, message: '请输入开户银行', trigger: 'blur' }
+                ],
+                yhzh: [
+                  { required: true, message: '请输入银行账号', trigger: 'blur' }
+                ]
+            },
+            wjdcRules: {
+                gsxz: [
+                    { required: true, message: '请选择是公司性质', trigger: 'change' }
+                ],
+                sfhwdlcp: [
+                    { required: true, message: '请选择是否代理海外产品', trigger: 'change' }
+                ],
+                hwdlcppp: [
+                    { required: true, message: '请输入产品品牌', trigger: 'blur' }
+                ],
+                fmzl: [
+                  { required: true, message: '请输入发明专利(项)', trigger: 'blur' }
+                ],
+                syxxzl: [
+                  { required: true, message: '请输入实用新型专利(项)', trigger: 'blur' }
+                ],
+                wgsjzl: [
+                  { required: true, message: '请输入外观设计专利(项)', trigger: 'blur' }
+                ],
+                sfgxjsqy: [
+                    { required: true, message: '请选择是否为高新技术企业', trigger: 'change' }
+                ],
+                gxjsjb: [
+                    { required: true, message: '请选择高新技术级别', trigger: 'change' }
+                ],
+                sfhyxydj: [
+                    { required: true, message: '请选择是否在2018年参与中国消防协会消防行业信用等级评价', trigger: 'change' }
+                ],
+                hyxydj: [
+                    { required: true, message: '请选择行业信用等级', trigger: 'change' }
+                ]
+            },
+            qyjsRules: {
+                qyjj: [
+                  { required: true, message: '请输入企业简介', trigger: 'blur' }
+                ]
+            },
+            cpjsRules: {
+                cplx: [
+                  { required: true, message: '请选择产品所属分类', trigger: 'change' }
+                ],
+                cpjj: [
+                  { required: true, message: '请输入产品简介', trigger: 'blur' }
+                ]
+            },
         }
     },
     
@@ -78,7 +195,7 @@ new Vue({
         
     },
     mounted: function () {
-        //this.getXzqhDataTree();
+        this.getXzqhDataTree();
         this.getGsxz();//公司性质
         this.getGxjsjb();//高新技术级别
         this.getCplx();//产品类型
@@ -88,7 +205,12 @@ new Vue({
     methods: {
         //行政区划级联选择数据
         getXzqhDataTree: function () {
-            axios.get('/xfxhapi/codelist/getXzqhTreeByUser').then(function (res) {
+            var params = {
+                codetype: "XZQH",
+                list: [2,4]
+            };
+            axios.post('/xfxhapi/codelist/getCodelisttree2',params).then(function (res) {
+                debugger;
                 this.xzqhDataTree = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -162,22 +284,47 @@ new Vue({
             }
         },
         //基本信息提交（下一步）
-        submitJbxx: function(){
-            this.active = 1;
-            this.isJbxxShow = false;
-            this.isKpxxShow = true;
+        submitJbxx: function(formName){
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.active = 1;
+                    this.isJbxxShow = false;
+                    this.isKpxxShow = true;
+                  alert('submit!');
+                } else {
+                  console.log('error submit!!');
+                  return false;
+                }
+            });
+            
         },
         //开票信息提交（下一步）
-        submitKpxx: function(){
-            this.active = 2;
-            this.isKpxxShow = false;
-            this.isWjdcShow = true;
+        submitKpxx: function(formName){
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.active = 2;
+                    this.isKpxxShow = false;
+                    this.isWjdcShow = true;
+                  alert('submit!');
+                } else {
+                  console.log('error submit!!');
+                  return false;
+                }
+            });
         },
         //问卷调查提交（下一步）
-        submitWjdc: function(){
-            this.active = 3;
-            this.isWjdcShow = false;
-            this.isCpjsShow = true;
+        submitWjdc: function(formName){
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.active = 3;
+                    this.isWjdcShow = false;
+                    this.isCpjsShow = true;
+                  alert('submit!');
+                } else {
+                  console.log('error submit!!');
+                  return false;
+                }
+            });
         },
         //产品介绍提交（下一步）
         submitCpjs: function(){
