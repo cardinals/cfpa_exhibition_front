@@ -9,11 +9,14 @@ var vue = new Vue({
 				dateStart: "",
 				dateEnd: "",
 			},
-			//barData
+			//
+			tjfxbarData:"",
+
 			barData: {
 				name: ['24-50 m²', '50-100 m²', '100-200 m²', '200 m²', '以上'],
 				value: [935, 535, 814, 232, 851],
 			},
+
 			//pieTitle
 			pieTitle: '',
 			pieTitle0: '按光地展位面积范围统计展会预报名情况比例图',
@@ -25,6 +28,13 @@ var vue = new Vue({
 			
 			//pieData
 			pieData: [],
+			pieData0: [],
+			pieData1: [],
+			pieData2: [],
+			pieData3: [],
+			pieData4: [],
+			pieData5: [],
+
 			pieData0: [
 				{ value: 190, name: '24-50 m²' },
 				{ value: 290, name: '50-100 m²' },
@@ -74,6 +84,8 @@ var vue = new Vue({
 			],
 			
 			//tabledata
+			tjfxtabledata:[],
+
 			tabledata: [
 				{ name: '化危品火灾爆炸', childrenName: '爆炸', count: '2999', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
 				{ name: '化危品火灾爆炸', childrenName: '可燃气体', count: '1142', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
@@ -128,6 +140,7 @@ var vue = new Vue({
 		}
 	},
 	mounted: function () {
+		this.getCPLX();
 		this.barChart();
 		this.pieData=this.pieData0;
 		this.pieTitle=this.pieTitle0;
@@ -147,25 +160,15 @@ var vue = new Vue({
 	methods: {
 		//获取产品类型
 		getCPLX: function () {
-
-            var params = {
-				CPLX: CPLX,
-				BZZWGS:BZZWGS,
-				SNGDZW:SNGDZW,
-				SWGDZW:SWGDZW,
-				QYIDSL
-			};
-
-			axios.post('/xfxhapi/codelist/detail/doFindByCodeid', params).then(function (res) {
-				this.tableData = tableTemp.concat(res.data.result.list);
-				this.total = res.data.result.total;
-				this.loading = false;
-			}.bind(this), function (error) {
+			var params = {};
+			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {
+				debugger;
+				this.tjfxtabledata = res.data.result;
 				console.log(error)
 			})
 			
-			
 		},
+
 		// 左侧柱状图
 		barChart: function () {
 			var myChart = echarts.init(document.getElementById('bar'));
@@ -190,6 +193,7 @@ var vue = new Vue({
 				xAxis: [
 					{
 						type: 'category',
+						//data: this.tjfxbarData.name,
 						data: this.barData.name,
 						axisLabel: {
 							interval: 0,
@@ -212,6 +216,7 @@ var vue = new Vue({
 						barWidth: '100%',
 						stack: '面积',
 						barWidth: '45',
+						// data: this.tjfxbarData.name,
 						data: this.barData.value,
 						smooth: true,
 						itemStyle: {
@@ -271,6 +276,7 @@ var vue = new Vue({
 					// ],
 					itemGap: 16,
 					itemWidth: 18,
+					// data: this.pieData.cplx,
 					data: this.pieData.name,
 					align: 'left',
 					itemGap: 8,
