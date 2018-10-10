@@ -77,7 +77,9 @@ window.urlRewrite = function(url){
     if(url=='/prediction/exhprediction_edit' || 
         url=='/signin/personal_edit' ||
         url=='/home' ||
-        url=='/prediction/exhprediction_approve'
+        url=='/prediction/exhprediction_approve' ||
+        url=='/statistical/statistical_product' ||
+        url=='/statistical/statistical_area'
         ){
         return url;
     }else{
