@@ -122,7 +122,19 @@ new Vue({
                 tyshxydm: [
                     { required: true, message: '请输入统一社会信用代码', trigger: 'blur' },
                     { min: 18, max: 18, message: '请输入18位统一社会信用代码', trigger: 'blur' }
-                  ],
+                ],
+                gsdz: [
+                  { required: true, message: '请输入公司地址', trigger: 'blur' }
+                ],
+                dhhm: [
+                  { required: true, message: '请输入电话号码', trigger: 'blur' }
+                ],
+                khyh: [
+                  { required: true, message: '请输入开户银行', trigger: 'blur' }
+                ],
+                yhzh: [
+                  { required: true, message: '请输入银行账号', trigger: 'blur' }
+                ]
             },
             wjdcRules: {
                 gsxz: [
@@ -130,6 +142,9 @@ new Vue({
                 ],
                 sfhwdlcp: [
                     { required: true, message: '请选择是否代理海外产品', trigger: 'change' }
+                ],
+                hwdlcppp: [
+                    { required: true, message: '请输入产品品牌', trigger: 'blur' }
                 ],
                 fmzl: [
                   { required: true, message: '请输入发明专利(项)', trigger: 'blur' }
@@ -143,9 +158,15 @@ new Vue({
                 sfgxjsqy: [
                     { required: true, message: '请选择是否为高新技术企业', trigger: 'change' }
                 ],
+                gxjsjb: [
+                    { required: true, message: '请选择高新技术级别', trigger: 'change' }
+                ],
                 sfhyxydj: [
                     { required: true, message: '请选择是否在2018年参与中国消防协会消防行业信用等级评价', trigger: 'change' }
                 ],
+                hyxydj: [
+                    { required: true, message: '请选择行业信用等级', trigger: 'change' }
+                ]
             },
             qyjsRules: {
                 qyjj: [

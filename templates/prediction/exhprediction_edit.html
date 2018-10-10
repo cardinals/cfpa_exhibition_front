@@ -298,7 +298,7 @@
                                     <span style="color:red;" v-show="isZyfp">* </span>公司地址</el-label>
 							</el-col>
 							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                <el-form-item prop="gsdz">
+                                <el-form-item prop="gsdz" :rules="this.isZyfp?kpxxRules.gsdz:[{ required: false, message: '请输入公司地址', trigger: 'blur' }]">
                                     <el-input size="small" v-model="kpxxForm.gsdz" placeholder="公司地址"></el-input>
                                 </el-form-item>
 							</el-col>
@@ -311,7 +311,7 @@
                                     <span style="color:red;">* </span>电话号码</el-label>
                             </el-col>
                             <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                <el-form-item prop="dhhm">
+                                <el-form-item prop="dhhm" :rules="this.isZyfp?kpxxRules.dhhm:[{ required: false, message: '请输入电话号码', trigger: 'blur' }]">
                                     <el-input size="small" v-model="kpxxForm.dhhm" placeholder="电话号码"></el-input>
                                 </el-form-item>
                             </el-col>
@@ -323,7 +323,7 @@
                                     <span style="color:red;">* </span>开户银行</el-label>
 							</el-col>
 							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                <el-form-item prop="khyh">
+                                <el-form-item prop="khyh" :rules="this.isZyfp?kpxxRules.khyh:[{ required: false, message: '请输入开户银行', trigger: 'blur' }]">
                                     <el-input size="small" v-model="kpxxForm.khyh" placeholder="开户银行"></el-input>
                                 </el-form-item>
 							</el-col>
@@ -336,7 +336,7 @@
                                     <span style="color:red;">* </span>银行账号</el-label>
                             </el-col>
                             <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                <el-form-item prop="yhzh">
+                                <el-form-item prop="yhzh" :rules="this.isZyfp?kpxxRules.yhzh:[{ required: false, message: '请输入银行账号', trigger: 'blur' }]">
                                     <el-input size="small" v-model="kpxxForm.yhzh" placeholder="银行账号"></el-input>
                                 </el-form-item>
                             </el-col>
@@ -393,7 +393,7 @@
                                     <span style="color:red;">* </span>产品品牌</el-label>
 							</el-col>
 							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" v-show="ishwdlcp">
-                                <el-form-item prop="hwdlcppp">
+                                <el-form-item prop="hwdlcppp" :rules="this.ishwdlcp?wjdcRules.hwdlcppp:[{ required: false, message: '请输入产品品牌', trigger: 'blur' }]">
                                     <el-input size="small" v-model="wjdcForm.hwdlcppp" placeholder="产品品牌"></el-input>
                                 </el-form-item>
 							</el-col>
@@ -454,7 +454,7 @@
                                     <span style="color:red;">* </span>高新技术级别</el-label>
 							</el-col>
 							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" v-show="isgxjsqy">
-                                <el-form-item prop="gxjsjb">
+                                <el-form-item prop="gxjsjb" :rules="this.isgxjsqy?wjdcRules.gxjsjb:[{ required: false, message: '请选择高新技术级别', trigger: 'blur' }]">
                                     <el-radio-group v-model="wjdcForm.gxjsjb" size="small" auto-complete="off">
                                         <el-radio v-for="item in gxjsjb_data" :label="item.codeValue" class="radio"><v-text v-text="item.codeName"></v-text></el-radio>
                                     </el-radio-group>
@@ -495,7 +495,7 @@
                                     <span style="color:red;">* </span>行业信用等级</el-label>
 							</el-col>
 							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" v-show="isSfhyxydj">
-                                <el-form-item prop="hyxydj">
+                                <el-form-item prop="hyxydj" :rules="this.isSfhyxydj?wjdcRules.hyxydj:[{ required: false, message: '请选择行业信用等级', trigger: 'blur' }]">
                                     <el-radio-group v-model="wjdcForm.hyxydj" size="small" auto-complete="off">
                                         <el-radio v-for="item in hyxydj_data" :label="item.codeValue" class="radio"><v-text v-text="item.codeName"></v-text></el-radio>
                                     </el-radio-group>
