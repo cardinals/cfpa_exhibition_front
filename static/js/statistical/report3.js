@@ -11,7 +11,9 @@ var vue = new Vue({
 			},
 			//
 			tjfxbarData:"",
-
+			//tabledata
+			tjfxtabledata:[],
+			
 			barData: {
 				name: ['24-50 m²', '50-100 m²', '100-200 m²', '200 m²以上'],
 				value: [935, 535, 814, 232, 851],
@@ -27,13 +29,12 @@ var vue = new Vue({
 			pieTitle5: '以上面积 产品类型统计占比',
 			
 			//pieData
-			pieData: [],
-			pieData0: [],
-			pieData1: [],
-			pieData2: [],
-			pieData3: [],
-			pieData4: [],
-			pieData5: [],
+			pieDataz: [],
+			pieDataz0: [],
+			pieDataz1: [],
+			pieDataz2: [],
+			pieDataz3: [],
+			pieDataz4: [],
 
 			pieData0: [
 				{ value: 190, name: '24-50 m²' },
@@ -73,51 +74,8 @@ var vue = new Vue({
 				{ value: 221, name: '产品类型5' },
 				{ value: 120, name: '产品类型6' }
 			],
-			pieData5: [
-				{ value: 400, name: '产品类型1' },
-				{ value: 310, name: '产品类型2' },
-				{ value: 204, name: '产品类型3' },
-				{ value: 175, name: '产品类型4' },
-				{ value: 221, name: '产品类型5' },
-				{ value: 120, name: '产品类型6' }
-			],
 			
-			//tabledata
-			tjfxtabledata:[],
-
-			tabledata: [
-				{ name: '化危品火灾爆炸', childrenName: '爆炸', count: '2999', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '化危品火灾爆炸', childrenName: '可燃气体', count: '1142', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '化危品火灾爆炸', childrenName: '易燃液体', count: '1218', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '化危品火灾爆炸', childrenName: '易燃固体、自燃物品和遇湿易燃物品', count: '1021', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '化危品火灾爆炸', childrenName: '氧化剂和有机过氧化物', count: '1455', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '建筑堆场类', childrenName: '高层建筑', count: '2751', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '建筑堆场类', childrenName: '人员密集场所', count: '2751', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '建筑堆场类', childrenName: '地下建筑、隧道', count: '2751', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '建筑堆场类', childrenName: '古建筑', count: '2751', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '建筑堆场类', childrenName: '堆垛仓库', count: '2751', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '交通运输类', childrenName: '机动车', count: '1313', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '交通运输类', childrenName: '列车', count: '2999', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '交通运输类', childrenName: '船舶', count: '1142', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '交通运输类', childrenName: '飞行器', count: '1218', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '交通运输类', childrenName: '城市轨道交通工具', count: '1218', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '危化品泄露事故', childrenName: '危险化学品泄漏事故', count: '1021', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '交通事故', childrenName: '交通事故', count: '1455', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '建筑物坍塌事故', childrenName: '建筑物垮塌事故', count: '2751', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '自然灾害事故', childrenName: '洪涝', count: '2999', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '自然灾害事故', childrenName: '地震', count: '1142', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '自然灾害事故', childrenName: '台风', count: '1218', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '自然灾害事故', childrenName: '海啸', count: '1021', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '自然灾害事故', childrenName: '雪灾', count: '1455', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '自然灾害事故', childrenName: '地质灾害', count: '1455', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '公共突发事件', childrenName: '恐怖袭击', count: '1919', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '公共突发事件', childrenName: '群体性治安事件', count: '1299', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '公共突发事件', childrenName: '重大环境污染', count: '1299', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '公共突发事件', childrenName: '公共卫生事件', count: '1299', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '公共突发事件', childrenName: '城市给水管网爆裂', count: '1999', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '群众遇险事件', childrenName: '群众遇险事件', count: '2751', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' },
-				{ name: '群众求助救援', childrenName: '群众求助救援', count: '1313', buju: '99', zongdui: '400', zhidui: '500', dazhongdui: '2000' }
-			],
+			tabledata: [],
 			//表高度变量
 			tableheight: 482,//多选值
 			multipleSelection: [],
@@ -162,8 +120,15 @@ var vue = new Vue({
 		getCPLX: function () {
 			var params = {};
 			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {
-				
+			
 				this.tjfxtabledata = res.data.result;
+				for(var i=0; i<this.tjfxtabledata.length;i++){
+					this.tjfxname.push(this.tjfxtabledata[i].cplxmc)
+				}
+				this.loading = false;
+				this.barChart();
+
+			}.bind(this), function (error) {
 				console.log(error)
 			})
 			

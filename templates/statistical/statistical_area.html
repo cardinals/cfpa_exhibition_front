@@ -37,27 +37,26 @@
                     <div class="inform-content">
                         <div class="table_container">
                             <el-table id="table" border class="tableStyle" :height="tableheight"
-                                ref="multipleTable"
-                                :data="tabledata.slice((currentPage-1)*pageSize,currentPage*pageSize)" 
+                                :data="this.tjfxtabledata" 
                                 @selection-change="currentPageChange">
                                 <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-                               
-                                <el-table-column prop="name" label="产品类型" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
-                                <el-table-column prop="name" label="24-50 m²" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
-                                <el-table-column prop="name" label="50-100 m²" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
-                                <el-table-column prop="name" label="100-200m²" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
-                                <el-table-column prop="name" label="200 m²以上" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
+                                <el-table-column prop="cplxmc" label="产品类型" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
+                                <el-table-column prop="s1" label="24-50 m²" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
+                                <el-table-column prop="s2" label="50-100 m²" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
+                                <el-table-column prop="s3" label="100-200m²" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
+                                <el-table-column prop="s4" label="200 m²以上" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
                                
                             </el-table>
                             
                             <!--列表底部工具条和分页符-->
-                            <el-row type="flex" justify="end">
+                            <!-- <el-row type="flex" justify="end">
                                 <el-col :span="18">
                                     <el-pagination @current-change="currentPageChange" :current-page="currentPage" layout="total, prev, pager, next, jumper"
                                     :total=parseInt(total)>
                                     </el-pagination>
                                 </el-col>
-                            </el-row>
+                            </el-row> -->
+                            
                         </div>
                     </div>
                 </div>
