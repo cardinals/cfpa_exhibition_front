@@ -1,5 +1,5 @@
 .el-form-item {
-    margin-bottom: 15px !important;
+    margin-bottom: 0px !important;
     width: 100%;
 }
 .el-form-item__error{
@@ -7,4 +7,21 @@
 }
 .el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
     background-color: #E8EFF4;
+} 
+.el-checkbox__label{
+    padding-left: 5px;
+}
+.el-checkbox+.el-checkbox{
+    margin-left: 20px;
+}
+.el-checkbox-group.editSelect{
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.el-checkbox-group
+.el-col.searchInline{
+    margin-bottom: 2px;
+}
+.el-tree-node__content{
+    height: 32px;
 }
