@@ -101,15 +101,15 @@ var vue = new Vue({
         },
         //营业执照预览
         imgPreview: function (val) {
-            // axios.get('/zhapi/qyjbxx/doFindYyzzById/' + val.qyid).then(function (res) {
-            //     var imgPreviewData = res.data.result;
-            //     var photo = document.getElementById("flag");
-            //     photo.src = "data:image/png;base64," + imgPreviewData.yyzzBase64;
-            // }.bind(this), function (error) {
-            //     console.log(error)
-            // })
-            var photo = document.getElementById("imgPreview");
-            photo.src = "data:image/png;base64," + Base64.decode(val.yyzz)
+            axios.get('/zhapi/qyjbxx/doYyzzToBase64/' + val).then(function (res) {
+                var imgPreviewData = res.data.result;
+                var photo = document.getElementById("flag");
+                photo.src = "data:image/png;base64," + imgPreviewData.yyzzBase64;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+            // var photo = document.getElementById("imgPreview");
+            // photo.src = "data:image/png;base64," + Base64.decode(val.yyzz)
             this.imgViewVisible = true;
         },
         //获取选中的行号（从0开始）
