@@ -11,6 +11,10 @@ var vue = new Vue({
 			},
 			//tjfx
 			tjfxdata:[],
+			tjfxname: [],
+			tjfxczqysl: [],
+			tjfxgdzwmj: [],
+			tjfxbwzwgssl: [],
 			//tabledata
 			tabledata: [],
 			//表高度变量
@@ -23,7 +27,7 @@ var vue = new Vue({
 	mounted: function () {
 		//图标数据
 		this.getCPLX();
-		this.echarts1();
+		
 	},
 	created: function () {
 		/**菜单选中 by li.xue 20180628*/
@@ -42,7 +46,23 @@ var vue = new Vue({
 			var params = {};
 			axios.post('/zhapi/qyzwyx/dofindtjfx',params).then(function (res) {
 				this.tjfxdata = res.data.result;
+				for(var i=0; i<this.tjfxdata.length;i++){
+					this.tjfxname.push(this.tjfxdata[i].cplxmc)
+					this.tjfxczqysl.push(this.tjfxdata[i].czqysl)
+					this.tjfxgdzwmj.push(this.tjfxdata[i].gdzwmj)
+					this.tjfxbwzwgssl.push(this.tjfxdata[i].bwzwgssl)
+				}
+				
 				this.loading = false;
+				//var myBarChart = echarts.init(document.getElementById('bar'));
+			
+				// myBarChart.setOption({
+				// 	legend: {
+				// 		data: res.data.result
+				// 	}
+				// })
+				this.echarts1();
+
 			}.bind(this), function (error) {
 				console.log(error)
 			})
@@ -52,6 +72,7 @@ var vue = new Vue({
 		// 中央下部按产品分类柱状图
 		echarts1: function () {
 			
+
 			var myBarChart = echarts.init(document.getElementById('bar'));
 			BarmaxOption = {
 				title: {
@@ -70,8 +91,8 @@ var vue = new Vue({
 					y: '20px',
 					iGap: 16,
 					iWidth: 18,
-					data:this.tjfxdata.cplxmc,
-					// data: this.tabledata.name,
+					// data:this.tjfxdata.cplxmc,
+					//  data: this.tabledata.name,
 					align: 'left',
 					iGap: 8,
 				},
@@ -86,7 +107,7 @@ var vue = new Vue({
 				xAxis: [
 					{
 						type: 'category',
-						data: this.getList('name'),
+						data: this.tjfxname,//this.getList('name'),
 						axisLabel: {
 							interval: 0,
 						},
@@ -98,9 +119,9 @@ var vue = new Vue({
 						type: 'value',
 						name: '参展企业',
 						position: 'left',
-						offset: 50,
+						offset: 30,
 						min: 0,
-						max: 1500,
+						max: 50,
 						axisLine: {
 							lineStyle: {
 								color: '#ff6364'
@@ -115,7 +136,7 @@ var vue = new Vue({
 						name: '标准展位',
 						position: 'left',
 						min: 0,
-						max: 1500,
+						max: 50,
 						axisLine: {
 							lineStyle: {
 								color: '#fdc107'
@@ -129,7 +150,7 @@ var vue = new Vue({
 						type: 'value',
 						name: '光地展位面积m²',
 						min: 0,
-						max: 7000,
+						max: 1000,
 						axisLine: {
 							lineStyle: {
 								color: '#29bb9d'
@@ -147,7 +168,7 @@ var vue = new Vue({
 						type: 'bar',
 						barWidth: '100%',
 						barWidth: '45',
-						data: this.getList('czqysl'),
+						data: this.tjfxczqysl,
 						// data: this.getList('zongdui'),
 					},
 					{
@@ -156,7 +177,7 @@ var vue = new Vue({
 						barWidth: '100%',
 						barWidth: '45',
 						yAxisIndex: 1,
-						data: this.getList('bwzwgssl'),
+						data: this.tjfxbwzwgssl,
 						// data: this.getList('zhidui'),
 					},
 					{
@@ -165,12 +186,13 @@ var vue = new Vue({
 						barWidth: '100%',
 						barWidth: '45',
 						yAxisIndex: 2,
-						data: this.getList('gdzwmj'),
+						data: this.tjfxgdzwmj,
 						// data: this.getList('dazhongdui'),
 					}
 				
 				]
 			};
+
 			myBarChart.setOption(BarmaxOption);
 		},
 		//数据为空时显示‘-’
