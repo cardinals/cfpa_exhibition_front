@@ -33,34 +33,6 @@
     <style type="text/css">
         @media(max-width:960px) {}
     </style>
-    <style>
-        .logina {
-            font-size: 18px;
-            cursor: pointer;
-            color: #ff8c00;
-        }
-
-        .logina:hover {
-            color: #ff8c00;
-        }
-
-        .loginb {
-            font-size: 18px;
-            cursor: pointer
-        }
-
-        .loginb:hover {
-            color: #ff8c00;
-        }
-
-        .current {
-            color: #ff8c00;
-        }
-
-        .currentb {
-            color: #333333;
-        }
-    </style>
 </head>
 
 <body>
@@ -76,9 +48,9 @@
             <div class="login_center">
                 <div class="Login_img">
                     <div class="Login">
-                        <div id="login" class="Login_n">
-                            <div class="Login_nTop"><span class="logina">用户登录</span> | <span class="loginb">数据采集</span>
-                                <div style="float:right;font-size: 12px;">没有账户？<a href="/">去注册</a></div>
+                        <div id="login" class="Login_n" v-show="formFlag=='loginFlag'||formFlag=='bakFlag'">
+                            <div class="Login_nTop"><span class="yhdl_span current">用户登录</span> | <span class="sjcj_span currentb">数据采集</span>
+                                <div style="float:right;font-size: 12px;">没有账户？<a @click="changeForm('regFlag')"><u>去注册</u></a></div>
                             </div>
                             <form id="login-form" autocomplete="off" name="login-form" action="/xfxhapi/login" method="post">
                                 <ul id="forma" style="display:block;">
@@ -122,51 +94,236 @@
                                     <a @click="nlogin()" id="nlg" style="display:none;">登录</a>
                                 </div>
                                 <div class="formbar">
-                                    <a href="/">重置账号</a>
+                                    <a @click="changeForm('REAAFlag')">重置账户</a>
                                     <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
-                                    <a href="/">忘记密码</a>
+                                    <a @click="changeForm('FPAFlag')">忘记密码</a>
                                     <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
-                                    <a href="/">忘记用户名</a>
+                                    <a @click="changeForm('FUAFlag')">忘记用户名</a>
                                     <input type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
                                     <span>记住我</span>
                                 </div>
                                 <input type="hidden" class="loginType" name="loginType" />
                             </form>
                         </div>
-                        <!-- <div id="reg" class="Login_n">
-                            <div class="Login_nTop"><span class="logina">用户注册</span>
-                                <div style="float:right;font-size: 12px;">已有账户？<a href="/">去登录</a></div>
+                        <div id="reg" class="Login_n" v-show="formFlag=='regFlag'">
+                            <div class="Login_nTop"><span class="yhzc_span current">用户注册</span>
+                                <div style="float:right;font-size: 12px;">已有账户？<a @click="changeForm('loginFlag')"><u>去登录</u></a></div>
                             </div>
-                            <form id="reg-form" autocomplete="off" name="login-form" action="/xfxhapi/login" method="post">
-                                <ul id="form" style="display:block;">
+                            <form autocomplete="off" name="reg-form">
+                                <ul>
                                     <li>
                                         <i class="icon-call"></i>
-                                        <input type="text" class="inputstyle" v-model="mobile" name="mobile" id="mobile" placeholder="手机号">
+                                        <input type="text" class="inputstyle" v-model="mobile" name="mobile" id="mobile" placeholder="请输入手机号" @blur="mobileCheck">
+                                        <button type="button" id="mobile-btn" class="verficode" @click="getMessageCode()" v-text=messageCodeText></button>
+                                        <p class="alert" v-show="mobileAlertFlag">*请填写正确的手机号码</p>
                                     </li>
                                     <li>
                                         <i class="icon-code"></i>
-                                        <input type="text" class="inputstyle" v-model="mobile2" name="mobile2" id="mobile2" placeholder="用户名">
+                                        <input type="text" class="inputstyle" v-model="messageCode" name="messageCode" id="messageCode" placeholder="请输入手机验证码" @blur="messageCodeCheck">
+                                        <p class="alert" v-show="messageCodeAlertFlag">*请填写正确的手机验证码</p>
                                     </li>
                                     <li>
                                         <i class="icon-password"></i>
-                                        <input type="password" class="inputstyle" v-model="password" name="password" id="password" placeholder="密码">
+                                        <input type="password" class="inputstyle" v-model="password1" name="password1" id="password1" placeholder="请输入密码" @focus="password1Tip"
+                                            @blur="password1Check">
+                                        <p class="tip" v-show="password1TipFlag">*密码需为6-16位字母数字组合</p>
+                                        <p class="alert" v-show="password1AlertFlag">*密码不合规，请重新填写</p>
                                     </li>
                                     <li>
                                         <i class="icon-password"></i>
-                                        <input type="password" class="inputstyle" v-model="password2" name="password2" id="password2" placeholder="确认密码">
+                                        <input type="password" class="inputstyle" v-model="password2" name="password2" id="password2" placeholder="请再次输入密码" @blur="password2Check">
+                                        <p class="alert" v-show="password2AlertFlag">*两次填写不一致，请重新填写</p>
                                     </li>
                                 </ul>
                                 <div class="LoginBtn">
-                                    <a @click="login()" id="lg" style="display:block;">登录</a>
-                                    <a @click="nlogin()" id="nlg" style="display:none;">登录</a>
+                                    <a @click="registe()">注册</a>
                                 </div>
                                 <input type="hidden" class="loginType" name="loginType" />
                             </form>
-                        </div> -->
+                        </div>
+                        <div id="forgetUsername" class="Login_n" v-show="formFlag=='FUAFlag'||formFlag=='FUBFlag'">
+                            <div class="Login_nTop"><span class="FU_span current">用户名找回</span>
+                                <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u>返回登录</u></a></div>
+                            </div>
+                            <form id="FUAform" v-show="formFlag=='FUAFlag'" autocomplete="off">
+                                <ul style="display:block;">
+                                    <li>
+                                        <i class="icon-email"></i>
+                                        <input type="text" class="inputstyle" v-model="FUmail" name="FUmail" id="FUmail" placeholder="邮箱">
+                                        <button type="button" id="FUmail-btn" class="verficode" @click="getFUMailCode()" v-text=FUmailCodeText></button>
+                                    </li>
+                                    <li>
+                                        <i class="icon-code"></i>
+                                        <input type="text" class="inputstyle" v-model="FUmailCode" name="FUmailCode" id="FUmailCode" placeholder="邮件验证码">
+                                    </li>
+                                </ul>
+                                <div class="LoginBtn">
+                                    <a @click="FUIdentify()">确定</a>
+                                </div>
+                                <input type="hidden" class="loginType" name="loginType" />
+                            </form>
+                            <form id="FUBform" v-show="formFlag=='FUBFlag'" autocomplete="off">
+                                <ul style="display:block;">
+                                    <li>
+                                        <i class="icon-user"></i>
+                                        <input type="text" class="inputstyle" v-model="FUusername" name="FUusername" id="FUusername" placeholder="用户名">
+                                        <button type="button" id="FUmobile-btn" class="verficode" @click="getFUMessageCode()" v-text=FUmessageCodeText></button>
+                                    </li>
+                                    <li>
+                                        <i class="icon-code"></i>
+                                        <input type="text" class="inputstyle" v-model="FUmessageCode" name="FUmessageCode" id="FUmessageCode" placeholder="短信验证码">
+                                    </li>
+                                    <li>
+                                        <i class="icon-password"></i>
+                                        <input type="password" class="inputstyle" v-model="FUpassword" name="FUpassword" id="FUpassword" placeholder="密码">
+                                    </li>
+                                    <li>
+                                        <i class="icon-verficode"></i>
+                                        <input type="text" class="inputstyle" v-model="FUvalidateCode" name="FUvalidateCode" id="FUvalidateCode" placeholder="验证码"
+                                            @keyup.enter="login()">
+                                        <a href="javascript:;" @click="reloadFUCode()">
+                                            <img v-bind:src="FUsrc" id="FUcheckCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';"
+                                                style="vertical-align: bottom" width="50" height="20">
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="LoginBtn">
+                                    <a @click="FUlogin()">登录</a>
+                                </div>
+                                <input type="hidden" class="loginType" name="loginType" />
+                            </form>
+                        </div>
+                        <div id="forgetPassword" class="Login_n" v-show="formFlag=='FPAFlag'||formFlag=='FPBFlag'||formFlag=='FPCFlag'||formFlag=='FPDFlag'">
+                            <div class="Login_nTop"><span class="FP_span current">密码找回</span>
+                                <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u>返回登录</u></a></div>
+                            </div>
+                            <form id="FPAform" v-show="formFlag=='FPAFlag'" autocomplete="off">
+                                <ul style="display:block;">
+                                    <li>
+                                        <div class="LoginBtn">
+                                            <a @click="changeForm('FPBFlag')">邮箱找回</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="LoginBtn">
+                                            <a @click="changeForm('FPCFlag')">手机找回</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <input type="hidden" class="loginType" name="loginType" />
+                            </form>
+                            <form id="FPBform" v-show="formFlag=='FPBFlag'" autocomplete="off">
+                                <ul style="display:block;">
+                                    <li>
+                                        <i class="icon-email"></i>
+                                        <input type="text" class="inputstyle" v-model="FPBmail" name="FPBmail" id="FPBmail" placeholder="邮箱">
+                                        <button type="button" id="FPBmail-btn" class="verficode" @click="getFPBMailCode()" v-text=FPBmailCodeText></button>
+                                    </li>
+                                    <li>
+                                        <i class="icon-code"></i>
+                                        <input type="text" class="inputstyle" v-model="FPBmailCode" name="FPBmailCode" id="FPBmailCode" placeholder="邮件验证码">
+                                    </li>
+                                </ul>
+                                <div class="LoginBtn">
+                                    <a @click="FPBIdentify()">确定</a>
+                                </div>
+                                <input type="hidden" class="loginType" name="loginType" />
+                            </form>
+                            <form id="FPCform" v-show="formFlag=='FPCFlag'" autocomplete="off">
+                                <ul style="display:block;">
+                                    <li>
+                                        <i class="icon-call"></i>
+                                        <input type="text" class="inputstyle" v-model="FPCmobile" name="FPCmobile" id="FPCmobile" placeholder="手机号">
+                                        <button type="button" id="FPCmobile-btn" class="verficode" @click="getFPCMessageCode()" v-text=FPCmessageCodeText></button>
+                                    </li>
+                                    <li>
+                                        <i class="icon-code"></i>
+                                        <input type="text" class="inputstyle" v-model="FPCmessageCode" name="FPCmessageCode" id="FPCmessageCode" placeholder="短信验证码">
+                                    </li>
+                                </ul>
+                                <div class="LoginBtn">
+                                    <a @click="FPCIdentify()">确定</a>
+                                </div>
+                                <input type="hidden" class="loginType" name="loginType" />
+                            </form>
+                            <form id="FPDform" v-show="formFlag=='FPDFlag'" autocomplete="off">
+                                <ul>
+                                    <li>
+                                        <i class="icon-user"></i>
+                                        <input type="text" class="inputstyle" v-model="FPDusername" name="FPDusername" id="FPDusername" placeholder="用户名">
+                                    </li>
+                                    <li>
+                                        <i class="icon-password"></i>
+                                        <input type="password" class="inputstyle" v-model="FPDpassword1" name="FPDpassword1" id="FPDpassword1" placeholder="请输入密码">
+                                    </li>
+                                    <li>
+                                        <i class="icon-password"></i>
+                                        <input type="password" class="inputstyle" v-model="FPDpassword2" name="FPDpassword2" id="FPDpassword2" placeholder="请再次输入密码">
+                                    </li>
+                                </ul>
+                                <div class="LoginBtn">
+                                    <a @click="FPlogin()">登陆</a>
+                                </div>
+                                <input type="hidden" class="loginType" name="loginType" />
+                            </form>
+                        </div>
+                        <div id="rearrange" class="Login_n" v-show="formFlag=='REAAFlag'||formFlag=='REABFlag'">
+                            <div class="Login_nTop"><span class="zhcz_span current">账户重置</span>
+                                <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u>返回登录</u></a></div>
+                            </div>
+                            <form id="REAAform" v-show="formFlag=='REAAFlag'" autocomplete="off">
+                                <ul>
+                                    <li>
+                                        <i class="icon-company"></i>
+                                        <input type="text" class="inputstyle" v-model="REAcompanyName" name="REAcompanyName" id="REAcompanyName" placeholder="单位名称">
+                                    </li>
+                                    <li>
+                                        <i class="icon-unscid"></i>
+                                        <input type="text" class="inputstyle" v-model="REAunscid" name="REAunscid" id="REAunscid" placeholder="统一社会信用代码">
+                                    </li>
+                                </ul>
+                                <div class="LoginBtn">
+                                    <a @click="REAIdentify()">确定</a>
+                                </div>
+                                <input type="hidden" class="loginType" name="loginType" />
+                            </form>
+                            <form id="REABform" v-show="formFlag=='REABFlag'" autocomplete="off">
+                                <ul>
+                                    <li>
+                                        <i class="icon-call"></i>
+                                        <input type="text" class="inputstyle" v-model="REAmobile" name="REAmobile" id="REAmobile" placeholder="请输入手机号" @blur="REAmobileCheck">
+                                        <button type="button" id="REAmobile-btn" class="verficode" @click="getREAMessageCode()" v-text=REAmessageCodeText></button>
+                                        <p class="alert" v-show="REAmobileAlertFlag">*请填写正确的手机号码</p>
+                                    </li>
+                                    <li>
+                                        <i class="icon-code"></i>
+                                        <input type="text" class="inputstyle" v-model="REAmessageCode" name="REAmessageCode" id="REAmessageCode" placeholder="请输入手机验证码"
+                                            @blur="REAmessageCodeCheck">
+                                        <p class="alert" v-show="REAmessageCodeAlertFlag">*请填写正确的手机验证码</p>
+                                    </li>
+                                    <li>
+                                        <i class="icon-password"></i>
+                                        <input type="password" class="inputstyle" v-model="REApassword1" name="REApassword1" id="REApassword1" placeholder="请输入密码"
+                                            @focus="REApassword1Tip" @blur="REApassword1Check">
+                                        <p class="tip" v-show="REApassword1TipFlag">*密码需为6-16位字母数字组合</p>
+                                        <p class="alert" v-show="REApassword1AlertFlag">*密码不合规，请重新填写</p>
+                                    </li>
+                                    <li>
+                                        <i class="icon-password"></i>
+                                        <input type="password" class="inputstyle" v-model="REApassword2" name="REApassword2" id="REApassword2" placeholder="请再次输入密码"
+                                            @blur="REApassword2Check">
+                                        <p class="alert" v-show="REApassword2AlertFlag">*两次填写不一致，请重新填写</p>
+                                    </li>
+                                </ul>
+                                <div class="LoginBtn">
+                                    <a @click="REAregiste()">提交</a>
+                                </div>
+                                <input type="hidden" class="loginType" name="loginType" />
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-
             <!--footer-->
             <div class="login_footer">
                 <span class="login_footer_text" id="lg_footer">
@@ -183,22 +340,22 @@
 <script>
     $(document).ready(function () {
         $(".loginType").val("MyShiro");
-        $('.logina').click(function () {
+        $('.yhdl_span').click(function () {
             document.getElementById("formb").style.display = 'none';
             document.getElementById("forma").style.display = 'block';
             document.getElementById("nlg").style.display = 'none';
             document.getElementById("lg").style.display = 'block';
-            $('.logina').addClass("current").siblings().removeClass("current");
-            $('.loginb').addClass("currentb").siblings().removeClass("currentb");
+            $('.yhdl_span').addClass("current").siblings().removeClass("current");
+            $('.sjcj_span').addClass("currentb").siblings().removeClass("currentb");
             $(".loginType").val("MyShiro");
         })
-        $('.loginb').click(function () {
+        $('.sjcj_span').click(function () {
             document.getElementById("forma").style.display = 'none';
             document.getElementById("formb").style.display = 'block';
             document.getElementById("lg").style.display = 'none';
             document.getElementById("nlg").style.display = 'block';
-            $('.loginb').addClass("current").siblings().removeClass("current");
-            $('.logina').addClass("currentb").siblings().removeClass("currentb");
+            $('.sjcj_span').addClass("current").siblings().removeClass("current");
+            $('.yhdl_span').addClass("currentb").siblings().removeClass("currentb");
             $(".loginType").val("InfoCollect");
         })
     })
@@ -241,15 +398,82 @@
     var vm = new Vue({
         el: "#app",
         data: {
+            //form标识
+            loginFlag: true,
+            regFlag: false,
+            FUAFlag: false,
+            FUBFlag: false,
+            FPAFlag: false,
+            FPBFlag: false,
+            FPCFlag: false,
+            FPDFlag: false,
+            REAFlag: "",
+            formFlag: "loginFlag",
+            //登录
             username: "",
             password: "",
-            mobile: "",
-            mobile2: "",
-            password2: "",
+            src: "/xfxhapi/imageCode",
             validateCode: "",
             messages: "",
             unscid: "",
-            src: "/xfxhapi/imageCode"
+            //注册
+            time: 60,
+            timer: null,
+            mobile: "",
+            messageCode: "",
+            messageCodeReal: "",
+            messageCodeText: "获取验证码",
+            password1: "",
+            password2: "",
+            //注册校验标识
+            mobileAlertFlag: false,
+            messageCodeAlertFlag: false,
+            password1TipFlag: false,
+            password1AlertFlag: false,
+            password2AlertFlag: false,
+            //忘记用户名
+            FUmail: "",
+            FUmailCode: "",
+            FUmailCodeReal: "",
+            FUmailCodeText: "获取验证码",
+            FUtimer: null,
+            FUusername: "",
+            FUmessageCode: "",
+            FUmessageCodeReal: "",
+            FUmessageCodeText: "获取验证码",
+            FUpassword: "",
+            FUsrc: "/xfxhapi/imageCode",
+            FUvalidateCode: "",
+            //忘记密码
+            FPBmail: "",
+            FPBmailCode: "",
+            FPBmailCodeReal: "",
+            FPBmailCodeText: "获取验证码",
+            FPBtimer: null,
+            FPCmobile: "",
+            FPCmessageCode: "",
+            FPCmessageCodeReal: "",
+            FPCmessageCodeText: "获取验证码",
+            FPCtimer: null,
+            FPDusername: "",
+            FPDpassword1: "",
+            FPDpassword2: "",
+            //重置账户
+            REAcompanyName: "",
+            REAunscid: "",
+            REAtimer: null,
+            REAmobile: "",
+            REAmessageCode: "",
+            REAmessageCodeReal: "",
+            REAmessageCodeText: "获取验证码",
+            REApassword1: "",
+            REApassword2: "",
+            //重置校验标识
+            REAmobileAlertFlag: false,
+            REAmessageCodeAlertFlag: false,
+            REApassword1TipFlag: false,
+            REApassword1AlertFlag: false,
+            REApassword2AlertFlag: false,
         },
         created: function () {
             axios.get('/xfxhapi/shiro').then(function (res) {
@@ -262,9 +486,6 @@
         },
         methods: {
             login: function () {
-                this.username = $('#username').val();
-                this.password = $('#password').val();
-                this.validateCode = $('#validateCode').val();
                 if (this.username == null || this.username == '') {
                     alert("用户名不能为空！")
                 } else if (this.password == null || this.password == '') {
@@ -277,7 +498,6 @@
             },
             //九小场所信用代码
             nlogin: function () {
-                this.unscid = $('#unscid').val();
                 var reg = /^[0-9a-zA-Z]{18}$/;
                 if (this.unscid == null || this.unscid == '') {
                     alert("统一社会信用代码不能为空!")
@@ -291,13 +511,400 @@
                 }
 
             },
+            FUlogin: function () {
+                if (this.FUusername == null || this.FUusername == '') {
+                    alert("用户名不能为空！")
+                } else if (this.FUmessageCode == null || this.FUmessageCode == '') {
+                    alert("短信验证码不能为空！")
+                } else if (this.FUpassword == null || this.FUpassword == '') {
+                    alert("密码不能为空！")
+                } else if (this.FUvalidateCode == null || this.FUvalidateCode == '') {
+                    alert("验证码不能为空！")
+                } else {
+                    alert('登陆成功');
+                }
+            },
+            FPlogin: function () {
+                if (this.FPDusername == null || this.FPDusername == '') {
+                    alert("用户名不能为空！")
+                } else if (this.FPDpassword1 == null || this.FPDpassword1 == '') {
+                    alert("密码不能为空！")
+                } else if (this.FPDpassword2 !== this.FPDpassword1) {
+                    alert("两次填写不一致，请重新填写！")
+                } else {
+                    alert('登陆成功');
+                }
+            },
+            FUIdentify: function () {
+                if (this.FUmail == null || this.FUmail == '') {
+                    alert("邮箱不能为空！")
+                } else if (this.FUmailCode == null || this.FUmailCode == '') {
+                    alert("验证码不能为空！")
+                } else {
+                    if (this.FUmailCode == this.FUmailCodeReal) {
+                        this.changeForm('FUBFlag');
+                    } else {
+                        alert("验证码输入错误，请核对后再试");
+                    }
+                }
+            },
+            FPBIdentify: function () {
+                if (this.FPBmail == null || this.FPBmail == '') {
+                    alert("邮箱不能为空！")
+                } else if (this.FPBmailCode == null || this.FPBmailCode == '') {
+                    alert("验证码不能为空！")
+                } else {
+                    if (this.FPBmailCode == this.FPBmailCodeReal) {
+                        this.changeForm('FPDFlag');
+                    } else {
+                        alert("验证码输入错误，请核对后再试");
+                    }
+                }
+            },
+            FPCIdentify: function () {
+                if (this.FPCmobile == null || this.FPCmobile == '') {
+                    alert("手机号不能为空！")
+                } else if (this.FPCmessageCode == null || this.FPCmessageCode == '') {
+                    alert("验证码不能为空！")
+                } else {
+                    if (this.FPCmessageCode == this.FPCmessageCodeReal) {
+                        this.changeForm('FPDFlag');
+                    } else {
+                        alert("验证码输入错误，请核对后再试");
+                    }
+                }
+            },
+            REAIdentify: function () {
+                if (this.REAcompanyName == null || this.REAcompanyName == '') {
+                    alert("单位名称不能为空！")
+                } else if (this.REAunscid == null || this.REAunscid == '') {
+                    alert("统一社会信用代码不能为空！")
+                } else {
+                    this.changeForm('REABFlag');
+                }
+            },
             reset: function () {
                 this.username = "";
                 this.password = "";
             },
             reloadCode: function () {
                 $('#checkCode').attr('src', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
-            }
+            },
+            reloadFUCode: function () {
+                $('#FUcheckCode').attr('FUsrc', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
+            },
+            getMessageCode: function () {
+                if (this.mobileCheck()) {
+                    axios.get('/xfxhapi/test/sendMessage?phone=' + this.mobile).then(function (res) {
+                        this.messageCodeReal = res.data.msg;
+                        var count = this.time;
+                        this.timer = setInterval(() => {
+                            if (count == 0) {
+                                clearInterval(this.timer);
+                                this.timer = null;
+                                this.messageCodeText = "获取验证码";
+                                $('#mobile-btn').removeAttr("disabled");
+                            } else {
+                                this.messageCodeText = count + "秒后获取"
+                                count--;
+                                $('#mobile-btn').attr('disabled', 'disabled');
+                            }
+                        }, 1000)
+                    }.bind(this), function (error) {
+                        console.log(error);
+                    });
+                }
+            },
+            getFUMessageCode: function () {
+                axios.get('/xfxhapi/test/sendMessage?phone=' + this.mobile).then(function (res) {
+                    this.FUmessageCodeReal = res.data.msg;
+                    var count = this.time;
+                    this.FUtimer = setInterval(() => {
+                        if (count == 0) {
+                            clearInterval(this.FUtimer);
+                            this.FUtimer = null;
+                            this.FUmessageCodeText = "获取验证码";
+                            $('#FUmobile-btn').removeAttr("disabled");
+                        } else {
+                            this.FUmessageCodeText = count + "秒后获取"
+                            count--;
+                            $('#FUmobile-btn').attr('disabled', 'disabled');
+                        }
+                    }, 1000)
+                }.bind(this), function (error) {
+                    console.log(error);
+                });
+            },
+            getFPCMessageCode: function () {
+                axios.get('/xfxhapi/test/sendMessage?phone=' + this.FPCmobile).then(function (res) {
+                    this.FPCmessageCodeReal = res.data.msg;
+                    var count = this.time;
+                    this.FPCtimer = setInterval(() => {
+                        if (count == 0) {
+                            clearInterval(this.FPCtimer);
+                            this.FPCtimer = null;
+                            this.FPCmessageCodeText = "获取验证码";
+                            $('#FPCmobile-btn').removeAttr("disabled");
+                        } else {
+                            this.FPCmessageCodeText = count + "秒后获取"
+                            count--;
+                            $('#FPCmobile-btn').attr('disabled', 'disabled');
+                        }
+                    }, 1000)
+                }.bind(this), function (error) {
+                    console.log(error);
+                });
+            },
+            getREAMessageCode: function () {
+                if (this.REAmobileCheck()) {
+                    axios.get('/xfxhapi/test/sendMessage?phone=' + this.REAmobile).then(function (res) {
+                        this.REAmessageCodeReal = res.data.msg;
+                        var count = this.time;
+                        this.timer = setInterval(() => {
+                            if (count == 0) {
+                                clearInterval(this.REAtimer);
+                                this.REAtimer = null;
+                                this.REAmessageCodeText = "获取验证码";
+                                $('#REAmobile-btn').removeAttr("disabled");
+                            } else {
+                                this.REAmessageCodeText = count + "秒后获取"
+                                count--;
+                                $('#REAmobile-btn').attr('disabled', 'disabled');
+                            }
+                        }, 1000)
+                    }.bind(this), function (error) {
+                        console.log(error);
+                    });
+                }
+            },
+            FUmailCheck: function () {
+                if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.FUmail))) {
+                    alert("邮箱格式不正确");
+                    return false;
+                } else {
+                    return true;
+                }
+            },
+            FPBmailCheck: function () {
+                if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.FPBmail))) {
+                    alert("邮箱格式不正确");
+                    return false;
+                } else {
+                    return true;
+                }
+            },
+            getFUMailCode: function () {
+                if (this.FUmailCheck()) {
+                    axios.get('/xfxhapi/test/sendMail?mail=' + this.FUmail).then(function (res) {
+                        this.FUmailCodeReal = res.data.msg;
+                        var count = this.time;
+                        this.timer = setInterval(() => {
+                            if (count == 0) {
+                                clearInterval(this.timer);
+                                this.timer = null;
+                                this.FUmailCodeText = "获取验证码";
+                                $('#FUmail-btn').removeAttr("disabled");
+                            } else {
+                                this.FUmailCodeText = count + "秒后获取"
+                                count--;
+                                $('#FUmail-btn').attr('disabled', 'disabled');
+                            }
+                        }, 1000)
+                    }.bind(this), function (error) {
+                        console.log(error);
+                    });
+                }
+            },
+            getFPBMailCode: function () {
+                if (this.FPBmailCheck()) {
+                    axios.get('/xfxhapi/test/sendMail?mail=' + this.FPBmail).then(function (res) {
+                        this.FPBmailCodeReal = res.data.msg;
+                        var count = this.time;
+                        this.timer = setInterval(() => {
+                            if (count == 0) {
+                                clearInterval(this.timer);
+                                this.timer = null;
+                                this.FPBmailCodeText = "获取验证码";
+                                $('#FPBmail-btn').removeAttr("disabled");
+                            } else {
+                                this.FPBmailCodeText = count + "秒后获取"
+                                count--;
+                                $('#FPBmail-btn').attr('disabled', 'disabled');
+                            }
+                        }, 1000)
+                    }.bind(this), function (error) {
+                        console.log(error);
+                    });
+                }
+            },
+            // showForm: function (flag) {
+            //     if (flag == 'loginFlag') {
+            //         this.loginFlag = true;
+            //         this.regFlag = false;
+            //     } else if (flag == 'regFlag') {
+            //         this.loginFlag = false;
+            //         this.regFlag = true;
+            //     } else if (flag == 'FUFlag') {
+            //         this.FUFlag = true;
+            //         this.loginFlag = false;
+            //         this.regFlag = false;
+            //         $('#FUusername').attr('disabled', 'disabled');
+            //     }
+            // },
+            changeForm: function (flag) {
+                if (flag == 'loginFlag') {
+                } else if (flag == 'regFlag') {
+                } else if (flag == 'FUAFlag') {
+                    this.FUmail = "";
+                    this.FUmailCode = "";
+                } else if (flag == 'FUBFlag') {
+                    $('#FUusername').attr('disabled', 'disabled');
+                    this.FUmessageCode = "";
+                    this.FUpassword = "";
+                    this.FUvalidateCode = "";
+                } else if (flag == 'FPBFlag') {
+                    this.FPBmail = "";
+                    this.FPBmailCode = "";
+                    this.FPBmailCodeReal = "";
+                    this.FPBmailCodeText = "获取验证码";
+                    this.FPBtimer = null;
+                } else if (flag == 'FPCFlag') {
+                    this.FPCmobile = "";
+                    this.FPCmessageCode = "";
+                    this.FPCmessageCodeReal = "";
+                    this.FPCmessageCodeText = "获取验证码";
+                    this.FPCtimer = null;
+                } else if (flag == 'FPDFlag') {
+                    this.FPDusername = "";
+                    this.FPDpassword1 = "";
+                    this.FPDpassword2 = "";
+                } else if (flag == 'bakFlag') {
+                    var r = confirm("未保存的数据将丢失，确定返回吗？");
+                    if (r == false) {
+                        return;
+                    }
+                }
+                this.formFlag = flag;
+            },
+            mobileCheck: function () {
+                if (!(/^1[34578]\d{9}$/.test(this.mobile))) {
+                    this.mobileAlertFlag = true;
+                    return false;
+                } else {
+                    this.mobileAlertFlag = false;
+                    return true;
+                }
+            },
+            REAmobileCheck: function () {
+                if (!(/^1[34578]\d{9}$/.test(this.REAmobile))) {
+                    this.REAmobileAlertFlag = true;
+                    return false;
+                } else {
+                    this.REAmobileAlertFlag = false;
+                    return true;
+                }
+            },
+            messageCodeCheck: function () {
+                if (!(/^[0-9a-zA-Z]{6}$/.test(this.messageCode))) {
+                    this.messageCodeAlertFlag = true;
+                    return false;
+                } else {
+                    this.messageCodeAlertFlag = false;
+                    return true;
+                }
+            },
+            REAmessageCodeCheck: function () {
+                if (!(/^[0-9a-zA-Z]{6}$/.test(this.REAmessageCode))) {
+                    this.REAmessageCodeAlertFlag = true;
+                    return false;
+                } else {
+                    this.REAmessageCodeAlertFlag = false;
+                    return true;
+                }
+            },
+            password1Check: function () {
+                if (!(/^[0-9a-zA-Z]{6,16}$/.test(this.password1))) {
+                    this.password1TipFlag = false;
+                    this.password1AlertFlag = true;
+                    return false;
+                } else {
+                    this.password1TipFlag = false;
+                    this.password1AlertFlag = false;
+                    return true;
+                }
+            },
+            password1Tip: function () {
+                this.password1TipFlag = true;
+                this.password1AlertFlag = false;
+            },
+            password2Check: function () {
+                if (this.password1 !== this.password2) {
+                    this.password2AlertFlag = true;
+                    return false;
+                } else {
+                    this.password2AlertFlag = false;
+                    return true;
+                }
+            },
+            password1Check: function () {
+                if (!(/^[0-9a-zA-Z]{6,16}$/.test(this.password1))) {
+                    this.password1TipFlag = false;
+                    this.password1AlertFlag = true;
+                    return false;
+                } else {
+                    this.password1TipFlag = false;
+                    this.password1AlertFlag = false;
+                    return true;
+                }
+            },
+            REApassword1Tip: function () {
+                this.REApassword1TipFlag = true;
+                this.REApassword1AlertFlag = false;
+            },
+            REApassword2Check: function () {
+                if (this.REApassword1 !== this.REApassword2) {
+                    this.REApassword2AlertFlag = true;
+                    return false;
+                } else {
+                    this.REApassword2AlertFlag = false;
+                    return true;
+                }
+            },
+            REApassword1Check: function () {
+                if (!(/^[0-9a-zA-Z]{6,16}$/.test(this.REApassword1))) {
+                    this.REApassword1TipFlag = false;
+                    this.REApassword1AlertFlag = true;
+                    return false;
+                } else {
+                    this.REApassword1TipFlag = false;
+                    this.REApassword1AlertFlag = false;
+                    return true;
+                }
+            },
+            registe: function () {
+                this.mobileCheck();
+                this.messageCodeCheck();
+                this.password1Check();
+                this.password2Check();
+                if (this.mobileCheck() && this.messageCodeCheck() && this.password1Check() && this.password2Check() && this.messageCode == this.messageCodeReal) {
+                    alert("注册成功!");
+                    this.username = this.mobile;
+                    this.password = this.password1;
+                    this.changeForm('loginFlag');
+                }
+            },
+            REAregiste: function () {
+                this.REAmobileCheck();
+                this.REAmessageCodeCheck();
+                this.REApassword1Check();
+                this.REApassword2Check();
+                if (this.REAmobileCheck() && this.REAmessageCodeCheck() && this.REApassword1Check() && this.REApassword2Check() && this.REAmessageCode == this.REAmessageCodeReal) {
+                    alert("注册成功!");
+                    this.username = this.REAmobile;
+                    this.password = this.REApassword1;
+                    this.changeForm('loginFlag');
+                }
+            },
         }
     });
 </script>
