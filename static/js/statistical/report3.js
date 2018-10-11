@@ -28,7 +28,7 @@ var vue = new Vue({
 			pieTitle4: '200 m² 以上面积 产品类型统计占比',
 			
 			//pieData
-			pieData0: [
+			pieDataz0: [
 				{ value: 190, name: '24-50 m²' },
 				{ value: 290, name: '50-100 m²' },
 				{ value: 350, name: '100-200 m²' },
@@ -103,7 +103,7 @@ var vue = new Vue({
 	mounted: function () {
 	
 		this.barChart();
-		this.pieData=this.pieData0;
+		this.pieData=this.pieDataz0;
 		this.pieTitle=this.pieTitle0;
 		this.pieChart();
 		this.getCPLX();
@@ -313,7 +313,7 @@ var vue = new Vue({
 			myChart.setOption(option);
 		},
 		refresh: function () {
-			this.pieDataz=this.pieData0;
+			this.pieDataz=this.pieDataz0;
 			this.pieTitle=this.pieTitle0;
 			var pieChart = echarts.getInstanceByDom(document.getElementById("pie"));
 			pieChart.dispose();
