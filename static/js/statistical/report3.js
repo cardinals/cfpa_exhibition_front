@@ -27,6 +27,8 @@ var vue = new Vue({
 			pieTitle3: '100-200 m² 产品类型统计占比',
 			pieTitle4: '200 m² 以上面积 产品类型统计占比',
 			
+
+
 			//pieData
 			pieDataz0: [
 				{ value: 190, name: '24-50 m²' },
@@ -34,10 +36,27 @@ var vue = new Vue({
 				{ value: 350, name: '100-200 m²' },
 				{ value: 400, name: '200 m²以上' }
 			 ],
-			pieDataz1: [],
-			pieDataz2: [],
-			pieDataz3: [],
-			pieDataz4: [],
+
+			pieDataz1: [
+
+			],
+
+
+			pieDataz2: [
+
+			],
+
+
+
+			pieDataz3: [
+
+			],
+
+
+
+			pieDataz4: [
+
+			],
 
 			//bardata
 			tjfxname:[],
@@ -99,6 +118,8 @@ var vue = new Vue({
 			//显示加载中样
 			loading: false,
 			labelPosition: 'right',
+			//表高度变量
+            tableheight: 185,
 		}
 	},
 	mounted: function () {
@@ -125,35 +146,48 @@ var vue = new Vue({
 		getCPLX: function () {
 			var params = {};
 			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {
+			debugger;
 				
 				this.tjfxtabledata = res.data.result;
 				var a=0;
 				var b=0;
 				var c=0;
 				var d=0;
+				var arr1={};
+				var arr2={};
+				var arr3={};
+				var arr4={};
 				for(var i=0; i<this.tjfxtabledata.length;i++){
+
+					arr1.value=this.tjfxtabledata[i].s1
+					arr1.name=this.tjfxtabledata[i].cplxmc
+
+					arr2.value=this.tjfxtabledata[i].s2
+					arr2.name=this.tjfxtabledata[i].cplxmc
+
+					arr3.value=this.tjfxtabledata[i].s3
+					arr3.name=this.tjfxtabledata[i].cplxmc
+
+					arr4.value=this.tjfxtabledata[i].s4
+					arr4.name=this.tjfxtabledata[i].cplxmc
+
+					//饼状图数据
+					this.tjfxname.push(this.tjfxtabledata[i].cplxmc)
+					this.pieDataz1.push(arr1)
+					this.pieDataz2.push(arr2)
+					this.pieDataz3.push(arr3)
+					this.pieDataz4.push(arr4)
+
 					//数据的和
 					a += parseInt(this.tjfxtabledata[i].s1)
 					b += parseInt(this.tjfxtabledata[i].s2)
 					c += parseInt(this.tjfxtabledata[i].s3)
 					d += parseInt(this.tjfxtabledata[i].s4) 
-
-                    //饼状图数据
-					this.tjfxname.push(this.tjfxtabledata[i].cplxmc)
-				
-					this.pieDataz1.push(this.tjfxtabledata[i].s1)
-
-					this.pieDataz2.push(this.tjfxtabledata[i].s2)
-					this.pieDataz3.push(this.tjfxtabledata[i].s3)
-					this.pieDataz4.push(this.tjfxtabledata[i].s4)
-
+                   
 				}
 			
 				//柱状图
 				this.tjfxs1.push(a,b,c,d)
-				
-				//饼图
-			 
 				this.loading = false;
 				this.barChart();
                 this.pieChart();				
@@ -231,10 +265,9 @@ var vue = new Vue({
 			};
 			myChart.on('click', function (param) {
 				var index = param.dataIndex + 1;
-				// vue.pieData = eval("vue.pieData" + index);
-				// vue.pieDataz = eval("vue.pieDataz" + index);
+
+				vue.pieDataz = eval("vue.pieDataz" + index);
 				
-				vue.pieDataz.name = vue.tjfxname;
 				vue.pieTitle = eval("vue.pieTitle" + index);
 				var pieChart = echarts.getInstanceByDom(document.getElementById("pie"));
 				if (pieChart != null && pieChart != "" && pieChart != undefined) {
@@ -291,9 +324,9 @@ var vue = new Vue({
 						type: 'pie',
 						radius: '55%',
 						center: ['35%', '50%'],
-						data:this.pieDataz,
-						// data: this.pieData
-						// 	.sort(function (a, b) { return a.value - b.value; }),
+						// data:this.pieDataz.value,
+						data: this.pieDataz
+							.sort(function (a, b) { return a.value - b.value; }),
 						// data:this.tjfxs1,
 						roseType: 'radius',
 						label: {
