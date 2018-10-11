@@ -136,7 +136,7 @@
                                     </li>
                                 </ul>
                                 <div class="LoginBtn">
-                                    <a @click="registe()">注册</a>
+                                    <a @click="register()">注册</a>
                                 </div>
                                 <input type="hidden" class="loginType" name="loginType" />
                             </form>
@@ -316,7 +316,7 @@
                                     </li>
                                 </ul>
                                 <div class="LoginBtn">
-                                    <a @click="REAregiste()">提交</a>
+                                    <a @click="REAregister()">提交</a>
                                 </div>
                                 <input type="hidden" class="loginType" name="loginType" />
                             </form>
@@ -904,7 +904,7 @@
                     return true;
                 }
             },
-            registe: function () {
+            register: function () {
                 this.mobileCheck();
                 this.messageCodeCheck();
                 this.password1Check();
@@ -927,7 +927,7 @@
                     })
                 }
             },
-            REAregiste: function () {
+            REAregister: function () {
                 this.REAmobileCheck();
                 this.REAmessageCodeCheck();
                 this.REApassword1Check();
