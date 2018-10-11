@@ -45,6 +45,7 @@ var vue = new Vue({
 			tjfxs2:[],
 			tjfxs3:[],
 			tjfxs4:[],
+			tjfxs:[],
 
 			// pieData1: [
 			// 	{ value: 400},
@@ -139,17 +140,18 @@ var vue = new Vue({
 
                     //饼状图数据
 					this.tjfxname.push(this.tjfxtabledata[i].cplxmc)
+				
 					this.pieDataz1.push(this.tjfxtabledata[i].s1)
+
 					this.pieDataz2.push(this.tjfxtabledata[i].s2)
 					this.pieDataz3.push(this.tjfxtabledata[i].s3)
 					this.pieDataz4.push(this.tjfxtabledata[i].s4)
 
 				}
+				debugger;
 				//柱状图
-				this.tjfxs1.push(a)
-				this.tjfxs2.push(b)
-				this.tjfxs3.push(c)
-				this.tjfxs4.push(d)
+				this.tjfxs1.push(a,b,c,d)
+				
 				//饼图
 			 
 				this.loading = false;
@@ -211,10 +213,8 @@ var vue = new Vue({
 						barWidth: '100%',
 						stack: '面积',
 						barWidth: '45',
-
 						//柱状图
-						// data: this.getList(),
-						data:this.tjfxs2,
+						data:this.tjfxs1,
 
 						smooth: true,
 						itemStyle: {
@@ -227,6 +227,7 @@ var vue = new Vue({
 							}
 						}
 					}
+					
 				]
 			};
 			myChart.on('click', function (param) {
@@ -251,11 +252,14 @@ var vue = new Vue({
 			// param.type：点击事件均为click
 			myChart.setOption(option);
 		},
-		getList: function () {
+		getList: function (column) {
+			debugger;
 			var list = new Array();
-			for (var i=1; i<=4;i++) {
-				list.push(eval("vue.tjfxs" + i))
-			   }
+			if(column){
+				for (var i=1; i<=4;i++) {
+					list.push(vue.tjfxs[i])
+				}
+			}
 			return list;
 			},
 		// 右侧玫瑰图
