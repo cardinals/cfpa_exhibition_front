@@ -63,8 +63,8 @@ new Vue({
                     } else {
                         this.jbxxData.shsj = dateFormat(this.jbxxData.shsj);
                     }
-                    var photo = document.getElementById("photo");
-                    photo.src = "data:image/png;base64," + this.jbxxData.yyzzBase64
+                    // var photo = document.getElementById("yyzz");
+                    // photo.src = "data:image/png;base64," + this.jbxxData.yyzzBase64
                 }
                 this.loading = false;
             }.bind(this), function (error) {
@@ -103,24 +103,23 @@ new Vue({
         },
         //企业介绍
         getQyjsData: function (val) {
-            axios.get('/zhapi/qyjs/' + val).then(function (res) {
+            axios.get('/zhapi/qyjs/doFindQyjsById/' + val).then(function (res) {
                 this.qyjsData = res.data.result;
-                if (this.qyjsData != null) {
-                    var photo = document.getElementById("imgLogo");
-                    photo.src = "data:image/png;base64," + this.qyjsData.logo;
-                }
+                // if (this.qyjsData != null) {
+                //     var photo = document.getElementById("imgLogo");
+                //     photo.src = "data:image/png;base64," + this.qyjsData.logoBase64;
+                // }
             }.bind(this), function (error) {
                 console.log(error)
             })
         },
         //产品介绍
         getCpjsData: function (val) {
-            axios.get('/zhapi/qycpjs/' + val).then(function (res) {
+            var param = {
+                qyid: val
+            }
+            axios.post('/zhapi/qycpjs/doFindCpxxById', param).then(function (res) {
                 this.cpjsData = res.data.result;
-                if (this.cpjsData != null) {
-                    var photo = document.getElementById("imgProduct");
-                    photo.src = "data:image/png;base64," + this.cpjsData.cptp
-                }
             }.bind(this), function (error) {
                 console.log(error)
             })
