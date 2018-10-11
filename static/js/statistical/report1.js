@@ -34,7 +34,7 @@ var vue = new Vue({
 		// $("#activeIndex").val(getQueryString("index"));
 		/**面包屑 by li.xue 20180628*/
 		var type = getQueryString("type");
-		if (type == "DPYL") {
+		if (type == "CPFL") {
 			loadBreadcrumb("统计分析", "按产品分类");
 		} else {
 			loadBreadcrumb("按产品分类", '-1');
@@ -231,23 +231,27 @@ var vue = new Vue({
 			}
 			return list;
 		},
-		//真实数据
-		// getList: function (column) {
-		// 	var list = new Array();
-		// 	if ('czqysl' == column) {
-		// 		for (var i in this.tjfxdata) {
-		// 			list.push(this.tjfxdata[i].czqysl;
-		// 		}
-		// 	} else if ('bzzwgs' == column) {
-		// 		for (var i in this.tjfxdata) {
-		// 			list.push(this.tjfxdata[i].bwzwgssl)
-		// 		}
-		// 	} else if ('sngdzw' == column) {
-		// 		for (var i in this.tjfxdata) {
-		// 			list.push(this.tjfxdata[i].gdzwsl)
-		// 		}
-		// 	} 
-		// 	return list;
-		// },
+		//表格重新加载数据
+		loadingData: function () {
+			var _self = this;
+			_self.loading = true;
+			setTimeout(function () {
+				console.info("加载数据成功");
+				_self.loading = false;
+			}, 300);
+		},
+		//当前页修改事件
+		currentPageChange: function (val) {
+			this.currentPage = val;
+			var _self = this;
+			_self.loadingData(); //重新加载数据
+		},
+		//根据参数部分和参数名来获取参数值 
+		GetQueryString: function (name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if (r != null) return unescape(r[2]); return null;
+		},
+		
 	}
 })

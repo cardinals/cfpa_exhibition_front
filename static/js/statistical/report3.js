@@ -76,7 +76,7 @@ var vue = new Vue({
 		//$("#activeIndex").val(getQueryString("index"));
 		/**面包屑 by li.xue 20180628*/
 		var type = getQueryString("type");
-		if (type == "DPYL") {
+		if (type == "MJFW") {
 			loadBreadcrumb("统计分析", "按面积范围");
 		} else {
 			loadBreadcrumb("按面积范围", '-1');
