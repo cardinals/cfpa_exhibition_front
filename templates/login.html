@@ -153,7 +153,7 @@
                                         <button type="button" id="FUmail-btn" class="verficode" @click="getFUMailCode()" v-text=FUmailCodeText></button>
                                     </li>
                                     <li>
-                                        <i class="icon-code"></i>
+                                        <i class="icon-message"></i>
                                         <input type="text" class="inputstyle" v-model="FUmailCode" name="FUmailCode" id="FUmailCode" placeholder="邮件验证码">
                                     </li>
                                 </ul>
@@ -220,7 +220,7 @@
                                         <button type="button" id="FPBmail-btn" class="verficode" @click="getFPBMailCode()" v-text=FPBmailCodeText></button>
                                     </li>
                                     <li>
-                                        <i class="icon-code"></i>
+                                        <i class="icon-message"></i>
                                         <input type="text" class="inputstyle" v-model="FPBmailCode" name="FPBmailCode" id="FPBmailCode" placeholder="邮件验证码">
                                     </li>
                                 </ul>
@@ -595,28 +595,36 @@
             },
             getMessageCode: function () {
                 if (this.mobileCheck()) {
-                    axios.get('/xfxhapi/test/sendMessage?phone=' + this.mobile).then(function (res) {
-                        this.messageCodeReal = res.data.msg;
-                        var count = this.time;
-                        this.timer = setInterval(() => {
-                            if (count == 0) {
-                                clearInterval(this.timer);
-                                this.timer = null;
-                                this.messageCodeText = "获取验证码";
-                                $('#mobile-btn').removeAttr("disabled");
-                            } else {
-                                this.messageCodeText = count + "秒后获取"
-                                count--;
-                                $('#mobile-btn').attr('disabled', 'disabled');
-                            }
-                        }, 1000)
+                    axios.get('/xfxhapi/signin/getMobileNum/' + this.mobile).then(function (res) {
+                        if (res.data.result != 0) {
+                            alert("用户名已存在!");
+                        } else {
+                            axios.get('/xfxhapi/signin/sendMessage?phone=' + this.mobile).then(function (res) {
+                                this.messageCodeReal = res.data.msg;
+                                var count = this.time;
+                                this.timer = setInterval(() => {
+                                    if (count == 0) {
+                                        clearInterval(this.timer);
+                                        this.timer = null;
+                                        this.messageCodeText = "获取验证码";
+                                        $('#mobile-btn').removeAttr("disabled");
+                                    } else {
+                                        this.messageCodeText = count + "秒后获取"
+                                        count--;
+                                        $('#mobile-btn').attr('disabled', 'disabled');
+                                    }
+                                }, 1000)
+                            }.bind(this), function (error) {
+                                console.log(error);
+                            });
+                        }
                     }.bind(this), function (error) {
-                        console.log(error);
-                    });
+                        console.log(error)
+                    })
                 }
             },
             getFUMessageCode: function () {
-                axios.get('/xfxhapi/test/sendMessage?phone=' + this.mobile).then(function (res) {
+                axios.get('/xfxhapi/signin/sendMessage?phone=' + this.mobile).then(function (res) {
                     this.FUmessageCodeReal = res.data.msg;
                     var count = this.time;
                     this.FUtimer = setInterval(() => {
@@ -636,7 +644,7 @@
                 });
             },
             getFPCMessageCode: function () {
-                axios.get('/xfxhapi/test/sendMessage?phone=' + this.FPCmobile).then(function (res) {
+                axios.get('/xfxhapi/signin/sendMessage?phone=' + this.FPCmobile).then(function (res) {
                     this.FPCmessageCodeReal = res.data.msg;
                     var count = this.time;
                     this.FPCtimer = setInterval(() => {
@@ -657,7 +665,7 @@
             },
             getREAMessageCode: function () {
                 if (this.REAmobileCheck()) {
-                    axios.get('/xfxhapi/test/sendMessage?phone=' + this.REAmobile).then(function (res) {
+                    axios.get('/xfxhapi/signin/sendMessage?phone=' + this.REAmobile).then(function (res) {
                         this.REAmessageCodeReal = res.data.msg;
                         var count = this.time;
                         this.timer = setInterval(() => {
@@ -695,7 +703,7 @@
             },
             getFUMailCode: function () {
                 if (this.FUmailCheck()) {
-                    axios.get('/xfxhapi/test/sendMail?mail=' + this.FUmail).then(function (res) {
+                    axios.get('/xfxhapi/signin/sendMail?mail=' + this.FUmail).then(function (res) {
                         this.FUmailCodeReal = res.data.msg;
                         var count = this.time;
                         this.timer = setInterval(() => {
@@ -717,7 +725,7 @@
             },
             getFPBMailCode: function () {
                 if (this.FPBmailCheck()) {
-                    axios.get('/xfxhapi/test/sendMail?mail=' + this.FPBmail).then(function (res) {
+                    axios.get('/xfxhapi/signin/sendMail?mail=' + this.FPBmail).then(function (res) {
                         this.FPBmailCodeReal = res.data.msg;
                         var count = this.time;
                         this.timer = setInterval(() => {
@@ -778,6 +786,21 @@
                     this.FPDusername = "";
                     this.FPDpassword1 = "";
                     this.FPDpassword2 = "";
+                } else if (flag == 'REAAFlag') {
+                    this.REAcompanyName = "";
+                    this.REAunscid = "";
+                } else if (flag == 'REABFlag') {
+                    this.REAmobile = "";
+                    this.REAmessageCode = "";
+                    this.REAmessageCodeReal = "";
+                    this.REAmessageCodeText = "获取验证码";
+                    this.REApassword1 = "";
+                    this.REApassword2 = "";
+                    this.REAmobileAlertFlag = false;
+                    this.REAmessageCodeAlertFlag = false;
+                    this.REApassword1TipFlag = false;
+                    this.REApassword1AlertFlag = false;
+                    this.REApassword2AlertFlag = false;
                 } else if (flag == 'bakFlag') {
                     var r = confirm("未保存的数据将丢失，确定返回吗？");
                     if (r == false) {
@@ -887,10 +910,21 @@
                 this.password1Check();
                 this.password2Check();
                 if (this.mobileCheck() && this.messageCodeCheck() && this.password1Check() && this.password2Check() && this.messageCode == this.messageCodeReal) {
-                    alert("注册成功!");
-                    this.username = this.mobile;
-                    this.password = this.password1;
-                    this.changeForm('loginFlag');
+
+                    var params = {
+                        username: this.mobile,
+                        password: this.password1,
+                        deptid: "ZSYH"
+                    }
+                    axios.post('/xfxhapi/signin/insertByVO', params).then(function (res) {
+
+                        alert("注册成功!");
+                        this.username = this.mobile;
+                        this.password = this.password1;
+                        this.changeForm('loginFlag');
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
                 }
             },
             REAregiste: function () {
