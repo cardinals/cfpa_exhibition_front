@@ -3,6 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../static/css/prediction/exhprediction_detail.css">
     <title>报名详细信息</title>
 </head>
 
@@ -15,20 +16,30 @@
                 <div id="breadcrumb_box"></div>
                 <div id="tableView">
                     <div class="nameBox">
-                        <div id="basic-Inform-Picture">
-                            <img id="photo" class="detail_picture_top">
+                        <div class="l">
+                            <img v-if="qyjsData!==null" :src="'data:image/png;base64,'+qyjsData.logoBase64" class="detail_picture_top">
+                            <img else class="detail_picture_top">
                         </div>
                         <div class="dib" id="basic-Inform-Title">
+                            <div>
+                                <h3 class="dib inform-h3">
+                                    <v-text v-text="jbxxData.zwgsmc||'无'"></v-text>
+                                </h3>
+                            </div>
                             <dl>
-                                <img src="../../static/images/detail_zddw.png">
-                                <dt class="dib inform-small-title detail_margin">公司名称：</dt>
-                                <dd class="dtdlStyle" v-text="jbxxData.zwgsmc||'无'"></dd>
-                                <br>
                                 <img src="../../static/images/detail_yabm.png">
                                 <dt class="dib inform-small-title detail_margin">统一社会信用代码：</dt>
                                 <dd class="dtdlStyle" v-text="jbxxData.tyshxydm||'无'"></dd>
-                                <br><br><br><br>
+                                <br>
+                                <img src="../../static/images/detail_yabm.png">
+                                <dt class="dib inform-small-title detail_margin">企业简介：</dt>
+                                <dd class="dtdlStyle" v-if="qyjsData!==null" v-text="qyjsData.qyjj||'无'"></dd>
+                                <dd class="dtdlStyle" v-else>无</dd>
+                                <br>
                             </dl>
+                        </div>
+                        <div class="r">
+                            <img :src="'data:image/png;base64,'+jbxxData.yyzzBase64" class="detail_picture_top">
                         </div>
                     </div>
                     <div class="inform-content">
@@ -204,7 +215,7 @@
                                         <el-row class="mb5">
                                             <el-col :span="12">
                                                 <strong class="dtdlStyle">是否代理海外产品：</strong>
-                                                <v-text v-text="wjdcData.sfhwdlcp||'无'"></v-text>
+                                                <v-text v-text="wjdcData.sfhwdlcp==1?'是':'否'||'无'"></v-text>
                                             </el-col>
                                             <el-col :span="12">
                                                 <strong class="dtdlStyle">海外代理产品品牌：</strong>
@@ -214,7 +225,7 @@
                                         <el-row class="mb5">
                                             <el-col :span="12">
                                                 <strong class="dtdlStyle">是否高新技术企业：</strong>
-                                                <v-text v-text="wjdcData.sfgxjsqy||'无'"></v-text>
+                                                <v-text v-text="wjdcData.sfgxjsqy==1?'是':'否'||'无'"></v-text>
                                             </el-col>
                                             <el-col :span="12">
                                                 <strong class="dtdlStyle">高新技术级别：</strong>
@@ -224,7 +235,7 @@
                                         <el-row class="mb5">
                                             <el-col :span="12">
                                                 <strong class="dtdlStyle">是否获得行业信用等级：</strong>
-                                                <v-text v-text="wjdcData.sfhyxydj||'无'"></v-text>
+                                                <v-text v-text="wjdcData.sfhyxydj==1?'是':'否'||'无'"></v-text>
                                             </el-col>
                                             <el-col :span="12">
                                                 <strong class="dtdlStyle">行业信用等级：</strong>
@@ -232,56 +243,62 @@
                                             </el-col>
                                         </el-row>
                                         <el-row class="mb5">
-                                            <el-col :span="8">
+                                            <el-col :span="12">
                                                 <strong class="dtdlStyle">发明专利(项)：</strong>
                                                 <v-text v-text="wjdcData.fmzl||'无'"></v-text>
                                             </el-col>
-                                            <el-col :span="8">
+                                            <el-col :span="12">
                                                 <strong class="dtdlStyle">实用新型专利(项)：</strong>
                                                 <v-text v-text="wjdcData.syxxzl||'无'"></v-text>
                                             </el-col>
-                                            <el-col :span="8">
+                                        </el-row>
+                                        <el-row class="mb5">
+                                            <el-col :span="12">
                                                 <strong class="dtdlStyle">外观设计专利(项)：</strong>
                                                 <v-text v-text="wjdcData.wgsjzl||'无'"></v-text>
                                             </el-col>
                                         </el-row>
                                     </div>
                                 </el-tab-pane>
-                                <el-tab-pane label="企业和产品介绍" name="forth">
-                                    <el-card v-if="qyjsData!==null" class="mb10 card_style">
-                                        <div slot="header" class="clearfix">
-                                            <strong class="card_title_font">企业简介</strong>
-                                        </div>
-                                        <el-row class="mb5">
-                                            <el-col :span="6">
-                                                <img id="imgLogo" style="height:50px;width: 50px;">
-                                            </el-col>
-                                            <el-col :span="18">
-                                                <strong>
-                                                    <v-text v-text="qyjsData.qyjj||'无'"></v-text>
-                                                </strong>
-                                            </el-col>
-                                        </el-row>
-                                    </el-card>
-                                    <el-card v-if="cpjsData!==null" class="mb10 card_style">
-                                        <div slot="header" class="clearfix">
-                                            <strong class="card_title_font">产品简介</strong>
-                                        </div>
-                                        <el-row class="mb5">
-                                            <el-col :span="6">
-                                                <img id="imgProduct" style="height:50px;width: 50px;">
-                                            </el-col>
-                                            <el-col :span="18">
-                                                <el-row class="mb5">
-                                                    <strong class="dtdlStyle">产品类型：</strong>
-                                                    <v-text v-text="cpjsData.cplxmc||'无'"></v-text>
+                                <el-tab-pane label="企业产品介绍" name="forth">
+                                    <el-form v-if="cpjsData!==null" :inline="true" style="width: 100%;" class="demo-form-inline">
+                                        <el-form-item v-for="(cpjs,index) in cpjsData" style="width: 48%;">
+                                            <el-card class="mb10 card_style">
+                                                <el-row>
+                                                    <el-col :span="4">
+                                                        <img id="imgProduct" :src="'data:image/png;base64,'+cpjs.cptpBase64" style="min-height:80px;width: 100%;">
+                                                    </el-col>
+                                                    <el-col :span="20">
+                                                        <strong class="dtdlStyle">产品类型：</strong>
+                                                        <v-text v-text="cpjs.cplxmc||'无'"></v-text>
+                                                        <br>
+                                                        <strong class="dtdlStyle">产品介绍：</strong>
+                                                        <v-text v-text="cpjs.cpjj||'无'"></v-text>
+                                                    </el-col>
                                                 </el-row>
-                                                <strong>
-                                                    <v-text v-text="cpjsData.cpjj||'无'"></v-text>
-                                                </strong>
-                                            </el-col>
-                                        </el-row>
-                                    </el-card>
+                                            </el-card>
+                                        </el-form-item>
+                                    </el-form>
+
+                                    <!-- <div v-if="cpjsData!==null" style="width:100%;">
+                                        <el-card v-for="(cpjs,index) in cpjsData" style="width:50%;" class="mb10 card_style">
+                                            <el-row class="mb5">
+                                                <el-col :span="4">
+                                                    <img id="imgProduct" style="min-height:80px;width: 100%;">
+                                                </el-col>
+                                                <el-col :span="20">
+                                                    <el-row class="mb5">
+                                                        <strong class="dtdlStyle">产品类型：</strong>
+                                                        <v-text v-text="cpjs.cplxmc||'无'"></v-text>
+                                                    </el-row>
+                                                    <el-row class="mb5">
+                                                        <strong class="dtdlStyle">产品介绍：</strong>
+                                                        <v-text v-text="cpjs.cpjj||'无'"></v-text>
+                                                    </el-row>
+                                                </el-col>
+                                            </el-row>
+                                        </el-card>
+                                    </div> -->
                                 </el-tab-pane>
                                 <el-tab-pane label="企业参展展位需求意向" name="fifth">
                                     <div v-if="zwyxData!==null">

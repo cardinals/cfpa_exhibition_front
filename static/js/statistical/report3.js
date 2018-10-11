@@ -28,35 +28,12 @@ var vue = new Vue({
 			pieTitle4: '200 m² 以上面积 产品类型统计占比',
 			
 
-
 			//pieData
-			pieDataz0: [
-				{ value: 190, name: '24-50 m²' },
-				{ value: 290, name: '50-100 m²' },
-				{ value: 350, name: '100-200 m²' },
-				{ value: 400, name: '200 m²以上' }
-			 ],
-
-			pieDataz1: [
-
-			],
-
-
-			pieDataz2: [
-
-			],
-
-
-
-			pieDataz3: [
-
-			],
-
-
-
-			pieDataz4: [
-
-			],
+			pieDataz0: [],
+			pieDataz1: [],
+			pieDataz2: [],
+			pieDataz3: [],
+			pieDataz4: [],
 
 			//bardata
 			tjfxname:[],
@@ -90,12 +67,9 @@ var vue = new Vue({
 		}
 	},
 	mounted: function () {
-	
-		this.barChart();
-		this.pieDataz=this.pieDataz0;
-		this.pieTitle=this.pieTitle0;
-		this.pieChart();
 		this.getCPLX();
+		this.barChart();
+	
 	},
 	created: function () {
 		/**菜单选中 by li.xue 20180628*/
@@ -145,11 +119,28 @@ var vue = new Vue({
 					d += parseInt(this.tjfxtabledata[i].s4)   
 				}
 				//柱状图
-				this.pieDataz0.value=this.tjfxs1.push(a)
-				this.pieDataz0.value=this.tjfxs1.push(b)
-				this.pieDataz0.value=this.tjfxs1.push(c)
-				this.pieDataz0.value=this.tjfxs1.push(b)
-
+			
+				var a1={}
+				a1.value=a
+				a1.name='24-50 m²'
+				var b1={}
+				b1.value=b
+				b1.name='50-100 m²'
+				var c1={}
+				c1.value=c
+				c1.name='100-200 m²'
+				var d1={}
+				d1.value=d
+				d1.name='200 m²以上'
+				this.pieDataz0=[];
+				this.pieDataz0.push(a1)
+				this.pieDataz0.push(b1)
+				this.pieDataz0.push(c1)
+				this.pieDataz0.push(d1)
+				//画饼图
+				this.pieTitle=this.pieTitle0;
+			    this.pieDataz=this.pieDataz0;
+			    this.pieChart();
 				this.tjfxs1.push(a,b,c,d)
 				this.loading = false;
 				this.barChart();
@@ -157,6 +148,7 @@ var vue = new Vue({
 			}.bind(this), function (error) {
 				console.log(error)
 			})
+
 		},
 
 		// 左侧柱状图
@@ -199,7 +191,6 @@ var vue = new Vue({
 						},
 					}
 				],
-
 				
 				series: [
 					{
@@ -246,15 +237,6 @@ var vue = new Vue({
 			// param.type：点击事件均为click
 			myChart.setOption(option);
 		},
-		getList: function (column) {
-			var list = new Array();
-			if(column){
-				for (var i=1; i<=4;i++) {
-					list.push(vue.tjfxs[i])
-				}
-			}
-			return list;
-			},
 		// 右侧玫瑰图
 		pieChart: function () {
 			var myChart = echarts.init(document.getElementById('pie'));

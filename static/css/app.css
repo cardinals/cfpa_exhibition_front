@@ -856,6 +856,7 @@ margin-top: 10px;
 }
 /* 内部功能页 */
 .nameBox {
+  min-height: 170px !important;
 	background-color: #fff;
 	border: 5px solid #ccc;
 	/* margin-top: 15px; */

@@ -93,17 +93,17 @@
                     <!--营业执照预览-->
                     <el-dialog :visible.sync="imgViewVisible" class="picDialog" :close-on-click-modal="false">
                         <div id="flagImage" style="margin-top: 3%">
-                            <img id="imgPreview" style="height:100px;width: 100px;">
+                            <img id="imgPreview">
                         </div>
                     </el-dialog>
 
                     <!--审批界面-->
                     <el-dialog title="预报名信息审核" :visible.sync="approveFormVisible" :close-on-click-modal="false">
                         <el-row>
-                            <el-col :span="12">
+                            <el-col :span="8">
                                 <img id="imgApprove" style="height:100px;width: 100px;">
                             </el-col>
-                            <el-col :span="12">
+                            <el-col :span="16">
                                 <el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
                                     <strong style="color: #20a0ff;">审核信息</strong>
                                 </el-row>
