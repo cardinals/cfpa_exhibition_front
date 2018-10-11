@@ -28,7 +28,6 @@ var vue = new Vue({
 			pieTitle4: '200 m² 以上面积 产品类型统计占比',
 			
 
-
 			//pieData
 			pieDataz0: [],
 			pieDataz1: [],
@@ -68,12 +67,11 @@ var vue = new Vue({
 		}
 	},
 	mounted: function () {
-	
-		this.barChart();
-		this.pieDataz=this.pieDataz0;
-		this.pieTitle=this.pieTitle0;
-		this.pieChart();
 		this.getCPLX();
+		this.barChart();
+		this.pieTitle=this.pieTitle0;
+		this.pieDataz=this.pieDataz0;
+		this.pieChart();
 	},
 	created: function () {
 		/**菜单选中 by li.xue 20180628*/
@@ -238,15 +236,6 @@ var vue = new Vue({
 			// param.type：点击事件均为click
 			myChart.setOption(option);
 		},
-		getList: function (column) {
-			var list = new Array();
-			if(column){
-				for (var i=1; i<=4;i++) {
-					list.push(vue.tjfxs[i])
-				}
-			}
-			return list;
-			},
 		// 右侧玫瑰图
 		pieChart: function () {
 			var myChart = echarts.init(document.getElementById('pie'));
