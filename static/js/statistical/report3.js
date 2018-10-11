@@ -148,7 +148,7 @@ var vue = new Vue({
 					this.pieDataz4.push(this.tjfxtabledata[i].s4)
 
 				}
-				debugger;
+			
 				//柱状图
 				this.tjfxs1.push(a,b,c,d)
 				
@@ -215,7 +215,6 @@ var vue = new Vue({
 						barWidth: '45',
 						//柱状图
 						data:this.tjfxs1,
-
 						smooth: true,
 						itemStyle: {
 							normal: {
@@ -233,9 +232,10 @@ var vue = new Vue({
 			myChart.on('click', function (param) {
 				var index = param.dataIndex + 1;
 				// vue.pieData = eval("vue.pieData" + index);
-				vue.pieDataz = eval("vue.pieDataz" + index);
+				// vue.pieDataz = eval("vue.pieDataz" + index);
+				
+				vue.pieDataz.name = vue.tjfxname;
 				vue.pieTitle = eval("vue.pieTitle" + index);
-
 				var pieChart = echarts.getInstanceByDom(document.getElementById("pie"));
 				if (pieChart != null && pieChart != "" && pieChart != undefined) {
 					pieChart.dispose();
@@ -253,7 +253,6 @@ var vue = new Vue({
 			myChart.setOption(option);
 		},
 		getList: function (column) {
-			debugger;
 			var list = new Array();
 			if(column){
 				for (var i=1; i<=4;i++) {
