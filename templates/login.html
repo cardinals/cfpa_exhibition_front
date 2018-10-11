@@ -182,7 +182,7 @@
                                         <input type="text" class="inputstyle" v-model="FUvalidateCode" name="FUvalidateCode" id="FUvalidateCode" placeholder="验证码"
                                             @keyup.enter="login()">
                                         <a href="javascript:;" @click="reloadFUCode()">
-                                            <img v-bind:src="FUsrc" id="FUcheckCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';"
+                                            <img v-bind:src="FUsrc" id="FUcheckCode" class="verficode" onerror="javascript:this.FUsrc='../static/images/img-error.png';"
                                                 style="vertical-align: bottom" width="50" height="20">
                                         </a>
                                     </li>
@@ -437,7 +437,7 @@
             FUmailCodeReal: "",
             FUmailCodeText: "获取验证码",
             FUtimer: null,
-            FUusername: "",
+            FUusername: "18904047625",
             FUmessageCode: "",
             FUmessageCodeReal: "",
             FUmessageCodeText: "获取验证码",
@@ -500,7 +500,7 @@
             nlogin: function () {
                 var reg = /^[0-9a-zA-Z]{18}$/;
                 if (this.unscid == null || this.unscid == '') {
-                    alert("统一社会信用代码不能为空!")
+                    alert("统一社会信用代码不能为空！")
                 }
                 // else if(!reg.test(this.unscid)){
                 //     alert("统一社会信用代码为18位字母或数字！")
@@ -521,7 +521,10 @@
                 } else if (this.FUvalidateCode == null || this.FUvalidateCode == '') {
                     alert("验证码不能为空！")
                 } else {
-                    alert('登陆成功');
+                    this.username = this.FUusername;
+                    this.password = this.FUpassword;
+                    this.validateCode = this.FUvalidateCode;
+                    $('#login-form').submit();
                 }
             },
             FPlogin: function () {
@@ -542,7 +545,22 @@
                     alert("验证码不能为空！")
                 } else {
                     if (this.FUmailCode == this.FUmailCodeReal) {
-                        this.changeForm('FUBFlag');
+                        axios.get('/xfxhapi/signin/getMailNum/' + this.FUmail.replace(".", "_")).then(function (res) {
+                            if (res.data.result == 0) {
+                                alert("该邮箱未注册！");
+                            } else if (res.data.result == 1) {
+                                axios.get('/xfxhapi/signin/getUsernameByMail/' + this.FUmail.replace(".", "_")).then(function (res) {
+                                    alert("用户名找回成功！");
+                                    this.username = res.data;
+                                    this.changeForm('loginFlag');
+                                }.bind(this), function (error) {
+                                    console.log(error);
+                                });
+                            }
+                        }.bind(this), function (error) {
+                            console.log(error);
+                        });
+
                     } else {
                         alert("验证码输入错误，请核对后再试");
                     }
@@ -555,7 +573,12 @@
                     alert("验证码不能为空！")
                 } else {
                     if (this.FPBmailCode == this.FPBmailCodeReal) {
-                        this.changeForm('FPDFlag');
+                        axios.get('/xfxhapi/signin/getUsernameByMail/' + this.FPBmail.replace(".", "_")).then(function (res) {
+                            this.FPDusername = res.data;
+                            this.changeForm('FPDFlag');
+                        }.bind(this), function (error) {
+                            console.log(error);
+                        });
                     } else {
                         alert("验证码输入错误，请核对后再试");
                     }
@@ -568,6 +591,7 @@
                     alert("验证码不能为空！")
                 } else {
                     if (this.FPCmessageCode == this.FPCmessageCodeReal) {
+                        this.FPDusername = this.FPCmobile;
                         this.changeForm('FPDFlag');
                     } else {
                         alert("验证码输入错误，请核对后再试");
@@ -580,7 +604,23 @@
                 } else if (this.REAunscid == null || this.REAunscid == '') {
                     alert("统一社会信用代码不能为空！")
                 } else {
-                    this.changeForm('REABFlag');
+                    var params = {
+                        unscid: this.REAunscid,
+                        companyname: this.REAcompanyName
+                    }
+                    axios.post('/xfxhapi/signin/findByUniscid/', params).then(function (res) {
+                        var result = res.data.result;
+                        if (result.length == 0) {
+                            alert("无记录，请重新输入!");
+                        }
+                        else {
+                            console.log(result);
+                            this.REAmobile = result[0].username;
+                            this.changeForm('REABFlag');
+                        }
+                    }.bind(this), function (error) {
+                        console.log(error);
+                    });
                 }
             },
             reset: function () {
@@ -591,13 +631,13 @@
                 $('#checkCode').attr('src', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
             },
             reloadFUCode: function () {
-                $('#FUcheckCode').attr('FUsrc', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
+                $('#FUcheckCode').attr('src', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
             },
             getMessageCode: function () {
                 if (this.mobileCheck()) {
                     axios.get('/xfxhapi/signin/getMobileNum/' + this.mobile).then(function (res) {
                         if (res.data.result != 0) {
-                            alert("用户名已存在!");
+                            alert("用户名已存在！");
                         } else {
                             axios.get('/xfxhapi/signin/sendMessage?phone=' + this.mobile).then(function (res) {
                                 this.messageCodeReal = res.data.msg;
@@ -624,7 +664,7 @@
                 }
             },
             getFUMessageCode: function () {
-                axios.get('/xfxhapi/signin/sendMessage?phone=' + this.mobile).then(function (res) {
+                axios.get('/xfxhapi/signin/sendMessage?phone=' + this.FUusername).then(function (res) {
                     this.FUmessageCodeReal = res.data.msg;
                     var count = this.time;
                     this.FUtimer = setInterval(() => {
@@ -644,21 +684,33 @@
                 });
             },
             getFPCMessageCode: function () {
-                axios.get('/xfxhapi/signin/sendMessage?phone=' + this.FPCmobile).then(function (res) {
-                    this.FPCmessageCodeReal = res.data.msg;
-                    var count = this.time;
-                    this.FPCtimer = setInterval(() => {
-                        if (count == 0) {
-                            clearInterval(this.FPCtimer);
-                            this.FPCtimer = null;
-                            this.FPCmessageCodeText = "获取验证码";
-                            $('#FPCmobile-btn').removeAttr("disabled");
-                        } else {
-                            this.FPCmessageCodeText = count + "秒后获取"
-                            count--;
-                            $('#FPCmobile-btn').attr('disabled', 'disabled');
-                        }
-                    }, 1000)
+                axios.get('/xfxhapi/signin/getMobileNum/' + this.FPCmobile).then(function (res) {
+                    if (this.FPCmobile == null || this.FPCmobile == '') {
+                        alert("手机号不能为空！")
+                    } else if (!(/^1[34578]\d{9}$/.test(this.FPCmobile))) {
+                        alert("请填写正确的手机号码！")
+                    } else if (res.data.result == 0) {
+                        alert("用户名不存在！");
+                    } else {
+                        axios.get('/xfxhapi/signin/sendMessage?phone=' + this.FPCmobile).then(function (res) {
+                            this.FPCmessageCodeReal = res.data.msg;
+                            var count = this.time;
+                            this.FPCtimer = setInterval(() => {
+                                if (count == 0) {
+                                    clearInterval(this.FPCtimer);
+                                    this.FPCtimer = null;
+                                    this.FPCmessageCodeText = "获取验证码";
+                                    $('#FPCmobile-btn').removeAttr("disabled");
+                                } else {
+                                    this.FPCmessageCodeText = count + "秒后获取"
+                                    count--;
+                                    $('#FPCmobile-btn').attr('disabled', 'disabled');
+                                }
+                            }, 1000)
+                        }.bind(this), function (error) {
+                            console.log(error);
+                        });
+                    }
                 }.bind(this), function (error) {
                     console.log(error);
                 });
@@ -790,17 +842,17 @@
                     this.REAcompanyName = "";
                     this.REAunscid = "";
                 } else if (flag == 'REABFlag') {
-                    this.REAmobile = "";
-                    this.REAmessageCode = "";
-                    this.REAmessageCodeReal = "";
-                    this.REAmessageCodeText = "获取验证码";
-                    this.REApassword1 = "";
-                    this.REApassword2 = "";
-                    this.REAmobileAlertFlag = false;
-                    this.REAmessageCodeAlertFlag = false;
-                    this.REApassword1TipFlag = false;
-                    this.REApassword1AlertFlag = false;
-                    this.REApassword2AlertFlag = false;
+                    // this.REAmobile = "";
+                    // this.REAmessageCode = "";
+                    // this.REAmessageCodeReal = "";
+                    // this.REAmessageCodeText = "获取验证码";
+                    // this.REApassword1 = "";
+                    // this.REApassword2 = "";
+                    // this.REAmobileAlertFlag = false;
+                    // this.REAmessageCodeAlertFlag = false;
+                    // this.REApassword1TipFlag = false;
+                    // this.REApassword1AlertFlag = false;
+                    // this.REApassword2AlertFlag = false;
                 } else if (flag == 'bakFlag') {
                     var r = confirm("未保存的数据将丢失，确定返回吗？");
                     if (r == false) {
@@ -918,7 +970,7 @@
                     }
                     axios.post('/xfxhapi/signin/insertByVO', params).then(function (res) {
 
-                        alert("注册成功!");
+                        alert("注册成功！");
                         this.username = this.mobile;
                         this.password = this.password1;
                         this.changeForm('loginFlag');
@@ -933,7 +985,7 @@
                 this.REApassword1Check();
                 this.REApassword2Check();
                 if (this.REAmobileCheck() && this.REAmessageCodeCheck() && this.REApassword1Check() && this.REApassword2Check() && this.REAmessageCode == this.REAmessageCodeReal) {
-                    alert("注册成功!");
+                    alert("注册成功！");
                     this.username = this.REAmobile;
                     this.password = this.REApassword1;
                     this.changeForm('loginFlag');
