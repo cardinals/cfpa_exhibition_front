@@ -18,7 +18,7 @@ var vue = new Vue({
 			//tabledata
 			tabledata: [],
 			//表高度变量
-			tableheight: 1360,
+			tableheight: 185,
 			//显示加载中样
 			loading: false,
 			labelPosition: 'right',
@@ -117,7 +117,7 @@ var vue = new Vue({
 				yAxis: [
 					{
 						type: 'value',
-						name: '参展企业',
+						name: '企业',
 						position: 'left',
 						offset: 30,
 						min: 0,
@@ -133,7 +133,7 @@ var vue = new Vue({
 					},
 					{
 						type: 'value',
-						name: '标准展位',
+						name: '展位',
 						position: 'left',
 						min: 0,
 						max: 50,
