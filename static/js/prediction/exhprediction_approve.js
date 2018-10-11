@@ -101,15 +101,13 @@ var vue = new Vue({
         },
         //营业执照预览
         imgPreview: function (val) {
-            axios.get('/zhapi/qyjbxx/doYyzzToBase64/' + val).then(function (res) {
+            axios.get('/zhapi/qyjbxx/doFindJbxxById/' + val.qyid).then(function (res) {
                 var imgPreviewData = res.data.result;
-                var photo = document.getElementById("flag");
+                var photo = document.getElementById("imgPreview");
                 photo.src = "data:image/png;base64," + imgPreviewData.yyzzBase64;
             }.bind(this), function (error) {
                 console.log(error)
             })
-            // var photo = document.getElementById("imgPreview");
-            // photo.src = "data:image/png;base64," + Base64.decode(val.yyzz)
             this.imgViewVisible = true;
         },
         //获取选中的行号（从0开始）
@@ -118,8 +116,13 @@ var vue = new Vue({
         },
         //审核操作列点击
         approveClick: function (val) {
-            var photo = document.getElementById("imgApprove");
-            photo.src = "data:image/png;base64," + Base64.decode(val.yyzz)
+            axios.get('/zhapi/qyjbxx/doFindJbxxById/' + val.qyid).then(function (res) {
+                var imgPreviewData = res.data.result;
+                var photo = document.getElementById("imgApprove");
+                photo.src = "data:image/png;base64," + imgPreviewData.yyzzBase64;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
             this.approveForm = Object.assign({}, val);
             //如果是未通过审核意见显示*代表必填
             if (this.approveForm.shzt == '02')
@@ -140,12 +143,12 @@ var vue = new Vue({
                     type: "error",
                     showClose: true
                 });
-            } else if (validateBytes(val.reserve1, 36)) {
-                this.$message({
-                    message: "字段超长，请重新输入",
-                    type: "error",
-                    showClose: true
-                });
+                // } else if (validateBytes(val.reserve1, 36)) {
+                //     this.$message({
+                //         message: "字段超长，请重新输入",
+                //         type: "error",
+                //         showClose: true
+                //     });
             } else {
                 //审核状态改变才调用后台approveByVO方法
                 if (val.shzt == this.tableData[this.selectIndex].shzt && val.reserve1 == this.tableData[this.selectIndex].reserve1) {
@@ -155,9 +158,15 @@ var vue = new Vue({
                         showClose: true
                     });
                 } else {
+                    if (val.shzt == '02') {//未通过
+                        val.sjzt = '04';
+                    }else if(val.shzt == '03'){//已通过
+                        val.sjzt = '05';
+                    }
                     var params = {
                         qyid: val.qyid,
                         shzt: val.shzt,
+                        sjzt:val.sjzt,
                         reserve1: val.reserve1,//审核意见
                         shrid: this.shiroData.userid,
                         shrmc: this.shiroData.realName,
