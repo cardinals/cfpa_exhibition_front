@@ -81,7 +81,6 @@ var vue = new Vue({
                 orgJgid: this.shiroData.organizationVO.jgid
             }
             axios.post('/zhapi/qyjbxx/page', params).then(function (res) {
-                //debugger
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
@@ -105,19 +104,6 @@ var vue = new Vue({
             }
             loadDivParam("prediction/exhprediction_detail", params);
         },
-        //营业执照预览
-        imgPreview: function (val) {
-            // axios.get('/zhapi/qyjbxx/doFindYyzzById/' + val.qyid).then(function (res) {
-            //     var imgPreviewData = res.data.result;
-            //     var photo = document.getElementById("flag");
-            //     photo.src = "data:image/png;base64," + imgPreviewData.yyzzBase64;
-            // }.bind(this), function (error) {
-            //     console.log(error)
-            // })
-            var photo = document.getElementById("imgPreview");
-            photo.src = "data:image/png;base64," + Base64.decode(val.yyzz)
-            this.imgViewVisible = true;
-        },
         //表格勾选事件
         selectionChange: function (val) {
             this.multipleSelection = val;
@@ -137,7 +123,32 @@ var vue = new Vue({
             }
             loadDivParam("prediction/prediction_edit", params);
         },
-        deleteClick: function (val) {
+        deleteClick: function () {
+            this.$confirm('确定删除已选中报名信息?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                for (var i in this.multipleSelection) {
+                    this.multipleSelection[i].xgrid = this.shiroData.userid;
+                    this.multipleSelection[i].xgrmc = this.shiroData.realName;
+                    this.multipleSelection[i].deleteFlag = 'Y';
+                }
+                axios.post('/zhapi/qyjbxx/doDeleteJbxx', this.multipleSelection).then(function (res) {
+                    this.$message({
+                        message: "成功删除" + res.data.result + "条报名信息",
+                        showClose: true,
+                        onClose: this.searchClick('delete')
+                    });
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
         }
     }
 })
