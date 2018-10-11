@@ -69,9 +69,7 @@ var vue = new Vue({
 	mounted: function () {
 		this.getCPLX();
 		this.barChart();
-		this.pieTitle=this.pieTitle0;
-		this.pieDataz=this.pieDataz0;
-		this.pieChart();
+	
 	},
 	created: function () {
 		/**菜单选中 by li.xue 20180628*/
@@ -87,6 +85,7 @@ var vue = new Vue({
 	methods: {
 		//获取产品类型
 		getCPLX: function () {
+			debugger;
 			var params = {};
 			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {			
 				this.tjfxtabledata = res.data.result;
@@ -140,7 +139,10 @@ var vue = new Vue({
 				this.pieDataz0.push(b1)
 				this.pieDataz0.push(c1)
 				this.pieDataz0.push(d1)
-				
+				//画饼图
+				this.pieTitle=this.pieTitle0;
+			    this.pieDataz=this.pieDataz0;
+			    this.pieChart();
 				this.tjfxs1.push(a,b,c,d)
 				this.loading = false;
 				this.barChart();
@@ -148,6 +150,7 @@ var vue = new Vue({
 			}.bind(this), function (error) {
 				console.log(error)
 			})
+
 		},
 
 		// 左侧柱状图
