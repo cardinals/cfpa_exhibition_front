@@ -181,7 +181,7 @@ var vue = new Vue({
 						// data: this.getList('zhidui'),
 					},
 					{
-						name: '光地展位面积m2',
+						name: '光地展位面积m²',
 						type: 'bar',
 						barWidth: '100%',
 						barWidth: '45',
