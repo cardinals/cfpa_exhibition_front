@@ -15,7 +15,7 @@ input[type=file] {
     width: 30%;
 }
 .el-form--inline .el-form-item__content {
-    width: 100%;
+    width: 70%;
 }
 .el-form-item__content {
     margin-left: 0 !important; 

@@ -8,6 +8,22 @@ new Vue({
             activeIndex: '',
             //显示加载中样
             loading: false,
+            //状态 0新增
+            jbxxStatus: 0,
+            kpxxStatus: 0,
+            wjdcStatus: 0,
+            qyjsStatus: 0,
+            cpjsStatus: 0,
+            xqyxStatus: 0,
+            //企业id
+            qyid: '',
+            //开票信息uuid
+            kpUuid: '',
+            //问卷调查uuid
+            wjUuid: '',
+            //问卷调查产品分类子类
+            childrenCpfl:[],
+           // childrenCpflSelect:[],
             //进度条
             active: 0,
             //基本信息表单
@@ -30,13 +46,14 @@ new Vue({
             //开票信息表单
             kpxxForm: [],
             //问卷调查表单
-            wjdcForm: [],
-            //企业介绍表单
-            qyjsForm: [],
-            //产品介绍表单
-            cpjsForm: {
-                cpxxList:[],
+            wjdcForm: {
+                zycpList:[],
             },
+            //企业介绍表单
+            qyjsForm: {
+                qycpjsVOList:[],
+            },
+            
             //需求意向表单
             xqyxForm: [],
             //基本信息显示标识
@@ -57,6 +74,8 @@ new Vue({
             isgxjsqy: false,
             //是否行业信用等级flag
             isSfhyxydj: false,
+            //问卷调查产品类型选择标识
+            isCplxSelect: false,
             //行政区划tree
             xzqhDataTree:[],
             //树结构配置
@@ -138,7 +157,7 @@ new Vue({
             },
             wjdcRules: {
                 gsxz: [
-                    { required: true, message: '请选择是公司性质', trigger: 'change' }
+                    { required: true, message: '请选择公司性质', trigger: 'change' }
                 ],
                 sfhwdlcp: [
                     { required: true, message: '请选择是否代理海外产品', trigger: 'change' }
@@ -166,7 +185,10 @@ new Vue({
                 ],
                 hyxydj: [
                     { required: true, message: '请选择行业信用等级', trigger: 'change' }
-                ]
+                ],
+                zycp: [
+                    { required: true, message: '请选择主营产品类型号', trigger: 'change' }
+                ],
             },
             qyjsRules: {
                 qyjj: [
@@ -185,14 +207,8 @@ new Vue({
     },
     
     created: function () {
-        var type = getQueryString("type");
-        if (type == "XZ") {
-            loadBreadcrumb("九小场所管理", "九小场所新增");
-        } else if (type == "BJ") {
-            loadBreadcrumb("九小场所管理", "九小场所编辑");
-        }
         this.shiroData = shiroGlobal;
-        
+        this.findInfoByUserid(this.shiroData.userid);
     },
     mounted: function () {
         this.getXzqhDataTree();
@@ -210,7 +226,6 @@ new Vue({
                 list: [2,4]
             };
             axios.post('/xfxhapi/codelist/getCodelisttree2',params).then(function (res) {
-                debugger;
                 this.xzqhDataTree = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -256,6 +271,133 @@ new Vue({
                 console.log(error);
             })
         },
+
+        //通过userid查询基本信息数据
+        findInfoByUserid: function(userid){
+            this.loading = true;
+            var params = {
+                userid: userid,
+                deleteFlag : 'N'
+            }
+            axios.post('/zhapi/qyjbxx/list', params).then(function (res) {
+                if(res.data.result.length>0){
+                    this.baseInforForm = res.data.result[0];
+                    var xzqhArray = [];
+                    xzqhArray.push(res.data.result[0].yjdzsheng);
+                    xzqhArray.push(res.data.result[0].yjdzshi);
+                    this.baseInforForm.xzqh = xzqhArray;
+                    this.jbxxStatus = 1;//修改
+                    this.qyid = res.data.result[0].qyid;
+                }else{
+                    this.jbxxStatus = 0;//新增
+                    this.baseInforForm.lxrsj = this.shiroData.username;
+                }
+                this.loading = false;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //通过企业id查找开票信息
+        findKpxxByQyid:function(qyid){
+            this.loading = true;
+            var params = {
+                qyid: qyid,
+                deleteFlag : 'N'
+            }
+            axios.post('/zhapi/qykpxx/list', params).then(function (res) {
+                if(res.data.result.length>0){
+                    this.kpxxForm = res.data.result[0];
+                    if(this.kpxxForm.kplx == '1'){//专票
+                        this.isZyfp = true;
+                    }
+                    this.kpxxStatus = 1;//修改
+                    this.kpUuid = res.data.result[0].uuid;
+                }else{
+                    this.kpxxStatus = 0;//新增
+                }
+                this.loading = false;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //通过企业id查找问卷调查信息
+        findWjdcByQyid:function(qyid){
+            this.loading = true;
+            var params = {
+                qyid: qyid,
+                deleteFlag : 'N'
+            }
+            axios.post('/zhapi/qywjdc/list', params).then(function (res) {
+                if(res.data.result.length>0){
+                    this.wjdcForm = res.data.result[0];
+                    this.wjdcForm.zycpList = [];
+                    if(this.wjdcForm.sfhwdlcp == '1'){//海外产品代理
+                        this.ishwdlcp = true;
+                    }
+                    if(this.wjdcForm.sfgxjsqy == '1'){//是否为高新技术企业
+                        this.isgxjsqy = true;
+                    }
+                    if(this.wjdcForm.sfhyxydj == '1'){//是否在2018年参与中国消防协会消防行业信用等级评价
+                        this.isSfhyxydj = true;
+                    }
+                //    this.wjdcForm.zycpList = this.wjdcForm.reserve1.split(",");
+                    var tempList = this.wjdcForm.reserve1.split(",");
+                    for(var i in tempList){
+                        this.wjdcForm.zycpList.push(tempList[i]);
+                    }
+                    this.wjdcStatus = 1;//修改
+                    this.wjUuid = res.data.result[0].uuid;
+                }else{
+                    this.wjdcStatus = 0;//新增
+                }
+                this.loading = false;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //通过企业id查找企业和产品介绍
+        findQyjsByQyid:function(qyid){
+            this.loading = true;
+            var params = {
+                qyid: qyid,
+                deleteFlag : 'N'
+            }
+            axios.post('/zhapi/qyjs/list', params).then(function (res) {
+                if(res.data.result.length>0){
+                    this.qyjsForm = res.data.result[0];
+                    
+                    this.qyjsStatus = 1;//修改
+                    this.qyUuid = res.data.result[0].uuid;
+                }else{
+                    this.qyjsStatus = 0;//新增
+                    this.qyjsForm.qycpjsVOList.push({
+                        qyid:'',
+                        cptp:'',
+                        cplx:'',
+                        cpjj:'',
+                        key: Date.now()
+                    });
+                }
+                this.loading = false;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //选择产品分类，显示子类
+        selectCpfl:function(codeValue){
+            for(var i in this.zycp_data){
+                if(this.zycp_data[i].codeValue == codeValue){
+                    this.childrenCpfl = this.zycp_data[i].children;
+                }
+            }
+            //document.getElementById("childrenRow").innerHTML="";
+        },
+        test:function(){
+            console.log(this.wjdcForm.zycpList);
+        },
+        handleTagClose:function(tag){
+            this.wjdcForm.zycpList.splice(this.wjdcForm.zycpList.indexOf(tag), 1);
+          },
         handleRemove(file, fileList) {
             console.log(file, fileList);
         },
@@ -274,12 +416,11 @@ new Vue({
         PicChange: function (file, fileList) {
             const isPng = file.name.endsWith("png");
             const isJpg = file.name.endsWith("jpg");
-            const isBmp = file.name.endsWith("bmp");
-            const isJpeg = file.name.endsWith("jpeg");
-            if (isPng || isJpg || isBmp || isJpeg) {
+            const isPdf = file.name.endsWith("pdf");
+            if (isPng || isJpg || isPdf) {
                 this.isPic = true;
             } else {
-                this.$message.error('上传的图片只能是 png/jpg/bmp/jpeg 格式的文件!');
+                this.$message.error('只能上传jpg、png、pdf格式的文件');
                 fileList.splice(-1, 1);
             }
         },
@@ -287,10 +428,77 @@ new Vue({
         submitJbxx: function(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.active = 1;
-                    this.isJbxxShow = false;
-                    this.isKpxxShow = true;
-                  alert('submit!');
+                    if(this.jbxxStatus == 0){//新增
+                        var params = {
+                            userid: this.shiroData.userid,
+                            zwgsmc: this.baseInforForm.zwgsmc,
+                            ywgsmc: this.baseInforForm.ywgsmc,
+                            frdb: this.baseInforForm.frdb,
+                            frdbdh: this.baseInforForm.frdbdh,
+                            yjdzsheng: this.baseInforForm.xzqh[0],
+                            yjdzshi: this.baseInforForm.xzqh[1],
+                            yjdzxx: this.baseInforForm.yjdzxx,
+                            bgdh: this.baseInforForm.bgdh,
+                            cz: this.baseInforForm.cz,
+                            lxr: this.baseInforForm.lxr,
+                            lxrsj: this.baseInforForm.lxrsj,
+                            wz: this.baseInforForm.wz,
+                            dzyx: this.baseInforForm.dzyx,
+                            yyzz:this.baseInforForm.yyzz,
+                            sjzt:'01',//编辑中
+                            deleteFlag: 'N',
+                            cjrid: this.shiroData.userid,
+                            cjrmc: this.shiroData.username
+                        }
+                        axios.post('/zhapi/qyjbxx/doInsertByVo', params).then(function (res) {
+                            this.$alert('成功保存企业基本信息', '提示', {
+                                type: 'success',
+                                confirmButtonText: '确定',
+                            });
+                            this.active = 1;
+                            this.isJbxxShow = false;
+                            this.isKpxxShow = true;
+                            this.jbxxStatus = 1;
+                            this.findKpxxByQyid(this.qyid);
+                        }.bind(this), function (error) {
+                            console.log(error);
+                        })
+
+                    }else{//修改
+                        var params = {
+                            qyid: this.baseInforForm.qyid,
+                            zwgsmc: this.baseInforForm.zwgsmc,
+                            ywgsmc: this.baseInforForm.ywgsmc,
+                            frdb: this.baseInforForm.frdb,
+                            frdbdh: this.baseInforForm.frdbdh,
+                            yjdzsheng: this.baseInforForm.xzqh[0],
+                            yjdzshi: this.baseInforForm.xzqh[1],
+                            yjdzxx: this.baseInforForm.yjdzxx,
+                            bgdh: this.baseInforForm.bgdh,
+                            cz: this.baseInforForm.cz,
+                            lxr: this.baseInforForm.lxr,
+                            lxrsj: this.baseInforForm.lxrsj,
+                            wz: this.baseInforForm.wz,
+                            dzyx: this.baseInforForm.dzyx,
+                            yyzz:this.baseInforForm.yyzz,
+                            xgrid: this.shiroData.userid,
+                            xgrmc: this.shiroData.username
+                        }
+                        axios.post('/zhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
+                            this.$alert('成功保存企业基本信息', '提示', {
+                                type: 'success',
+                                confirmButtonText: '确定',
+                            });
+                            this.active = 1;
+                            this.isJbxxShow = false;
+                            this.isKpxxShow = true;
+                            this.findKpxxByQyid(this.qyid);
+                        }.bind(this), function (error) {
+                            console.log(error);
+                        })
+                    }
+                    
+
                 } else {
                   console.log('error submit!!');
                   return false;
@@ -302,10 +510,60 @@ new Vue({
         submitKpxx: function(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.active = 2;
-                    this.isKpxxShow = false;
-                    this.isWjdcShow = true;
-                  alert('submit!');
+                    if(this.kpxxStatus == 0){//新增
+                        var params={
+                            qyid: this.qyid,
+                            kplx: this.kpxxForm.kplx,
+                            kpgsmc: this.kpxxForm.kpgsmc,
+                            tyshxydm: this.kpxxForm.tyshxydm,
+                            gsdz: this.kpxxForm.gsdz,
+                            dhhm: this.kpxxForm.dhhm,
+                            khyh: this.kpxxForm.khyh,
+                            yhzh: this.kpxxForm.yhzh,
+                            deleteFlag: 'N',
+                            cjrid: this.shiroData.userid,
+                            cjrmc: this.shiroData.username
+                        }
+                        axios.post('/zhapi/qykpxx/doInsertByVo', params).then(function (res) {
+                            this.$alert('成功保存企业开票信息', '提示', {
+                                type: 'success',
+                                confirmButtonText: '确定',
+                            });
+                            this.active = 2;
+                            this.isKpxxShow = false;
+                            this.isWjdcShow = true;
+                            this.kpxxStatus = 1;
+                            this.findWjdcByQyid(this.qyid);
+                        }.bind(this), function (error) {
+                            console.log(error);
+                        })
+
+                    }else{//修改
+                        var params={
+                            uuid: this.kpUuid,
+                            kplx: this.kpxxForm.kplx,
+                            kpgsmc: this.kpxxForm.kpgsmc,
+                            tyshxydm: this.kpxxForm.tyshxydm,
+                            gsdz: this.kpxxForm.gsdz,
+                            dhhm: this.kpxxForm.dhhm,
+                            khyh: this.kpxxForm.khyh,
+                            yhzh: this.kpxxForm.yhzh,
+                            xgrid: this.shiroData.userid,
+                            xgrmc: this.shiroData.username
+                        }
+                        axios.post('/zhapi/qykpxx/doUpdateByVO', params).then(function (res) {
+                            this.$alert('成功保存企业开票信息', '提示', {
+                                type: 'success',
+                                confirmButtonText: '确定',
+                            });
+                            this.active = 2;
+                            this.isKpxxShow = false;
+                            this.isWjdcShow = true;
+                            this.findWjdcByQyid(this.qyid);
+                        }.bind(this), function (error) {
+                            console.log(error);
+                        })
+                    }
                 } else {
                   console.log('error submit!!');
                   return false;
@@ -316,10 +574,87 @@ new Vue({
         submitWjdc: function(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.active = 3;
-                    this.isWjdcShow = false;
-                    this.isCpjsShow = true;
-                  alert('submit!');
+                    if(this.wjdcStatus == 0){//新增
+                        var zycp = "";
+                        var reserve1 = "";
+                        for(var i in this.wjdcForm.zycpList){
+                            var str = this.wjdcForm.zycpList[i].substr(0,4) + ',';
+                            zycp += str;
+                            reserve1 += this.wjdcForm.zycpList[i] + ',';
+                        }
+                        var params={
+                            qyid: this.qyid,
+                            gsxz: this.wjdcForm.gsxz,
+                            sfhwdlcp: this.wjdcForm.sfhwdlcp,
+                            hwdlcppp: this.wjdcForm.hwdlcppp,
+                            fmzl: this.wjdcForm.fmzl,
+                            syxxzl: this.wjdcForm.syxxzl,
+                            wgsjzl: this.wjdcForm.wgsjzl,
+                            sfgxjsqy: this.wjdcForm.sfgxjsqy,
+                            gxjsjb: this.wjdcForm.gxjsjb,
+                            zycp: zycp.substr(0,zycp.length-1),//eg.1001,1002,1003
+                            sfhyxydj: this.wjdcForm.sfhyxydj,
+                            hyxydj: this.wjdcForm.hyxydj,
+                            deleteFlag: 'N',
+                            cjrid: this.shiroData.userid,
+                            cjrmc: this.shiroData.username,
+                            reserve1: reserve1.substr(0,reserve1.length-1),//eg.1001消防车
+                        }
+                        axios.post('/zhapi/qywjdc/doInsertByVo', params).then(function (res) {
+                            this.$alert('成功保存企问卷调查', '提示', {
+                                type: 'success',
+                                confirmButtonText: '确定',
+                            });
+                            this.active = 3;
+                            this.isWjdcShow = false;
+                            this.isCpjsShow = true;
+                            this.wjdcStatus = 1;
+                            this.findQyjsByQyid(this.qyid);
+                        }.bind(this), function (error) {
+                            console.log(error);
+                        })
+
+                    }else{//修改
+                        var zycp = "";
+                        var reserve1 = "";
+                        for(var i in this.wjdcForm.zycpList){
+                            var str = this.wjdcForm.zycpList[i].substr(0,4) + ',';
+                            zycp += str;
+                            reserve1 += this.wjdcForm.zycpList[i] + ',';
+                        }
+                        var params={
+                            uuid: this.wjUuid,
+                            qyid: this.qyid,
+                            gsxz: this.wjdcForm.gsxz,
+                            sfhwdlcp: this.wjdcForm.sfhwdlcp,
+                            hwdlcppp: this.wjdcForm.hwdlcppp,
+                            fmzl: this.wjdcForm.fmzl,
+                            syxxzl: this.wjdcForm.syxxzl,
+                            wgsjzl: this.wjdcForm.wgsjzl,
+                            sfgxjsqy: this.wjdcForm.sfgxjsqy,
+                            gxjsjb: this.wjdcForm.gxjsjb,
+                            zycp: zycp.substr(0,zycp.length-1),//eg.1001,1002,1003
+                            sfhyxydj: this.wjdcForm.sfhyxydj,
+                            hyxydj: this.wjdcForm.hyxydj,
+                            xgrid: this.shiroData.userid,
+                            xgrmc: this.shiroData.username,
+                            reserve1: reserve1.substr(0,reserve1.length-1),//eg.1001消防车
+                        }
+                        axios.post('/zhapi/qywjdc/doUpdateByVO', params).then(function (res) {
+                            this.$alert('成功保存企问卷调查', '提示', {
+                                type: 'success',
+                                confirmButtonText: '确定',
+                            });
+                            this.active = 3;
+                            this.isWjdcShow = false;
+                            this.isCpjsShow = true;
+                            this.findQyjsByQyid(this.qyid);
+                        }.bind(this), function (error) {
+                            console.log(error);
+                        })
+
+                    }
+
                 } else {
                   console.log('error submit!!');
                   return false;
@@ -327,10 +662,36 @@ new Vue({
             });
         },
         //产品介绍提交（下一步）
-        submitCpjs: function(){
-            this.active = 4;
-            this.isCpjsShow = false;
-            this.isXqyxShow = true;
+        submitCpjs: function(formName){
+            debugger;
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    if(this.cpjsStatus == 0){//新增
+                        //判断最后一个card产品信息是否填全
+                        var cp = this.qyjsForm.qycpjsVOList[this.qyjsForm.qycpjsVOList.length - 1];
+                        if(cp.cplx==''||cp.cpjj==''){
+                            this.$alert('请完整填写产品信息', '提示', {
+                                type: 'success',
+                                confirmButtonText: '确定',
+                            });
+                            return false;
+                        }else{
+                            this.active = 4;
+                            this.isCpjsShow = false;
+                            this.isXqyxShow = true;
+                        }
+
+
+                    }else{//修改
+                       
+
+                    }
+
+                } else {
+                  console.log('error submit!!');
+                  return false;
+                }
+            });
         },
         //需求意向提交
         submitXqyx: function(){
@@ -401,13 +762,31 @@ new Vue({
         },
         //新增产品card
         addDomain:function(){
-            this.cpjsForm.cpxxList.push({
-                qyid:'',
-                cptp:'',
-                cplx:'',
-                cpjj:'',
-                key: Date.now()
-            });
+            //判断最后一个card产品信息是否填全
+            var cp = this.qyjsForm.qycpjsVOList[this.qyjsForm.qycpjsVOList.length - 1];
+            if(cp.cplx==''||cp.cpjj==''){
+                this.$alert('请完整填写产品信息', '提示', {
+                    type: 'success',
+                    confirmButtonText: '确定',
+                });
+                return false;
+            }else{
+                this.qyjsForm.qycpjsVOList.push({
+                    qyid:'',
+                    cptp:'',
+                    cplx:'',
+                    cpjj:'',
+                    key: Date.now()
+                });
+            }
+            
+        },
+        //删除产品card
+        removeDomain: function (item) {
+            var index = this.qyjsForm.qycpjsVOList.indexOf(item)
+            if (index !== -1) {
+                this.qyjsForm.qycpjsVOList.splice(index, 1)
+            }
         },
         handleAvatarSuccess(res, file) {
             this.imageUrl = URL.createObjectURL(file.raw);
