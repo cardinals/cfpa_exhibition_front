@@ -83,7 +83,10 @@
                             </el-table-column>
                             <el-table-column prop="shztmc" label="审核状态" show-overflow-tooltip min-width="13%" align="center">
                                 <template slot-scope="scope">
-                                    <span v-text="scope.row.shztmc"></span>
+                                    <span v-if="scope.row.shzt == '01'" v-text="scope.row.shztmc" style="color:#FF4949"></span>
+                                    <span v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#F7BA2A"></span>
+                                    <span v-else-if="scope.row.shzt == '03'" v-text="scope.row.shztmc" style="color:#42D885"></span>
+                                    <span v-else v-text="scope.row.shztmc"></span>
                                 </template>
                             </el-table-column>
                             <el-table-column label="操作" width="75" align="center" v-if="hasPermission('prediction/exhprediction:edit')">
