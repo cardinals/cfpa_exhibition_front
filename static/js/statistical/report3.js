@@ -103,7 +103,7 @@ var vue = new Vue({
 	mounted: function () {
 	
 		this.barChart();
-		this.pieData=this.pieDataz0;
+		this.pieDataz=this.pieDataz0;
 		this.pieTitle=this.pieTitle0;
 		this.pieChart();
 		this.getCPLX();
@@ -278,7 +278,7 @@ var vue = new Vue({
 					itemGap: 16,
 					itemWidth: 18,
 					// data:this.tjfxname,
-					data: this.pieData.name,
+					data: this.pieDataz.name,
 					align: 'left',
 					itemGap: 8,
 				},
@@ -288,9 +288,9 @@ var vue = new Vue({
 						type: 'pie',
 						radius: '55%',
 						center: ['35%', '50%'],
-						// data:this.pieDataz,
-						data: this.pieData
-							.sort(function (a, b) { return a.value - b.value; }),
+						data:this.pieDataz,
+						// data: this.pieData
+						// 	.sort(function (a, b) { return a.value - b.value; }),
 						// data:this.tjfxs1,
 						roseType: 'radius',
 						label: {
