@@ -30,33 +30,11 @@ var vue = new Vue({
 
 
 			//pieData
-			pieDataz0: [
-				{ value: 190, name: '24-50 m²' },
-				{ value: 290, name: '50-100 m²' },
-				{ value: 350, name: '100-200 m²' },
-				{ value: 400, name: '200 m²以上' }
-			 ],
-
-			pieDataz1: [
-
-			],
-
-
-			pieDataz2: [
-
-			],
-
-
-
-			pieDataz3: [
-
-			],
-
-
-
-			pieDataz4: [
-
-			],
+			pieDataz0: [],
+			pieDataz1: [],
+			pieDataz2: [],
+			pieDataz3: [],
+			pieDataz4: [],
 
 			//bardata
 			tjfxname:[],
@@ -145,11 +123,26 @@ var vue = new Vue({
 					d += parseInt(this.tjfxtabledata[i].s4)   
 				}
 				//柱状图
-				this.pieDataz0.value=this.tjfxs1.push(a)
-				this.pieDataz0.value=this.tjfxs1.push(b)
-				this.pieDataz0.value=this.tjfxs1.push(c)
-				this.pieDataz0.value=this.tjfxs1.push(b)
-
+				debugger;
+				
+				var a1={}
+				a1.value=a
+				a1.name='24-50 m²'
+				var b1={}
+				b1.value=b
+				b1.name='50-100 m²'
+				var c1={}
+				c1.value=c
+				c1.name='100-200 m²'
+				var d1={}
+				d1.value=d
+				d1.name='200 m²以上'
+				this.pieDataz0=[];
+				this.pieDataz0.push(a1)
+				this.pieDataz0.push(b1)
+				this.pieDataz0.push(c1)
+				this.pieDataz0.push(d1)
+				
 				this.tjfxs1.push(a,b,c,d)
 				this.loading = false;
 				this.barChart();
@@ -199,7 +192,6 @@ var vue = new Vue({
 						},
 					}
 				],
-
 				
 				series: [
 					{
