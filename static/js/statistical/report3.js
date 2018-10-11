@@ -86,7 +86,7 @@ var vue = new Vue({
 			loading: false,
 			labelPosition: 'right',
 			//表高度变量
-            tableheight: 185,
+            tableheight: 280,
 		}
 	},
 	mounted: function () {
