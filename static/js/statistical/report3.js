@@ -118,11 +118,12 @@ var vue = new Vue({
 				var b=0;
 				var c=0;
 				var d=0;
-				var arr1={};
-				var arr2={};
-				var arr3={};
-				var arr4={};
+
 				for(var i=0; i<this.tjfxtabledata.length;i++){
+					var arr1={};
+					var arr2={};
+					var arr3={};
+					var arr4={};
 					arr1.value=this.tjfxtabledata[i].s1
 					arr1.name=this.tjfxtabledata[i].cplxmc
 					arr2.value=this.tjfxtabledata[i].s2
@@ -132,19 +133,23 @@ var vue = new Vue({
 					arr4.value=this.tjfxtabledata[i].s4
 					arr4.name=this.tjfxtabledata[i].cplxmc
 					//饼状图数据
-					this.tjfxname.push(this.tjfxtabledata[i].cplxmc)
 					this.pieDataz1.push(arr1)
 					this.pieDataz2.push(arr2)
 					this.pieDataz3.push(arr3)
 					this.pieDataz4.push(arr4)
+					this.tjfxname.push(this.tjfxtabledata[i].cplxmc)				
 					//数据的和
 					a += parseInt(this.tjfxtabledata[i].s1)
 					b += parseInt(this.tjfxtabledata[i].s2)
 					c += parseInt(this.tjfxtabledata[i].s3)
 					d += parseInt(this.tjfxtabledata[i].s4)   
 				}
-				debugger;
 				//柱状图
+				this.pieDataz0.value=this.tjfxs1.push(a)
+				this.pieDataz0.value=this.tjfxs1.push(b)
+				this.pieDataz0.value=this.tjfxs1.push(c)
+				this.pieDataz0.value=this.tjfxs1.push(b)
+
 				this.tjfxs1.push(a,b,c,d)
 				this.loading = false;
 				this.barChart();
@@ -221,7 +226,7 @@ var vue = new Vue({
 			};
 			myChart.on('click', function (param) {
 				var index = param.dataIndex + 1;
-debugger;
+
 				vue.pieDataz = eval("vue.pieDataz" + index);
 				
 				vue.pieTitle = eval("vue.pieTitle" + index);
