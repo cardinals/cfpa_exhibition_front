@@ -124,7 +124,7 @@ var vue = new Vue({
 		getCPLX: function () {
 			var params = {};
 			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {
-				debugger;
+				
 				this.tjfxtabledata = res.data.result;
 				var a=0;
 				var b=0;
@@ -202,6 +202,7 @@ var vue = new Vue({
 						},
 					}
 				],
+
 				
 				series: [
 					{
@@ -213,7 +214,7 @@ var vue = new Vue({
 
 						//柱状图
 						// data: this.getList(),
-						data:this.tjfxs1,
+						data:this.tjfxs2,
 
 						smooth: true,
 						itemStyle: {
@@ -312,7 +313,7 @@ var vue = new Vue({
 			myChart.setOption(option);
 		},
 		refresh: function () {
-			this.pieData=this.pieData0;
+			this.pieDataz=this.pieData0;
 			this.pieTitle=this.pieTitle0;
 			var pieChart = echarts.getInstanceByDom(document.getElementById("pie"));
 			pieChart.dispose();
