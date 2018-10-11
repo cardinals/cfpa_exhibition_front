@@ -85,7 +85,6 @@ var vue = new Vue({
 	methods: {
 		//获取产品类型
 		getCPLX: function () {
-			debugger;
 			var params = {};
 			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {			
 				this.tjfxtabledata = res.data.result;
@@ -120,8 +119,7 @@ var vue = new Vue({
 					d += parseInt(this.tjfxtabledata[i].s4)   
 				}
 				//柱状图
-				debugger;
-				
+			
 				var a1={}
 				a1.value=a
 				a1.name='24-50 m²'
