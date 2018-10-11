@@ -113,15 +113,15 @@ var vue = new Vue({
             var params = {
                 type: "XZ"
             }
-            loadDivParam("prediction/prediction_edit", params);
+            loadDivParam("prediction/exhprediction_edit", params);
         },
         //编辑跳转
         editClick: function (val) {
             var params = {
-                id: val.qyid,
+                userid: val.userid,
                 type: "BJ"
             }
-            loadDivParam("prediction/prediction_edit", params);
+            loadDivParam("prediction/exhprediction_edit", params);
         },
         deleteClick: function () {
             this.$confirm('确定删除已选中报名信息?', '提示', {
