@@ -24,7 +24,7 @@ axios.get('/xfxhapi/shiro').then(function (res) {
         permissions.push(res.data.permissions[i]);
     }
     realname = res.data.realName;
-    if(res.data.deptid != "GLYH" || realname == null || realname == ""){
+    if(realname == null || realname == ""){
         realname = "欢迎您！"
     }
     if(res.data.deptid == "GLYH"){
