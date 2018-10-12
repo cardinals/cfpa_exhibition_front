@@ -9,41 +9,20 @@ var vue = new Vue({
 				dateStart: "",
 				dateEnd: "",
 			},
-			//
 			tjfxbarData:"",
 			//tabledata
 			tjfxtabledata:[],
-			
-			barData: {
-				name: ['24-50 m²', '50-100 m²', '100-200 m²', '200 m²以上'],
-				value: [935, 535, 814, 232, 851],
-			},
+			//展位面积范围
+			zwmjfwmc:[],
+			zwmjfwmcsl:[],
 
 			//pieTitle
 			pieTitle: '',
-			pieTitle0: '按光地展位面积范围统计展会预报名情况比例图',
-			pieTitle1: '24-50 m² 产品类型统计占比',
-			pieTitle2: '50-100 m² 产品类型统计占比',
-			pieTitle3: '100-200 m² 产品类型统计占比',
-			pieTitle4: '200 m² 以上面积 产品类型统计占比',
-			
-
-			//pieData
-			pieDataz0: [],
-			pieDataz1: [],
-			pieDataz2: [],
-			pieDataz3: [],
-			pieDataz4: [],
-
+			pieTitle0: '光地展位面积范围比例图',
+		    pieDataz:[],
 			//bardata
 			tjfxname:[],
-			tjfxs1:[],
-			tjfxs2:[],
-			tjfxs3:[],
-			tjfxs4:[],
-			tjfxs:[],
-	
-			tabledata: [],
+
 			//表高度变量
 			tableheight: 482,//多选值
 			multipleSelection: [],
@@ -68,8 +47,6 @@ var vue = new Vue({
 	},
 	mounted: function () {
 		this.getCPLX();
-		this.barChart();
-	
 	},
 	created: function () {
 		/**菜单选中 by li.xue 20180628*/
@@ -77,74 +54,32 @@ var vue = new Vue({
 		/**面包屑 by li.xue 20180628*/
 		var type = getQueryString("type");
 		if (type == "MJFW") {
-			loadBreadcrumb("统计分析", "按面积范围");
+			loadBreadcrumb("按光地展位面积统计", "-1");
 		} else {
-			loadBreadcrumb("按面积范围", '按产品类型统计');
+			loadBreadcrumb("按光地展位面积统计", "-1");
 		}
 	},
 	methods: {
 		//获取产品类型
 		getCPLX: function () {
 			var params = {};
-			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {			
+			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {	
 				this.tjfxtabledata = res.data.result;
-				var a=0;
-				var b=0;
-				var c=0;
-				var d=0;
-
 				for(var i=0; i<this.tjfxtabledata.length;i++){
+					this.zwmjfwmc.push(this.tjfxtabledata[i].zwmjfwmc)				
+					this.zwmjfwmcsl.push(this.tjfxtabledata[i].sl)
 					var arr1={};
-					var arr2={};
-					var arr3={};
-					var arr4={};
-					arr1.value=this.tjfxtabledata[i].s1
-					arr1.name=this.tjfxtabledata[i].cplxmc
-					arr2.value=this.tjfxtabledata[i].s2
-					arr2.name=this.tjfxtabledata[i].cplxmc
-					arr3.value=this.tjfxtabledata[i].s3
-					arr3.name=this.tjfxtabledata[i].cplxmc
-					arr4.value=this.tjfxtabledata[i].s4
-					arr4.name=this.tjfxtabledata[i].cplxmc
+					arr1.value=this.tjfxtabledata[i].sl
+					arr1.name=this.tjfxtabledata[i].zwmjfwmc	
 					//饼状图数据
-					this.pieDataz1.push(arr1)
-					this.pieDataz2.push(arr2)
-					this.pieDataz3.push(arr3)
-					this.pieDataz4.push(arr4)
-					this.tjfxname.push(this.tjfxtabledata[i].cplxmc)				
-					//数据的和
-					a += parseInt(this.tjfxtabledata[i].s1)
-					b += parseInt(this.tjfxtabledata[i].s2)
-					c += parseInt(this.tjfxtabledata[i].s3)
-					d += parseInt(this.tjfxtabledata[i].s4)   
+					this.pieDataz.push(arr1)
 				}
-				//柱状图
-			
-				var a1={}
-				a1.value=a
-				a1.name='24-50 m²'
-				var b1={}
-				b1.value=b
-				b1.name='50-100 m²'
-				var c1={}
-				c1.value=c
-				c1.name='100-200 m²'
-				var d1={}
-				d1.value=d
-				d1.name='200 m²以上'
-				this.pieDataz0=[];
-				this.pieDataz0.push(a1)
-				this.pieDataz0.push(b1)
-				this.pieDataz0.push(c1)
-				this.pieDataz0.push(d1)
+				//画柱状图
+				this.barChart();
 				//画饼图
 				this.pieTitle=this.pieTitle0;
-			    this.pieDataz=this.pieDataz0;
 			    this.pieChart();
-				this.tjfxs1.push(a,b,c,d)
-				this.loading = false;
-				this.barChart();
-                this.pieChart();				
+				this.loading = false;			
 			}.bind(this), function (error) {
 				console.log(error)
 			})
@@ -156,9 +91,9 @@ var vue = new Vue({
 			var myChart = echarts.init(document.getElementById('bar'));
 			option = {
 				title: {
-					text: '按光地展位面积范围统计展会预报名情况柱状图',
+					text: '按光地展位面积范围统计展位数量',
 					x: 'center',
-					y: '-15'
+					y: '-3'
 				},
 				tooltip: {
 					trigger: 'axis',
@@ -170,14 +105,14 @@ var vue = new Vue({
 					top: '30',
 					bottom: '10',
 					left: '15',
-					right: '40',
+					right: '20',
 					containLabel: true
 				},
 				xAxis: [
 					{
 						type: 'category',
 						
-						data: this.barData.name,
+						data: this.zwmjfwmc,
 						axisLabel: {
 							interval: 0,
 						},
@@ -187,6 +122,7 @@ var vue = new Vue({
 					{ 
 						name:'数量',
 						type: 'value',
+						minInterval : 1,
 						splitLine: {
 							show: false
 						},
@@ -201,14 +137,19 @@ var vue = new Vue({
 						stack: '面积',
 						barWidth: '45',
 						//柱状图
-						data:this.tjfxs1,
+						data:this.zwmjfwmcsl,
 						smooth: true,
+						// color: ['#ff6364', '#fdc107', '#29bb9d'],
 						itemStyle: {
 							normal: {
-								// 绿+蓝
-								color: function (params) {
-									var colorList = ['#fdc107'];
-									return colorList[params.dataIndex];
+								color: function(params) {
+									// build a color map as your need.
+									var colorList = [
+									  '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+									   '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+									   '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+									];
+									return colorList[params.dataIndex]
 								}
 							}
 						}
@@ -216,28 +157,9 @@ var vue = new Vue({
 					
 				]
 			};
-			myChart.on('click', function (param) {
-				var index = param.dataIndex + 1;
-
-				vue.pieDataz = eval("vue.pieDataz" + index);
-				
-				vue.pieTitle = eval("vue.pieTitle" + index);
-				var pieChart = echarts.getInstanceByDom(document.getElementById("pie"));
-				if (pieChart != null && pieChart != "" && pieChart != undefined) {
-					pieChart.dispose();
-				}
-				vue.pieChart();
-			});
-			// 此外param参数包含的内容有：
-			// param.seriesIndex：系列序号（series中当前图形是第几个图形第几个，从0开始计数）
-			// param.dataIndex：数值序列（X轴上当前点是第几个点，从0开始计数）
-			// param.seriesName：legend名称
-			// param.name：X轴值
-			// param.data：Y轴值
-			// param.value：Y轴值
-			// param.type：点击事件均为click
 			myChart.setOption(option);
 		},
+
 		// 右侧玫瑰图
 		pieChart: function () {
 			var myChart = echarts.init(document.getElementById('pie'));
@@ -245,7 +167,7 @@ var vue = new Vue({
 				title: {
 					text: this.pieTitle,
 					left: 'center',
-					top: -15,
+					top: -3,
 				},
 				tooltip: {
 					trigger: 'item',
@@ -257,9 +179,8 @@ var vue = new Vue({
 					y: 'center',
 					itemGap: 16,
 					itemWidth: 18,
-					// data:this.tjfxname,
-					data: this.pieDataz.name,
-					align: 'left',
+					data:this.pieDataz.name,
+					align: 'right',
 					itemGap: 8,
 				},
 				series: [
@@ -268,10 +189,7 @@ var vue = new Vue({
 						type: 'pie',
 						radius: '55%',
 						center: ['35%', '50%'],
-						data:this.pieDataz,
-						// data: this.pieDataz
-						// 	.sort(function (a, b) { return a.value - b.value; }),
-						// data:this.tjfxs1,
+						data:this.pieDataz.sort(function (a, b) { return a.value - b.value; }),
 						roseType: 'radius',
 						label: {
 							show: true,
@@ -288,17 +206,13 @@ var vue = new Vue({
 							return Math.random() * 200;
 						}
 					}
-				]
+				],
+				color: ['#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+				'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+				'#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0']
 			};
-			
+		
 			myChart.setOption(option);
-		},
-		refresh: function () {
-			this.pieDataz=this.pieDataz0;
-			this.pieTitle=this.pieTitle0;
-			var pieChart = echarts.getInstanceByDom(document.getElementById("pie"));
-			pieChart.dispose();
-			this.pieChart();
 		},
 		//表格重新加载数据
 		loadingData: function () {

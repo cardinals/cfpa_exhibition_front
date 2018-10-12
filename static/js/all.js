@@ -27,6 +27,9 @@ axios.get('/xfxhapi/shiro').then(function (res) {
     if(realname == null || realname == ""){
         realname = "欢迎您！"
     }
+    if(res.data.deptid == "GLYH"){
+        document.getElementById("personal").style.display = "none";
+    }
     document.querySelector("#realname").innerHTML = realname;
     if(res.data == null && realname == null && realname == ""){
         window.location.href = "login.html";

@@ -9,8 +9,8 @@ var vue = new Vue({
             //搜索表单
             searchForm: {
                 zwgsmc: '',
-                yjdz: '',
-                shzt: ''
+                // yjdz: '',
+                shzt: '01'
             },
             //审批表单
             approveForm: {
@@ -22,6 +22,8 @@ var vue = new Vue({
             shztData: [],//审核状态下拉框
             selectIndex: '',
             isReject: false,//未通过flag
+            previewTitle: '',
+            previewImg: '',
             imgViewVisible: false,
             approveFormVisible: false,
             //表高度变量
@@ -38,7 +40,7 @@ var vue = new Vue({
     },
     created: function () {
         /**面包屑 by li.xue 20180628*/
-        loadBreadcrumb("预报名信息审核", "-1");
+        loadBreadcrumb("展会报名审核", "-1");
         this.shiroData = shiroGlobal;
         this.getShztData();//审核状态下拉框
     },
@@ -67,7 +69,7 @@ var vue = new Vue({
             this.loading = true;//表格重新加载
             var params = {
                 zwgsmc: this.searchForm.zwgsmc,
-                yjdz: this.searchForm.yjdz,
+                // yjdz: this.searchForm.yjdz,
                 shzt: this.searchForm.shzt,
                 approveflag: 'y',
                 pageSize: this.pageSize,
@@ -76,7 +78,6 @@ var vue = new Vue({
                 orgJgid: this.shiroData.organizationVO.jgid
             }
             axios.post('/zhapi/qyjbxx/page', params).then(function (res) {
-                //debugger
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
@@ -89,7 +90,7 @@ var vue = new Vue({
         clearClick: function () {
             this.searchForm.zwgsmc = '';
             this.searchForm.yjdz = '';
-            this.searchForm.shzt = '';
+            this.searchForm.shzt = '01';
             this.searchClick('reset');
         },
         //企业详情跳转
@@ -101,10 +102,9 @@ var vue = new Vue({
         },
         //营业执照预览
         imgPreview: function (val) {
+            this.previewTitle = val.zwgsmc;
             axios.get('/zhapi/qyjbxx/doFindJbxxById/' + val.qyid).then(function (res) {
-                var imgPreviewData = res.data.result;
-                var photo = document.getElementById("imgPreview");
-                photo.src = "data:image/png;base64," + imgPreviewData.yyzzBase64;
+                this.previewImg = res.data.result.yyzzBase64;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -116,14 +116,12 @@ var vue = new Vue({
         },
         //审核操作列点击
         approveClick: function (val) {
+            this.approveForm = Object.assign({}, val);
             axios.get('/zhapi/qyjbxx/doFindJbxxById/' + val.qyid).then(function (res) {
-                var imgPreviewData = res.data.result;
-                var photo = document.getElementById("imgApprove");
-                photo.src = "data:image/png;base64," + imgPreviewData.yyzzBase64;
+                this.approveForm.yyzzBase64 = res.data.result.yyzzBase64;
             }.bind(this), function (error) {
                 console.log(error)
             })
-            this.approveForm = Object.assign({}, val);
             //如果是未通过审核意见显示*代表必填
             if (this.approveForm.shzt == '02')
                 this.isReject = true;
@@ -160,20 +158,29 @@ var vue = new Vue({
                 } else {
                     if (val.shzt == '02') {//未通过
                         val.sjzt = '04';
-                    }else if(val.shzt == '03'){//已通过
+                    } else if (val.shzt == '03') {//已通过
                         val.sjzt = '05';
                     }
                     var params = {
                         qyid: val.qyid,
                         shzt: val.shzt,
-                        sjzt:val.sjzt,
+                        sjzt: val.sjzt,
                         reserve1: val.reserve1,//审核意见
                         shrid: this.shiroData.userid,
                         shrmc: this.shiroData.realName,
                         shsj: '1'
                     };
                     axios.post('/zhapi/qyjbxx/updateByVO', params).then(function (res) {
-                        this.tableData[this.selectIndex] = res.data.result;
+                        if (res.data.result == 1) {
+                            this.tableData[this.selectIndex].shzt = val.shzt;
+                            if(this.tableData[this.selectIndex].shzt=='01'){
+                                this.tableData[this.selectIndex].shztmc = '待审核';
+                            }else if(this.tableData[this.selectIndex].shzt=='02'){
+                                this.tableData[this.selectIndex].shztmc = '未通过';
+                            }else if(this.tableData[this.selectIndex].shzt=='03'){
+                                this.tableData[this.selectIndex].shztmc = '已通过';
+                            }
+                        }
                     }.bind(this), function (error) {
                         console.log(error)
                     })

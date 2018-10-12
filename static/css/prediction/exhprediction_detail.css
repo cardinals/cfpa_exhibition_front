@@ -1,3 +1,14 @@
 .el-form-item__content {
     width: 100% !important;
 }
+#cpjsImg img{
+    /* min-height:80px; */
+    max-height:100px;
+    max-width: 100%;
+}
+.el-form-item:nth-child(even){
+    margin-right: 0;
+}
+.el-tabs__content {
+    padding: 20px 25px 20px 30px !important;
+}

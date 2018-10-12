@@ -35,9 +35,9 @@ var vue = new Vue({
 		/**面包屑 by li.xue 20180628*/
 		var type = getQueryString("type");
 		if (type == "CPFL") {
-			loadBreadcrumb("按产品分类", "按产品类型统计");
+			loadBreadcrumb("按产品类型统计", "-1");
 		} else {
-			loadBreadcrumb("按产品分类", '按产品类型统计');
+			loadBreadcrumb("按产品类型统计", "-1");
 		}
 	},
 	methods: {
@@ -76,9 +76,9 @@ var vue = new Vue({
 			var myBarChart = echarts.init(document.getElementById('bar'));
 			BarmaxOption = {
 				title: {
-					text: '按产品分类总数柱状图',
+					text: '按产品类型统计展会报名情况',
 					x: 'center',
-					y: '-20',
+					y: '-3',
 				},
 				tooltip: {
 					trigger: 'axis',
@@ -88,21 +88,22 @@ var vue = new Vue({
 				},
 				legend: {
 					orient: 'horizontal',
-					x: 'center',
-					y: '12',
+					x: 'right',
+					y: '-3',
 					iGap: 16,
 					iWidth: 18,
 					// data:this.tjfxdata.cplxmc,
 					//  data: this.tabledata.name,
 					align: 'left',
 					iGap: 8,
+					
 				},
-				color: ['#ff6364', '#fdc107', '#29bb9d'],
+				color: ['#C1232B','#B5C334','#FCCE10'],
 				grid: {
 					top: '50',
 					bottom: '10',
 					left: '15',
-					right: '40',
+					right: '20',
 					containLabel: true
 				},
 				xAxis: [
@@ -122,9 +123,10 @@ var vue = new Vue({
 						name: '企业',
 						position: 'left',
 						offset: 28,
+						minInterval : 1,
 						axisLine: {
 							lineStyle: {
-								color: '#ff6364'
+								color: '#C1232B'
 							}
 						},
 						splitLine: {
@@ -135,9 +137,10 @@ var vue = new Vue({
 						type: 'value',
 						name: '展位',
 						position: 'left',
+						minInterval : 1,//设置为整数的刻度值
 						axisLine: {
 							lineStyle: {
-								color: '#fdc107'
+								color: '#B5C334'
 							}
 						},
 						splitLine: {
@@ -149,7 +152,7 @@ var vue = new Vue({
 						name: '光地展位面积m²',
 						axisLine: {
 							lineStyle: {
-								color: '#29bb9d'
+								color: '#FCCE10'
 							}
 						},
 						splitLine: {

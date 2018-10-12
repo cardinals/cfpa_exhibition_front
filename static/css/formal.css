@@ -116,6 +116,10 @@ body{height:100%;overflow:hidden;}
     margin-left: 40px;
     width: calc(100% - 324px);
 }
+#basic-Inform-Title img{
+    width: 15px;
+    height: 15px;
+}
 #basic-Inform-Picture{
     float: left;
     /* margin-left: 20px; */
@@ -260,5 +264,8 @@ body{height:100%;overflow:hidden;}
 }
 .tjfxstyle{
     height:372px;
-    padding: 35px;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 25px;
+    padding-bottom: 5px;
 }

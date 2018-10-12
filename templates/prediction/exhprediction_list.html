@@ -64,17 +64,18 @@
                             </el-table-column>
                             <el-table-column prop="lxr" label="联系人" show-overflow-tooltip min-width="13%" align="center"></el-table-column>
                             <el-table-column prop="lxrsj" label="联系人手机" show-overflow-tooltip min-width="19%" align="center"></el-table-column>
-                            <el-table-column prop="sjztmc" label="数据状态" show-overflow-tooltip min-width="13%" align="center">
-                                <template slot-scope="scope">
-                                    <span v-text="scope.row.sjztmc"></span>
-                                </template>
-                            </el-table-column>
+                            <el-table-column prop="sjztmc" label="数据状态" show-overflow-tooltip min-width="13%" align="center"></el-table-column>
                             <el-table-column prop="shztmc" label="审核状态" show-overflow-tooltip min-width="13%" align="center">
                                 <template slot-scope="scope">
-                                    <span v-if="scope.row.shzt == '01'" v-text="scope.row.shztmc" style="color:#FF4949"></span>
-                                    <span v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#F7BA2A"></span>
-                                    <span v-else-if="scope.row.shzt == '03'" v-text="scope.row.shztmc" style="color:#42D885"></span>
-                                    <span v-else v-text="scope.row.shztmc"></span>
+                                    <el-popover placement="bottom" width="100" trigger="click" v-if="scope.row.reserve1!=null && scope.row.reserve1!=''">
+                                        <el-row>审核意见:
+                                            <v-text v-text="scope.row.reserve1"></v-text>
+                                        </el-row>
+                                        <a type="text" slot="reference" v-if="scope.row.shzt == '01'" v-text="scope.row.shztmc" style="color:#FF4949"></a>
+                                        <a type="text" slot="reference" v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#F7BA2A"></a>
+                                        <a type="text" slot="reference" v-else-if="scope.row.shzt == '03'" v-text="scope.row.shztmc" style="color:#42D885"></a>
+                                        <a type="text" slot="reference" v-else v-text="scope.row.shztmc"></a>
+                                    </el-popover>
                                 </template>
                             </el-table-column>
                             <el-table-column label="操作" width="75" align="center" v-if="hasPermission('prediction/exhprediction:edit')">
