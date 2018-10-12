@@ -468,6 +468,7 @@
             REAmessageCodeText: "获取验证码",
             REApassword1: "",
             REApassword2: "",
+            REAregisterData: "",
             //重置校验标识
             REAmobileAlertFlag: false,
             REAmessageCodeAlertFlag: false,
@@ -608,15 +609,14 @@
                         unscid: this.REAunscid,
                         companyname: this.REAcompanyName
                     }
-                    axios.post('/xfxhapi/signin/findByUniscid/', params).then(function (res) {
-                        var result = res.data.result;
-                        if (result.length == 0) {
+                    axios.post('/xfxhapi/signin/findByUnscid/', params).then(function (res) {
+                        this.REAregisterData = res.data.result;
+                        if (this.REAregisterData.length == 0) {
                             alert("无记录，请重新输入!");
                         }
                         else {
-                            console.log(result);
-                            this.REAmobile = result[0].username;
                             this.changeForm('REABFlag');
+                            this.REAmobile = this.REAregisterData[0].username;
                         }
                     }.bind(this), function (error) {
                         console.log(error);
@@ -842,17 +842,17 @@
                     this.REAcompanyName = "";
                     this.REAunscid = "";
                 } else if (flag == 'REABFlag') {
-                    // this.REAmobile = "";
-                    // this.REAmessageCode = "";
-                    // this.REAmessageCodeReal = "";
-                    // this.REAmessageCodeText = "获取验证码";
-                    // this.REApassword1 = "";
-                    // this.REApassword2 = "";
-                    // this.REAmobileAlertFlag = false;
-                    // this.REAmessageCodeAlertFlag = false;
-                    // this.REApassword1TipFlag = false;
-                    // this.REApassword1AlertFlag = false;
-                    // this.REApassword2AlertFlag = false;
+                    this.REAmobile = "";
+                    this.REAmessageCode = "";
+                    this.REAmessageCodeReal = "";
+                    this.REAmessageCodeText = "获取验证码";
+                    this.REApassword1 = "";
+                    this.REApassword2 = "";
+                    this.REAmobileAlertFlag = false;
+                    this.REAmessageCodeAlertFlag = false;
+                    this.REApassword1TipFlag = false;
+                    this.REApassword1AlertFlag = false;
+                    this.REApassword2AlertFlag = false;
                 } else if (flag == 'bakFlag') {
                     var r = confirm("未保存的数据将丢失，确定返回吗？");
                     if (r == false) {
@@ -985,10 +985,22 @@
                 this.REApassword1Check();
                 this.REApassword2Check();
                 if (this.REAmobileCheck() && this.REAmessageCodeCheck() && this.REApassword1Check() && this.REApassword2Check() && this.REAmessageCode == this.REAmessageCodeReal) {
-                    alert("注册成功！");
-                    this.username = this.REAmobile;
-                    this.password = this.REApassword1;
-                    this.changeForm('loginFlag');
+                    var params = {
+                        userid: this.REAregisterData[0].userid,
+                        username: this.REAmobile,
+                        password: this.REApassword1,
+                    }
+                    axios.post('/xfxhapi/signin/updateByVO', params).then(function (res) {
+                        if(res.data.result == 1){
+
+                        alert("重置成功！");
+                        this.username = this.REAmobile;
+                        this.password = this.REApassword1;
+                        this.changeForm('loginFlag');
+                        }
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
                 }
             },
         }
