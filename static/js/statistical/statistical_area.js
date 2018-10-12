@@ -19,15 +19,10 @@ var vue = new Vue({
 			//pieTitle
 			pieTitle: '',
 			pieTitle0: '按光地展位面积范围统计展会预报名情况比例图',
-		
+		    pieDataz:[],
 			//bardata
 			tjfxname:[],
-			tjfxs1:[],
-			tjfxs2:[],
-			tjfxs3:[],
-			tjfxs4:[],
-			tjfxs:[],	
-			tabledata: [],
+
 			//表高度变量
 			tableheight: 482,//多选值
 			multipleSelection: [],
@@ -73,6 +68,11 @@ var vue = new Vue({
 				for(var i=0; i<this.tjfxtabledata.length;i++){
 					this.zwmjfwmc.push(this.tjfxtabledata[i].zwmjfwmc)				
 					this.zwmjfwmcsl.push(this.tjfxtabledata[i].sl)
+					var arr1={};
+					arr1.value=this.tjfxtabledata[i].sl
+					arr1.name=this.tjfxtabledata[i].zwmjfwmc	
+					//饼状图数据
+					this.pieDataz.push(arr1)
 				}
 				//画柱状图
 				this.barChart();
@@ -178,8 +178,8 @@ var vue = new Vue({
 					y: 'center',
 					itemGap: 16,
 					itemWidth: 18,
-					data: this.zwmjfwmc,
-					align: 'left',
+					data:this.pieDataz.name,
+					align: 'right',
 					itemGap: 8,
 				},
 				series: [
@@ -188,8 +188,7 @@ var vue = new Vue({
 						type: 'pie',
 						radius: '55%',
 						center: ['35%', '50%'],
-						data:this.zwmjfwmcsl,
-						
+						data:this.pieDataz.sort(function (a, b) { return a.value - b.value; }),
 						roseType: 'radius',
 						label: {
 							show: true,
