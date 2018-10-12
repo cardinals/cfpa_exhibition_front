@@ -24,8 +24,11 @@ axios.get('/xfxhapi/shiro').then(function (res) {
         permissions.push(res.data.permissions[i]);
     }
     realname = res.data.realName;
-    if(realname == null || realname == ""){
+    if(res.data.deptid != "GLYH" || realname == null || realname == ""){
         realname = "欢迎您！"
+    }
+    if(res.data.deptid == "GLYH"){
+        document.getElementById("personal").style.display = "none";
     }
     document.querySelector("#realname").innerHTML = realname;
     if(res.data == null && realname == null && realname == ""){
