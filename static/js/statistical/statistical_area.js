@@ -79,7 +79,7 @@ var vue = new Vue({
 		if (type == "MJFW") {
 			loadBreadcrumb("统计分析", "按面积范围");
 		} else {
-			loadBreadcrumb("按面积范围", '-1');
+			loadBreadcrumb("按面积范围", '按产品类型统计');
 		}
 	},
 	methods: {
