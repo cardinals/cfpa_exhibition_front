@@ -9,7 +9,7 @@ var vue = new Vue({
             //搜索表单
             searchForm: {
                 zwgsmc: '',
-                yjdz: '',
+                // yjdz: '',
                 sjzt: '',
                 shzt: ''
             },
@@ -34,7 +34,7 @@ var vue = new Vue({
     },
     created: function () {
         /**面包屑 by li.xue 20180628*/
-        loadBreadcrumb("预报名信息审核", "-1");
+        loadBreadcrumb("展会报名管理", "-1");
         this.shiroData = shiroGlobal;
         this.getShztData();//审核状态下拉框
         this.getSjztData();//数据状态下拉框
@@ -72,7 +72,7 @@ var vue = new Vue({
             this.loading = true;//表格重新加载
             var params = {
                 zwgsmc: this.searchForm.zwgsmc,
-                yjdz: this.searchForm.yjdz,
+                // yjdz: this.searchForm.yjdz,
                 shzt: this.searchForm.shzt,
                 sjzt: this.searchForm.sjzt,
                 pageSize: this.pageSize,

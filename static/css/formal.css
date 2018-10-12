@@ -258,3 +258,7 @@ body{height:100%;overflow:hidden;}
 .el-date-editor.el-input{
     width: 100%;
 }
+.tjfxstyle{
+    height:372px;
+    padding: 35px;
+}
