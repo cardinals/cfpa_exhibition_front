@@ -3,48 +3,36 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>预报名管理</title>
+    <title>展会报名管理</title>
 </head>
 
 <body class="fw f14 main-index-body">
     <div id="app">
         <div class="main-box">
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
-                <div id="lib :: main_container_header('预报名管理','预报名管理')"></div>
+                <div id="lib :: main_container_header('展会报名管理','展会报名管理')"></div>
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
                 <div id="tableView">
                     <el-row>
                         <el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
                             <el-row>
-                                <el-col :span="1">&nbsp;</el-col>
-                                <el-col :span="9" class="searchInline">
+                                <el-col :span="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">公司名称</label>
-                                    <el-input size="small" v-model="searchForm.zwgsmc" placeholder="公司名称"></el-input>
+                                    <el-input size="small" v-model="searchForm.zwgsmc" placeholder="公司名称" clearable></el-input>
                                 </el-col>
-                                <el-col :span="2">&nbsp;</el-col>
-                                <el-col :span="9" class="searchInline">
-                                    <label class="el-form-item__label searchLabel">邮寄地址</label>
-                                    <el-input size="small" v-model="searchForm.yjdz" placeholder="邮寄地址"></el-input>
-                                </el-col>
-                                <el-col :span="2">&nbsp;</el-col>
-                            </el-row>
-                            <el-row>
-                                <el-col :span="1">&nbsp;</el-col>
-                                <el-col :span="9" class="searchInline">
+                                <el-col :span="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">数据状态</label>
-                                    <el-select size="small" v-model="searchForm.shzt" placeholder="全部" class="searchSelect" clearable>
+                                    <el-select size="small" v-model="searchForm.sjzt" placeholder="全部" class="searchSelect" clearable>
                                         <el-option v-for="item in sjztData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                     </el-select>
                                 </el-col>
-                                <el-col :span="2">&nbsp;</el-col>
-                                <el-col :span="9" class="searchInline">
+                                <el-col :span="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">审核状态</label>
                                     <el-select size="small" v-model="searchForm.shzt" placeholder="全部" class="searchSelect" clearable>
                                         <el-option v-for="item in shztData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                     </el-select>
                                 </el-col>
-                                <el-col :span="2">&nbsp;</el-col>
                             </el-row>
                             <div>
                                 <el-form>
