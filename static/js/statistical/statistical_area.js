@@ -9,15 +9,12 @@ var vue = new Vue({
 				dateStart: "",
 				dateEnd: "",
 			},
-			//
 			tjfxbarData:"",
 			//tabledata
 			tjfxtabledata:[],
-			
-			barData: {
-				name: ['24-50 m²', '50-100 m²', '100-200 m²', '200 m²以上'],
-				value: [935, 535, 814, 232, 851],
-			},
+			//展位面积范围
+			zwmjfwmc:[],
+			zwmjfwmcsl:[],
 
 			//pieTitle
 			pieTitle: '',
@@ -26,23 +23,19 @@ var vue = new Vue({
 			pieTitle2: '50-100 m² 产品类型统计占比',
 			pieTitle3: '100-200 m² 产品类型统计占比',
 			pieTitle4: '200 m² 以上面积 产品类型统计占比',
-			
-
 			//pieData
 			pieDataz0: [],
 			pieDataz1: [],
 			pieDataz2: [],
 			pieDataz3: [],
 			pieDataz4: [],
-
 			//bardata
 			tjfxname:[],
 			tjfxs1:[],
 			tjfxs2:[],
 			tjfxs3:[],
 			tjfxs4:[],
-			tjfxs:[],
-	
+			tjfxs:[],	
 			tabledata: [],
 			//表高度变量
 			tableheight: 482,//多选值
@@ -86,57 +79,16 @@ var vue = new Vue({
 		//获取产品类型
 		getCPLX: function () {
 			var params = {};
-			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {			
+			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {	
+				debugger;		
 				this.tjfxtabledata = res.data.result;
-				var a=0;
-				var b=0;
-				var c=0;
-				var d=0;
-
-				for(var i=0; i<this.tjfxtabledata.length;i++){
-					var arr1={};
-					var arr2={};
-					var arr3={};
-					var arr4={};
-					arr1.value=this.tjfxtabledata[i].s1
-					arr1.name=this.tjfxtabledata[i].cplxmc
-					arr2.value=this.tjfxtabledata[i].s2
-					arr2.name=this.tjfxtabledata[i].cplxmc
-					arr3.value=this.tjfxtabledata[i].s3
-					arr3.name=this.tjfxtabledata[i].cplxmc
-					arr4.value=this.tjfxtabledata[i].s4
-					arr4.name=this.tjfxtabledata[i].cplxmc
-					//饼状图数据
-					this.pieDataz1.push(arr1)
-					this.pieDataz2.push(arr2)
-					this.pieDataz3.push(arr3)
-					this.pieDataz4.push(arr4)
-					this.tjfxname.push(this.tjfxtabledata[i].cplxmc)				
-					//数据的和
-					a += parseInt(this.tjfxtabledata[i].s1)
-					b += parseInt(this.tjfxtabledata[i].s2)
-					c += parseInt(this.tjfxtabledata[i].s3)
-					d += parseInt(this.tjfxtabledata[i].s4)   
-				}
-				//柱状图
 			
-				var a1={}
-				a1.value=a
-				a1.name='24-50 m²'
-				var b1={}
-				b1.value=b
-				b1.name='50-100 m²'
-				var c1={}
-				c1.value=c
-				c1.name='100-200 m²'
-				var d1={}
-				d1.value=d
-				d1.name='200 m²以上'
-				this.pieDataz0=[];
-				this.pieDataz0.push(a1)
-				this.pieDataz0.push(b1)
-				this.pieDataz0.push(c1)
-				this.pieDataz0.push(d1)
+				for(var i=0; i<this.tjfxtabledata.length;i++){
+					
+					this.zwmjfwmc.push(this.tjfxtabledata[i].zwmjfwmc)				
+					this.zwmjfwmcsl.push(this.tjfxtabledata[i].sl)
+				}
+				
 				//画饼图
 				this.pieTitle=this.pieTitle0;
 			    this.pieDataz=this.pieDataz0;
@@ -177,7 +129,7 @@ var vue = new Vue({
 					{
 						type: 'category',
 						
-						data: this.barData.name,
+						data: this.zwmjfwmc,
 						axisLabel: {
 							interval: 0,
 						},
@@ -201,7 +153,7 @@ var vue = new Vue({
 						stack: '面积',
 						barWidth: '45',
 						//柱状图
-						data:this.tjfxs1,
+						data:this.zwmjfwsl,
 						smooth: true,
 						itemStyle: {
 							normal: {
@@ -238,6 +190,7 @@ var vue = new Vue({
 			// param.type：点击事件均为click
 			myChart.setOption(option);
 		},
+
 		// 右侧玫瑰图
 		pieChart: function () {
 			var myChart = echarts.init(document.getElementById('pie'));
@@ -292,13 +245,6 @@ var vue = new Vue({
 			};
 			
 			myChart.setOption(option);
-		},
-		refresh: function () {
-			this.pieDataz=this.pieDataz0;
-			this.pieTitle=this.pieTitle0;
-			var pieChart = echarts.getInstanceByDom(document.getElementById("pie"));
-			pieChart.dispose();
-			this.pieChart();
 		},
 		//表格重新加载数据
 		loadingData: function () {

@@ -25,11 +25,7 @@
                         </el-form>
                     </div> -->
                     <div class="echartsBox rel tjfxstyle">
-                        <div class="echarts-refresh abs" style="margin-left:300px;margin-top:23px;">
-                            <a class="m0 l"  href="#" @click="refresh()">
-                                <img src="../../static/images/echarts-refresh.png" width="100%" height="100%" />
-                            </a>
-                        </div>
+                        
                         <div id="bar" class="h100 w60 l">
                         </div>
                         <div id="pie" class="h100 w40 l">
@@ -41,23 +37,10 @@
                                 :data="this.tjfxtabledata" 
                                 @selection-change="currentPageChange" row-style="height:40px">
                                 <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-                                <el-table-column prop="cplxmc" label="产品类型" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
-                                <el-table-column prop="s1" label="24-50 m²" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
-                                <el-table-column prop="s2" label="50-100 m²" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
-                                <el-table-column prop="s3" label="100-200m²" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
-                                <el-table-column prop="s4" label="200 m²以上" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
-                               
+                                <el-table-column prop="zwmjfwmc" label="展位面积范围" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
+                                <el-table-column prop="sl" label="数量" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
                             </el-table>
-                            
-                            <!--列表底部工具条和分页符-->
-                            <!-- <el-row type="flex" justify="end">
-                                <el-col :span="18">
-                                    <el-pagination @current-change="currentPageChange" :current-page="currentPage" layout="total, prev, pager, next, jumper"
-                                    :total=parseInt(total)>
-                                    </el-pagination>
-                                </el-col>
-                            </el-row> -->
-                            
+                          
                         </div>
                     </div>
                 </div>
