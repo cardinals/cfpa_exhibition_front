@@ -311,7 +311,7 @@
                                             </el-tag>
                                     </el-col>
                                 </el-row>
-                                <el-form-item label="公司主营产品类型" prop="zycp">
+                                <el-form-item label="公司主营产品类型" prop="zycpList">
                                     <el-button v-for="item in zycp_data" plain size="small" @click="selectCpfl(item.codeValue)"><v-text v-text="item.codeName"></v-text></el-button>
                                 </el-form-item>
                                 <!--
@@ -428,7 +428,7 @@
                                     <el-col :span="13">
                                         <el-form-item prop="cplx" label="产品所属分类">
                                             <el-cascader :options="cpssfl_data" :props="defaultProps" size="small" v-model="domain.cplx" placeholder="产品所属分类" class="searchSelect"
-                                        clearable :show-all-levels="false"></el-cascader>
+                                        clearable show-all-levels></el-cascader>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
