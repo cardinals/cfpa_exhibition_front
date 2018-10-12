@@ -32,7 +32,7 @@
                                 <dt class="dib inform-small-title detail_margin">统一社会信用代码：</dt>
                                 <dd class="dtdlStyle" v-text="jbxxData.tyshxydm||'无'"></dd>
                                 <br>
-                                <img src="../../static/images/detail_summary.png">
+                                <img src="../../static/images/detail_summary2.png">
                                 <dt class="dib inform-small-title detail_margin">企业简介：</dt>
                                 <dd class="dtdlStyle" v-if="qyjsData!==null" v-text="qyjsData.qyjj||'无'"></dd>
                                 <dd class="dtdlStyle" v-else>无</dd>
@@ -104,10 +104,6 @@
                                             <strong>数据状态：</strong>
                                             <v-text v-text="jbxxData.sjztmc||'无'"></v-textdiv>
                                         </el-col>
-                                        <el-col :span="12">
-                                            <strong>审核状态：</strong>
-                                            <v-text v-text="jbxxData.shztmc||'无'"></v-text>
-                                        </el-col>
                                     </el-row>
                                     <el-row class="mb10">
                                         <el-col :span="12">
@@ -127,6 +123,13 @@
                                         <el-col :span="12">
                                             <strong>修改时间：</strong>
                                             <v-text v-text="jbxxData.xgsj||'无'"></v-text>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="mb10">&nbsp;</el-row>
+                                    <el-row class="mb10">
+                                        <el-col :span="12">
+                                            <strong>审核状态：</strong>
+                                            <v-text v-text="jbxxData.shztmc||'无'"></v-text>
                                         </el-col>
                                     </el-row>
                                     <el-row class="mb10">
@@ -170,26 +173,6 @@
                                         <el-col :span="12">
                                             <strong>银行账户：</strong>
                                             <v-text v-text="kpxxData.yhzh||'无'"></v-text>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="mb10">
-                                        <el-col :span="12">
-                                            <strong>创建人：</strong>
-                                            <v-text v-text="kpxxData.cjrmc||'无'"></v-text>
-                                        </el-col>
-                                        <el-col :span="12">
-                                            <strong>创建时间：</strong>
-                                            <v-text v-text="kpxxData.cjsj||'无'"></v-text>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="mb10">
-                                        <el-col :span="12">
-                                            <strong>修改人：</strong>
-                                            <v-text v-text="kpxxData.xgrmc||'无'"></v-text>
-                                        </el-col>
-                                        <el-col :span="12">
-                                            <strong>修改时间：</strong>
-                                            <v-text v-text="kpxxData.xgsj||'无'"></v-text>
                                         </el-col>
                                     </el-row>
                                     <!-- </div> -->
@@ -274,23 +257,21 @@
                                             </el-card>
                                         </el-form-item>
                                     </el-form>
-                                    <v-text v-else>暂无产品</v-text>
+                                    <v-text v-else>暂无产品信息</v-text>
                                 </el-tab-pane>
                                 <el-tab-pane label="企业参展展位需求意向" name="fifth">
-                                    <!-- <div v-if="zwyxData!==null"> -->
                                     <el-row class="mb10">
-                                        <strong>标准展位(个)：</strong>
-                                        <v-text v-text="zwyxData.bzzwgs||'无'"></v-text>
+                                        <strong>标准展位(每个12平方米)：</strong>
+                                        <v-text v-text="zwyxData.bzzwgs==null?'无':zwyxData.bzzwgs+' 个'"></v-text>
                                     </el-row>
                                     <el-row class="mb10">
-                                        <strong>室内光地展位(个)：</strong>
-                                        <v-text v-text="zwyxData.sngdzw||'无'"></v-text>
+                                        <strong>室内光地展位(需要特装搭建，24平方米起)：</strong>
+                                        <v-text v-text="zwyxData.sngdzw==null?'无':zwyxData.sngdzw+' m²'"></v-text>
                                     </el-row>
                                     <el-row class="mb10">
-                                        <strong>室外光地展位(个)：</strong>
-                                        <v-text v-text="zwyxData.swgdzw||'无'"></v-text>
+                                        <strong>室外光地展位(仅限消防车类)：</strong>
+                                        <v-text v-text="zwyxData.swgdzw==null?'无':zwyxData.swgdzw+' m²'"></v-text>
                                     </el-row>
-                                    <!-- </div> -->
                                 </el-tab-pane>
                             </el-tabs>
                         </template>
