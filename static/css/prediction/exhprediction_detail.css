@@ -9,3 +9,6 @@
 .el-form-item:nth-child(even){
     margin-right: 0;
 }
+.el-tabs__content {
+    padding: 20px 25px 20px 30px !important;
+}
