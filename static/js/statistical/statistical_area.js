@@ -63,7 +63,7 @@ var vue = new Vue({
 			loading: false,
 			labelPosition: 'right',
 			//表高度变量
-            tableheight: 280,
+            tableheight: 360,
 		}
 	},
 	mounted: function () {
@@ -157,7 +157,8 @@ var vue = new Vue({
 			option = {
 				title: {
 					text: '按光地展位面积范围统计展会预报名情况柱状图',
-					x: 'center'
+					x: 'center',
+					y: '-15'
 				},
 				tooltip: {
 					trigger: 'axis',
@@ -206,7 +207,7 @@ var vue = new Vue({
 							normal: {
 								// 绿+蓝
 								color: function (params) {
-									var colorList = ['#29bb9d', '#556ca6', '#29bb9d', '#556ca6', '#29bb9d', '#556ca6', '#29bb9d', '#556ca6', '#29bb9d', '#556ca6'];
+									var colorList = ['#fdc107'];
 									return colorList[params.dataIndex];
 								}
 							}
@@ -244,7 +245,7 @@ var vue = new Vue({
 				title: {
 					text: this.pieTitle,
 					left: 'center',
-					top: 2,
+					top: -15,
 				},
 				tooltip: {
 					trigger: 'item',

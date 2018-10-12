@@ -77,7 +77,8 @@ var vue = new Vue({
 			BarmaxOption = {
 				title: {
 					text: '按产品分类总数柱状图',
-					x: 'center'
+					x: 'center',
+					y: '-20',
 				},
 				tooltip: {
 					trigger: 'axis',
@@ -88,7 +89,7 @@ var vue = new Vue({
 				legend: {
 					orient: 'horizontal',
 					x: 'center',
-					y: '20px',
+					y: '12',
 					iGap: 16,
 					iWidth: 18,
 					// data:this.tjfxdata.cplxmc,
