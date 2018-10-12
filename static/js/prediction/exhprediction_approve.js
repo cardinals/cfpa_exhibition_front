@@ -22,6 +22,8 @@ var vue = new Vue({
             shztData: [],//审核状态下拉框
             selectIndex: '',
             isReject: false,//未通过flag
+            previewTitle: '',
+            previewImg: '',
             imgViewVisible: false,
             approveFormVisible: false,
             //表高度变量
@@ -100,10 +102,9 @@ var vue = new Vue({
         },
         //营业执照预览
         imgPreview: function (val) {
+            this.previewTitle = val.zwgsmc;
             axios.get('/zhapi/qyjbxx/doFindJbxxById/' + val.qyid).then(function (res) {
-                var imgPreviewData = res.data.result;
-                var photo = document.getElementById("imgPreview");
-                photo.src = "data:image/png;base64," + imgPreviewData.yyzzBase64;
+                this.previewImg = res.data.result.yyzzBase64;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -111,6 +112,7 @@ var vue = new Vue({
         },
         //获取选中的行号（从0开始）
         showRow(row) {
+            debugger
             this.selectIndex = this.tableData.indexOf(row);
         },
         //审核操作列点击
@@ -118,12 +120,9 @@ var vue = new Vue({
             this.approveForm = Object.assign({}, val);
             axios.get('/zhapi/qyjbxx/doFindJbxxById/' + val.qyid).then(function (res) {
                 this.approveForm.yyzzBase64 = res.data.result.yyzzBase64;
-                // var photo = document.getElementById("imgApprove");
-                // photo.src = "data:image/png;base64," + imgPreviewData.yyzzBase64;
             }.bind(this), function (error) {
                 console.log(error)
             })
-            
             //如果是未通过审核意见显示*代表必填
             if (this.approveForm.shzt == '02')
                 this.isReject = true;
@@ -160,20 +159,20 @@ var vue = new Vue({
                 } else {
                     if (val.shzt == '02') {//未通过
                         val.sjzt = '04';
-                    }else if(val.shzt == '03'){//已通过
+                    } else if (val.shzt == '03') {//已通过
                         val.sjzt = '05';
                     }
                     var params = {
                         qyid: val.qyid,
                         shzt: val.shzt,
-                        sjzt:val.sjzt,
+                        sjzt: val.sjzt,
                         reserve1: val.reserve1,//审核意见
                         shrid: this.shiroData.userid,
                         shrmc: this.shiroData.realName,
                         shsj: '1'
                     };
                     axios.post('/zhapi/qyjbxx/updateByVO', params).then(function (res) {
-                        this.tableData[this.selectIndex] = res.data.result;
+                        this.searchClick('delete')
                     }.bind(this), function (error) {
                         console.log(error)
                     })
