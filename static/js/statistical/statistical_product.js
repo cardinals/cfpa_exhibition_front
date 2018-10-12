@@ -78,7 +78,7 @@ var vue = new Vue({
 				title: {
 					text: '按产品分类总数柱状图',
 					x: 'center',
-					y: '-20',
+					// y: '-20',
 				},
 				tooltip: {
 					trigger: 'axis',
@@ -89,7 +89,7 @@ var vue = new Vue({
 				legend: {
 					orient: 'horizontal',
 					x: 'center',
-					y: '12',
+					y: '20',
 					iGap: 16,
 					iWidth: 18,
 					// data:this.tjfxdata.cplxmc,

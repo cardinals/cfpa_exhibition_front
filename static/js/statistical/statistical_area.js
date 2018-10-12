@@ -158,7 +158,7 @@ var vue = new Vue({
 				title: {
 					text: '按光地展位面积范围统计展会预报名情况柱状图',
 					x: 'center',
-					y: '-15'
+					// y: '-15'
 				},
 				tooltip: {
 					trigger: 'axis',
@@ -245,7 +245,7 @@ var vue = new Vue({
 				title: {
 					text: this.pieTitle,
 					left: 'center',
-					top: -15,
+					// top: -15,
 				},
 				tooltip: {
 					trigger: 'item',
