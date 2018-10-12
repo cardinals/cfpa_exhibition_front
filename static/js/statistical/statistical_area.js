@@ -61,8 +61,6 @@ var vue = new Vue({
 	},
 	mounted: function () {
 		this.getCPLX();
-		this.barChart();
-	
 	},
 	created: function () {
 		/**菜单选中 by li.xue 20180628*/
@@ -80,23 +78,18 @@ var vue = new Vue({
 		getCPLX: function () {
 			var params = {};
 			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {	
-				debugger;		
 				this.tjfxtabledata = res.data.result;
-			
 				for(var i=0; i<this.tjfxtabledata.length;i++){
-					
 					this.zwmjfwmc.push(this.tjfxtabledata[i].zwmjfwmc)				
 					this.zwmjfwmcsl.push(this.tjfxtabledata[i].sl)
 				}
-				
+				//画柱状图
+				this.barChart();
 				//画饼图
 				this.pieTitle=this.pieTitle0;
-			    this.pieDataz=this.pieDataz0;
+			    this.pieDataz=this.zwmjfwmcsl;
 			    this.pieChart();
-				this.tjfxs1.push(a,b,c,d)
-				this.loading = false;
-				this.barChart();
-                this.pieChart();				
+				this.loading = false;			
 			}.bind(this), function (error) {
 				console.log(error)
 			})
@@ -153,7 +146,7 @@ var vue = new Vue({
 						stack: '面积',
 						barWidth: '45',
 						//柱状图
-						data:this.zwmjfwsl,
+						data:this.zwmjfwmcsl,
 						smooth: true,
 						itemStyle: {
 							normal: {
@@ -168,26 +161,6 @@ var vue = new Vue({
 					
 				]
 			};
-			myChart.on('click', function (param) {
-				var index = param.dataIndex + 1;
-
-				vue.pieDataz = eval("vue.pieDataz" + index);
-				
-				vue.pieTitle = eval("vue.pieTitle" + index);
-				var pieChart = echarts.getInstanceByDom(document.getElementById("pie"));
-				if (pieChart != null && pieChart != "" && pieChart != undefined) {
-					pieChart.dispose();
-				}
-				vue.pieChart();
-			});
-			// 此外param参数包含的内容有：
-			// param.seriesIndex：系列序号（series中当前图形是第几个图形第几个，从0开始计数）
-			// param.dataIndex：数值序列（X轴上当前点是第几个点，从0开始计数）
-			// param.seriesName：legend名称
-			// param.name：X轴值
-			// param.data：Y轴值
-			// param.value：Y轴值
-			// param.type：点击事件均为click
 			myChart.setOption(option);
 		},
 
@@ -211,7 +184,7 @@ var vue = new Vue({
 					itemGap: 16,
 					itemWidth: 18,
 					// data:this.tjfxname,
-					data: this.pieDataz.name,
+					data: this.zwmjfwmc,
 					align: 'left',
 					itemGap: 8,
 				},
