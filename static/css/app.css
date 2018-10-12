@@ -798,7 +798,10 @@ margin-top: 10px;
   border-color: #dfe6ec;
   background-color: #eef1f6;
   color: black;
+  height: 60px;
 }
+
+
 
 .el-table__body td,
 .el-table__body th {
