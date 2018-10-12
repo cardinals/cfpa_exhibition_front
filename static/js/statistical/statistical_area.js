@@ -18,7 +18,7 @@ var vue = new Vue({
 
 			//pieTitle
 			pieTitle: '',
-			pieTitle0: '按光地展位面积范围统计展会预报名情况比例图',
+			pieTitle0: '光地展位面积范围比例图',
 		    pieDataz:[],
 			//bardata
 			tjfxname:[],
@@ -54,9 +54,9 @@ var vue = new Vue({
 		/**面包屑 by li.xue 20180628*/
 		var type = getQueryString("type");
 		if (type == "MJFW") {
-			loadBreadcrumb("统计分析", "按面积范围");
+			loadBreadcrumb("按光地展位面积统计", "-1");
 		} else {
-			loadBreadcrumb("按面积范围", '按产品类型统计');
+			loadBreadcrumb("按光地展位面积统计", "-1");
 		}
 	},
 	methods: {
@@ -91,7 +91,7 @@ var vue = new Vue({
 			var myChart = echarts.init(document.getElementById('bar'));
 			option = {
 				title: {
-					text: '按光地展位面积范围统计展会预报名情况柱状图',
+					text: '按光地展位面积范围统计展位数量',
 					x: 'center',
 					y: '-3'
 				},
@@ -105,7 +105,7 @@ var vue = new Vue({
 					top: '30',
 					bottom: '10',
 					left: '15',
-					right: '40',
+					right: '20',
 					containLabel: true
 				},
 				xAxis: [

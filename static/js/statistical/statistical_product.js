@@ -35,9 +35,9 @@ var vue = new Vue({
 		/**面包屑 by li.xue 20180628*/
 		var type = getQueryString("type");
 		if (type == "CPFL") {
-			loadBreadcrumb("按产品分类", "按产品类型统计");
+			loadBreadcrumb("按产品类型统计", "-1");
 		} else {
-			loadBreadcrumb("按产品分类", '按产品类型统计');
+			loadBreadcrumb("按产品类型统计", "-1");
 		}
 	},
 	methods: {
@@ -76,7 +76,7 @@ var vue = new Vue({
 			var myBarChart = echarts.init(document.getElementById('bar'));
 			BarmaxOption = {
 				title: {
-					text: '按产品分类总数柱状图',
+					text: '按产品类型统计展会报名情况',
 					x: 'center',
 					y: '-3',
 				},
@@ -103,7 +103,7 @@ var vue = new Vue({
 					top: '50',
 					bottom: '10',
 					left: '15',
-					right: '40',
+					right: '20',
 					containLabel: true
 				},
 				xAxis: [
