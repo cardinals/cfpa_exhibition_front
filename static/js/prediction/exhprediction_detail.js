@@ -6,11 +6,35 @@ new Vue({
             loading: false,
             qyid: "",//企业id
 
-            jbxxData: {},//企业基本信息
+            jbxxData: {
+                zwgsmc:'',
+                tyshxydm:'',
+                yyzzBase64:'',
+                yjdz:'',
+                frdb:'',
+                frdbdh:'',
+                lxr:'',
+                lxrsj:'',
+                cz:'',
+                bgdh:'',
+                dzyx:'',
+                wz:'',
+                sjztmc:'',
+                shztmc:'',
+                cjrmc:'',
+                cjsj:'',
+                xgrmc:'',
+                xgsj:'',
+                shrmc:'',
+                shsj:''
+            },//企业基本信息
             kpxxData: {},//企业开票信息
             wjdcData: {},//企业问卷调查
-            qyjsData: {},//企业介绍
-            cpjsData: {},//产品介绍
+            qyjsData: {
+                logoBase64:'',
+                qyjj:''
+            },//企业介绍
+            cpjsData: [],//产品介绍
             zwyxData: {},//展位需求意向
         }
     },
@@ -43,8 +67,9 @@ new Vue({
         getJbxxData: function (val) {
             this.loading = true;
             axios.get('/zhapi/qyjbxx/doFindJbxxById/' + val).then(function (res) {
-                this.jbxxData = res.data.result;
-                if (this.jbxxData != null) {
+                // this.jbxxData = res.data.result;
+                if (res.data.result != null) {
+                    this.jbxxData = res.data.result;
                     //创建时间格式化
                     if (this.jbxxData.cjsj == null || this.jbxxData.cjsj == "") {
                         this.jbxxData.cjsj = '';
@@ -63,8 +88,6 @@ new Vue({
                     } else {
                         this.jbxxData.shsj = dateFormat(this.jbxxData.shsj);
                     }
-                    // var photo = document.getElementById("yyzz");
-                    // photo.src = "data:image/png;base64," + this.jbxxData.yyzzBase64
                 }
                 this.loading = false;
             }.bind(this), function (error) {
@@ -88,6 +111,8 @@ new Vue({
                     } else {
                         this.kpxxData.xgsj = dateFormat(this.kpxxData.xgsj);
                     }
+                } else {
+                    this.kpxxData = {};
                 }
             }.bind(this), function (error) {
                 console.log(error)
@@ -97,6 +122,9 @@ new Vue({
         getWjdcData: function (val) {
             axios.get('/zhapi/qywjdc/' + val).then(function (res) {
                 this.wjdcData = res.data.result;
+                if (this.wjdcData == null) {
+                    this.wjdcData = {};
+                }
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -104,11 +132,9 @@ new Vue({
         //企业介绍
         getQyjsData: function (val) {
             axios.get('/zhapi/qyjs/doFindQyjsById/' + val).then(function (res) {
-                this.qyjsData = res.data.result;
-                // if (this.qyjsData != null) {
-                //     var photo = document.getElementById("imgLogo");
-                //     photo.src = "data:image/png;base64," + this.qyjsData.logoBase64;
-                // }
+                if (res.data.result != null) {
+                    this.qyjsData = res.data.result;
+                }
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -120,6 +146,9 @@ new Vue({
             }
             axios.post('/zhapi/qycpjs/doFindCpxxById', param).then(function (res) {
                 this.cpjsData = res.data.result;
+                if (this.cpjsData == null) {
+                    this.cpjsData = [];
+                }
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -128,6 +157,9 @@ new Vue({
         getZwyxData: function (val) {
             axios.get('/zhapi/qyzwyx/' + val).then(function (res) {
                 this.zwyxData = res.data.result;
+                if (this.zwyxData == null) {
+                    this.zwyxData = {};
+                }
             }.bind(this), function (error) {
                 console.log(error)
             })

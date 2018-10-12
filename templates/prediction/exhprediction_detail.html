@@ -16,9 +16,13 @@
                 <div id="breadcrumb_box"></div>
                 <div id="tableView">
                     <div class="nameBox">
-                        <div class="l">
-                            <img v-if="qyjsData!==null" :src="'data:image/png;base64,'+qyjsData.logoBase64" class="detail_picture_top">
-                            <img else class="detail_picture_top">
+                        <div class="l tc" v-if="qyjsData.logoBase64!==''">
+                            <img :src="'data:image/png;base64,'+qyjsData.logoBase64" class="detail_picture_top">
+                            <br>企业Logo
+                        </div>
+                        <div v-else class="l">
+                            <img src="../../static/images/noCptp.png" style="width:100px;">
+                            <br>未上传企业Logo
                         </div>
                         <div class="dib" id="basic-Inform-Title">
                             <div>
@@ -27,127 +31,124 @@
                                 </h3>
                             </div>
                             <dl>
-                                <img src="../../static/images/detail_yabm.png">
+                                <img src="../../static/images/detail_tyshxydm.png">
                                 <dt class="dib inform-small-title detail_margin">统一社会信用代码：</dt>
                                 <dd class="dtdlStyle" v-text="jbxxData.tyshxydm||'无'"></dd>
                                 <br>
-                                <img src="../../static/images/detail_yabm.png">
+                                <img src="../../static/images/detail_summary.png">
                                 <dt class="dib inform-small-title detail_margin">企业简介：</dt>
                                 <dd class="dtdlStyle" v-if="qyjsData!==null" v-text="qyjsData.qyjj||'无'"></dd>
                                 <dd class="dtdlStyle" v-else>无</dd>
                                 <br>
                             </dl>
                         </div>
-                        <div class="r">
+                        <div class="r tc" v-if="jbxxData.yyzzBase64!==''">
                             <img :src="'data:image/png;base64,'+jbxxData.yyzzBase64" class="detail_picture_top">
+                            <br>营业执照
+                        </div>
+                        <div class="r" v-else>
+                            <img src="../../static/images/noCptp.png" style="width:100px;">
+                            <br>未上传营业执照
                         </div>
                     </div>
                     <div class="inform-content">
                         <template>
                             <el-tabs v-model="activeName" type="border-card">
                                 <el-tab-pane label="企业基本信息" name="first">
-                                    <el-card class="mb10 card_style">
-                                        <div slot="header" class="clearfix">
-                                            <strong class="card_title_font">基本信息</strong>
-                                        </div>
-                                        <el-row class="mb5">
-                                            <el-col :span="12">
-                                                <strong>公司名称：</strong>
-                                                <v-text v-text="jbxxData.zwgsmc||'无'"></v-text>
-                                            </el-col>
-                                            <el-col :span="12">
-                                                <strong>邮寄地址：</strong>
-                                                <v-text v-text="jbxxData.yjdz||'无'"></v-text>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="mb5">
-                                            <el-col :span="12">
-                                                <strong>法人代表：</strong>
-                                                <v-text v-text="jbxxData.frdb||'无'"></v-text>
-                                            </el-col>
-                                            <el-col :span="12">
-                                                <strong>法人代表电话：</strong>
-                                                <v-text v-text="jbxxData.frdbdh||'无'"></v-text>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="mb5">
-                                            <el-col :span="12">
-                                                <strong>联系人：</strong>
-                                                <v-text v-text="jbxxData.lxr||'无'"></v-text>
-                                            </el-col>
-                                            <el-col :span="12">
-                                                <strong>联系人手机：</strong>
-                                                <v-text v-text="jbxxData.lxrsj||'无'"></v-text>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="mb5">
-                                            <el-col :span="12">
-                                                <strong>传真：</strong>
-                                                <v-text v-text="jbxxData.cz||'无'"></v-text>
-                                            </el-col>
-                                            <el-col :span="12">
-                                                <strong>办公电话：</strong>
-                                                <v-text v-text="jbxxData.bgdh||'无'"></v-text>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="mb5">
-                                            <el-col :span="12">
-                                                <strong>电子邮箱：</strong>
-                                                <v-text v-text="jbxxData.dzyx||'无'"></v-text>
-                                            </el-col>
-                                            <el-col :span="12">
-                                                <strong>网址：</strong>
-                                                <v-text v-text="jbxxData.wz||'无'"></v-text>
-                                            </el-col>
-                                        </el-row>
-                                    </el-card>
-                                    <el-card class="mb10 card_style ">
-                                        <div slot="header" class="clearfix">
-                                            <strong class="card_title_font">数据状态 -
-                                                <v-text v-text="jbxxData.sjztmc||'无'"></v-text>
-                                            </strong>
-                                        </div>
-                                        <el-row class="mb10">
-                                            <el-col :span="12">
-                                                <strong>创建人：</strong>
-                                                <v-text v-text="jbxxData.cjrmc||'无'"></v-textdiv>
-                                            </el-col>
-                                            <el-col :span="12">
-                                                <strong>创建时间：</strong>
-                                                <v-text v-text="jbxxData.cjsj||'无'"></v-text>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="mb10">
-                                            <el-col :span="12">
-                                                <strong>修改人：</strong>
-                                                <v-text v-text="jbxxData.xgrmc||'无'"></v-textdiv>
-                                            </el-col>
-                                            <el-col :span="12">
-                                                <strong>修改时间：</strong>
-                                                <v-text v-text="jbxxData.xgsj||'无'"></v-text>
-                                            </el-col>
-                                        </el-row>
-                                    </el-card>
-                                    <el-card class="mb10 card_style ">
-                                        <div slot="header" class="clearfix">
-                                            <strong class="card_title_font">审核状态 -
-                                                <v-text v-text="jbxxData.shztmc||'无'"></v-text>
-                                            </strong>
-                                        </div>
-                                        <el-row class="mb10">
-                                            <el-col :span="12">
-                                                <strong>审核人：</strong>
-                                                <v-text v-text="jbxxData.shrmc||'无'"></v-textdiv>
-                                            </el-col>
-                                            <el-col :span="12">
-                                                <strong>审核时间：</strong>
-                                                <v-text v-text="jbxxData.shsj||'无'"></v-text>
-                                            </el-col>
-                                        </el-row>
-                                    </el-card>
+                                    <el-row class="mb5">
+                                        <el-col :span="12">
+                                            <strong>公司名称：</strong>
+                                            <v-text v-text="jbxxData.zwgsmc||'无'"></v-text>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <strong>邮寄地址：</strong>
+                                            <v-text v-text="jbxxData.yjdz||'无'"></v-text>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="mb5">
+                                        <el-col :span="12">
+                                            <strong>法人代表：</strong>
+                                            <v-text v-text="jbxxData.frdb||'无'"></v-text>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <strong>法人代表电话：</strong>
+                                            <v-text v-text="jbxxData.frdbdh||'无'"></v-text>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="mb5">
+                                        <el-col :span="12">
+                                            <strong>联系人：</strong>
+                                            <v-text v-text="jbxxData.lxr||'无'"></v-text>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <strong>联系人手机：</strong>
+                                            <v-text v-text="jbxxData.lxrsj||'无'"></v-text>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="mb5">
+                                        <el-col :span="12">
+                                            <strong>传真：</strong>
+                                            <v-text v-text="jbxxData.cz||'无'"></v-text>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <strong>办公电话：</strong>
+                                            <v-text v-text="jbxxData.bgdh||'无'"></v-text>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="mb5">
+                                        <el-col :span="12">
+                                            <strong>电子邮箱：</strong>
+                                            <v-text v-text="jbxxData.dzyx||'无'"></v-text>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <strong>网址：</strong>
+                                            <v-text v-text="jbxxData.wz||'无'"></v-text>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="mb5">&nbsp;</el-row>
+                                    <el-row class="mb5">
+                                        <el-col :span="12">
+                                            <strong>数据状态：</strong>
+                                            <v-text v-text="jbxxData.sjztmc||'无'"></v-textdiv>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <strong>审核状态：</strong>
+                                            <v-text v-text="jbxxData.shztmc||'无'"></v-text>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="mb5">
+                                        <el-col :span="12">
+                                            <strong>创建人：</strong>
+                                            <v-text v-text="jbxxData.cjrmc||'无'"></v-textdiv>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <strong>创建时间：</strong>
+                                            <v-text v-text="jbxxData.cjsj||'无'"></v-text>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="mb5">
+                                        <el-col :span="12">
+                                            <strong>修改人：</strong>
+                                            <v-text v-text="jbxxData.xgrmc||'无'"></v-textdiv>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <strong>修改时间：</strong>
+                                            <v-text v-text="jbxxData.xgsj||'无'"></v-text>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="mb5">
+                                        <el-col :span="12">
+                                            <strong>审核人：</strong>
+                                            <v-text v-text="jbxxData.shrmc||'无'"></v-textdiv>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <strong>审核时间：</strong>
+                                            <v-text v-text="jbxxData.shsj||'无'"></v-text>
+                                        </el-col>
+                                    </el-row>
                                 </el-tab-pane>
                                 <el-tab-pane label="企业开票信息" name="second">
-                                    <div v-if="kpxxData!==null">
+                                    <!-- <div v-if="kpxxData!==null"> -->
                                         <el-row class="mb5">
                                             <el-col :span="12">
                                                 <strong>开票公司名称：</strong>
@@ -198,77 +199,80 @@
                                                 <v-text v-text="kpxxData.xgsj||'无'"></v-text>
                                             </el-col>
                                         </el-row>
-                                    </div>
+                                    <!-- </div> -->
                                 </el-tab-pane>
                                 <el-tab-pane label="企业问卷调查" name="third">
-                                    <div v-if="wjdcData!==null">
+                                    <!-- <div v-if="wjdcData!==null"> -->
                                         <el-row class="mb5">
                                             <el-col :span="12">
-                                                <strong class="dtdlStyle">公司性质：</strong>
+                                                <strong>公司性质：</strong>
                                                 <v-text v-text="wjdcData.gsxzmc||'无'"></v-text>
                                             </el-col>
                                             <el-col :span="12">
-                                                <strong class="dtdlStyle">主营产品：</strong>
+                                                <strong>主营产品：</strong>
                                                 <v-text v-text="wjdcData.zycp||'无'"></v-text>
                                             </el-col>
                                         </el-row>
                                         <el-row class="mb5">
                                             <el-col :span="12">
-                                                <strong class="dtdlStyle">是否代理海外产品：</strong>
-                                                <v-text v-text="wjdcData.sfhwdlcp==1?'是':'否'||'无'"></v-text>
+                                                <strong>是否代理海外产品：</strong>
+                                                <v-text v-text="wjdcData.sfhwdlcp==1?'是':wjdcData.sfhwdlcp==0?'否':'无'"></v-text>
                                             </el-col>
                                             <el-col :span="12">
-                                                <strong class="dtdlStyle">海外代理产品品牌：</strong>
+                                                <strong>海外代理产品品牌：</strong>
                                                 <v-text v-text="wjdcData.hwdlcppp||'无'"></v-text>
                                             </el-col>
                                         </el-row>
                                         <el-row class="mb5">
                                             <el-col :span="12">
-                                                <strong class="dtdlStyle">是否高新技术企业：</strong>
-                                                <v-text v-text="wjdcData.sfgxjsqy==1?'是':'否'||'无'"></v-text>
+                                                <strong>是否高新技术企业：</strong>
+                                                <v-text v-text="wjdcData.sfgxjsqy==1?'是':wjdcData.sfgxjsqy==0?'否':'无'"></v-text>
                                             </el-col>
                                             <el-col :span="12">
-                                                <strong class="dtdlStyle">高新技术级别：</strong>
+                                                <strong>高新技术级别：</strong>
                                                 <v-text v-text="wjdcData.gxjsjbmc||'无'"></v-text>
                                             </el-col>
                                         </el-row>
                                         <el-row class="mb5">
                                             <el-col :span="12">
-                                                <strong class="dtdlStyle">是否获得行业信用等级：</strong>
-                                                <v-text v-text="wjdcData.sfhyxydj==1?'是':'否'||'无'"></v-text>
+                                                <strong>是否获得行业信用等级：</strong>
+                                                <v-text v-text="wjdcData.sfhyxydj==1?'是':wjdcData.sfhyxydj==0?'否':'无'"></v-text>
                                             </el-col>
                                             <el-col :span="12">
-                                                <strong class="dtdlStyle">行业信用等级：</strong>
+                                                <strong>行业信用等级：</strong>
                                                 <v-text v-text="wjdcData.hyxydjmc||'无'"></v-text>
                                             </el-col>
                                         </el-row>
                                         <el-row class="mb5">
                                             <el-col :span="12">
-                                                <strong class="dtdlStyle">发明专利(项)：</strong>
+                                                <strong>发明专利(项)：</strong>
                                                 <v-text v-text="wjdcData.fmzl||'无'"></v-text>
                                             </el-col>
                                             <el-col :span="12">
-                                                <strong class="dtdlStyle">实用新型专利(项)：</strong>
+                                                <strong>实用新型专利(项)：</strong>
                                                 <v-text v-text="wjdcData.syxxzl||'无'"></v-text>
                                             </el-col>
                                         </el-row>
                                         <el-row class="mb5">
                                             <el-col :span="12">
-                                                <strong class="dtdlStyle">外观设计专利(项)：</strong>
+                                                <strong>外观设计专利(项)：</strong>
                                                 <v-text v-text="wjdcData.wgsjzl||'无'"></v-text>
                                             </el-col>
                                         </el-row>
-                                    </div>
+                                    <!-- </div> -->
                                 </el-tab-pane>
                                 <el-tab-pane label="企业产品介绍" name="forth">
-                                    <el-form v-if="cpjsData!==null" :inline="true" style="width: 100%;" class="demo-form-inline">
-                                        <el-form-item v-for="(cpjs,index) in cpjsData" style="width: 48%;">
-                                            <el-card class="mb10 card_style">
+                                    <el-form v-if="cpjsData.length>0" :inline="true" style="width: 100%;" class="demo-form-inline">
+                                        <el-form-item v-for="(cpjs,index) in cpjsData" style="width: 49%;">
+                                            <el-card class="mb10 card_style" id="cpjsImg">
                                                 <el-row>
-                                                    <el-col :span="4">
-                                                        <img id="imgProduct" :src="'data:image/png;base64,'+cpjs.cptpBase64" style="min-height:80px;width: 100%;">
+                                                    <el-col :span="5" v-if="cpjs!==null&&cpjs.cptpBase64!==''">
+                                                        <img id="imgProduct" :src="'data:image/png;base64,'+cpjs.cptpBase64">
                                                     </el-col>
-                                                    <el-col :span="20">
+                                                    <el-col :span="5" v-else>
+                                                        <img src="../../static/images/noCptp.png">
+                                                    </el-col>
+                                                    <el-col :span="19" style="line-height: 24px;">
                                                         <strong class="dtdlStyle">产品类型：</strong>
                                                         <v-text v-text="cpjs.cplxmc||'无'"></v-text>
                                                         <br>
@@ -279,42 +283,23 @@
                                             </el-card>
                                         </el-form-item>
                                     </el-form>
-
-                                    <!-- <div v-if="cpjsData!==null" style="width:100%;">
-                                        <el-card v-for="(cpjs,index) in cpjsData" style="width:50%;" class="mb10 card_style">
-                                            <el-row class="mb5">
-                                                <el-col :span="4">
-                                                    <img id="imgProduct" style="min-height:80px;width: 100%;">
-                                                </el-col>
-                                                <el-col :span="20">
-                                                    <el-row class="mb5">
-                                                        <strong class="dtdlStyle">产品类型：</strong>
-                                                        <v-text v-text="cpjs.cplxmc||'无'"></v-text>
-                                                    </el-row>
-                                                    <el-row class="mb5">
-                                                        <strong class="dtdlStyle">产品介绍：</strong>
-                                                        <v-text v-text="cpjs.cpjj||'无'"></v-text>
-                                                    </el-row>
-                                                </el-col>
-                                            </el-row>
-                                        </el-card>
-                                    </div> -->
+                                    <v-text v-else>暂无产品</v-text>
                                 </el-tab-pane>
                                 <el-tab-pane label="企业参展展位需求意向" name="fifth">
-                                    <div v-if="zwyxData!==null">
+                                    <!-- <div v-if="zwyxData!==null"> -->
                                         <el-row class="mb5">
-                                            <strong class="dtdlStyle">标准展位个数：</strong>
+                                            <strong>标准展位(个)：</strong>
                                             <v-text v-text="zwyxData.bzzwgs||'无'"></v-text>
                                         </el-row>
                                         <el-row class="mb5">
-                                            <strong class="dtdlStyle">室内光地展位：</strong>
+                                            <strong>室内光地展位(个)：</strong>
                                             <v-text v-text="zwyxData.sngdzw||'无'"></v-text>
                                         </el-row>
                                         <el-row class="mb5">
-                                            <strong class="dtdlStyle">室外光地展位：</strong>
+                                            <strong>室外光地展位(个)：</strong>
                                             <v-text v-text="zwyxData.swgdzw||'无'"></v-text>
                                         </el-row>
-                                    </div>
+                                    <!-- </div> -->
                                 </el-tab-pane>
                             </el-tabs>
                         </template>
