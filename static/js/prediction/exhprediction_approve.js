@@ -10,7 +10,7 @@ var vue = new Vue({
             searchForm: {
                 zwgsmc: '',
                 // yjdz: '',
-                shzt: ''
+                shzt: '01'
             },
             //审批表单
             approveForm: {
@@ -90,7 +90,7 @@ var vue = new Vue({
         clearClick: function () {
             this.searchForm.zwgsmc = '';
             this.searchForm.yjdz = '';
-            this.searchForm.shzt = '';
+            this.searchForm.shzt = '01';
             this.searchClick('reset');
         },
         //企业详情跳转
@@ -112,7 +112,6 @@ var vue = new Vue({
         },
         //获取选中的行号（从0开始）
         showRow(row) {
-            debugger
             this.selectIndex = this.tableData.indexOf(row);
         },
         //审核操作列点击
@@ -172,7 +171,16 @@ var vue = new Vue({
                         shsj: '1'
                     };
                     axios.post('/zhapi/qyjbxx/updateByVO', params).then(function (res) {
-                        this.searchClick('delete')
+                        if (res.data.result == 1) {
+                            this.tableData[this.selectIndex].shzt = val.shzt;
+                            if(this.tableData[this.selectIndex].shzt=='01'){
+                                this.tableData[this.selectIndex].shztmc = '待审核';
+                            }else if(this.tableData[this.selectIndex].shzt=='02'){
+                                this.tableData[this.selectIndex].shztmc = '未通过';
+                            }else if(this.tableData[this.selectIndex].shzt=='03'){
+                                this.tableData[this.selectIndex].shztmc = '已通过';
+                            }
+                        }
                     }.bind(this), function (error) {
                         console.log(error)
                     })
