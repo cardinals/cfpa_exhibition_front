@@ -78,7 +78,7 @@ var vue = new Vue({
 				title: {
 					text: '按产品分类总数柱状图',
 					x: 'center',
-					// y: '-20',
+					y: '-3',
 				},
 				tooltip: {
 					trigger: 'axis',
@@ -88,16 +88,17 @@ var vue = new Vue({
 				},
 				legend: {
 					orient: 'horizontal',
-					x: 'center',
-					y: '20',
+					x: 'right',
+					y: '-3',
 					iGap: 16,
 					iWidth: 18,
 					// data:this.tjfxdata.cplxmc,
 					//  data: this.tabledata.name,
 					align: 'left',
 					iGap: 8,
+					
 				},
-				color: ['#ff6364', '#fdc107', '#29bb9d'],
+				color: ['#C1232B','#B5C334','#FCCE10'],
 				grid: {
 					top: '50',
 					bottom: '10',

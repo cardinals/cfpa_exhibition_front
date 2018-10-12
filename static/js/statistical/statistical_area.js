@@ -19,16 +19,7 @@ var vue = new Vue({
 			//pieTitle
 			pieTitle: '',
 			pieTitle0: '按光地展位面积范围统计展会预报名情况比例图',
-			pieTitle1: '24-50 m² 产品类型统计占比',
-			pieTitle2: '50-100 m² 产品类型统计占比',
-			pieTitle3: '100-200 m² 产品类型统计占比',
-			pieTitle4: '200 m² 以上面积 产品类型统计占比',
-			//pieData
-			pieDataz0: [],
-			pieDataz1: [],
-			pieDataz2: [],
-			pieDataz3: [],
-			pieDataz4: [],
+		
 			//bardata
 			tjfxname:[],
 			tjfxs1:[],
@@ -87,7 +78,6 @@ var vue = new Vue({
 				this.barChart();
 				//画饼图
 				this.pieTitle=this.pieTitle0;
-			    this.pieDataz=this.zwmjfwmcsl;
 			    this.pieChart();
 				this.loading = false;			
 			}.bind(this), function (error) {
@@ -103,7 +93,7 @@ var vue = new Vue({
 				title: {
 					text: '按光地展位面积范围统计展会预报名情况柱状图',
 					x: 'center',
-					// y: '-15'
+					y: '-3'
 				},
 				tooltip: {
 					trigger: 'axis',
@@ -148,12 +138,17 @@ var vue = new Vue({
 						//柱状图
 						data:this.zwmjfwmcsl,
 						smooth: true,
+						// color: ['#ff6364', '#fdc107', '#29bb9d'],
 						itemStyle: {
 							normal: {
-								// 绿+蓝
-								color: function (params) {
-									var colorList = ['#fdc107'];
-									return colorList[params.dataIndex];
+								color: function(params) {
+									// build a color map as your need.
+									var colorList = [
+									  '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+									   '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+									   '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+									];
+									return colorList[params.dataIndex]
 								}
 							}
 						}
@@ -171,7 +166,7 @@ var vue = new Vue({
 				title: {
 					text: this.pieTitle,
 					left: 'center',
-					// top: -15,
+					top: -3,
 				},
 				tooltip: {
 					trigger: 'item',
@@ -183,7 +178,6 @@ var vue = new Vue({
 					y: 'center',
 					itemGap: 16,
 					itemWidth: 18,
-					// data:this.tjfxname,
 					data: this.zwmjfwmc,
 					align: 'left',
 					itemGap: 8,
@@ -194,10 +188,8 @@ var vue = new Vue({
 						type: 'pie',
 						radius: '55%',
 						center: ['35%', '50%'],
-						data:this.pieDataz,
-						// data: this.pieDataz
-						// 	.sort(function (a, b) { return a.value - b.value; }),
-						// data:this.tjfxs1,
+						data:this.zwmjfwmcsl,
+						
 						roseType: 'radius',
 						label: {
 							show: true,
@@ -214,9 +206,12 @@ var vue = new Vue({
 							return Math.random() * 200;
 						}
 					}
-				]
+				],
+				color: ['#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+				'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+				'#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0']
 			};
-			
+		
 			myChart.setOption(option);
 		},
 		//表格重新加载数据
