@@ -116,6 +116,10 @@ body{height:100%;overflow:hidden;}
     margin-left: 40px;
     width: calc(100% - 324px);
 }
+#basic-Inform-Title img{
+    width: 17px;
+    height: 17px;
+}
 #basic-Inform-Picture{
     float: left;
     /* margin-left: 20px; */
