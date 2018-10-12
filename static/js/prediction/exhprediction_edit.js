@@ -367,6 +367,7 @@ new Vue({
                 deleteFlag : 'N'
             }
             axios.post('/zhapi/qyjs/list', params).then(function (res) {
+                debugger;
                 if(res.data.result.length>0){
                     //this.qyjsForm = res.data.result[0];
                     var resultForm = res.data.result[0];
@@ -391,6 +392,7 @@ new Vue({
                     this.cpjsStatus = 1;//修改
                     this.qyUuid = res.data.result[0].uuid;
                 }else{
+                    debugger;
                     this.cpjsStatus = 0;//新增
                     this.qyjsForm.qycpjsVOList.push({
                         qyid:this.qyid,
@@ -447,10 +449,8 @@ new Vue({
         },
         handleTagClose:function(tag){
             this.wjdcForm.zycpList.splice(this.wjdcForm.zycpList.indexOf(tag), 1);
-          },
-        handleRemove(file, fileList) {
-            console.log(file, fileList);
         },
+
         handlePreview(file) {
             console.log(file);
         },
@@ -473,6 +473,9 @@ new Vue({
                 this.$message.error('只能上传jpg、png、pdf格式的文件');
                 fileList.splice(-1, 1);
             }
+        },
+        picExceed(files, fileList) {
+            this.$message.warning('限制选择 1 张图片！');
         },
         //基本信息提交（下一步）
         submitJbxx: function(formName){
@@ -509,7 +512,10 @@ new Vue({
                             this.isJbxxShow = false;
                             this.isKpxxShow = true;
                             this.jbxxStatus = 1;
-                            this.findKpxxByQyid(this.qyid);
+                            this.qyid = res.data.result.qyid;
+                            if(this.qyid != null && this.qyid != ''){
+                                this.findKpxxByQyid(this.qyid);
+                            }
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -542,12 +548,16 @@ new Vue({
                             this.active = 1;
                             this.isJbxxShow = false;
                             this.isKpxxShow = true;
-                            this.findKpxxByQyid(this.qyid);
+                            //console.log(this.qyid);
+                            if(this.qyid != null && this.qyid != ''){
+                                this.findKpxxByQyid(this.qyid);
+                            }
                         }.bind(this), function (error) {
                             console.log(error);
                         })
                     }
-                    
+                    //开票公司名称：必填，把企业基本信息中的“中文公司名称“带到文本框中，文本框可修改
+                    this.kpxxForm.kpgsmc = this.baseInforForm.zwgsmc;
 
                 } else {
                   console.log('error submit!!');
@@ -583,7 +593,9 @@ new Vue({
                             this.isKpxxShow = false;
                             this.isWjdcShow = true;
                             this.kpxxStatus = 1;
-                            this.findWjdcByQyid(this.qyid);
+                            if(this.qyid != null && this.qyid != ''){
+                                this.findWjdcByQyid(this.qyid);
+                            }
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -609,7 +621,9 @@ new Vue({
                             this.active = 2;
                             this.isKpxxShow = false;
                             this.isWjdcShow = true;
-                            this.findWjdcByQyid(this.qyid);
+                            if(this.qyid != null && this.qyid != ''){
+                                this.findWjdcByQyid(this.qyid);
+                            }
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -659,7 +673,9 @@ new Vue({
                             this.isWjdcShow = false;
                             this.isCpjsShow = true;
                             this.wjdcStatus = 1;
-                            this.findQyjsByQyid(this.qyid);
+                            if(this.qyid != null && this.qyid != ''){
+                                this.findQyjsByQyid(this.qyid);
+                            }
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -698,7 +714,9 @@ new Vue({
                             this.active = 3;
                             this.isWjdcShow = false;
                             this.isCpjsShow = true;
-                            this.findQyjsByQyid(this.qyid);
+                            if(this.qyid != null && this.qyid != ''){
+                                this.findQyjsByQyid(this.qyid);
+                            }
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -747,7 +765,9 @@ new Vue({
                                 this.isCpjsShow = false;
                                 this.isXqyxShow = true;
                                 this.cpjsStatus = 1;
-                                this.findXqyxByQyid(this.qyid);
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findXqyxByQyid(this.qyid);
+                                }
                             }.bind(this), function (error) {
                                 console.log(error);
                             })
@@ -770,7 +790,9 @@ new Vue({
                                 this.isCpjsShow = false;
                                 this.isXqyxShow = true;
                                 this.cpjsStatus = 1;
-                                this.findXqyxByQyid(this.qyid);
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findXqyxByQyid(this.qyid);
+                                }
                             }.bind(this), function (error) {
                                 console.log(error);
                             })

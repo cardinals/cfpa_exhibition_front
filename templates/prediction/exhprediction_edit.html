@@ -122,7 +122,7 @@
                         <el-row>
                             <el-col :span="11">
                                 <el-upload class="upload-demo" ref="uploadPics" action="/zhapi/qyjbxx/upload" :data="picList" :on-preview="handlePreview"
-                                        :on-remove="picRemove" :on-success="picSuccess" :on-change="PicChange" :file-list="picList" :auto-upload="false">
+                                        :on-remove="picRemove" :on-success="picSuccess" :on-exceed="picExceed" :on-change="PicChange" :file-list="picList" :limit="1" :auto-upload="false">
                                 <el-button type="primary" icon="search" slot="trigger" size="small" type="primary">选取图片文件</el-button>
                                     <span slot="tip" class="el-upload__tip ml10">只能上传jpg、png、pdf格式的文件</span>
                                 </el-upload>
