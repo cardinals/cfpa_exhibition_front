@@ -18,7 +18,7 @@ var vue = new Vue({
 			//tabledata
 			tabledata: [],
 			//表高度变量
-			tableheight: 280,
+			tableheight: 360,
 			//显示加载中样
 			loading: false,
 			labelPosition: 'right',
@@ -35,9 +35,9 @@ var vue = new Vue({
 		/**面包屑 by li.xue 20180628*/
 		var type = getQueryString("type");
 		if (type == "CPFL") {
-			loadBreadcrumb("统计分析", "按产品分类");
+			loadBreadcrumb("按产品分类", "按产品类型统计");
 		} else {
-			loadBreadcrumb("按产品分类", '-1');
+			loadBreadcrumb("按产品分类", '按产品类型统计');
 		}
 	},
 	methods: {
@@ -110,6 +110,7 @@ var vue = new Vue({
 						data: this.tjfxname,//this.getList('name'),
 						axisLabel: {
 							interval: 0,
+							// rotate: "15"
 						},
 					}
 				],
@@ -119,9 +120,7 @@ var vue = new Vue({
 						type: 'value',
 						name: '企业',
 						position: 'left',
-						offset: 30,
-						min: 0,
-						max: 50,
+						offset: 28,
 						axisLine: {
 							lineStyle: {
 								color: '#ff6364'
@@ -135,8 +134,6 @@ var vue = new Vue({
 						type: 'value',
 						name: '展位',
 						position: 'left',
-						min: 0,
-						max: 50,
 						axisLine: {
 							lineStyle: {
 								color: '#fdc107'
@@ -149,8 +146,6 @@ var vue = new Vue({
 					{
 						type: 'value',
 						name: '光地展位面积m²',
-						min: 0,
-						max: 1000,
 						axisLine: {
 							lineStyle: {
 								color: '#29bb9d'
