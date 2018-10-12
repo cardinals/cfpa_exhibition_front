@@ -3,29 +3,27 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>预报名信息审核</title>
+    <title>展会报名审核</title>
 </head>
 
 <body class="fw f14 main-index-body">
     <div id="app">
         <div class="main-box">
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
-                <div id="lib :: main_container_header('预报名管理','预报名信息审核')"></div>
+                <div id="lib :: main_container_header('展会报名审核','展会报名审核')"></div>
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
                 <div id="tableView">
                     <el-row>
                         <el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
                             <el-row>
-                                <el-col :span="8" class="searchInline">
+                                <el-col :span="1">&nbsp;</el-col>
+                                <el-col :span="9" class="searchInline">
                                     <label class="el-form-item__label searchLabel">公司名称</label>
-                                    <el-input size="small" v-model="searchForm.zwgsmc" placeholder="公司名称"></el-input>
+                                    <el-input size="small" v-model="searchForm.zwgsmc" placeholder="公司名称" clearable></el-input>
                                 </el-col>
-                                <el-col :span="8" class="searchInline">
-                                    <label class="el-form-item__label searchLabel">邮寄地址</label>
-                                    <el-input size="small" v-model="searchForm.yjdz" placeholder="邮寄地址"></el-input>
-                                </el-col>
-                                <el-col :span="8" class="searchInline">
+                                <el-col :span="2">&nbsp;</el-col>
+                                <el-col :span="9" class="searchInline">
                                     <label class="el-form-item__label searchLabel">审核状态</label>
                                     <el-select size="small" v-model="searchForm.shzt" placeholder="全部" class="searchSelect" clearable>
                                         <el-option v-for="item in shztData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
@@ -36,7 +34,6 @@
                                 <el-form>
                                     <el-col :span="12" class="btnEditDelete">
                                         <el-form-item align="left">
-                                            <!-- <el-button v-if="hasPermission('prediction/exhprediction_approve:approve')" type="danger" icon="edit" size="small" @click="approveClick('batch')">审核</el-button> -->
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="12" class="btnSearchPlus">
@@ -100,8 +97,10 @@
                     <!--审批界面-->
                     <el-dialog title="预报名信息审核" :visible.sync="approveFormVisible" :close-on-click-modal="false">
                         <el-row>
-                            <el-col :span="8">
-                                <img id="imgApprove" style="height:100px;width: 100px;">
+                            <el-col :span="8" class="tc">
+                                <img v-if="approveForm.yyzzBase64!==''" :src="'data:image/png;base64,'+approveForm.yyzzBase64" style="max-height:200px;width: 150px;">
+                                <img v-else src="../../static/images/noPic.png" style="width:150px;">
+                                <br>营业执照
                             </el-col>
                             <el-col :span="16">
                                 <el-row class="mb10" style="border-bottom:1px solid #20a0ff;line-height: 29px;">

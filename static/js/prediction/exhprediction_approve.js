@@ -9,7 +9,7 @@ var vue = new Vue({
             //搜索表单
             searchForm: {
                 zwgsmc: '',
-                yjdz: '',
+                // yjdz: '',
                 shzt: ''
             },
             //审批表单
@@ -38,7 +38,7 @@ var vue = new Vue({
     },
     created: function () {
         /**面包屑 by li.xue 20180628*/
-        loadBreadcrumb("预报名信息审核", "-1");
+        loadBreadcrumb("展会报名审核", "-1");
         this.shiroData = shiroGlobal;
         this.getShztData();//审核状态下拉框
     },
@@ -67,7 +67,7 @@ var vue = new Vue({
             this.loading = true;//表格重新加载
             var params = {
                 zwgsmc: this.searchForm.zwgsmc,
-                yjdz: this.searchForm.yjdz,
+                // yjdz: this.searchForm.yjdz,
                 shzt: this.searchForm.shzt,
                 approveflag: 'y',
                 pageSize: this.pageSize,
@@ -76,7 +76,6 @@ var vue = new Vue({
                 orgJgid: this.shiroData.organizationVO.jgid
             }
             axios.post('/zhapi/qyjbxx/page', params).then(function (res) {
-                //debugger
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
@@ -116,14 +115,15 @@ var vue = new Vue({
         },
         //审核操作列点击
         approveClick: function (val) {
+            this.approveForm = Object.assign({}, val);
             axios.get('/zhapi/qyjbxx/doFindJbxxById/' + val.qyid).then(function (res) {
-                var imgPreviewData = res.data.result;
-                var photo = document.getElementById("imgApprove");
-                photo.src = "data:image/png;base64," + imgPreviewData.yyzzBase64;
+                this.approveForm.yyzzBase64 = res.data.result.yyzzBase64;
+                // var photo = document.getElementById("imgApprove");
+                // photo.src = "data:image/png;base64," + imgPreviewData.yyzzBase64;
             }.bind(this), function (error) {
                 console.log(error)
             })
-            this.approveForm = Object.assign({}, val);
+            
             //如果是未通过审核意见显示*代表必填
             if (this.approveForm.shzt == '02')
                 this.isReject = true;
