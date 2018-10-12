@@ -17,7 +17,7 @@
                 <div id="tableView">
                     <div class="nameBox">
                         <div class="l tc">
-                            <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" class="detail_picture_top">
+                            <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" @click="imgPreview(qyjsData.logoBase64)" class="detail_picture_top">
                             <img v-else src="../../static/images/noPic.png" style="width:100px;">
                             <br>企业Logo
                         </div>
@@ -39,7 +39,7 @@
                             </dl>
                         </div>
                         <div class="r tc">
-                            <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" class="detail_picture_top">
+                            <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)" class="detail_picture_top">
                             <img v-else src="../../static/images/noPic.png" style="width:100px;">
                             <br>营业执照
                         </div>
@@ -243,7 +243,7 @@
                                             <el-card class="mb10 card_style" id="cpjsImg">
                                                 <el-row>
                                                     <el-col :span="5">
-                                                        <img v-if="cpjs!==null&&cpjs.cptpBase64!==''" :src="'data:image/png;base64,'+cpjs.cptpBase64">
+                                                        <img v-if="cpjs!==null&&cpjs.cptpBase64!==''" :src="'data:image/png;base64,'+cpjs.cptpBase64" @click="imgPreview(cpjs.cptpBase64)">
                                                         <img v-else src="../../static/images/noPic.png">
                                                     </el-col>
                                                     <el-col :span="19" style="line-height: 24px;">
@@ -276,6 +276,16 @@
                             </el-tabs>
                         </template>
                     </div>
+                    <!--图片预览-->
+                    <el-dialog :visible.sync="showPicVisible" :close-on-click-modal="false" size="large">
+                        <template>
+                            <el-carousel type="card" height="350px" :autoplay="false" arrow="never" indicator-position="none">
+                                <el-carousel-item>
+                                    <img :src="'data:image/png;base64,'+previewImg" width="100%"></img>
+                                </el-carousel-item>
+                            </el-carousel>
+                        </template>
+                    </el-dialog>
                 </div>
 
             </div>

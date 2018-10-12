@@ -4,38 +4,46 @@ new Vue({
         return {
             activeName: "first",
             loading: false,
+            showPicVisible: false,
+            previewImg: '',
             qyid: "",//企业id
 
+            //企业基本信息
             jbxxData: {
-                zwgsmc:'',
-                tyshxydm:'',
-                yyzzBase64:'',
-                yjdz:'',
-                frdb:'',
-                frdbdh:'',
-                lxr:'',
-                lxrsj:'',
-                cz:'',
-                bgdh:'',
-                dzyx:'',
-                wz:'',
-                sjztmc:'',
-                shztmc:'',
-                cjrmc:'',
-                cjsj:'',
-                xgrmc:'',
-                xgsj:'',
-                shrmc:'',
-                shsj:''
-            },//企业基本信息
-            kpxxData: {},//企业开票信息
-            wjdcData: {},//企业问卷调查
+                zwgsmc: '',
+                tyshxydm: '',
+                yyzzBase64: '',
+                yjdz: '',
+                frdb: '',
+                frdbdh: '',
+                lxr: '',
+                lxrsj: '',
+                cz: '',
+                bgdh: '',
+                dzyx: '',
+                wz: '',
+                sjztmc: '',
+                shztmc: '',
+                cjrmc: '',
+                cjsj: '',
+                xgrmc: '',
+                xgsj: '',
+                shrmc: '',
+                shsj: ''
+            },
+            //企业开票信息
+            kpxxData: {},
+            //企业问卷调查
+            wjdcData: {},
+            //企业介绍
             qyjsData: {
-                logoBase64:'',
-                qyjj:''
-            },//企业介绍
-            cpjsData: [],//产品介绍
-            zwyxData: {},//展位需求意向
+                logoBase64: '',
+                qyjj: ''
+            },
+            //产品介绍
+            cpjsData: [],
+            //展位需求意向
+            zwyxData: {},
         }
     },
     created: function () {
@@ -163,6 +171,10 @@ new Vue({
             }.bind(this), function (error) {
                 console.log(error)
             })
+        },
+        imgPreview: function (val) {
+            this.previewImg = val;
+            this.showPicVisible = true;
         }
     }
 })

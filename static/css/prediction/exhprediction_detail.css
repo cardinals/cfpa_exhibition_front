@@ -12,3 +12,6 @@
 .el-tabs__content {
     padding: 20px 25px 20px 30px !important;
 }
+.el-dialog{
+    background-color: rgba(0, 0, 0, 0.2);
+}

@@ -3,6 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../static/css/prediction/exhprediction_approve.css">
     <title>展会报名审核</title>
 </head>
 
@@ -88,7 +89,7 @@
                     </div>
 
                     <!--营业执照预览-->
-                    <el-dialog title="营业执照预览" :visible.sync="imgViewVisible" class="picDialog" :close-on-click-modal="false">
+                    <!-- <el-dialog title="营业执照预览" :visible.sync="imgViewVisible" class="picDialog" :close-on-click-modal="false">
                         <div id="flagImage" class="tc">
                             <el-row>
                                 <strong>
@@ -98,6 +99,17 @@
                             <img v-if="previewImg!==''" :src="'data:image/png;base64,'+previewImg" style="max-height:200px;width: 150px;">
                             <img v-else src="../../static/images/noPic.png" style="width:150px;">
                         </div>
+                    </el-dialog> -->
+                    <!--图片预览-->
+                    <el-dialog :visible.sync="imgViewVisible" :close-on-click-modal="false" size="large">
+                        <template>
+                            <el-carousel type="card" height="350px" :autoplay="false" arrow="never" indicator-position="none">
+                                <el-carousel-item>
+                                    <img v-if="previewImg!==''" :src="'data:image/png;base64,'+previewImg" style="width: 100%;">
+                                    <img v-else src="../../static/images/noPic.png" style="width: 100%;">
+                                </el-carousel-item>
+                            </el-carousel>
+                        </template>
                     </el-dialog>
 
                     <!--审批界面-->
