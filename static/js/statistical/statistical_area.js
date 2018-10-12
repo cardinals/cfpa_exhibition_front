@@ -122,6 +122,7 @@ var vue = new Vue({
 					{ 
 						name:'数量',
 						type: 'value',
+						minInterval : 1,
 						splitLine: {
 							show: false
 						},

@@ -123,9 +123,10 @@ var vue = new Vue({
 						name: '企业',
 						position: 'left',
 						offset: 28,
+						minInterval : 1,
 						axisLine: {
 							lineStyle: {
-								color: '#ff6364'
+								color: '#C1232B'
 							}
 						},
 						splitLine: {
@@ -136,9 +137,10 @@ var vue = new Vue({
 						type: 'value',
 						name: '展位',
 						position: 'left',
+						minInterval : 1,//设置为整数的刻度值
 						axisLine: {
 							lineStyle: {
-								color: '#fdc107'
+								color: '#B5C334'
 							}
 						},
 						splitLine: {
@@ -150,7 +152,7 @@ var vue = new Vue({
 						name: '光地展位面积m²',
 						axisLine: {
 							lineStyle: {
-								color: '#29bb9d'
+								color: '#FCCE10'
 							}
 						},
 						splitLine: {
