@@ -50,8 +50,8 @@
                                             clearable show-all-levels></el-cascader>
                                 </el-form-item>
                             </el-col>
-							<el-col :span="12" style="text-align: left;margin-left: 20px">
-                                <el-form-item prop="yjdzxx">
+							<el-col :span="12" style="text-align: left;margin-left: 10px">
+                                <el-form-item prop="yjdzxx" style="width: 140%">
                                     <el-input size="small" v-model="baseInforForm.yjdzxx" placeholder="详细地址"></el-input>
                                 </el-form-item>
 							</el-col>
@@ -93,12 +93,11 @@
 							<el-col :span="1">&nbsp;</el-col>
 							<el-col :span="11">
                                 <el-form-item prop="lxrsj" label="手机">
-                                    <el-input disabled size="small" v-model="baseInforForm.lxrsj" placeholder="手机"></el-input>
+                                    <el-input disabled size="small" v-model="baseInforForm.lxrsj" placeholder="手机">
+                                        <el-button slot="append" @click="openSjYz">修改</el-button>
+                                    </el-input>
                                 </el-form-item>
 							</el-col>
-							<el-col :span="1">
-                                <el-button type="text" plain size="small" style="margin-top: 30%">修改</el-button>
-                            </el-col>
                         </el-row>
                         <el-row class="tr mb5">
 							<el-col :span="11">
@@ -109,7 +108,9 @@
 							<el-col :span="1">&nbsp;</el-col>
 							<el-col :span="11">
                                 <el-form-item prop="dzyx" label="邮箱">
-                                    <el-input size="small" v-model="baseInforForm.dzyx" placeholder="邮箱"></el-input>
+                                    <el-input size="small" v-model="baseInforForm.dzyx" placeholder="邮箱">
+                                        <el-button slot="append">验证</el-button>
+                                    </el-input>
                                 </el-form-item>
 							</el-col>
 							<el-col :span="1">&nbsp;</el-col>
@@ -121,10 +122,14 @@
                         </el-row>
                         <el-row>
                             <el-col :span="11">
-                                <el-upload class="upload-demo" ref="uploadPics" action="/zhapi/qyjbxx/upload" :data="picList" :on-preview="handlePreview"
-                                        :on-remove="picRemove" :on-success="picSuccess" :on-exceed="picExceed" :on-change="PicChange" :file-list="picList" :limit="1" :auto-upload="false">
-                                <el-button type="primary" icon="search" slot="trigger" size="small" type="primary">选取图片文件</el-button>
-                                    <span slot="tip" class="el-upload__tip ml10">只能上传jpg、png、pdf格式的文件</span>
+                                <el-upload class="avatar-uploader" ref="uploadPics" action="/zhapi/qyjbxx/upload" 
+                                        :data="upLoadData" :on-preview="handlePreview"
+                                        :on-success="picSuccess" 
+                                        :on-change="PicChange"
+                                        :show-file-list="false"
+                                        :limit="1" :auto-upload="false">
+                                    <img v-if="baseInforForm.yyzzBase64!==''" :src="'data:image/png;base64,'+baseInforForm.yyzzBase64" class="avatar">
+                                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                 </el-upload>
                             </el-col>
                             <el-col :span="1">&nbsp;</el-col>
@@ -507,8 +512,35 @@
                         </el-row>
                     </el-form>
                 </div>
-			</div>
-		</div>
+                <el-dialog title="手机号码验证" :visible.sync="dialogSjFormVisible" @close="closeDialog()" :close-on-click-modal="false">
+                        <el-form :inline="true" class="el-form demo-form-inline" ref="sjform" :model="sjform" label-position="right" :rules="sjformRules">
+                            <el-row class="tr mb5">
+                                <el-col :span="18">
+                                    <el-form-item prop="sjh" label="手机号">
+                                        <el-input size="small" v-model="sjform.sjh" placeholder="手机号">
+                                            <el-button id="mobile-btn" slot="append" @click="getMessageCode()" v-text=messageCodeText></el-button>
+                                        </el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="6">&nbsp;</el-col>
+                            </el-row>
+                            <el-row class="tr mb5">
+                                <el-col :span="18">
+                                    <el-form-item prop="yzm" label="短信验证码">
+                                        <el-input size="small" v-model="sjform.yzm" placeholder="短信验证码"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="6">&nbsp;</el-col>
+                            </el-row>
+                        </el-form>
+                    <div slot="footer" class="dialog-footer">  
+                        <el-button size="small" @click.native="closeDialog(sjform)">取消</el-button>  
+                        <el-button size="small" type="primary" @click.native="sjformSubmit(sjform)">提交</el-button>  
+                    </div>  
+                </el-dialog>
+            </div>
+            
+        </div>
 	</div>
 </body>
 

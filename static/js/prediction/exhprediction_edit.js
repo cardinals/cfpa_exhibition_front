@@ -46,6 +46,7 @@ new Vue({
                 wz:'',
                 dzyx:'',
                 yyzz:'',
+                yyzzBase64: '',
             },
             //开票信息表单
             kpxxForm: [],
@@ -80,6 +81,15 @@ new Vue({
             isSfhyxydj: false,
             //问卷调查产品类型选择标识
             isCplxSelect: false,
+            //手机验证表单显示标识
+            dialogSjFormVisible:false,
+
+            messageCodeText: "获取验证码",
+            //短信验证码
+            messageCodeReal:"",
+            time: 60,
+            timer: null,
+
             //行政区划tree
             xzqhDataTree:[],
             //树结构配置
@@ -90,6 +100,10 @@ new Vue({
             },
             //上传图片Data
             picList: [],
+            //上传加参数
+            upLoadData:{
+                qyid:'',
+            },
             //公司logo
             imageUrl: '',
             //公司性质data
@@ -102,6 +116,11 @@ new Vue({
             hyxydj_data: [],
             //产品所属分类
             cpssfl_data: [],
+            //手机验证表单
+            sjform:{
+                sjh:'',
+                yzm:''
+            },
             
             baseInforRules: {
                 zwgsmc: [
@@ -207,6 +226,13 @@ new Vue({
                   { required: true, message: '请输入产品简介', trigger: 'blur' }
                 ]
             },
+            sjformRules:{
+                sjh:[
+                    { required: true, message: '请输入手机号', trigger: 'blur' },
+                    { pattern: /^1[34578]\d{9}$/, message: '请输入正确格式的手机号',trigger: 'blur' }
+                ],
+                yzm:[{ required: true, message: '请输入验证码', trigger: 'blur' }],
+            },
         }
     },
     
@@ -283,15 +309,15 @@ new Vue({
                 userid: userid,
                 deleteFlag : 'N'
             }
-            axios.post('/zhapi/qyjbxx/list', params).then(function (res) {
-                if(res.data.result.length>0){
-                    this.baseInforForm = res.data.result[0];
+            axios.post('/zhapi/qyjbxx/doFindByUserid', params).then(function (res) {
+                if(res.data.result != null && res.data.result != ""){
+                    this.baseInforForm = res.data.result;
                     var xzqhArray = [];
-                    xzqhArray.push(res.data.result[0].yjdzsheng);
-                    xzqhArray.push(res.data.result[0].yjdzshi);
+                    xzqhArray.push(res.data.result.yjdzsheng);
+                    xzqhArray.push(res.data.result.yjdzshi);
                     this.baseInforForm.xzqh = xzqhArray;
                     this.jbxxStatus = 1;//修改
-                    this.qyid = res.data.result[0].qyid;
+                    this.qyid = res.data.result.qyid;
                 }else{
                     this.jbxxStatus = 0;//新增
                     this.baseInforForm.lxrsj = this.shiroData.username;
@@ -454,14 +480,12 @@ new Vue({
         handlePreview(file) {
             console.log(file);
         },
-        //附件移除（图片）
-        picRemove: function (file, fileList) {
-            console.log(file, fileList);
-            
-        },
+        
         //图片上传成功回调方法
-        picSuccess: function (response, file, fileList) {
+        picSuccess: function (res, file) {
+            debugger;
             console.log(file, fileList);
+           // this.baseInforForm.yyzzBase64 = URL.createObjectURL(file.raw);
         },
         PicChange: function (file, fileList) {
             const isPng = file.name.endsWith("png");
@@ -504,6 +528,8 @@ new Vue({
                             cjrmc: this.shiroData.username
                         }
                         axios.post('/zhapi/qyjbxx/doInsertByVo', params).then(function (res) {
+                            this.upLoadData.qyid = res.data.result.qyid;
+                            this.$refs.uploadPics.submit();
                             this.$alert('成功保存企业基本信息', '提示', {
                                 type: 'success',
                                 confirmButtonText: '确定',
@@ -513,6 +539,7 @@ new Vue({
                             this.isKpxxShow = true;
                             this.jbxxStatus = 1;
                             this.qyid = res.data.result.qyid;
+                        //    this.j
                             if(this.qyid != null && this.qyid != ''){
                                 this.findKpxxByQyid(this.qyid);
                             }
@@ -541,6 +568,8 @@ new Vue({
                             xgrmc: this.shiroData.username
                         }
                         axios.post('/zhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
+                            this.upLoadData.qyid = this.baseInforForm.qyid;
+                            this.$refs.uploadPics.submit();
                             this.$alert('成功保存企业基本信息', '提示', {
                                 type: 'success',
                                 confirmButtonText: '确定',
@@ -952,6 +981,54 @@ new Vue({
             var index = this.qyjsForm.qycpjsVOList.indexOf(item)
             if (index !== -1) {
                 this.qyjsForm.qycpjsVOList.splice(index, 1)
+            }
+        },
+        //手机修改验证
+        openSjYz: function(){
+            this.dialogSjFormVisible = true;
+        },
+        //关闭手机验证对话
+        closeDialog:function(){
+            this.dialogSjFormVisible = false;
+            this.sjform.sjh = "";
+            this.sjform.yzm = "";
+        },
+        //获取短信验证码
+        getMessageCode: function () {
+            this.sjform.yzm = "";
+            if(/^1[34578]\d{9}$/.test(this.sjform.sjh)){
+                this.messageCodeText = "发送中...";
+                $('#mobile-btn').attr('disabled', 'disabled');
+                axios.get('/xfxhapi/signin/sendMessage?phone=' + this.sjform.sjh).then(function (res) {
+                    this.messageCodeReal = res.data.msg;
+                    var count = this.time;
+                    this.timer = setInterval(() => {
+                        if (count == 0) {
+                            clearInterval(this.timer);
+                            this.timer = null;
+                            this.messageCodeText = "获取验证码";
+                            $('#mobile-btn').removeAttr("disabled");
+                        } else {
+                            this.messageCodeText = count + "秒后获取"
+                            count--;
+                            $('#mobile-btn').attr('disabled', 'disabled');
+                        }
+                    }, 1000)
+                }.bind(this), function (error) {
+                    console.log(error);
+                });
+            }
+        },
+        //手机验证码form提交
+        sjformSubmit: function(){
+            if(this.sjform.yzm == this.messageCodeReal){
+                this.baseInforForm.lxrsj = this.sjform.sjh;
+                this.dialogSjFormVisible = false;
+            }else{
+                this.$alert('验证码错误', '提示', {
+                    type: 'warning',
+                    confirmButtonText: '确定',
+                });
             }
         },
         handleAvatarSuccess(res, file) {
