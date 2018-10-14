@@ -83,10 +83,14 @@ new Vue({
             isCplxSelect: false,
             //手机验证表单显示标识
             dialogSjFormVisible:false,
+            //邮箱表单显示标识
+            dialogYxFormVisible:false,
 
             messageCodeText: "获取验证码",
             //短信验证码
             messageCodeReal:"",
+            //邮箱验证码
+            mailCodeReal:"",
             time: 60,
             timer: null,
 
@@ -121,7 +125,9 @@ new Vue({
                 sjh:'',
                 yzm:''
             },
-            
+            yxform:{
+                yzm:''
+            },
             baseInforRules: {
                 zwgsmc: [
                   { required: true, message: '请输入中文公司名称', trigger: 'blur' }
@@ -1030,6 +1036,41 @@ new Vue({
                     confirmButtonText: '确定',
                 });
             }
+        },
+        //邮箱验证表单提交
+        yxformSubmit: function(){
+            if(this.yxform.yzm == this.mailCodeReal){
+                this.dialogYxFormVisible = false;
+            }else{
+                this.$alert('验证码错误', '提示', {
+                    type: 'warning',
+                    confirmButtonText: '确定',
+                });
+            }
+        },
+        //邮箱修改验证
+        openYxYz: function(){
+            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.baseInforForm.dzyx))) {
+                this.$alert('邮箱格式不正确', '提示', {
+                    type: 'warning',
+                    confirmButtonText: '确定',
+                });
+                return false;
+            } else {
+                axios.get('/xfxhapi/signin/sendMail?mail=' + this.baseInforForm.dzyx).then(function (res) {
+                    this.mailCodeReal = res.data.msg;
+                    this.dialogYxFormVisible = true;
+                }.bind(this), function (error) {
+                    console.log(error);
+                });
+                
+            }
+        },
+        //关闭邮箱验证对话
+        closeYxDialog:function(){
+            this.dialogYxFormVisible = false;
+            this.yxform.yx = "";
+            this.yxform.yzm = "";
         },
         handleAvatarSuccess(res, file) {
             this.imageUrl = URL.createObjectURL(file.raw);
