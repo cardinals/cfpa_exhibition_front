@@ -24,8 +24,8 @@
     <meta name="baidu_union_verify" content="b88dd3920f970845bad8ad9f90d687f7" />
     <meta name="domain_verify" content="pmrgi33nmfuw4ir2ej2g65lunfqw6ltdn5wselbcm52wszbchirdqyztge3tenrsgq3dknjume2tayrvmqytemlfmiydimddgu4gcnzcfqrhi2lnmvjwc5tfei5dcnbwhazdcobuhe2dqobrpu"
     />
-    <meta name="keywords" content="数字化预案管理平台" />
-    <meta name="description" content="数字化预案管理平台" />
+    <meta name="keywords" content="中国消防协会后台管理系统" />
+    <meta name="description" content="中国消防协会后台管理系统" />
     <link href="../static/css/login.css" id="css" rel="stylesheet" type="text/css" />
     <meta http-equiv="Cache-Control" content="no-transform" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -38,18 +38,12 @@
 <body>
     <div id="app">
         <div class="tc abs">
-            <!--logo-->
-            <div class="login_top">
-                <div class="logo login_top_logo">
-                    <!--<img th:src="@{/images/LOGO3.png}"/>-->
-                </div>
-            </div>
             <!--center-->
             <div class="login_center">
-                <div class="Login_img">
+                    <div class="lg_center"></div>
                     <div class="Login">
                         <div id="login" class="Login_n" v-show="formFlag=='loginFlag'||formFlag=='bakFlag'">
-                            <div class="Login_nTop"><span class="yhdl_span current">用户登录</span> | <span class="sjcj_span currentb">数据采集</span>
+                            <div class="Login_nTop"><span class="yhdl_span current">用户登录</span>
                                 <div style="float:right;font-size: 12px;">没有账户？<a @click="changeForm('regFlag')"><u>去注册</u></a></div>
                             </div>
                             <form id="login-form" autocomplete="off" name="login-form" action="/xfxhapi/login" method="post">
@@ -89,10 +83,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <div class="LoginBtn">
-                                    <a @click="login()" id="lg" style="display:block;">登录</a>
-                                    <a @click="nlogin()" id="nlg" style="display:none;">登录</a>
-                                </div>
+                               
                                 <div class="formbar">
                                     <a @click="changeForm('REAAFlag')">重置账户</a>
                                     <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
@@ -101,6 +92,10 @@
                                     <a @click="changeForm('FUAFlag')">忘记用户名</a>
                                     <input type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
                                     <span>记住我</span>
+                                </div>
+                                <div class="LoginBtn">
+                                        <a @click="login()" id="lg" style="display:block;margin-top:45px;">登 录</a>
+                                        <a @click="nlogin()" id="nlg" style="display:none;margin-top:45px;">登 录</a>
                                 </div>
                                 <input type="hidden" class="loginType" name="loginType" />
                             </form>
@@ -136,7 +131,7 @@
                                     </li>
                                 </ul>
                                 <div class="LoginBtn">
-                                    <a @click="register()">注册</a>
+                                    <a @click="register()" >注   册</a>
                                 </div>
                                 <input type="hidden" class="loginType" name="loginType" />
                             </form>
@@ -326,13 +321,6 @@
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!--footer-->
-            <div class="login_footer">
-                <span class="login_footer_text" id="lg_footer">
-                    copyright © 沈阳消防研究所ICP备1300840号-2
-                </span>
             </div>
         </div>
     </div>
@@ -365,7 +353,7 @@
         })
     })
 </script>
-<script>
+<!-- <script>
     $(function () {
         //判断是否宽屏
         var winWide = window.screen.availWidth;
@@ -373,30 +361,8 @@
         var wideScreen = false;
         var zm = winWide / 1920;
         document.body.style.zoom = zm * 1.5;
-        // body{zoom:1.25;}
-        // var tp = zm*30;
-        // show = document.getElementById("lg_footer");
-        // show.style.top = tp+"%";
-
-        //登陆失败
-        /**
-        var reg = new RegExp("(^|&)msg=([^&]*)(&|$)",'i');
-        var r = window.location.search.substr(1).match(reg);
-        var msg = null;
-        if(r!=null){
-            msg = unescape(r[2]);
-            if(msg.indexOf('UnknownAccountException') != -1){
-                alert('账号不存在！');
-            }else if(msg.indexOf('IncorrectCredentialsException') != -1){
-                alert('密码不正确！');
-            }else if(msg.indexOf('ExcessiveAttemptsException') != -1){
-                alert('密码输入错误次数超过5次！');
-            }else if(msg.indexOf('kaptchaValidateFailed') != -1){
-                alert('验证码错误！');
-            }
-        }
-        */
+       
     })
-</script>
+</script> -->
 
 </html>
