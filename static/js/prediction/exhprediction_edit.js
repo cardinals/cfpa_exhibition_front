@@ -1,6 +1,6 @@
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vm = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -85,6 +85,8 @@ new Vue({
             dialogSjFormVisible:false,
             //邮箱表单显示标识
             dialogYxFormVisible:false,
+            //邮箱验证flag
+            mailCheck: false,
 
             messageCodeText: "获取验证码",
             //短信验证码
@@ -103,7 +105,7 @@ new Vue({
                 value: 'codeValue'
             },
             //上传图片Data
-            picList: [],
+            fileList: [],
             //上传加参数
             upLoadData:{
                 qyid:'',
@@ -318,6 +320,7 @@ new Vue({
             axios.post('/zhapi/qyjbxx/doFindByUserid', params).then(function (res) {
                 if(res.data.result != null && res.data.result != ""){
                     this.baseInforForm = res.data.result;
+                    this.baseInforForm.yyzzBase64 = 'data:image/png;base64,'+ this.baseInforForm.yyzzBase64;
                     var xzqhArray = [];
                     xzqhArray.push(res.data.result.yjdzsheng);
                     xzqhArray.push(res.data.result.yjdzshi);
@@ -399,7 +402,6 @@ new Vue({
                 deleteFlag : 'N'
             }
             axios.post('/zhapi/qyjs/list', params).then(function (res) {
-                debugger;
                 if(res.data.result.length>0){
                     //this.qyjsForm = res.data.result[0];
                     var resultForm = res.data.result[0];
@@ -424,7 +426,6 @@ new Vue({
                     this.cpjsStatus = 1;//修改
                     this.qyUuid = res.data.result[0].uuid;
                 }else{
-                    debugger;
                     this.cpjsStatus = 0;//新增
                     this.qyjsForm.qycpjsVOList.push({
                         qyid:this.qyid,
@@ -488,8 +489,7 @@ new Vue({
         },
         
         //图片上传成功回调方法
-        picSuccess: function (res, file) {
-            debugger;
+        picSuccess: function (res, file, fileList) {
             console.log(file, fileList);
            // this.baseInforForm.yyzzBase64 = URL.createObjectURL(file.raw);
         },
@@ -498,6 +498,11 @@ new Vue({
             const isJpg = file.name.endsWith("jpg");
             const isPdf = file.name.endsWith("pdf");
             if (isPng || isJpg || isPdf) {
+                var reader = new FileReader();
+                reader.readAsDataURL(file.raw);
+                reader.onload = function(e){
+                    vm.baseInforForm.yyzzBase64 = reader.result;
+                }
                 this.isPic = true;
             } else {
                 this.$message.error('只能上传jpg、png、pdf格式的文件');
