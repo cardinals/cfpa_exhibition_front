@@ -96,29 +96,29 @@
                     </div>
                 </div>
                 <!--选择用户界面-->
-				<el-dialog title="选择用户" :visible.sync="userListVisible" :close-on-click-modal="false">
+				<el-dialog title="选择展商" :visible.sync="userListVisible" :close-on-click-modal="false">
 					<div id="tableView" v-loading="loading_user" element-loading-text="加载中">
 						<el-row>
 							<el-form :inline="true" class="el-form demo-form-inline">
 								<el-row class="mb5">
-									<el-col :span="18" class="searchInline">
+									<el-col :span="17" class="searchInline">
 										<label class="el-form-item__label" style="width:95px;" class="tr vbm">用户名</label>
 										<el-input size="small" v-model="userForm.username" placeholder="用户名" clearable></el-input>
 									</el-col>
-									<el-col :span="6" class="btnSearchPlus">
-										<el-button type="primary" icon="search" size="small" @click="addClick('click')">查询</el-button>
-										<el-button type="clear" icon="delete" size="small" @click="clearUserList">清空</el-button>
+									<el-col :span="7" class="btnSearchPlus">
+										<el-button type="primary" icon="el-icon-search" size="small" @click="addClick('click')">查询</el-button>
+										<el-button type="clear" icon="el-icon-refresh" size="small" @click="clearUserList">重置</el-button>
 									</el-col>
 								</el-row>
 							</el-form>
 						</el-row>
 						<div class="table_container">
 							<el-table border id="table" :data="tableData_user.slice((currentPage_user-1)*pageSize_user,currentPage_user*pageSize_user)" class="tableStyle" :height="tableheight_user"
-							 @row-click="selectUser">
+							 @row-click="selectUser" row-style="height:40px;">
 								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
-								<el-table-column prop="username" label="用户名" show-overflow-tooltip min-width="40%" align="center"></el-table-column>
-								<el-table-column prop="realname" label="真实姓名" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
-								<el-table-column prop="mobile" label="手机号" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
+								<el-table-column prop="username" label="用户名" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
+								<el-table-column prop="zwgsmc" label="公司名称" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
+								<el-table-column prop="dzyx" label="电子邮箱" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
 							</el-table>
 							<!--列表底部工具条和分页符-->
 							<el-row type="flex" justify="end">
