@@ -90,7 +90,7 @@
                                     <a @click="changeForm('FPAFlag')">忘记密码</a>
                                     <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
                                     <a @click="changeForm('FUAFlag')">忘记用户名</a>
-                                    <input type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
+                                    <input type="checkbox" style="background:#333 !important;" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
                                     <span style="color:#fb6a74">记住我</span>
                                 </div>
                                 <div class="LoginBtn">
@@ -143,6 +143,9 @@
                             <form id="FUAform" v-show="formFlag=='FUAFlag'" autocomplete="off">
                                 <ul style="display:block;">
                                     <li>
+                                        <input type="text" class="kong">
+                                    </li>
+                                    <li>
                                         <i class="icon-email"></i>
                                         <input type="text" class="inputstyle" v-model="FUmail" name="FUmail" id="FUmail" placeholder="邮箱">
                                         <button type="button" id="FUmail-btn" class="verficode phonebtn" @click="getFUMailCode()" v-text=FUmailCodeText></button>
@@ -151,9 +154,10 @@
                                         <i class="icon-message"></i>
                                         <input type="text" class="inputstyle" v-model="FUmailCode" name="FUmailCode" id="FUmailCode" placeholder="邮件验证码">
                                     </li>
+                                    
                                 </ul>
-                                <div class="LoginBtn">
-                                    <a @click="FUIdentify()">确定</a>
+                                <div class="LoginBtn" id="btn_mt">
+                                    <a @click="FUIdentify()">确  定</a>
                                 </div>
                                 <input type="hidden" class="loginType" name="loginType" />
                             </form>
@@ -192,7 +196,7 @@
                             <div class="Login_nTop"><span class="FP_span current">密码找回</span>
                                 <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u class="btncolor">返回登录</u></a></div>
                             </div>
-                            <form id="FPAform" v-show="formFlag=='FPAFlag'" autocomplete="off">
+                            <form id="FPAform" class="mt_value" v-show="formFlag=='FPAFlag'" autocomplete="off">
                                 <ul style="display:block;">
                                     <li>
                                         <div class="LoginBtn">
@@ -210,6 +214,9 @@
                             <form id="FPBform" v-show="formFlag=='FPBFlag'" autocomplete="off">
                                 <ul style="display:block;">
                                     <li>
+                                        <input type="text" class="kong">
+                                    </li>
+                                    <li>
                                         <i class="icon-email"></i>
                                         <input type="text" class="inputstyle" v-model="FPBmail" name="FPBmail" id="FPBmail" placeholder="邮箱">
                                         <button type="button" id="FPBmail-btn" class="verficode phonebtn" @click="getFPBMailCode()" v-text=FPBmailCodeText></button>
@@ -219,13 +226,16 @@
                                         <input type="text" class="inputstyle" v-model="FPBmailCode" name="FPBmailCode" id="FPBmailCode" placeholder="邮件验证码">
                                     </li>
                                 </ul>
-                                <div class="LoginBtn">
-                                    <a @click="FPBIdentify()">确定</a>
+                                <div class="LoginBtn" id="btn_mt">
+                                    <a @click="FPBIdentify()">确  定</a>
                                 </div>
                                 <input type="hidden" class="loginType" name="loginType" />
                             </form>
                             <form id="FPCform" v-show="formFlag=='FPCFlag'" autocomplete="off">
                                 <ul style="display:block;">
+                                    <li>
+                                        <input type="text" class="kong">
+                                    </li>
                                     <li>
                                         <i class="icon-call"></i>
                                         <input type="text" class="inputstyle" v-model="FPCmobile" name="FPCmobile" id="FPCmobile" placeholder="手机号">
@@ -236,8 +246,8 @@
                                         <input type="text" class="inputstyle" v-model="FPCmessageCode" name="FPCmessageCode" id="FPCmessageCode" placeholder="短信验证码">
                                     </li>
                                 </ul>
-                                <div class="LoginBtn">
-                                    <a @click="FPCIdentify()">确定</a>
+                                <div class="LoginBtn" id="btn_mt">
+                                    <a @click="FPCIdentify()">确  定</a>
                                 </div>
                                 <input type="hidden" class="loginType" name="loginType" />
                             </form>
@@ -273,6 +283,9 @@
                             <form id="REAAform" v-show="formFlag=='REAAFlag'" autocomplete="off">
                                 <ul>
                                     <li>
+                                        <input type="text" class="kong">
+                                    </li>
+                                    <li>
                                         <i class="icon-company"></i>
                                         <input type="text" class="inputstyle" v-model="REAcompanyName" name="REAcompanyName" id="REAcompanyName" placeholder="单位名称">
                                     </li>
@@ -281,8 +294,8 @@
                                         <input type="text" class="inputstyle" v-model="REAunscid" name="REAunscid" id="REAunscid" placeholder="统一社会信用代码">
                                     </li>
                                 </ul>
-                                <div class="LoginBtn">
-                                    <a @click="REAIdentify()">确定</a>
+                                <div class="LoginBtn" id="btn_mt">
+                                    <a @click="REAIdentify()">确  定</a>
                                 </div>
                                 <input type="hidden" class="loginType" name="loginType" />
                             </form>
