@@ -60,7 +60,7 @@
                                         <i class="icon-verficode"></i>
                                         <input type="text" class="inputstyle" v-model="validateCode" name="validateCode" id="validateCode" placeholder="验证码" @keyup.enter="login()">
                                         <a href="javascript:;" @click="reloadCode()">
-                                            <img v-bind:src="src" id="checkCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';" style="vertical-align: bottom"
+                                            <img v-bind:src="src" id="checkCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';" style="vertical-align: bottom;border-radius:20px;"
                                                 width="50" height="20">
                                         </a>
                                     </li>
@@ -109,7 +109,7 @@
                                     <li>
                                         <i class="icon-call"></i>
                                         <input type="text" class="inputstyle" v-model="mobile" name="mobile" id="mobile" placeholder="请输入手机号" @blur="mobileCheck">
-                                        <button type="button" id="mobile-btn" class="verficode" @click="getMessageCode()" v-text=messageCodeText></button>
+                                        <button type="button" id="mobile-btn" class="verficode phonebtn" @click="getMessageCode()" v-text=messageCodeText></button>
                                         <p class="alert" v-show="mobileAlertFlag">*请填写正确的手机号码</p>
                                     </li>
                                     <li>
@@ -125,7 +125,7 @@
                                         <p class="alert" v-show="password1AlertFlag">*密码不合规，请重新填写</p>
                                     </li>
                                     <li>
-                                        <i class="icon-password"></i>
+                                        <i class="icon-password-true"></i>
                                         <input type="password" class="inputstyle" v-model="password2" name="password2" id="password2" placeholder="请再次输入密码" @blur="password2Check">
                                         <p class="alert" v-show="password2AlertFlag">*两次填写不一致，请重新填写</p>
                                     </li>
