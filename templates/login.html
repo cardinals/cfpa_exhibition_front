@@ -44,7 +44,7 @@
                     <div class="Login">
                         <div id="login" class="Login_n" v-show="formFlag=='loginFlag'||formFlag=='bakFlag'">
                             <div class="Login_nTop"><span class="yhdl_span current">用户登录</span>
-                                <div style="float:right;font-size: 12px;">没有账户？<a @click="changeForm('regFlag')"><u>去注册</u></a></div>
+                                <div style="float:right;font-size: 12px;color: #fb6a74">没有账户？<a @click="changeForm('regFlag')"><u style="color: #fb6a74">去注册</u></a></div>
                             </div>
                             <form id="login-form" autocomplete="off" name="login-form" action="/xfxhapi/login" method="post">
                                 <ul id="forma" style="display:block;">
@@ -84,14 +84,14 @@
                                     </li>
                                 </ul>
                                
-                                <div class="formbar">
+                                <div class="formbar" >
                                     <a @click="changeForm('REAAFlag')">重置账户</a>
                                     <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
                                     <a @click="changeForm('FPAFlag')">忘记密码</a>
                                     <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
                                     <a @click="changeForm('FUAFlag')">忘记用户名</a>
                                     <input type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
-                                    <span>记住我</span>
+                                    <span style="color:#fb6a74">记住我</span>
                                 </div>
                                 <div class="LoginBtn">
                                         <a @click="login()" id="lg" style="display:block;margin-top:45px;">登 录</a>
