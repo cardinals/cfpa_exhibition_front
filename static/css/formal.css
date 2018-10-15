@@ -272,3 +272,6 @@ body{height:100%;overflow:hidden;}
 .el-dialog__body {
     padding: 0px 20px 20px;
 }
+.el-form-item__label {
+    line-height: 32px;
+}

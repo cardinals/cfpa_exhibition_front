@@ -37,7 +37,7 @@ var vue = new Vue({
             },
             tableData_user: [],
             userListVisible: false,
-            tableheight_user: 243,
+            tableheight_user: 251,
             //显示加载中样
             loading_user: false,
             //当前页

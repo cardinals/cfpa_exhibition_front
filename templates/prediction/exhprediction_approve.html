@@ -88,20 +88,8 @@
                         </el-row>
                     </div>
 
-                    <!--营业执照预览-->
-                    <!-- <el-dialog title="营业执照预览" :visible.sync="imgViewVisible" class="picDialog" :close-on-click-modal="false">
-                        <div id="flagImage" class="tc">
-                            <el-row>
-                                <strong>
-                                    <v-text v-text="previewTitle"></v-text>
-                                </strong>
-                            </el-row>
-                            <img v-if="previewImg!==''" :src="'data:image/png;base64,'+previewImg" style="max-height:200px;width: 150px;">
-                            <img v-else src="../../static/images/noPic.png" style="width:150px;">
-                        </div>
-                    </el-dialog> -->
                     <!--图片预览-->
-                    <el-dialog :visible.sync="imgViewVisible" :close-on-click-modal="false" size="large">
+                    <el-dialog id="previewImgDialog" :visible.sync="imgViewVisible" :close-on-click-modal="false" size="large">
                         <template>
                             <el-carousel type="card" height="350px" :autoplay="false" arrow="never" indicator-position="none">
                                 <el-carousel-item>
