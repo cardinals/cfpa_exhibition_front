@@ -138,14 +138,14 @@
                         </div>
                         <div id="forgetUsername" class="Login_n" v-show="formFlag=='FUAFlag'||formFlag=='FUBFlag'">
                             <div class="Login_nTop"><span class="FU_span current">用户名找回</span>
-                                <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u>返回登录</u></a></div>
+                                <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u class="btncolor">返回登录</u></a></div>
                             </div>
                             <form id="FUAform" v-show="formFlag=='FUAFlag'" autocomplete="off">
                                 <ul style="display:block;">
                                     <li>
                                         <i class="icon-email"></i>
                                         <input type="text" class="inputstyle" v-model="FUmail" name="FUmail" id="FUmail" placeholder="邮箱">
-                                        <button type="button" id="FUmail-btn" class="verficode" @click="getFUMailCode()" v-text=FUmailCodeText></button>
+                                        <button type="button" id="FUmail-btn" class="verficode phonebtn" @click="getFUMailCode()" v-text=FUmailCodeText></button>
                                     </li>
                                     <li>
                                         <i class="icon-message"></i>
@@ -190,7 +190,7 @@
                         </div>
                         <div id="forgetPassword" class="Login_n" v-show="formFlag=='FPAFlag'||formFlag=='FPBFlag'||formFlag=='FPCFlag'||formFlag=='FPDFlag'">
                             <div class="Login_nTop"><span class="FP_span current">密码找回</span>
-                                <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u>返回登录</u></a></div>
+                                <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u class="btncolor">返回登录</u></a></div>
                             </div>
                             <form id="FPAform" v-show="formFlag=='FPAFlag'" autocomplete="off">
                                 <ul style="display:block;">
@@ -212,7 +212,7 @@
                                     <li>
                                         <i class="icon-email"></i>
                                         <input type="text" class="inputstyle" v-model="FPBmail" name="FPBmail" id="FPBmail" placeholder="邮箱">
-                                        <button type="button" id="FPBmail-btn" class="verficode" @click="getFPBMailCode()" v-text=FPBmailCodeText></button>
+                                        <button type="button" id="FPBmail-btn" class="verficode phonebtn" @click="getFPBMailCode()" v-text=FPBmailCodeText></button>
                                     </li>
                                     <li>
                                         <i class="icon-message"></i>
@@ -229,7 +229,7 @@
                                     <li>
                                         <i class="icon-call"></i>
                                         <input type="text" class="inputstyle" v-model="FPCmobile" name="FPCmobile" id="FPCmobile" placeholder="手机号">
-                                        <button type="button" id="FPCmobile-btn" class="verficode" @click="getFPCMessageCode()" v-text=FPCmessageCodeText></button>
+                                        <button type="button" id="FPCmobile-btn" class="verficode phonebtn" @click="getFPCMessageCode()" v-text=FPCmessageCodeText></button>
                                     </li>
                                     <li>
                                         <i class="icon-code"></i>
@@ -268,7 +268,7 @@
                         </div>
                         <div id="rearrange" class="Login_n" v-show="formFlag=='REAAFlag'||formFlag=='REABFlag'">
                             <div class="Login_nTop"><span class="zhcz_span current">账户重置</span>
-                                <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u>返回登录</u></a></div>
+                                <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u class="btncolor">返回登录</u></a></div>
                             </div>
                             <form id="REAAform" v-show="formFlag=='REAAFlag'" autocomplete="off">
                                 <ul>
