@@ -1,16 +1,11 @@
 //异步加载详情页
 $(function () {
-    var unscid = getQueryString("unscid");
-    var params = {
-        unscid : unscid,
-    }
-    loadDiv("jxcsplan/jxcsplan_add");
+    loadDiv("prediction/exhprediction_edit");
 });
 
 //退出登录
 function logout(){
     $('#login-out-form')[0].submit();
-    // window.location.href = "../login.html";
 }
 
 //axios默认设置cookie
