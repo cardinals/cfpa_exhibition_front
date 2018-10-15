@@ -29,7 +29,23 @@ var vue = new Vue({
             //分页大小
             pageSize: 10,
             //总记录数
-            total: 0
+            total: 0,
+
+            //表高度变量---------------------------用户dialog
+            userForm: {
+                username: ''
+            },
+            tableData_user: [],
+            userListVisible: false,
+            tableheight_user: 243,
+            //显示加载中样
+            loading_user: false,
+            //当前页
+            currentPage_user: 1,
+            //分页大小
+            pageSize_user: 5,
+            //总记录数
+            total_user: 0
         }
     },
     created: function () {
@@ -109,11 +125,42 @@ var vue = new Vue({
             this.multipleSelection = val;
         },
         //新增跳转
-        addClick: function () {
-            var params = {
-                type: "XZ"
+        addClick: function (type) {
+            if (type == 'page') {
+                this.tableData_user = [];
+            } else {
+                if (type == 'init') {
+                    this.userForm.username = '';
+                }
+                this.currentPage_user = 1;
             }
-            loadDivParam("prediction/exhprediction_edit", params);
+            this.loading_uesr = true;
+            var params = {
+                username: this.userForm.username,
+                pageSize: this.pageSize_user,
+                pageNum: this.currentPage_user
+            };
+            axios.post('/zhapi/qyjbxx/doFindZsxxByQyjbxx', params).then(function (res) {
+                // debugger
+                var tableTemp = new Array((this.currentPage_user - 1) * this.pageSize_user);
+                this.tableData_user = tableTemp.concat(res.data.result);
+                this.total_user = res.data.result.length;
+                this.userListVisible = true;
+                this.loading_user = false;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //用户弹出页翻页
+        currentPageChange_user: function (val) {
+            if (this.currentPage_user != val) {
+                this.currentPage_user = val;
+                this.addClick('page');
+            }
+        },
+        clearUserList: function () {
+            this.userForm.username = '';
+            this.addClick('reset');
         },
         //编辑跳转
         editClick: function (val) {
@@ -149,6 +196,34 @@ var vue = new Vue({
                     message: '已取消删除'
                 });
             });
+        },
+        selectUser: function (val) {
+            if (val.qyid == null || val.qyid == '') {
+                var params = {
+                    userid: val.userid,
+                    type: "XZ"
+                }
+                loadDivParam("prediction/exhprediction_edit", params);
+            } else {
+                this.$confirm('选中展商已有报名信息，是否进入编辑?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    var params = {
+                        userid: val.userid,
+                        type: "BJ"
+                    }
+                    loadDivParam("prediction/exhprediction_edit", params);
+                }).catch(() => {
+                    // this.$message({
+                    //     type: 'info',
+                    //     message: ''
+                    // });
+                });
+                
+            }
+
         }
     }
 })
