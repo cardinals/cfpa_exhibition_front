@@ -96,7 +96,7 @@
                     </div>
                 </div>
                 <!--选择用户界面-->
-				<el-dialog title="选择用户" :visible.sync="userListVisible" :close-on-click-modal="false">
+				<el-dialog title="选择展商" :visible.sync="userListVisible" :close-on-click-modal="false">
 					<div id="tableView" v-loading="loading_user" element-loading-text="加载中">
 						<el-row>
 							<el-form :inline="true" class="el-form demo-form-inline">
@@ -117,8 +117,8 @@
 							 @row-click="selectUser" row-style="height:40px;">
 								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
 								<el-table-column prop="username" label="用户名" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
-								<el-table-column prop="realname" label="真实姓名" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
-								<el-table-column prop="mobile" label="手机号" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
+								<el-table-column prop="zwgsmc" label="公司名称" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
+								<el-table-column prop="dzyx" label="电子邮箱" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
 							</el-table>
 							<!--列表底部工具条和分页符-->
 							<el-row type="flex" justify="end">
