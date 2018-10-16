@@ -82,7 +82,7 @@
 
                     <!--新建界面-->
                     <el-dialog title="代码新增" :visible.sync="addFormVisible" @close="closeDialog(addForm)" :close-on-click-modal="false">
-                        <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
+                        <el-form :model="addForm" label-width="120px" :rules="addFormRules" ref="addForm">
                             <el-row>
                                 <el-col :span="23">
                                     <el-form-item label="代码值" prop="codeValue">
@@ -124,7 +124,7 @@
 
                     <!--修改界面-->
                     <el-dialog title="代码编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">
-                        <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
+                        <el-form :model="editForm" label-width="120px" :rules="editFormRules" ref="editForm">
                             <el-row>
                                 <el-col :span="23">
                                     <el-form-item label="代码值" prop="codeValue">

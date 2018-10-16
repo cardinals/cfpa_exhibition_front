@@ -231,6 +231,9 @@ body{height:100%;overflow:hidden;}
 .el-form-item{
     margin-bottom: 0px;
 }
+.el-form-item__error {
+    padding-top: 0;
+}
 .el-message{
     margin-top: 3%;
 }
@@ -271,7 +274,4 @@ body{height:100%;overflow:hidden;}
 }
 .el-dialog__body {
     padding: 0px 20px 20px;
-}
-.el-form-item__label {
-    line-height: 32px;
 }

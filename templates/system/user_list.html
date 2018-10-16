@@ -2,7 +2,6 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-	<!-- <link rel="stylesheet" type="text/css" href="../../static/css/system/userlist.css"> -->
 	<title>用户管理</title>
 </head>
 
@@ -177,7 +176,7 @@
 											<el-checkbox-group v-model="editForm.roles" size="small" style="float:left;width:90%;">
 												<el-checkbox v-for="role in allRoles" :label="role.rolename" :key="role.id">{{role.roleinfo}}</el-checkbox>
 											</el-checkbox-group>
-											<el-button id="roleSpread" size="mini" type="primary" plain style="float:right;margin-top:6px;" @click="spread">展开</el-button>
+											<el-button id="roleSpread" size="mini" type="info" plain style="float:right;margin-top:6px;" @click="spread">展开</el-button>
 										</el-form-item>
 									</el-col>
 									<el-col :span="1">&nbsp;</el-col>
@@ -192,12 +191,7 @@
 									</el-row>
 								</el-row>
 							</el-form>
-							<!-- <div slot="footer" class="dialog-footer">
-								<el-button @click.native="closeDialog(editForm)">取消</el-button>
-								<el-button type="primary" @click.native="editSubmit(editForm)">提交</el-button>
-							</div> -->
 						</el-dialog>
-	
 					</div>
 				</div>
 				<!-- main-container -->

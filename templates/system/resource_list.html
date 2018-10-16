@@ -37,7 +37,7 @@
 									:render-content="renderContent"
 									@node-click="handleNodeClick"
 									:highlight-current = true
-									style="background-color:#F5FAFC; font-weight:bold; width:100%; font-weight:100px; border:none; line-height: 40px;"
+									style="background-color:#F5FAFC; font-weight:bold; width:100%; font-weight:100px; border:none; line-height: 40px; margin-top: 10px;"
 								>
 							</el-tree>
 						</div>
@@ -108,7 +108,7 @@
 					</div>
 					<!--新建界面-->
 					<el-dialog title="资源新增" :visible.sync="addVisible" @close="closeDialog()" :close-on-click-modal="false">
-						<el-form :model="addForm" label-width="150px" ref="addForm" :rules="addFormRules">
+						<el-form :model="addForm" label-width="120px" ref="addForm" :rules="addFormRules">
 							<el-row>
 								<el-col :span="23" class="searchInline">
 									<el-form-item label="资源名称" prop="resourcename">

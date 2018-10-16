@@ -107,8 +107,8 @@
 							</el-col>
 							<el-col :span="1">&nbsp;</el-col>
 							<el-col :span="11">
-                                <el-form-item prop="dzyx" label="邮箱">
-                                    <el-input size="small" v-model="baseInforForm.dzyx" placeholder="邮箱">
+                                <el-form-item prop="dzyx1" label="邮箱">
+                                    <el-input size="small" v-model="baseInforForm.dzyx1" placeholder="邮箱">
                                         <el-button slot="append" @click="openYxYz">验证</el-button>
                                     </el-input>
                                 </el-form-item>
@@ -551,7 +551,7 @@
                 <el-dialog title="邮箱验证" :visible.sync="dialogYxFormVisible" @close="closeYxDialog()" :close-on-click-modal="false">
                     <el-form :inline="true" class="el-form demo-form-inline" ref="yxform" :model="yxform" label-position="right">
                         <el-row class="tr mb5" style="text-align: left;margin-left: 10px">
-                            请输入邮箱<span v-text="this.baseInforForm.dzyx" style="font-style:italic;margin-right: 2px;"></span>收到的验证码
+                            请输入邮箱<span v-text="this.baseInforForm.dzyx1" style="font-style:italic;margin-right: 2px;"></span>收到的验证码
                         </el-row>
                         <el-row class="tr mb5">
                             <el-col :span="18">

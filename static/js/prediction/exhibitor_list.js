@@ -147,7 +147,7 @@ var vue = new Vue({
                 pkid: val.pkid,
                 userid: val.userid
             }
-            this.$confirm('是否将密码重置成111111?', '提示', {
+            this.$confirm('是否将密码重置成“111111”?', '提示', {
                 confirmButtonText: '是',
                 cancelButtonText: '否',
                 type: 'warning'
