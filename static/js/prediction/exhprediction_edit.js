@@ -452,14 +452,17 @@ var vm = new Vue({
                     this.qyUuid = res.data.result[0].uuid;
                 }else{
                     this.cpjsStatus = 0;//新增
-                    this.qyjsForm.qycpjsVOList.push({
-                        qyid:this.qyid,
-                        cptp:'',
-                        cplx:[],
-                        cpjj:'',
-                        cptpBase64:'',
-                        key: Date.now()
-                    });
+                    if(this.qyjsForm.qycpjsVOList.length == 0){
+                        this.qyjsForm.qycpjsVOList.push({
+                            qyid:this.qyid,
+                            cptp:'',
+                            cplx:[],
+                            cpjj:'',
+                            cptpBase64:'',
+                            key: Date.now()
+                        });
+                    }
+                    
                 }
                 this.loading = false;
             }.bind(this), function (error) {
@@ -523,17 +526,25 @@ var vm = new Vue({
             const isPng = file.name.endsWith("png");
             const isJpg = file.name.endsWith("jpg");
             const isPdf = file.name.endsWith("pdf");
-            if (isPng || isJpg || isPdf) {
-                var reader = new FileReader();
-                reader.readAsDataURL(file.raw);
-                reader.onload = function(e){
-                    vm.baseInforForm.yyzzBase64 = reader.result;
+            const isLt200K = file.size / 1024 < 200;
+            if (!isLt200K) {
+                this.$message.error('上传图片大小不能超过200KB!');
+                //fileList.splice(-1, 1);
+            }else{
+                debugger;
+                if (isPng || isJpg || isPdf) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file.raw);
+                    reader.onload = function(e){
+                        vm.baseInforForm.yyzzBase64 = reader.result;
+                    }
+                    //this.isPic = true;
+                } else {
+                    this.$message.error('只能上传jpg、png、pdf格式的文件');
+                    fileList.splice(-1, 1);
                 }
-                //this.isPic = true;
-            } else {
-                this.$message.error('只能上传jpg、png、pdf格式的文件');
-                fileList.splice(-1, 1);
             }
+            
         },
         //企业logo
         LogoChange: function (file, fileList) {
