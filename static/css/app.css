@@ -106,7 +106,7 @@ font-family:"微软雅黑";
 }
 .logo2 {
   background: url('../images/login/pic_logo.png')no-repeat center center; background-size: auto 100%; position: relative;
-  width: 400px;
+  width: 350px;
   height: 40px;
   TOP: 4px;
 }
