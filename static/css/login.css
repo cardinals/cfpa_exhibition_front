@@ -30,7 +30,7 @@ body,html{ width:100%; height:100%;}
     margin:0 auto;
     overflow:hidden; }
 .Login{
-        margin:0px auto;
+        margin:28px auto;
         width:345px; 
         height:390px; 
         background:url(../images/login/bg_login01.png) no-repeat 0 0; 
@@ -55,7 +55,7 @@ body,html{ width:100%; height:100%;}
     border: none;background: #ffffff;color:#fb6a74;cursor: pointer;
 }
 /*icon设置为单独图标，解决chrome浏览器自动填充密码时覆盖background样式问题*/
-.Login_n ul i{width: 30px;height: 30px;display: inline-block;position: absolute;margin-left: 12px;margin-top: 10px;}
+.Login_n ul i{width: 30px;height: 30px;display: inline-block;position: absolute;margin-left: 16px;margin-top: 10px;}
 .Login_n ul i.icon-user{
     background: url(../images/login/icon-user.png) no-repeat;
 }
@@ -90,19 +90,38 @@ body,html{ width:100%; height:100%;}
     background: url(../images/icon-unscid.png) no-repeat;
 }
 /*样式*/
-/* input[type='checkbox']{
-    width: 12px;
-    height: 12px;
-    background-color: #fff;
-    -webkit-appearance:none;
-    border: 1px solid #999;
-    border-radius: 2px;
-    outline: none;
-}
-.checkBox input[type=checkbox]:checked{
-    background: url("../images/checkbox_icon.png")no-repeat center;
- } */
-
+input[type=checkbox]  {  
+    display: inline-block;  
+    vertical-align: middle;  
+    width: 12px;  
+    height: 12px;   
+    -webkit-appearance: none;  
+    background-color: transparent;  
+    border: 0;  
+    outline: 0 !important;  
+    line-height: 12px;  
+    color: #d8d8d8;  
+    }  
+ 
+    input[type=checkbox]:after  {  
+    content: "";  
+    display:block;   
+    width: 12px;  
+    height: 12px;  
+    text-align: center;  
+    line-height: 12px;  
+    font-size: 16px;  
+    color: #fff;  
+    border: 1px solid #ddd;  
+    background-color: #fff;    
+    box-sizing:border-box;     
+    }  
+    
+    input[type=checkbox]:checked:after  {  
+    border: 2px solid #ddd;  
+    background-color: #EA2530;  
+    }  
+    
 .verficode{ display:block; width:74px; height:25px; position:absolute; margin-top: -33px; margin-left: 215px;}
 .Login_n ul input:focus{box-shadow:0px 0px 8px #EA2530; border: 1px solid #EA2530;}
 .Login_n .formbar{width:290px; margin:10px auto 0;}

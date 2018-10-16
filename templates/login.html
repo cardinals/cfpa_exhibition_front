@@ -57,7 +57,7 @@
                                         <input type="password" class="inputstyle" v-model="password" name="password" id="password" placeholder="密码">
                                     </li>
                                     <li>
-                                        <i class="icon-verficode"></i>
+                                        <i class="icon-verficode" style="margin-left:14px;"></i>
                                         <input type="text" class="inputstyle" v-model="validateCode" name="validateCode" id="validateCode" placeholder="验证码" @keyup.enter="login()">
                                         <a href="javascript:;" @click="reloadCode()">
                                             <img v-bind:src="src" id="checkCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';" style="vertical-align: bottom;border-radius:20px;"
@@ -90,7 +90,7 @@
                                     <a @click="changeForm('FPAFlag')">忘记密码</a>
                                     <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
                                     <a @click="changeForm('FUAFlag')">忘记用户名</a>
-                                    <input type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
+                                    <input class="checkbox" type="checkbox"  name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
                                     <span style="color:#fb6a74">记住我</span>
                                 </div>
                                 <div class="LoginBtn">

@@ -251,6 +251,9 @@ var vue = new Vue({
 			var r = window.location.search.substr(1).match(reg);
 			if (r != null) return unescape(r[2]); return null;
 		},
+		exportClick:function(){
+			window.open("/zhapi/qyzwyx/doExportTjfx/cplx");
+		}
 		
 	}
 })
