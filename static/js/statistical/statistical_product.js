@@ -10,15 +10,16 @@ var vue = new Vue({
 				dateEnd: "",
 			},
 			//tjfx
-			tjfxdata:[],
+			tjfxdata: [],
 			tjfxname: [],
 			tjfxczqysl: [],
 			tjfxgdzwmj: [],
 			tjfxbwzwgssl: [],
 			//tabledata
 			tabledata: [],
+			total: 0,
 			//表高度变量
-			tableheight: 360,
+			tableheight: 291,
 			//显示加载中样
 			loading: false,
 			labelPosition: 'right',
@@ -27,7 +28,7 @@ var vue = new Vue({
 	mounted: function () {
 		//图标数据
 		this.getCPLX();
-		
+
 	},
 	created: function () {
 		/**菜单选中 by li.xue 20180628*/
@@ -44,18 +45,19 @@ var vue = new Vue({
 		//获取统计分析图表数据
 		getCPLX: function () {
 			var params = {};
-			axios.post('/zhapi/qyzwyx/dofindtjfx',params).then(function (res) {
+			axios.post('/zhapi/qyzwyx/dofindtjfx', params).then(function (res) {
 				this.tjfxdata = res.data.result;
-				for(var i=0; i<this.tjfxdata.length;i++){
+				this.total = res.data.result.length;
+				for (var i = 0; i < this.tjfxdata.length; i++) {
 					this.tjfxname.push(this.tjfxdata[i].cplxmc)
 					this.tjfxczqysl.push(this.tjfxdata[i].czqysl)
 					this.tjfxgdzwmj.push(this.tjfxdata[i].gdzwmj)
 					this.tjfxbwzwgssl.push(this.tjfxdata[i].bwzwgssl)
 				}
-				
+
 				this.loading = false;
 				//var myBarChart = echarts.init(document.getElementById('bar'));
-			
+
 				// myBarChart.setOption({
 				// 	legend: {
 				// 		data: res.data.result
@@ -66,12 +68,12 @@ var vue = new Vue({
 			}.bind(this), function (error) {
 				console.log(error)
 			})
-			
+
 		},
 
 		// 中央下部按产品分类柱状图
 		echarts1: function () {
-			
+
 
 			var myBarChart = echarts.init(document.getElementById('bar'));
 			BarmaxOption = {
@@ -96,9 +98,9 @@ var vue = new Vue({
 					//  data: this.tabledata.name,
 					align: 'left',
 					iGap: 8,
-					
+
 				},
-				color: ['#C1232B','#B5C334','#FCCE10'],
+				color: ['#C1232B', '#B5C334', '#FCCE10'],
 				grid: {
 					top: '50',
 					bottom: '10',
@@ -116,14 +118,14 @@ var vue = new Vue({
 						},
 					}
 				],
-			
+
 				yAxis: [
 					{
 						type: 'value',
 						name: '企业',
 						position: 'left',
 						offset: 28,
-						minInterval : 1,
+						minInterval: 1,
 						axisLine: {
 							lineStyle: {
 								color: '#C1232B'
@@ -137,7 +139,7 @@ var vue = new Vue({
 						type: 'value',
 						name: '展位',
 						position: 'left',
-						minInterval : 1,//设置为整数的刻度值
+						minInterval: 1,//设置为整数的刻度值
 						axisLine: {
 							lineStyle: {
 								color: '#B5C334'
@@ -161,7 +163,7 @@ var vue = new Vue({
 					}
 				],
 				series: [
-					
+
 					{
 						name: '参展企业数量',
 						type: 'bar',
@@ -188,7 +190,7 @@ var vue = new Vue({
 						data: this.tjfxgdzwmj,
 						// data: this.getList('dazhongdui'),
 					}
-				
+
 				]
 			};
 
@@ -207,7 +209,7 @@ var vue = new Vue({
 			var list = new Array();
 			if ('name' == column) {
 				for (var i in this.tabledata) {
-					list.push(this.tabledata[i].name.replace('总队',''));
+					list.push(this.tabledata[i].name.replace('总队', ''));
 				}
 			} else if ('buju' == column) {
 				for (var i in this.tabledata) {
@@ -251,9 +253,9 @@ var vue = new Vue({
 			var r = window.location.search.substr(1).match(reg);
 			if (r != null) return unescape(r[2]); return null;
 		},
-		exportClick:function(){
+		exportClick: function () {
 			window.open("/zhapi/qyzwyx/doExportTjfx/cplx");
 		}
-		
+
 	}
 })

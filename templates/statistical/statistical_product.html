@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- <link rel="stylesheet" type="text/css" href="../../static\css\planobject\importantunits_detail.css"> -->
     <title>按产品类型</title>
 </head>
@@ -18,7 +18,7 @@
                         <div id="bar" class="application-text">
                         </div>
                     </div>
-                    <div class="inform-content" >
+                    <div class="inform-content">
                         <div class="table_container">
                             <el-table border id="table" class="tableStyle" :data="this.tjfxdata" :height="tableheight" row-style="height:40px">
                                 <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
@@ -27,8 +27,16 @@
                                 <el-table-column prop="bwzwgssl" label="标准展位数量" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
                                 <el-table-column prop="gdzwmj" label="光地展位面积m²" show-overflow-tooltip min-width="28%" align="center"></el-table-column>
                             </el-table>
+                            <el-row type="flex" justify="end" class="mt10 mb10">
+                                <el-col :span="15">
+                                    <el-pagination layout="total" :total=parseInt(total)>
+                                    </el-pagination>
+                                </el-col>
+                                <div class="r" style="margin-right:10px !important;">
+                                    <el-button type="success" icon="el-icon-download" size="small" @click="exportClick">导出</el-button>
+                                </div>
+                            </el-row>
                         </div>
-                        <el-button type="success" icon="el-icon-download" size="small" @click="exportClick">导出</el-button>
                     </div>
                 </div>
             </div>
@@ -39,4 +47,5 @@
 <script src="../../static/js/echarts-2/echarts-all.js"></script>
 <script src="../../static/js/echarts-4/echarts.js"></script>
 <script src="../../static/js/statistical/statistical_product.js"></script>
+
 </html>
