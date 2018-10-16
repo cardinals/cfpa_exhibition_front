@@ -106,7 +106,7 @@ font-family:"微软雅黑";
 }
 .logo2 {
   background: url('../images/login/pic_logo.png')no-repeat center center; background-size: auto 100%; position: relative;
-  width: 400px;
+  width: 350px;
   height: 40px;
   TOP: 4px;
 }
@@ -615,7 +615,7 @@ margin-top: 10px;
 }
 .dada .dada-item:hover,
 .dada2 .dada-item:hover {
-  background-color: #494b50;
+  background-color: #614648;
 }
 .nav > li > a:focus,
 .nav > li > a:hover {

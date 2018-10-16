@@ -57,7 +57,7 @@ body,html{ width:100%; height:100%;}
 /*icon设置为单独图标，解决chrome浏览器自动填充密码时覆盖background样式问题*/
 .Login_n ul i{width: 30px;height: 30px;display: inline-block;position: absolute;margin-left: 12px;margin-top: 10px;}
 .Login_n ul i.icon-user{
-    background: url(../images/login/icn_username.png) no-repeat;
+    background: url(../images/login/icon-user.png) no-repeat;
 }
 .Login_n ul i.icon-password{
     background: url(../images/login/icn_password.png) no-repeat;
@@ -66,7 +66,7 @@ body,html{ width:100%; height:100%;}
     background: url(../images/login/icn_confirm.png) no-repeat;
 }
 .Login_n ul i.icon-verficode{
-    background: url(../images/login/icn_identifyingcode.png) no-repeat;
+    background: url(../images/login/icon-verficode.png) no-repeat;
 }
 .Login_n ul i.icon-jxcs{
     background: url(../images/icon-password.png) no-repeat;
@@ -75,7 +75,7 @@ body,html{ width:100%; height:100%;}
     background: url(../images/login/icn_telephonenumber.png) no-repeat;
 }
 .Login_n ul i.icon-code{
-    background: url(../images/icon-code.png) no-repeat;
+    background: url(../images/login/icon-code.png) no-repeat;
 }
 .Login_n ul i.icon-message{
     background: url(../images/icon-message.png) no-repeat;
@@ -90,7 +90,7 @@ body,html{ width:100%; height:100%;}
     background: url(../images/icon-unscid.png) no-repeat;
 }
 /*样式*/
-input[type='checkbox']{
+/* input[type='checkbox']{
     width: 12px;
     height: 12px;
     background-color: #fff;
@@ -101,7 +101,7 @@ input[type='checkbox']{
 }
 .checkBox input[type=checkbox]:checked{
     background: url("../images/checkbox_icon.png")no-repeat center;
- }
+ } */
 
 .verficode{ display:block; width:74px; height:25px; position:absolute; margin-top: -33px; margin-left: 215px;}
 .Login_n ul input:focus{box-shadow:0px 0px 8px #EA2530; border: 1px solid #EA2530;}
