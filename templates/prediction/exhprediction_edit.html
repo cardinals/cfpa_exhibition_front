@@ -46,7 +46,7 @@
                         <el-row class="tr mb5">
                             <el-col :span="11">
                                 <el-form-item prop="xzqh" label="邮寄地址">
-                                    <el-cascader :options="xzqhDataTree" :props="defaultProps" size="small" v-model="baseInforForm.xzqh" placeholder="省/市" class="searchSelect"
+                                    <el-cascader id="ShengShiCascader" :options="xzqhDataTree" :props="defaultProps" size="small" v-model="baseInforForm.xzqh" placeholder="省/市" class="searchSelect"
                                             clearable show-all-levels></el-cascader>
                                 </el-form-item>
                             </el-col>

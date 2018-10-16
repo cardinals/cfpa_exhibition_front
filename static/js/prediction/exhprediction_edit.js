@@ -373,8 +373,11 @@ var vm = new Vue({
                 }else{
                     this.kpxxStatus = 0;//新增
                      //开票公司名称：必填，把企业基本信息中的“中文公司名称“带到文本框中，文本框可修改
-                     this.kpxxForm.kpgsmc = this.baseInforForm.zwgsmc;
+                    this.kpxxForm.kpgsmc = this.baseInforForm.zwgsmc;
                      //把企业基本信息中的“邮寄地址“带到文本框中，可修改
+                    var obj = document.getElementById("ShengShiCascader");
+                    var text = obj.textContent.replace(/\s/ig,''); // 选中文本
+                    this.kpxxForm.gsdz = text+this.baseInforForm.yjdzxx;
                 }
                 this.loading = false;
             }.bind(this), function (error) {
@@ -575,7 +578,6 @@ var vm = new Vue({
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     if(this.jbxxStatus == 0){//新增
-                        debugger;
                         if(this.mailCheck == false){
                             this.$alert('请对修改后的邮箱进行验证', '提示', {
                                 type: 'warning',
@@ -1159,12 +1161,26 @@ var vm = new Vue({
                 });
                 return false;
             } else {
-                axios.get('/xfxhapi/signin/sendMail?mail=' + this.baseInforForm.dzyx1).then(function (res) {
-                    this.mailCodeReal = res.data.msg;
-                    this.dialogYxFormVisible = true;
+                //查询邮箱是否注册
+                axios.get('/xfxhapi/signin/getMailNum/' + this.baseInforForm.dzyx1.replace(".", "_")).then(function (res) {
+                    if (res.data.result == 0) {
+                        axios.get('/xfxhapi/signin/sendMail?mail=' + this.baseInforForm.dzyx1).then(function (res) {
+                            this.mailCodeReal = res.data.msg;
+                            this.dialogYxFormVisible = true;
+                        }.bind(this), function (error) {
+                            console.log(error);
+                        });
+                    }else{
+                        this.$alert('邮箱已注册', '提示', {
+                            type: 'warning',
+                            confirmButtonText: '确定',
+                        });
+                        return false;
+                    }
                 }.bind(this), function (error) {
                     console.log(error);
                 });
+                
                 
             }
         },
