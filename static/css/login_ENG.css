@@ -1,0 +1,200 @@
+@charset "utf-8";
+/* 公共 */
+*{ margin:0; padding:0; font-size:12px; font-family:"微软雅黑";color:#282828;}
+li{ list-style:none;}
+img{ border:0; border:none;}
+a{ text-decoration:none;}
+body,html{ width:100%; height:100%;}
+
+/*title*/
+.lg_center{background: url(../images/login/pic_title.png)no-repeat;background-size: 100% auto;width:650px;height: 150px; z-index:12;margin: 0 auto;margin-top:8%;}
+
+
+/* center */
+.login_center{
+    top:0em;
+    position:absolute;
+    z-index:10;
+    bottom:0em;
+    width:100%; 
+    overflow:hidden;
+    background:url(../images/login/bg_01.png) no-repeat 0 0; background-size:cover;}
+.Login_img{ 
+    position:absolute;
+    top: 1.5em;
+    z-index: 10;
+    bottom:2em;
+    left: 4em;
+    width:98%;
+    _height:100%; 
+    margin:0 auto;
+    overflow:hidden; }
+.Login{
+        margin:28px auto;
+        width:345px; 
+        height:390px; 
+        background:url(../images/login/bg_login01.png) no-repeat 0 0; 
+        overflow:hidden;
+        border-radius:10px; 
+        padding: 0px;
+    }
+.Login_n{ width:345px; height:390px; margin:0px;}
+.Login_nTop{height:75px; line-height:75px; font-size:20px;  padding-left:35px; padding-right:35px;color:#c0c0c0}
+.Login_nTop img{position: relative;top: 7px;right: 5px;}
+.Login_nTop span{font-size: 18px;cursor: pointer;}
+.Login_nTop .current{color: #EA2530;}
+.Login_nTop .currentb{color: #999999;}
+.Login_nTop a{cursor: pointer;}
+.Login_n ul{width:298px; margin:0px auto 0;}
+.Login_n ul li{margin-bottom: 15px;}
+.Login_n ul li input{ outline:none; width:250px; height:39px; line-height:39px; font-size:14px; padding-left:46px; border-radius:20px; border:1px solid #d6d6d6;}
+/* .Login_n ul li button.mobile-btn {width: 74px;height: 25px;position: absolute;top:132px;left:277px;} */
+.Login_n ul li p{position: absolute;margin-top:-1px;}
+.Login_n ul li .alert{color:#EA2530;}
+/*获取验证码样式*/
+.phonebtn{
+    border: none;background: #ffffff;color:#fb6a74;cursor: pointer;
+}
+/*icon设置为单独图标，解决chrome浏览器自动填充密码时覆盖background样式问题*/
+.Login_n ul i{width: 30px;height: 30px;display: inline-block;position: absolute;margin-left: 16px;margin-top: 10px;}
+.Login_n ul i.icon-user{
+    background: url(../images/login/icon-user.png) no-repeat;
+}
+.Login_n ul i.icon-password{
+    background: url(../images/login/icn_password.png) no-repeat;
+}
+.Login_n ul i.icon-password-true{
+    background: url(../images/login/icn_confirm.png) no-repeat;
+}
+.Login_n ul i.icon-verficode{
+    background: url(../images/login/icon-verficode.png) no-repeat;
+}
+.Login_n ul i.icon-jxcs{
+    background: url(../images/icon-password.png) no-repeat;
+}
+.Login_n ul i.icon-call{
+    background: url(../images/login/icn_telephonenumber.png) no-repeat;
+}
+.Login_n ul i.icon-code{
+    background: url(../images/login/icon-code.png) no-repeat;
+}
+.Login_n ul i.icon-message{
+    background: url(../images/icon-message.png) no-repeat;
+}
+.Login_n ul i.icon-email{
+    background: url(../images/icon-email.png) no-repeat;
+}
+.Login_n ul i.icon-company{
+    background: url(../images/icon-company.png) no-repeat;
+}
+.Login_n ul i.icon-unscid{
+    background: url(../images/icon-unscid.png) no-repeat;
+}
+/*样式*/
+input[type=checkbox]  {  
+    display: inline-block;  
+    vertical-align: middle;  
+    width: 12px;  
+    height: 12px;   
+    -webkit-appearance: none;  
+    background-color: transparent;  
+    border: 0;  
+    outline: 0 !important;  
+    line-height: 12px;  
+    color: #d8d8d8;  
+    }  
+ 
+input[type=checkbox]:after  {  
+    content: "";  
+    display:block;   
+    width: 12px;  
+    height: 12px;  
+    text-align: center;  
+    line-height: 12px;  
+    font-size: 16px;  
+    color: #fff;  
+    border: 1px solid #ddd;  
+    background-color: #fff;    
+    box-sizing:border-box;     
+    }  
+    
+input[type=checkbox]:checked:after  {  
+    border: 2px solid #ddd;  
+    background-color: #EA2530;  
+    }  
+    
+.verficode{ display:block; width:74px; height:25px; position:absolute; margin-top: -33px; margin-left: 215px;}
+.Login_n ul input:focus{box-shadow:0px 0px 8px #EA2530; border: 1px solid #EA2530;}
+.Login_n .formbar{width:290px; margin:10px auto 0;}
+.formbar input#rememberMe{display: block;float: left;margin-top: 3px;}
+.kong{visibility: hidden;}
+.formbar a{float: right;font-size: 12px;color: #fb6a74;cursor: pointer;}
+.btncolor{color: #fb6a74;}
+.mt_value{margin-top: 50px;}
+#btn_mt{margin-top: 75px;}
+.LoginBtn{ margin-top:20px;cursor: pointer; } 
+.LoginBtn a{
+    display:block; 
+    width:200px; 
+    height:40px; 
+    line-height:40px; 
+    margin:0 auto;
+    /* background:#EA2530; */
+    border-radius:50px; 
+    color:#FFF; 
+    font-size:16px; 
+    font-family:"微软雅黑"; 
+    text-align:center; 
+    border:1px solid #EA2530;
+    cursor: pointer;
+    background: -webkit-gradient(linear, left top, left bottom, from(#EF414B), to(#EA2530));
+    background: -moz-linear-gradient(top,  #EF414B,  #EA2530);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+
+}
+.LoginBtn a:hover{ 
+    display:block; 
+    width:200px; 
+    height:40px; 
+    line-height:40px; 
+    margin:0 auto;
+    /* background:#EA2530; */
+    border-radius:50px; 
+    color:#FFF; 
+    font-size:16px; 
+    font-family:"微软雅黑"; 
+    text-align:center; 
+    border:1px solid #f47a20;
+    cursor: pointer;
+    background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+    background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+
+}
+ 
+
+/* 输入框 */
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #999;opacity:1; 
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #999;opacity:1;
+}
+input:-ms-input-placeholder {
+    color: #999;opacity:1;
+}
+input::-webkit-input-placeholder {
+    color: #999;opacity:1;
+}
+/*chrome自动填充变黄处理*/
+input:-webkit-autofill {
+    -webkit-animation: autofill-fix 1s infinite;
+}
+@-webkit-keyframes autofill-fix {
+    from {
+        background-color: transparent
+    }
+    to {
+        background-color: transparent
+    }
+}
