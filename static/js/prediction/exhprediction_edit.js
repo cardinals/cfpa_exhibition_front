@@ -56,6 +56,10 @@ var vm = new Vue({
             },
             //企业介绍表单
             qyjsForm: {
+                qyid:'',
+                logo:'',
+                logoBase64:'',
+                qyjj:'',
                 qycpjsVOList:[],
             },
             
@@ -95,6 +99,8 @@ var vm = new Vue({
             mailCodeReal:"",
             time: 60,
             timer: null,
+            //产品index
+            index:0,
 
             //行政区划tree
             xzqhDataTree:[],
@@ -109,6 +115,10 @@ var vm = new Vue({
             //上传加参数
             upLoadData:{
                 qyid:'',
+            },
+            //上传logo加参数
+            upLoadLogoData:{
+                uuid:'',
             },
             //公司logo
             imageUrl: '',
@@ -403,7 +413,6 @@ var vm = new Vue({
             }
             axios.post('/zhapi/qyjs/list', params).then(function (res) {
                 if(res.data.result.length>0){
-                    //this.qyjsForm = res.data.result[0];
                     var resultForm = res.data.result[0];
                     var params = {
                         qyid: qyid,
@@ -415,11 +424,12 @@ var vm = new Vue({
                             var cplxArray = [];
                             cplxArray.push(result[i].cplx.substr(0, 1) + "000");
                             cplxArray.push(result[i].cplx);
-                            result[i].cplx = cplxArray
+                            result[i].cplx = cplxArray;
+                            result[i].cptpBase64 = 'data:image/png;base64,'+ result[i].cptp;
                         }
-                        //this.qyjsForm.qycpjsVOList = result;
                         resultForm.qycpjsVOList = result;
                         this.qyjsForm = resultForm;
+                        this.qyjsForm.logoBase64 = 'data:image/png;base64,'+ this.qyjsForm.logo;
                     }.bind(this), function (error) {
                         console.log(error)
                     })
@@ -432,6 +442,7 @@ var vm = new Vue({
                         cptp:'',
                         cplx:[],
                         cpjj:'',
+                        cptpBase64:'',
                         key: Date.now()
                     });
                 }
@@ -491,8 +502,8 @@ var vm = new Vue({
         //图片上传成功回调方法
         picSuccess: function (res, file, fileList) {
             console.log(file, fileList);
-           // this.baseInforForm.yyzzBase64 = URL.createObjectURL(file.raw);
         },
+        //营业执照change
         PicChange: function (file, fileList) {
             const isPng = file.name.endsWith("png");
             const isJpg = file.name.endsWith("jpg");
@@ -503,11 +514,46 @@ var vm = new Vue({
                 reader.onload = function(e){
                     vm.baseInforForm.yyzzBase64 = reader.result;
                 }
-                this.isPic = true;
+                //this.isPic = true;
             } else {
                 this.$message.error('只能上传jpg、png、pdf格式的文件');
                 fileList.splice(-1, 1);
             }
+        },
+        //企业logo
+        LogoChange: function (file, fileList) {
+            const isPng = file.name.endsWith("png");
+            const isJpg = file.name.endsWith("jpg");
+            if (isPng || isJpg) {
+                var reader = new FileReader();
+                reader.readAsDataURL(file.raw);
+                reader.onload = function(e){
+                    vm.qyjsForm.logoBase64 = reader.result;
+                }
+            } else {
+                this.$message.error('只能上传jpg、png格式的图片');
+                fileList.splice(-1, 1);
+            }
+        },
+        //产品图片
+        CpPicsChange: function (file, fileList) {
+            const isPng = file.name.endsWith("png");
+            const isJpg = file.name.endsWith("jpg");
+            if (isPng || isJpg) {
+                var reader = new FileReader();
+                reader.readAsDataURL(file.raw);
+                reader.onload = function(e){
+                //vm.qyjsForm.logoBase64 = reader.result;
+                vm.qyjsForm.qycpjsVOList[vm.index].cptpBase64 = reader.result;
+                }
+            } else {
+                this.$message.error('只能上传jpg、png格式的图片');
+                fileList.splice(-1, 1);
+            }
+        },
+        getIndex: function(index){
+            this.index = index;
+            //console.log(index);
         },
         picExceed(files, fileList) {
             this.$message.warning('限制选择 1 张图片！');
@@ -784,12 +830,18 @@ var vm = new Vue({
                     }else{//信息填写完整
                         var tempList = this.qyjsForm.qycpjsVOList;
                         for(var i in tempList){
-                            tempList[i].cplx = tempList[i].cplx[tempList[i].cplx.length - 1];
+                            //产品类型级联下拉处理
+                            if(tempList[i].cplx.length>1){
+                                tempList[i].cplx = tempList[i].cplx[tempList[i].cplx.length - 1];
+                            }
+                            //产品图片base64切成byte
+                            var temp_str = tempList[i].cptpBase64.split(",");
+                            tempList[i].cptp = temp_str[1];
                         }
                         if(this.cpjsStatus == 0){//新增
                             var params = {
                                 qyid: this.qyid,
-                            //   logo: this.qyjsForm.logo,
+                            //    logo: this.qyjsForm.logoBase64,
                                 qyjj: this.qyjsForm.qyjj,
                                 qycpjsVOList: tempList,
                                 deleteFlag: 'N',
@@ -797,6 +849,8 @@ var vm = new Vue({
                                 cjrmc: this.shiroData.username
                             }
                             axios.post('/zhapi/qyjs/doInsertByVo', params).then(function (res) {
+                                this.upLoadLogoData.uuid = res.data.result.uuid;
+                                this.$refs.uploadLogo.submit();
                                 this.$alert('成功保存企业产品介绍', '提示', {
                                     type: 'success',
                                     confirmButtonText: '确定',
@@ -822,6 +876,8 @@ var vm = new Vue({
                                 xgrmc: this.shiroData.username
                             }
                             axios.post('/zhapi/qyjs/doUpdateQyCpByVO', params).then(function (res) {
+                                this.upLoadLogoData.uuid = res.data.result.uuid;
+                                this.$refs.uploadLogo.submit();
                                 this.$alert('成功保存企业产品介绍', '提示', {
                                     type: 'success',
                                     confirmButtonText: '确定',
@@ -972,7 +1028,7 @@ var vm = new Vue({
             var cp = this.qyjsForm.qycpjsVOList[this.qyjsForm.qycpjsVOList.length - 1];
             if(cp.cplx==''||cp.cpjj==''){
                 this.$alert('请完整填写产品信息', '提示', {
-                    type: 'success',
+                    type: 'warning',
                     confirmButtonText: '确定',
                 });
                 return false;
@@ -982,6 +1038,7 @@ var vm = new Vue({
                     cptp:'',
                     cplx:[],
                     cpjj:'',
+                    cptpBase64:'',
                     key: Date.now()
                 });
             }
@@ -1079,11 +1136,10 @@ var vm = new Vue({
         },
         handleAvatarSuccess(res, file) {
             this.imageUrl = URL.createObjectURL(file.raw);
-          },
+        },
         beforeAvatarUpload(file) {
             const isJPG = file.type === 'image/jpeg';
             const isLt2M = file.size / 1024 / 1024 < 2;
-    
             if (!isJPG) {
               this.$message.error('上传头像图片只能是 JPG 格式!');
             }

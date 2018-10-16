@@ -380,14 +380,18 @@
                             <el-col :span="11">
                                 <el-form-item label="企业LOGO图标" style="text-align: left">
                                     <el-upload
-                                    class="avatar-uploader"
-                                    action="https://jsonplaceholder.typicode.com/posts/"
-                                    :show-file-list="false"
-                                    :on-success="handleAvatarSuccess"
-                                    :before-upload="beforeAvatarUpload">
-                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                                </el-upload>
+                                        class="avatar-uploader"
+                                        ref="uploadLogo"
+                                        action="/zhapi/qyjs/upload"
+                                        :data="upLoadLogoData"
+                                        :on-success="picSuccess"
+                                        :on-change="LogoChange"
+                                        :auto-upload="false"
+                                        :show-file-list="false"
+                                        >
+                                        <img v-if="qyjsForm.logoBase64!==''" :src="qyjsForm.logoBase64" class="avatar">
+                                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                    </el-upload>
                                 </el-form-item>
                                 
                             </el-col>
@@ -418,14 +422,17 @@
                                 <el-row class="tr">
 									<el-col :span="13">
                                         <el-form-item label="产品图片" style="text-align: left">
-                                            <el-upload
+                                                <el-upload
                                                 class="avatar-uploader"
-                                                action="https://jsonplaceholder.typicode.com/posts/"
+                                                ref="uploadCpPics"
+                                                action="/zhapi/qycpjs/upload"
+                                                :on-success="picSuccess"
+                                                :on-change="CpPicsChange"
+                                                :auto-upload="false"
                                                 :show-file-list="false"
-                                                :on-success="handleAvatarSuccess"
-                                                :before-upload="beforeAvatarUpload">
-                                                <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                                >
+                                                <img @click="getIndex(index)" v-if="domain.cptpBase64!==''" :src="domain.cptpBase64" class="avatar">
+                                                <i v-else class="el-icon-plus avatar-uploader-icon" @click="getIndex(index)"></i>
                                             </el-upload>
                                         </el-form-item>
 									</el-col>
