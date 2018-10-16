@@ -531,7 +531,6 @@ var vm = new Vue({
                 this.$message.error('上传图片大小不能超过200KB!');
                 //fileList.splice(-1, 1);
             }else{
-                debugger;
                 if (isPng || isJpg || isPdf) {
                     var reader = new FileReader();
                     reader.readAsDataURL(file.raw);
@@ -1097,10 +1096,13 @@ var vm = new Vue({
         },
         //删除产品card
         removeDomain: function (item) {
-            var index = this.qyjsForm.qycpjsVOList.indexOf(item)
-            if (index !== -1) {
-                this.qyjsForm.qycpjsVOList.splice(index, 1)
+            if(this.qyjsForm.qycpjsVOList.length > 1){
+                var index = this.qyjsForm.qycpjsVOList.indexOf(item)
+                if (index !== -1) {
+                    this.qyjsForm.qycpjsVOList.splice(index, 1)
+                }
             }
+           
         },
         //手机修改验证
         openSjYz: function(){
@@ -1174,7 +1176,6 @@ var vm = new Vue({
             } else {
                 //查询邮箱是否注册
                 axios.get('/xfxhapi/signin/getMailNum/' + this.baseInforForm.dzyx1.replace(".", "_")).then(function (res) {
-                    debugger;
                     if (res.data.result == 0) {
                         axios.get('/xfxhapi/signin/sendMail?mail=' + this.baseInforForm.dzyx1).then(function (res) {
                             this.mailCodeReal = res.data.msg;
