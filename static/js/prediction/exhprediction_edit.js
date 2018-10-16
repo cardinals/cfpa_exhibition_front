@@ -1163,6 +1163,7 @@ var vm = new Vue({
             } else {
                 //查询邮箱是否注册
                 axios.get('/xfxhapi/signin/getMailNum/' + this.baseInforForm.dzyx1.replace(".", "_")).then(function (res) {
+                    debugger;
                     if (res.data.result == 0) {
                         axios.get('/xfxhapi/signin/sendMail?mail=' + this.baseInforForm.dzyx1).then(function (res) {
                             this.mailCodeReal = res.data.msg;
@@ -1170,8 +1171,15 @@ var vm = new Vue({
                         }.bind(this), function (error) {
                             console.log(error);
                         });
-                    }else{
-                        this.$alert('邮箱已注册', '提示', {
+                    }else if(this.baseInforForm.dzyx1 == this.baseInforForm.dzyx){
+                        this.$alert('此邮箱已通过验证', '提示', {
+                            type: 'success',
+                            confirmButtonText: '确定',
+                        });
+                        return false;
+                    }
+                    else{
+                        this.$alert('此邮箱已被注册,请更换邮箱', '提示', {
                             type: 'warning',
                             confirmButtonText: '确定',
                         });
