@@ -3,6 +3,7 @@ var vm = new Vue({
     data: {
         //form标识
         loginFlag: true,
+        GLYloginFlag: true,
         regFlag: false,
         FUAFlag: false,
         FUBFlag: false,
@@ -19,6 +20,13 @@ var vm = new Vue({
         validateCode: "",
         messages: "",
         unscid: "",
+        //管理员登录
+        GLYusername: "",
+        GLYpassword: "",
+        GLYsrc: "/xfxhapi/imageCode",
+        GLYvalidateCode: "",
+        GLYmessages: "",
+        GLYloginType: "InfoCollect",
         //注册
         time: 60,
         timer: null,
@@ -192,8 +200,23 @@ var vm = new Vue({
             }
 
         },
+        GLYlogin: function () {
+            if (this.GLYusername == null || this.GLYusername == '') {
+                alert("用户名不能为空！")
+            } else if (this.GLYpassword == null || this.GLYpassword == '') {
+                alert("密码不能为空！")
+            } else if (this.GLYvalidateCode == null || this.GLYvalidateCode == '') {
+                alert("验证码不能为空！")
+            } else {
+                $('#GLYlogin-form').submit();
+            }
+        },
         reloadCode: function () {
             $('#checkCode').attr('src', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
+        },
+        //管理员登录
+        reloadGLYCode: function () {
+            $('#GLYcheckCode').attr('src', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
         },
         //注册
         mobileCheck: function () {
