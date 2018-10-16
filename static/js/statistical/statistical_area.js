@@ -23,26 +23,13 @@ var vue = new Vue({
 			//bardata
 			tjfxname:[],
 
-			//表高度变量
-			tableheight: 482,//多选值
-			multipleSelection: [],
-			//当前页
-			currentPage: 1,
-			//分页大小
-			pageSize: 10,
 			//总记录数
-			total: 31,
-			//行数据保存
-			rowdata: {
-
-			},
-			//序号
-			indexData: 0,
+			total: 0,
 			//显示加载中样
 			loading: false,
 			labelPosition: 'right',
 			//表高度变量
-            tableheight: 360,
+            tableheight: 251,
 		}
 	},
 	mounted: function () {
@@ -65,6 +52,7 @@ var vue = new Vue({
 			var params = {};
 			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {	
 				this.tjfxtabledata = res.data.result;
+				this.total = res.data.result.length;
 				for(var i=0; i<this.tjfxtabledata.length;i++){
 					this.zwmjfwmc.push(this.tjfxtabledata[i].zwmjfwmc)				
 					this.zwmjfwmcsl.push(this.tjfxtabledata[i].sl)
