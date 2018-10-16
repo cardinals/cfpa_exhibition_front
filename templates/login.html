@@ -102,7 +102,7 @@
                                 <a @click="login()" id="lg" style="display:block;margin-top:45px;">登 录</a>
                                 <a @click="nlogin()" id="nlg" style="display:none;margin-top:45px;">登 录</a>
                             </div>
-                            <input type="hidden" class="loginType" name="loginType" />
+                            <input type="hidden" class="loginType" name="loginType" v-model="loginType"/>
                         </form>
                     </div>
                     <div id="GLYlogin" class="Login_n" v-show="formFlag=='GLYloginFlag'">
@@ -236,7 +236,7 @@
                         </form>
                     </div>
                     <div id="forgetPassword" class="Login_n" v-show="formFlag=='FPAFlag'||formFlag=='FPBFlag'||formFlag=='FPCFlag'||formFlag=='FPDFlag'">
-                        <div class="Login_nTop"><span class="FP_span current">密码找回</span>
+                        <div class="Login_nTop"><span class="FP_span current">密码修改</span>
                             <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u class="btncolor">返回登录</u></a></div>
                         </div>
                         <form id="FPAform" class="mt_value" v-show="formFlag=='FPAFlag'" autocomplete="off">
@@ -315,7 +315,7 @@
                                 </li>
                             </ul>
                             <div class="LoginBtn">
-                                <a @click="FPregister()">提交</a>
+                                <a @click="FPregister()">修改密码</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" />
                         </form>
@@ -387,7 +387,7 @@
 <script src="../static/js/zzzlib/jquery-3.2.1.min.js"></script>
 <script src="../static/js/zzzlib/axios.min.js"></script>
 <script src="../static/js/login.js"></script>
-<script>
+<!-- <script>
     $(document).ready(function () {
         $(".loginType").val("MyShiro");
         $('.yhdl_span').click(function () {
@@ -409,7 +409,7 @@
             $(".loginType").val("InfoCollect");
         })
     })
-</script>
+</script> -->
 <script>
     $(function () {
         //判断是否宽屏

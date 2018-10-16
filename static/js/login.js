@@ -20,13 +20,14 @@ var vm = new Vue({
         validateCode: "",
         messages: "",
         unscid: "",
+        loginType: "InfoCollect",
         //管理员登录
         GLYusername: "",
         GLYpassword: "",
         GLYsrc: "/xfxhapi/imageCode",
         GLYvalidateCode: "",
         GLYmessages: "",
-        GLYloginType: "InfoCollect",
+        GLYloginType: "MyShiro",
         //注册
         time: 60,
         timer: null,
@@ -167,9 +168,11 @@ var vm = new Vue({
                 this.REApassword1AlertFlag = false;
                 this.REApassword2AlertFlag = false;
             } else if (flag == 'bakFlag') {
-                var r = confirm("未保存的数据将丢失，确定返回吗？");
-                if (r == false) {
-                    return;
+                if(this.formFlag !== 'FPAFlag'){
+                    var r = confirm("未保存的数据将丢失，确定返回吗？");
+                    if (r == false) {
+                        return;
+                    }
                 }
             }
             this.formFlag = flag;
@@ -514,7 +517,7 @@ var vm = new Vue({
                         this.FPDregisterData = res.data.result;
                         this.FPDusername = this.FPDregisterData[0].username;
                         $(FPDusername).attr('disabled', 'disabled');
-                        alert("请输入新密码！");
+                        // alert("请输入新密码！");
                     }.bind(this), function (error) {
                         console.log(error);
                     });
@@ -582,7 +585,7 @@ var vm = new Vue({
                         this.FPDregisterData = res.data.result;
                         this.FPDusername = this.FPDregisterData[0].username;
                         $(FPDusername).attr('disabled', 'disabled');
-                        alert("请输入新密码！");
+                        // alert("请输入新密码！");
                     }.bind(this), function (error) {
                         console.log(error);
                     });
@@ -628,7 +631,7 @@ var vm = new Vue({
                 axios.post('/xfxhapi/signin/updateByVO', params).then(function (res) {
                     if (res.data.result == 1) {
 
-                        alert("提交成功！");
+                        alert("密码修改成功！");
                         this.username = this.FPDusername;
                         this.password = this.FPDpassword1;
                         this.changeForm('loginFlag');
