@@ -258,7 +258,12 @@ var vm = new Vue({
     
     created: function () {
         this.shiroData = shiroGlobal;
-        this.findInfoByUserid(this.shiroData.userid);
+        if(this.shiroData.deptid == "ZSYH"){//展商
+            this.findInfoByUserid(this.shiroData.userid);
+        }else{//管理员
+            this.findInfoByUserid(getQueryString("userid"));
+        }
+        
     },
     mounted: function () {
         this.getXzqhDataTree();
@@ -367,6 +372,9 @@ var vm = new Vue({
                     this.kpUuid = res.data.result[0].uuid;
                 }else{
                     this.kpxxStatus = 0;//新增
+                     //开票公司名称：必填，把企业基本信息中的“中文公司名称“带到文本框中，文本框可修改
+                     this.kpxxForm.kpgsmc = this.baseInforForm.zwgsmc;
+                     //把企业基本信息中的“邮寄地址“带到文本框中，可修改
                 }
                 this.loading = false;
             }.bind(this), function (error) {
@@ -617,7 +625,6 @@ var vm = new Vue({
                                 this.isKpxxShow = true;
                                 this.jbxxStatus = 1;
                                 this.qyid = res.data.result.qyid;
-                            //    this.j
                                 if(this.qyid != null && this.qyid != ''){
                                     this.findKpxxByQyid(this.qyid);
                                 }
@@ -675,9 +682,7 @@ var vm = new Vue({
                         }
                         
                     }
-                    //开票公司名称：必填，把企业基本信息中的“中文公司名称“带到文本框中，文本框可修改
-                    this.kpxxForm.kpgsmc = this.baseInforForm.zwgsmc;
-
+                   
                 } else {
                   console.log('error submit!!');
                   return false;
@@ -1169,6 +1174,7 @@ var vm = new Vue({
             //this.yxform.yx = "";
             this.yxform.yzm = "";
         },
+        
         handleAvatarSuccess(res, file) {
             this.imageUrl = URL.createObjectURL(file.raw);
         },
