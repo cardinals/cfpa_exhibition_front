@@ -231,6 +231,9 @@ body{height:100%;overflow:hidden;}
 .el-form-item{
     margin-bottom: 0px;
 }
+.el-form-item__error {
+    padding-top: 0;
+}
 .el-message{
     margin-top: 3%;
 }
