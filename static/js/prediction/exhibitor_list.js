@@ -29,7 +29,7 @@ var vue = new Vue({
             //修改密码是否显示
             editPasswordShow: false,
             //Dialog Title
-            dialogTitle: "展商用户编辑",
+            dialogTitle: "展商编辑",
             //选中的序号
             editIndex: -1,
             //修改界面是否显示
@@ -45,7 +45,7 @@ var vue = new Vue({
                     { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
                 ],
                 checkPass: [
-                    { required: true, message: '请输入密码', trigger: 'blur' },
+                    { required: true, message: '请输入确认密码', trigger: 'blur' },
                     { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
                 ],
             },
@@ -107,7 +107,6 @@ var vue = new Vue({
                 var row = val[i];
             }
             this.multipleSelection = val;
-            console.info(val);
         },
         
         //表格重新加载数据
@@ -128,14 +127,14 @@ var vue = new Vue({
 
         //新增事件
         addClick: function () {
-            this.dialogTitle = "展商用户新增";
+            this.dialogTitle = "展商新增";
             this.editPasswordShow = true;
             this.editFormVisible = true;
         },
         //表格修改事件
         editClick: function(val, index) {
             this.editIndex = index;
-            this.dialogTitle = "展商用户编辑";
+            this.dialogTitle = "展商编辑";
             this.editPasswordShow = false;
             this.editSearch(val);
             this.editFormVisible = true;
@@ -225,6 +224,12 @@ var vue = new Vue({
                             showClose: true
                         });
                         return false;
+                    }else if(!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/.test(this.editForm.password))){
+                        this.$message.warning({
+                            message: '密码应为6-16为数字字母组合！',
+                            showClose: true
+                        });
+                        return false;
                     }else if(this.editForm.checkPass=="" || this.editForm.checkPass==null){
                         this.$message.warning({
                             message: '请输入确认密码！',
@@ -239,7 +244,7 @@ var vue = new Vue({
                         return false;
                     }
                 }
-                if(this.dialogTitle == "展商用户新增"){
+                if(this.dialogTitle == "展商新增"){
                     axios.get('/xfxhapi/account/getNum/' + this.editForm.username).then(function(res){
                         if(res.data.result != 0){
                             this.$message({
@@ -264,7 +269,7 @@ var vue = new Vue({
                     }.bind(this),function(error){
                         console.log(error)
                     })
-                }else if(this.dialogTitle == "展商用户编辑"){
+                }else if(this.dialogTitle == "展商编辑"){
                     var params = {
                         pkid: val.pkid,
                         userid: val.userid,
