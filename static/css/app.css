@@ -904,3 +904,15 @@ margin-top: 10px;
   background: url('../images/icon-address.png') no-repeat;
   background-size:100% 100%;
 }
+/*菜单样式问题*/
+.el-menu{
+  border-right-width: 0;
+}
+
+body .el-table th.gutter{
+  display: table-cell!important;
+}
+
+body .el-table colgroup.gutter{
+  display: table-cell!important;
+}
