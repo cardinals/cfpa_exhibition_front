@@ -45,6 +45,7 @@ var vm = new Vue({
                 lxrsj:'',
                 wz:'',
                 dzyx:'',
+                dzyx1:'',
                 yyzz:'',
                 yyzzBase64: '',
             },
@@ -91,7 +92,8 @@ var vm = new Vue({
             dialogYxFormVisible:false,
             //邮箱验证flag
             mailCheck: false,
-
+            //通过验证的邮箱地址（记录以防验证后修改邮箱）
+            checkedMailAddress:'',
             messageCodeText: "获取验证码",
             //短信验证码
             messageCodeReal:"",
@@ -168,7 +170,7 @@ var vm = new Vue({
                 wz: [
                     { required: true, message: '请输入网址', trigger: 'blur' }
                   ],
-                dzyx: [
+                dzyx1: [
                     { required: true, message: '请输入邮箱', trigger: 'blur' }
                   ]
               },
@@ -331,10 +333,12 @@ var vm = new Vue({
                 if(res.data.result != null && res.data.result != ""){
                     this.baseInforForm = res.data.result;
                     this.baseInforForm.yyzzBase64 = 'data:image/png;base64,'+ this.baseInforForm.yyzzBase64;
+                    //行政区划级联下拉处理
                     var xzqhArray = [];
                     xzqhArray.push(res.data.result.yjdzsheng);
                     xzqhArray.push(res.data.result.yjdzshi);
                     this.baseInforForm.xzqh = xzqhArray;
+                    this.baseInforForm.dzyx1 = this.baseInforForm.dzyx;
                     this.jbxxStatus = 1;//修改
                     this.qyid = res.data.result.qyid;
                 }else{
@@ -563,84 +567,113 @@ var vm = new Vue({
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     if(this.jbxxStatus == 0){//新增
-                        var params = {
-                            userid: this.shiroData.userid,
-                            zwgsmc: this.baseInforForm.zwgsmc,
-                            ywgsmc: this.baseInforForm.ywgsmc,
-                            frdb: this.baseInforForm.frdb,
-                            frdbdh: this.baseInforForm.frdbdh,
-                            yjdzsheng: this.baseInforForm.xzqh[0],
-                            yjdzshi: this.baseInforForm.xzqh[1],
-                            yjdzxx: this.baseInforForm.yjdzxx,
-                            bgdh: this.baseInforForm.bgdh,
-                            cz: this.baseInforForm.cz,
-                            lxr: this.baseInforForm.lxr,
-                            lxrsj: this.baseInforForm.lxrsj,
-                            wz: this.baseInforForm.wz,
-                            dzyx: this.baseInforForm.dzyx,
-                            yyzz:this.baseInforForm.yyzz,
-                            sjzt:'01',//编辑中
-                            deleteFlag: 'N',
-                            cjrid: this.shiroData.userid,
-                            cjrmc: this.shiroData.username
-                        }
-                        axios.post('/zhapi/qyjbxx/doInsertByVo', params).then(function (res) {
-                            this.upLoadData.qyid = res.data.result.qyid;
-                            this.$refs.uploadPics.submit();
-                            this.$alert('成功保存企业基本信息', '提示', {
-                                type: 'success',
+                        debugger;
+                        if(this.mailCheck == false){
+                            this.$alert('请对修改后的邮箱进行验证', '提示', {
+                                type: 'warning',
                                 confirmButtonText: '确定',
                             });
-                            this.active = 1;
-                            this.isJbxxShow = false;
-                            this.isKpxxShow = true;
-                            this.jbxxStatus = 1;
-                            this.qyid = res.data.result.qyid;
-                        //    this.j
-                            if(this.qyid != null && this.qyid != ''){
-                                this.findKpxxByQyid(this.qyid);
+                            console.log('error submit!!');
+                            return false;
+                        }else if(this.baseInforForm.yyzzBase64 == null || this.baseInforForm.yyzzBase64 == ""){
+                            this.$alert('请上传企业营业执照', '提示', {
+                                type: 'warning',
+                                confirmButtonText: '确定',
+                            });
+                            console.log('error submit!!');
+                            return false;
+                        }
+                        else{
+                            var params = {
+                                userid: this.shiroData.userid,
+                                zwgsmc: this.baseInforForm.zwgsmc,
+                                ywgsmc: this.baseInforForm.ywgsmc,
+                                frdb: this.baseInforForm.frdb,
+                                frdbdh: this.baseInforForm.frdbdh,
+                                yjdzsheng: this.baseInforForm.xzqh[0],
+                                yjdzshi: this.baseInforForm.xzqh[1],
+                                yjdzxx: this.baseInforForm.yjdzxx,
+                                bgdh: this.baseInforForm.bgdh,
+                                cz: this.baseInforForm.cz,
+                                lxr: this.baseInforForm.lxr,
+                                lxrsj: this.baseInforForm.lxrsj,
+                                wz: this.baseInforForm.wz,
+                                dzyx: this.baseInforForm.dzyx1,
+                                yyzz:this.baseInforForm.yyzz,
+                                sjzt:'01',//编辑中
+                                deleteFlag: 'N',
+                                cjrid: this.shiroData.userid,
+                                cjrmc: this.shiroData.username
                             }
-                        }.bind(this), function (error) {
-                            console.log(error);
-                        })
+                            axios.post('/zhapi/qyjbxx/doInsertByVo', params).then(function (res) {
+                                this.upLoadData.qyid = res.data.result.qyid;
+                                this.$refs.uploadPics.submit();
+                                this.$alert('成功保存企业基本信息', '提示', {
+                                    type: 'success',
+                                    confirmButtonText: '确定',
+                                });
+                                this.active = 1;
+                                this.isJbxxShow = false;
+                                this.isKpxxShow = true;
+                                this.jbxxStatus = 1;
+                                this.qyid = res.data.result.qyid;
+                            //    this.j
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findKpxxByQyid(this.qyid);
+                                }
+                            }.bind(this), function (error) {
+                                console.log(error);
+                            })
+                        }
 
                     }else{//修改
-                        var params = {
-                            qyid: this.baseInforForm.qyid,
-                            zwgsmc: this.baseInforForm.zwgsmc,
-                            ywgsmc: this.baseInforForm.ywgsmc,
-                            frdb: this.baseInforForm.frdb,
-                            frdbdh: this.baseInforForm.frdbdh,
-                            yjdzsheng: this.baseInforForm.xzqh[0],
-                            yjdzshi: this.baseInforForm.xzqh[1],
-                            yjdzxx: this.baseInforForm.yjdzxx,
-                            bgdh: this.baseInforForm.bgdh,
-                            cz: this.baseInforForm.cz,
-                            lxr: this.baseInforForm.lxr,
-                            lxrsj: this.baseInforForm.lxrsj,
-                            wz: this.baseInforForm.wz,
-                            dzyx: this.baseInforForm.dzyx,
-                            yyzz:this.baseInforForm.yyzz,
-                            xgrid: this.shiroData.userid,
-                            xgrmc: this.shiroData.username
-                        }
-                        axios.post('/zhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
-                            this.upLoadData.qyid = this.baseInforForm.qyid;
-                            this.$refs.uploadPics.submit();
-                            this.$alert('成功保存企业基本信息', '提示', {
-                                type: 'success',
+                        //邮箱修改且邮箱验证通过flag为false
+                        if(this.baseInforForm.dzyx != this.baseInforForm.dzyx1 && this.mailCheck == false){
+                            this.$alert('请对修改后的邮箱进行验证', '提示', {
+                                type: 'warning',
                                 confirmButtonText: '确定',
                             });
-                            this.active = 1;
-                            this.isJbxxShow = false;
-                            this.isKpxxShow = true;
-                            //console.log(this.qyid);
-                            if(this.qyid != null && this.qyid != ''){
-                                this.findKpxxByQyid(this.qyid);
+                            console.log('error submit!!');
+                            return false;
+                        }else{
+                            var params = {
+                                qyid: this.baseInforForm.qyid,
+                                zwgsmc: this.baseInforForm.zwgsmc,
+                                ywgsmc: this.baseInforForm.ywgsmc,
+                                frdb: this.baseInforForm.frdb,
+                                frdbdh: this.baseInforForm.frdbdh,
+                                yjdzsheng: this.baseInforForm.xzqh[0],
+                                yjdzshi: this.baseInforForm.xzqh[1],
+                                yjdzxx: this.baseInforForm.yjdzxx,
+                                bgdh: this.baseInforForm.bgdh,
+                                cz: this.baseInforForm.cz,
+                                lxr: this.baseInforForm.lxr,
+                                lxrsj: this.baseInforForm.lxrsj,
+                                wz: this.baseInforForm.wz,
+                                dzyx: this.baseInforForm.dzyx1,
+                                yyzz:this.baseInforForm.yyzz,
+                                xgrid: this.shiroData.userid,
+                                xgrmc: this.shiroData.username
                             }
-                        }.bind(this), function (error) {
-                            console.log(error);
-                        })
+                            axios.post('/zhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
+                                this.upLoadData.qyid = this.baseInforForm.qyid;
+                                this.$refs.uploadPics.submit();
+                                this.$alert('成功保存企业基本信息', '提示', {
+                                    type: 'success',
+                                    confirmButtonText: '确定',
+                                });
+                                this.active = 1;
+                                this.isJbxxShow = false;
+                                this.isKpxxShow = true;
+                                //console.log(this.qyid);
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findKpxxByQyid(this.qyid);
+                                }
+                            }.bind(this), function (error) {
+                                console.log(error);
+                            })
+                        }
+                        
                     }
                     //开票公司名称：必填，把企业基本信息中的“中文公司名称“带到文本框中，文本框可修改
                     this.kpxxForm.kpgsmc = this.baseInforForm.zwgsmc;
@@ -1102,6 +1135,8 @@ var vm = new Vue({
         //邮箱验证表单提交
         yxformSubmit: function(){
             if(this.yxform.yzm == this.mailCodeReal){
+                this.mailCheck = true;
+                this.checkedMailAddress = this.baseInforForm.dzyx1;
                 this.dialogYxFormVisible = false;
             }else{
                 this.$alert('验证码错误', '提示', {
@@ -1112,14 +1147,14 @@ var vm = new Vue({
         },
         //邮箱修改验证
         openYxYz: function(){
-            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.baseInforForm.dzyx))) {
+            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.baseInforForm.dzyx1))) {
                 this.$alert('邮箱格式不正确', '提示', {
                     type: 'warning',
                     confirmButtonText: '确定',
                 });
                 return false;
             } else {
-                axios.get('/xfxhapi/signin/sendMail?mail=' + this.baseInforForm.dzyx).then(function (res) {
+                axios.get('/xfxhapi/signin/sendMail?mail=' + this.baseInforForm.dzyx1).then(function (res) {
                     this.mailCodeReal = res.data.msg;
                     this.dialogYxFormVisible = true;
                 }.bind(this), function (error) {
@@ -1131,7 +1166,7 @@ var vm = new Vue({
         //关闭邮箱验证对话
         closeYxDialog:function(){
             this.dialogYxFormVisible = false;
-            this.yxform.yx = "";
+            //this.yxform.yx = "";
             this.yxform.yzm = "";
         },
         handleAvatarSuccess(res, file) {
