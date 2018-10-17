@@ -309,6 +309,7 @@ var vm = new Vue({
                 var params = {
                     username: this.mobile,
                     password: this.password1,
+                    usertype: "CHN",
                     deptid: "ZSYH"
                 }
                 axios.post('/xfxhapi/signin/insertByVO', params).then(function (res) {

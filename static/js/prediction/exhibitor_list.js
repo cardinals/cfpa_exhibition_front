@@ -9,7 +9,13 @@ var vue = new Vue({
                 id: "",
                 username: "",
                 zwgsmc: "",
+                usertype: "",
             },
+            //展商类型Data
+            zslxData: [
+                {codeValue: 'CHN', codeName: '国内'},
+                {codeValue: 'ENG', codeName: '国外'}
+            ],
             //表数据
             tableData: [],
             allRoles: [],
@@ -36,9 +42,11 @@ var vue = new Vue({
             editFormVisible: false,
             editLoading: false,
             editFormRules: {
+                usertype: [
+                    { required: true, message: '请选择展商类型', trigger: 'change' }
+                ],
                 username: [
                     { required: true, message: '请输入手机号', trigger: 'blur' },
-                    { min: 11, max: 11, message: '用户名格式不正确', trigger: 'blur' }
                 ],
                 password: [
                     { required: true, message: '请输入密码', trigger: 'blur' },
@@ -82,6 +90,7 @@ var vue = new Vue({
             var params = {
                 username: this.searchForm.username,
                 zwgsmc: this.searchForm.zwgsmc,
+                usertype: this.searchForm.usertype,
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
@@ -99,6 +108,7 @@ var vue = new Vue({
             this.searchForm.id = "",
             this.searchForm.username = "",
             this.searchForm.zwgsmc = "",
+            this.searchForm.usertype = "",
             this.searchClick('reset');
         },
         //表格勾选事件
@@ -195,21 +205,39 @@ var vue = new Vue({
 
         //保存前校验
         validateSave: function(){
-            if(this.editForm.username=="" || this.editForm.username==null) {
-                this.$message.warning({
+            if(this.editForm.usertype=="" || this.editForm.usertype==null) {
+                this.$message.error({
+                    message: '请选择展商类型！',
+                    showClose: true
+                });
+                return false;
+            }else if(this.editForm.username=="" || this.editForm.username==null) {
+                this.$message.error({
                     message: '请输入用户名！',
                     showClose: true
                 });
                 return false;
             }else if(this.editForm.username!="" && this.editForm.username!=null){
-                var mobileReg = /^[1][3,4,5,7,8][0-9]{9}$/;
-                if (!mobileReg.test(this.editForm.username)){
-                    this.$message.warning({
-                        message: '请输入正确手机号！',
-                        showClose: true
-                    });
-                    return false;
+                if(this.editForm.usertype == "CHN"){
+                    var mobileReg = /^[1][3,4,5,7,8][0-9]{9}$/;
+                    if (!mobileReg.test(this.editForm.username)){
+                        this.$message.error({
+                            message: '请输入正确手机号！',
+                            showClose: true
+                        });
+                        return false;
+                    }
+                }else if(this.editForm.usertype == 'ENG'){
+                    var emailReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+                    if (!emailReg.test(this.editForm.username)){
+                        this.$message.error({
+                            message: '请输入正确邮箱！',
+                            showClose: true
+                        });
+                        return false;
+                    }
                 }
+                
             }
             return true;
         },
@@ -219,25 +247,25 @@ var vue = new Vue({
             if(this.validateSave()){
                 if(this.editPasswordShow){
                     if(this.editForm.password=="" || this.editForm.password==null){
-                        this.$message.warning({
+                        this.$message.error({
                             message: '请输入密码！',
                             showClose: true
                         });
                         return false;
                     }else if(!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/.test(this.editForm.password))){
-                        this.$message.warning({
+                        this.$message.error({
                             message: '密码应为6-16为数字字母组合！',
                             showClose: true
                         });
                         return false;
                     }else if(this.editForm.checkPass=="" || this.editForm.checkPass==null){
-                        this.$message.warning({
+                        this.$message.error({
                             message: '请输入确认密码！',
                             showClose: true
                         });
                         return false;
                     }else if(this.editForm.password!=this.editForm.checkPass){
-                        this.$message.warning({
+                        this.$message.error({
                             message: '两次密码输入不一致！',
                             showClose: true
                         });
@@ -255,7 +283,8 @@ var vue = new Vue({
                             var params = {
                                 username: val.username,
                                 password: val.password,
-                                deptid: "ZSYH"
+                                deptid: "ZSYH",
+                                usertype: val.usertype,
                             }
                             axios.post('/xfxhapi/user/insertByVO', params).then(function(res){
                                 var addData = res.data.result;
@@ -275,6 +304,7 @@ var vue = new Vue({
                         userid: val.userid,
                         username: val.username,
                         deptid: "ZSYH",
+                        usertype: val.usertype,
                         alterId: this.shiroData.userid,
                         alterName: this.shiroData.realName
                     }
@@ -284,6 +314,11 @@ var vue = new Vue({
                     axios.post('/xfxhapi/user/updateByVO', params).then(function (res){
                         var result = res.data.result;
                         this.tableData[this.editIndex].username = result.username;
+                        if(result.usertype == "CHN"){
+                            this.tableData[this.editIndex].usertypeName = "国内"; 
+                        }else if(result.usertype == "ENG"){
+                            this.tableData[this.editIndex].usertypeName = "国外"; 
+                        }
                         this.editFormVisible = false;
                         this.$message({
                             message: "编辑成功！",

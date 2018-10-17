@@ -15,18 +15,20 @@
 						<el-row>
 							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
 								<el-row>
-									<el-col :span="1" class="searchInline">&nbsp;</el-col>
-									<el-col :span="9" class="searchInline">
+									<el-col :span="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">用户名</label>
 										<el-input size="small" v-model="searchForm.username" placeholder="用户名" clearable></el-input>
 									</el-col>
-									<el-col :span="2" class="searchInline">&nbsp;</el-col>
-									<el-col :span="1" class="searchInline">&nbsp;</el-col>
-									<el-col :span="9" class="searchInline">
-										<label class="el-form-item__label searchLabel">中文公司名称</label>
+									<el-col :span="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">公司名称</label>
 										<el-input size="small" v-model="searchForm.zwgsmc" placeholder="中文公司名称" clearable></el-input>
 									</el-col>
-									<el-col :span="2" class="searchInline">&nbsp;</el-col>
+									<el-col :span="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">展商类型</label>
+										<el-select size="small" v-model="searchForm.usertype" placeholder="全部" class="searchSelect" clearable>
+											<el-option v-for="item in zslxData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
+									</el-col>
 								</el-row>
 								<div>
 									<el-form>
@@ -57,8 +59,9 @@
 								@selection-change="selectionChange" class="tableStyle" :height="tableheight" row-style="height:40px">
 								<el-table-column type="selection" width="35"></el-table-column>
 								<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-								<el-table-column prop="username" show-overflow-tooltip label="用户名" min-width="17%" align="center"></el-table-column>
-								<el-table-column prop="zwgsmc" show-overflow-tooltip label="中文公司名称" min-width="25%" align="center"></el-table-column>
+								<el-table-column prop="username" show-overflow-tooltip label="用户名" min-width="15%" align="center"></el-table-column>
+								<el-table-column prop="usertypeName" show-overflow-tooltip label="展商类型" min-width="12%" align="center"></el-table-column>
+								<el-table-column prop="zwgsmc" show-overflow-tooltip label="公司名称" min-width="20%" align="center"></el-table-column>
 								<el-table-column prop="lxr" show-overflow-tooltip label="联系人" min-width="10%" align="center"></el-table-column>
                                 <el-table-column prop="dzyx" show-overflow-tooltip label="电子邮箱" min-width="15%" align="center"></el-table-column>
                                 <el-table-column label="重置" width="100" align="center">
@@ -93,10 +96,23 @@
 						<el-dialog :title="dialogTitle" :visible.sync="editFormVisible" @close="closeDialog(editForm)" :close-on-click-modal="false">
 							<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
 								<el-row>
+									<el-col :span="1">&nbsp;</el-col>
+									<el-col :span="22">
+										<el-form-item label="展商类型" prop="usertype">
+											<el-radio-group v-model="editForm.usertype" size="small" auto-complete="off">
+												<el-radio class="radio" :label="'CHN'">国内</el-radio>
+												<el-radio class="radio" :label="'ENG'">国外</el-radio>
+											</el-radio-group>
+										</el-form-item>
+									</el-col>
+									<el-col :span="1">&nbsp;</el-col>
+								</el-row>
+								<el-row>
                                     <el-col :span="1">&nbsp;</el-col>
 									<el-col :span="22">
 										<el-form-item label="用户名" prop="username">
-											<el-input v-model="editForm.username" placeholder="请输入用户名，用户名为手机号" size="small" auto-complete="off" clearable></el-input>
+											<el-input v-if="editForm.usertype == 'ENG'" v-model="editForm.username" placeholder="请输入用户名，用户名为邮箱" size="small" auto-complete="off" clearable></el-input>
+											<el-input v-else v-model="editForm.username" placeholder="请输入用户名，用户名为手机号" size="small" auto-complete="off" clearable></el-input>
 										</el-form-item>
 									</el-col>
 									<el-col :span="1">&nbsp;</el-col>
