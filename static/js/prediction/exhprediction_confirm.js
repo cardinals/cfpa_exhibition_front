@@ -5,7 +5,7 @@ new Vue({
             loading: false,
             showPicVisible: false,
             editZwyx: false,
-            editPage: false,
+            editPage: true,
             previewImg: '',
             qyid: "",//企业id
             userid: "",
@@ -73,6 +73,11 @@ new Vue({
             axios.post('/zhapi/qyjbxx/doFindByUserid', params).then(function (res) {
                 if (res.data.result != null) {
                     this.jbxxData = res.data.result;
+                    if (this.jbxxData.sjzt == '01' || this.jbxxData.sjzt == '04') {
+                        this.editPage = false;
+                    } else {
+                        this.editPage = true;
+                    }
                     this.qyid = this.jbxxData.qyid;
                     this.getKpxxData(this.qyid);
                     this.getWjdcData(this.qyid);
