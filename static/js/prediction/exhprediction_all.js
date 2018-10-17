@@ -14,7 +14,7 @@ $(function () {
             for(var i in res.data.permissions){
                 permissions.push(res.data.permissions[i]);
             }
-            realname = res.data.realName;
+            realname = res.data.username;
             if(realname == null || realname == ""){
                 realname = "欢迎您！"
             }
