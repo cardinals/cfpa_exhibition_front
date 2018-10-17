@@ -94,9 +94,9 @@
                                 <input class="checkbox" type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
                                 <span style="color:#fb6a74">Remember Me</span>
                                 <br/>
-                                <a @click="changeForm('FUAFlag')">Forget Your Username</a>
-                                <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
                                 <a @click="changeForm('FPAFlag')">Forget Your Password</a>
+                                <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+                                <a @click="changeForm('FUAFlag')">Forget Your Username</a>
                                 <!-- <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a> -->
                                 <a @click="changeForm('REAAFlag')">Reset Your Username and Password</a>
                                 <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
@@ -113,7 +113,8 @@
                             <a @click="changeForm('loginFlag')">
                                 <img width="26" height="26" src="../static/images/login/icon-changeuser_hover.png" onMouseOver="this.src='../static/images/login/icon-changeuser.png'"
                                     onMouseOut="this.src='../static/images/login/icon-changeuser_hover.png'" draggable="false"></a>
-                            <span class="yhdl_span current">管理员登录</span>
+                            <span class="yhdl_span current">Administrator Login</span>
+                            <!-- 管理员登录 -->
                         </div>
                         <form id="GLYlogin-form" autocomplete="off" name="login-form" action="/xfxhapi/login" method="post">
                             <ul style="display:block;">
@@ -239,14 +240,17 @@
                         </form>
                     </div>
                     <div id="forgetPassword" class="Login_n" v-show="formFlag=='FPAFlag'||formFlag=='FPBFlag'||formFlag=='FPCFlag'||formFlag=='FPDFlag'">
-                        <div class="Login_nTop"><span class="FP_span current">密码修改</span>
-                            <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u class="btncolor">返回登录</u></a></div>
+                        <div class="Login_nTop"><span class="FP_span current">Password Modification</span>
+                            <!-- 密码修改 -->
+                            <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u class="btncolor">Return Login</u></a></div>
+                            <!-- 返回登录 -->
                         </div>
                         <form id="FPAform" class="mt_value" v-show="formFlag=='FPAFlag'" autocomplete="off">
                             <ul style="display:block;">
                                 <li>
                                     <div class="LoginBtn">
-                                        <a @click="changeForm('FPBFlag')">邮箱找回</a>
+                                        <a @click="changeForm('FPBFlag')">Mailbox Retrieving</a>
+                                        <!-- 邮箱找回 -->
                                     </div>
                                 </li>
                             </ul>
@@ -259,7 +263,8 @@
                                 </li>
                                 <li>
                                     <i class="icon-email"></i>
-                                    <input type="text" class="inputstyle" v-model="FPBmail" name="FPBmail" id="FPBmail" placeholder="邮箱">
+                                    <input type="text" class="inputstyle" v-model="FPBmail" name="FPBmail" id="FPBmail" placeholder="Mailbox">
+                                    <!-- 邮箱 -->
                                     <button type="button" id="FPBmail-btn" class="verficode phonebtn" @click="getFPBMailCode()" v-text=FPBmailCodeText></button>
                                 </li>
                                 <li>
@@ -268,7 +273,8 @@
                                 </li>
                             </ul>
                             <div class="LoginBtn" id="btn_mt">
-                                <a @click="FPBIdentify()">确 定</a>
+                                <!-- 确定 -->
+                                <a @click="FPBIdentify()">Confirm</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" />
                         </form>
@@ -288,7 +294,7 @@
                                 </li>
                             </ul>
                             <div class="LoginBtn" id="btn_mt">
-                                <a @click="FPCIdentify()">确 定</a>
+                                <a @click="FPCIdentify()">Confirm</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" />
                         </form>
@@ -296,31 +302,36 @@
                             <ul>
                                 <li>
                                     <i class="icon-user"></i>
-                                    <input type="text" class="inputstyle" v-model="FPDusername" name="FPDusername" id="FPDusername" placeholder="用户名">
+                                    <input type="text" class="inputstyle" v-model="FPDusername" name="FPDusername" id="FPDusername" placeholder="Username">
                                 </li>
                                 <li>
                                     <i class="icon-password"></i>
-                                    <input type="password" class="inputstyle" v-model="FPDpassword1" name="FPDpassword1" id="FPDpassword1" placeholder="请输入密码"
+                                    <input type="password" class="inputstyle" v-model="FPDpassword1" name="FPDpassword1" id="FPDpassword1" placeholder="Please input a password"
                                         @focus="FPDpassword1Tip" @blur="FPDpassword1Check">
-                                    <p class="tip" v-show="FPDpassword1TipFlag">*密码需为6-16位字母数字组合</p>
-                                    <p class="alert" v-show="FPDpassword1AlertFlag">*密码不合规，请重新填写</p>
+                                        <!-- 密码需为6-16位字母数字组合 -->
+                                    <p class="tip" v-show="FPDpassword1TipFlag">*The password must be 6-16 digit alphanumeric combination</p>
+                                        <!-- 密码不合规，请重新填写 -->
+                                    <p class="alert" v-show="FPDpassword1AlertFlag">*Password is not compliant, please fill in again</p>
                                 </li>
                                 <li>
                                     <i class="icon-password"></i>
                                     <input type="password" class="inputstyle" v-model="FPDpassword2" name="FPDpassword2" id="FPDpassword2" placeholder="请再次输入密码"
                                         @blur="FPDpassword2Check">
-                                    <p class="alert" v-show="FPDpassword2AlertFlag">*两次填写不一致，请重新填写</p>
+                                        <!-- 两次填写不一致，请重新填写 -->
+                                    <p class="alert" v-show="FPDpassword2AlertFlag">*The two time is inconsistent, please fill in again</p>
                                 </li>
                             </ul>
                             <div class="LoginBtn">
-                                <a @click="FPregister()">修改密码</a>
+                                <!-- 修改密码 -->
+                                <a @click="FPregister()">Change Password</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" />
                         </form>
                     </div>
                     <div id="rearrange" class="Login_n" v-show="formFlag=='REAAFlag'||formFlag=='REABFlag'">
-                        <div class="Login_nTop"><span class="zhcz_span current">账户重置</span>
-                            <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u class="btncolor">返回登录</u></a></div>
+                        <!-- 账户重置 -->
+                        <div class="Login_nTop"><span class="zhcz_span current">Account Reset</span>
+                            <div style="float:right;font-size: 12px;"><a @click="changeForm('bakFlag')"><u class="btncolor">Return Login</u></a></div>
                         </div>
                         <form id="REAAform" v-show="formFlag=='REAAFlag'" autocomplete="off">
                             <ul>
@@ -337,7 +348,7 @@
                                 </li>
                             </ul>
                             <div class="LoginBtn" id="btn_mt">
-                                <a @click="REAIdentify()">确 定</a>
+                                <a @click="REAIdentify()">Confirm</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" />
                         </form>
@@ -359,18 +370,18 @@
                                     <i class="icon-password"></i>
                                     <input type="password" class="inputstyle" v-model="REApassword1" name="REApassword1" id="REApassword1" placeholder="请输入密码"
                                         @focus="REApassword1Tip" @blur="REApassword1Check">
-                                    <p class="tip" v-show="REApassword1TipFlag">*密码需为6-16位字母数字组合</p>
-                                    <p class="alert" v-show="REApassword1AlertFlag">*密码不合规，请重新填写</p>
+                                    <p class="tip" v-show="REApassword1TipFlag">*The password must be 6-16 digit alphanumeric combination</p>
+                                    <p class="alert" v-show="REApassword1AlertFlag">*Password is not compliant, please fill in again</p>
                                 </li>
                                 <li>
                                     <i class="icon-password"></i>
                                     <input type="password" class="inputstyle" v-model="REApassword2" name="REApassword2" id="REApassword2" placeholder="请再次输入密码"
                                         @blur="REApassword2Check">
-                                    <p class="alert" v-show="REApassword2AlertFlag">*两次填写不一致，请重新填写</p>
+                                    <p class="alert" v-show="REApassword2AlertFlag">*The two time is inconsistent, please fill in again</p>
                                 </li>
                             </ul>
                             <div class="LoginBtn">
-                                <a @click="REAregister()">提交</a>
+                                <a @click="REAregister()">Submit</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" />
                         </form>
@@ -384,7 +395,7 @@
 <script src="../static/js/zzzlib/vue.min.js"></script>
 <script src="../static/js/zzzlib/jquery-3.2.1.min.js"></script>
 <script src="../static/js/zzzlib/axios.min.js"></script>
-<script src="../static/js/login.js"></script>
+<script src="../static/js/login_ENG.js"></script>
 <script>
     $(document).ready(function () {
         $('.lana').click(function () {
