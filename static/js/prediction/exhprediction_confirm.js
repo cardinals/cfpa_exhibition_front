@@ -58,7 +58,6 @@ new Vue({
         this.shiroData = shiroGlobal;
         this.loading = true;
         this.userid = getQueryString("userid");
-        // this.userid = "26CBF3DF0D85437E840BC838911EE6DB";
         this.getJbxxData(this.userid);
     },
 
@@ -203,6 +202,10 @@ new Vue({
             }
         },
         canclClick: function () {
+            var params = {
+                userid: this.userid
+            }
+            loadDivParam("prediction/exhprediction_edit", params);
         },
         submitClick: function () {
             this.$confirm('提交后仅可修改展位意向信息，其他信息不能修改', '提示', {
