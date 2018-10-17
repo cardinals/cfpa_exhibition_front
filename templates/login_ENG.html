@@ -45,12 +45,12 @@
                 <div class="Login">
                     <div id="login" class="Login_n" v-show="formFlag=='loginFlag'||formFlag=='bakFlag'">
                         <div class="Login_nTop">
-                            <a @click="changeForm('GLYloginFlag')">
+                            <!-- <a @click="changeForm('GLYloginFlag')">
                                 <img width="26" height="26" src="../static/images/login/icon-changeuser_hover.png" onMouseOver="this.src='../static/images/login/icon-changeuser.png'"
-                                    onMouseOut="this.src='../static/images/login/icon-changeuser_hover.png'" draggable="false"></a>
+                                    onMouseOut="this.src='../static/images/login/icon-changeuser_hover.png'" draggable="false"></a> -->
                             <span class="yhdl_span current">User Login</span>
-                            <div style="float:right;font-size: 12px;color: #fb6a74">No Account?<a @click="changeForm('regFlag')"><u
-                                        style="color: #fb6a74">To Register</u></a></div>
+                            <div style="float:right;font-size: 8px;color: #fb6a74">No Account?<a @click="changeForm('regFlag')"><u
+                                        style="color: #fb6a74">To Regist</u></a></div>
                         </div>
                         <form id="login-form" autocomplete="off" name="login-form" action="/xfxhapi/login" method="post">
                             <ul id="forma" style="display:block;">
@@ -90,16 +90,16 @@
                                 </li>
                             </ul>
 
-                            <div class="formbar">
-                                <input class="checkbox" type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
+                            <div class="formbar" style="margin-left:21px;">
+                                <!-- <input class="checkbox" type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
                                 <span style="color:#fb6a74">Remember Me</span>
-                                <br/>
+                                <br/> -->
                                 <a @click="changeForm('FPAFlag')">Forget Your Password</a>
                                 <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
                                 <a @click="changeForm('FUAFlag')">Forget Your Username</a>
                                 <!-- <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a> -->
-                                <a @click="changeForm('REAAFlag')">Reset Your Username and Password</a>
-                                <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+                                <!-- <a @click="changeForm('REAAFlag')">Reset Your Username and Password</a> -->
+                                <!-- <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a> -->
                             </div>
                             <div class="LoginBtn">
                                 <a @click="login()" id="lg" style="display:block;margin-top:45px;">Login</a>
@@ -137,8 +137,8 @@
                                 </li>
                             </ul>
                             <div class="formbar">
-                                <input type="checkbox" name="rememberMe" id="GLYrememberMe" />&nbsp;&nbsp;
-                                <span style="color:#fb6a74">Remember Me</span>
+                                <!-- <input type="checkbox" name="rememberMe" id="GLYrememberMe" />&nbsp;&nbsp;
+                                <span style="color:#fb6a74">Remember Me</span> -->
                             </div>
                             <div class="LoginBtn">
                                 <a @click="GLYlogin()" id="lg" style="display:block;margin-top:45px;">Login</a>
@@ -147,13 +147,12 @@
                         </form>
                     </div>
                     <div id="reg" class="Login_n" v-show="formFlag=='regFlag'">
-                        <div class="Login_nTop"><span class="yhzc_span current">User Registration</span>
-                            <div style="float:right;font-size: 12px;color:#fb6a74;">Existing Accounts？<a @click="changeForm('loginFlag')"><u
-                                        style="color:#fb6a74;">Go Login</u></a></div>
+                        <div class="Login_nTop"><span class="yhzc_span current">User Registration</span>&nbsp;&nbsp;
+                            <div class="tops" style="float:right;font-size: 8px;color:#fb6a74;">&nbsp;&nbsp;Existing Accounts?<a @click="changeForm('loginFlag')"><u style="color:#fb6a74;">Go Login</u></a></div>
                         </div>
                         <form autocomplete="off" name="reg-form">
                             <ul>
-                                <li>
+                                <!-- <li>
                                     <i class="icon-call"></i>
                                     <input type="text" class="inputstyle" v-model="mobile" name="mobile" id="mobile" placeholder="请输入手机号" @blur="mobileCheck">
                                     <button type="button" id="mobile-btn" class="verficode phonebtn" @click="getMessageCode()" v-text=messageCodeText></button>
@@ -163,22 +162,33 @@
                                     <i class="icon-code"></i>
                                     <input type="text" class="inputstyle" v-model="messageCode" name="messageCode" id="messageCode" placeholder="请输入手机验证码" @blur="messageCodeCheck">
                                     <p class="alert" v-show="messageCodeAlertFlag">*请填写正确的手机验证码</p>
+                                </li> -->
+                                <li>
+                                    <i class="icon-email"></i>
+                                    <input type="text" class="inputstyle" v-model="FUmail" name="FUmail" id="FUmail" placeholder="Email">
+                                    <button type="button" id="FUmail-btn" class="verficode phonebtn" @click="getFUMailCode()" v-text=FUmailCodeText></button>
+                                </li>
+                                <li>
+                                    <i class="icon-message"></i>
+                                    <input type="text" class="inputstyle" v-model="FUmailCode" name="FUmailCode" id="FUmailCode" placeholder="Mail Verification Code">
                                 </li>
                                 <li>
                                     <i class="icon-password"></i>
-                                    <input type="password" class="inputstyle" v-model="password1" name="password1" id="password1" placeholder="请输入密码" @focus="password1Tip"
+                                    <!-- 请输入密码 -->
+                                    <input type="password" class="inputstyle" v-model="password1" name="password1" id="password1" placeholder="Please input a password" @focus="password1Tip"
                                         @blur="password1Check">
                                     <p class="tip" v-show="password1TipFlag">*Password must be 6-16-bit alphanumeric combination</p>
                                     <p class="alert" v-show="password1AlertFlag">*Password is not in order. Please fill it out again.</p>
                                 </li>
                                 <li>
                                     <i class="icon-password-true"></i>
-                                    <input type="password" class="inputstyle" v-model="password2" name="password2" id="password2" placeholder="请再次输入密码" @blur="password2Check">
+                                    <!-- 请再次输入密码 -->
+                                    <input type="password" class="inputstyle" v-model="password2" name="password2" id="password2" placeholder="Please input the password again" @blur="password2Check">
                                     <p class="alert" v-show="password2AlertFlag">*The two entries do not match. Please fill in again.</p>
                                 </li>
                             </ul>
-                            <div class="LoginBtn">
-                                <a @click="register()">Register</a>
+                            <div style="margin-top:16.5px !important;" class="LoginBtn">
+                                <a @click="register()">Regist</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" />
                         </form>
@@ -199,12 +209,12 @@
                                 </li>
                                 <li>
                                     <i class="icon-message"></i>
-                                    <input type="text" class="inputstyle" v-model="FUmailCode" name="FUmailCode" id="FUmailCode" placeholder="Mail Authentication Code">
+                                    <input type="text" class="inputstyle" v-model="FUmailCode" name="FUmailCode" id="FUmailCode" placeholder="Mail Verification Code">
                                 </li>
 
                             </ul>
                             <div class="LoginBtn" id="btn_mt">
-                                <a @click="FUIdentify()">Confirmed</a>
+                                <a @click="FUIdentify()">Confirm</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" />
                         </form>
@@ -269,7 +279,8 @@
                                 </li>
                                 <li>
                                     <i class="icon-message"></i>
-                                    <input type="text" class="inputstyle" v-model="FPBmailCode" name="FPBmailCode" id="FPBmailCode" placeholder="邮件验证码">
+                                    <!-- 邮件验证码 -->
+                                    <input type="text" class="inputstyle" v-model="FPBmailCode" name="FPBmailCode" id="FPBmailCode" placeholder="Mail Verification Code">
                                 </li>
                             </ul>
                             <div class="LoginBtn" id="btn_mt">
@@ -338,13 +349,22 @@
                                 <li>
                                     <input type="text" class="kong">
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <i class="icon-company"></i>
                                     <input type="text" class="inputstyle" v-model="REAcompanyName" name="REAcompanyName" id="REAcompanyName" placeholder="单位名称">
                                 </li>
                                 <li>
                                     <i class="icon-unscid"></i>
                                     <input type="text" class="inputstyle" v-model="REAunscid" name="REAunscid" id="REAunscid" placeholder="统一社会信用代码">
+                                </li> -->
+                                <li>
+                                    <i class="icon-email"></i>
+                                    <input type="text" class="inputstyle" v-model="FUmail" name="FUmail" id="FUmail" placeholder="Email">
+                                    <button type="button" id="FUmail-btn" class="verficode phonebtn" @click="getFUMailCode()" v-text=FUmailCodeText></button>
+                                </li>
+                                <li>
+                                    <i class="icon-message"></i>
+                                    <input type="text" class="inputstyle" v-model="FUmailCode" name="FUmailCode" id="FUmailCode" placeholder="Mail Verification Code">
                                 </li>
                             </ul>
                             <div class="LoginBtn" id="btn_mt">
@@ -354,7 +374,7 @@
                         </form>
                         <form id="REABform" v-show="formFlag=='REABFlag'" autocomplete="off">
                             <ul>
-                                <li>
+                                <!-- <li>
                                     <i class="icon-call"></i>
                                     <input type="text" class="inputstyle" v-model="REAmobile" name="REAmobile" id="REAmobile" placeholder="请输入手机号" @blur="REAmobileCheck">
                                     <button type="button" id="REAmobile-btn" class="verficode" @click="getREAMessageCode()" v-text=REAmessageCodeText></button>
@@ -365,6 +385,15 @@
                                     <input type="text" class="inputstyle" v-model="REAmessageCode" name="REAmessageCode" id="REAmessageCode" placeholder="请输入手机验证码"
                                         @blur="REAmessageCodeCheck">
                                     <p class="alert" v-show="REAmessageCodeAlertFlag">*请填写正确的手机验证码</p>
+                                </li> -->
+                                <li>
+                                    <i class="icon-email"></i>
+                                    <input type="text" class="inputstyle" v-model="FUmail" name="FUmail" id="FUmail" placeholder="Email">
+                                    <button type="button" id="FUmail-btn" class="verficode phonebtn" @click="getFUMailCode()" v-text=FUmailCodeText></button>
+                                </li>
+                                <li>
+                                    <i class="icon-message"></i>
+                                    <input type="text" class="inputstyle" v-model="FUmailCode" name="FUmailCode" id="FUmailCode" placeholder="Mail Verification Code">
                                 </li>
                                 <li>
                                     <i class="icon-password"></i>
