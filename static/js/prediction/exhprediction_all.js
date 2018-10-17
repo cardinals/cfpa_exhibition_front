@@ -14,11 +14,6 @@ $(function () {
             for(var i in res.data.permissions){
                 permissions.push(res.data.permissions[i]);
             }
-            realname = res.data.realName;
-            if(realname == null || realname == ""){
-                realname = "欢迎您！"
-            }
-            document.querySelector("#realname").innerHTML = realname;
         }else{
             window.location.href = "/templates/login.html";
         }
