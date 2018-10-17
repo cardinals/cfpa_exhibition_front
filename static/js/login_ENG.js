@@ -21,6 +21,8 @@ var vm = new Vue({
         messages: "",
         unscid: "",
         loginType: "InfoCollect",
+        //英文版登陆
+        ENcomfrom: "ENG",
         //管理员登录
         GLYusername: "",
         GLYpassword: "",
@@ -317,6 +319,7 @@ var vm = new Vue({
                 var params = {
                     username: this.mobile,
                     password: this.password1,
+                    usertype: "ENG",
                     deptid: "ZSYH"
                 }
                 axios.post('/xfxhapi/signin/insertByVO', params).then(function (res) {
