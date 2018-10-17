@@ -23,9 +23,9 @@
                 </div>
                 <!--基本信息-->
 				<div id="inforView" class="pt15" v-show="isJbxxShow">
-					<el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
+					<el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
 						<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-							<strong style="color: #20a0ff;">企业基本信息</strong>
+							<strong style="color: #e40613;">基本信息</strong>
 						</el-col>
 					</el-row>
 					<el-form :inline="true" class="el-form demo-form-inline" ref="baseInforForm" :model="baseInforForm" label-position="right" :rules="baseInforRules">
@@ -50,7 +50,7 @@
                                             clearable show-all-levels></el-cascader>
                                 </el-form-item>
                             </el-col>
-							<el-col :span="12" style="text-align: left;margin-left: 10px">
+							<el-col :span="12" style="text-align: left;margin-left: 10px;overflow-x:hidden">
                                 <el-form-item prop="yjdzxx" style="width: 140%">
                                     <el-input size="small" v-model="baseInforForm.yjdzxx" placeholder="详细地址"></el-input>
                                 </el-form-item>
@@ -108,16 +108,16 @@
 							<el-col :span="1">&nbsp;</el-col>
 							<el-col :span="11">
                                 <el-form-item prop="dzyx1" label="邮箱">
-                                    <el-input size="small" v-model="baseInforForm.dzyx1" placeholder="邮箱">
-                                        <el-button slot="append" @click="openYxYz">验证</el-button>
+                                    <el-input size="small" v-model="baseInforForm.dzyx1" placeholder="邮箱" @change="dzyxChange()">
+                                        <el-button id="mail-btn" slot="append" @click="openYxYz" v-text=mailCodeText></el-button>
                                     </el-input>
                                 </el-form-item>
 							</el-col>
 							<el-col :span="1">&nbsp;</el-col>
                         </el-row>
-                        <el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
+                        <el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
                             <el-col :span="24">
-                                <strong style="color: #20a0ff;">企业营业执照</strong>
+                                <strong style="color: #e40613;">营业执照</strong>
                             </el-col>
                         </el-row>
                         <el-row>
@@ -148,9 +148,9 @@
                 </div>
                 <!--企业开票信息-->
                 <div id="kpxxView" class="pt15" v-show="isKpxxShow">
-                    <el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
+                    <el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
 						<el-col :span="24">
-							<strong style="color: #20a0ff;">企业开票信息</strong>
+							<strong style="color: #e40613;">企业开票信息</strong>
                         </el-col>
                     </el-row>
                     <el-form :inline="true" class="el-form demo-form-inline" ref="kpxxForm" :model="kpxxForm" label-position="right" :rules="kpxxRules">
@@ -158,7 +158,7 @@
                         <el-row class="tr mb5">
                            <el-col :span="5">&nbsp;</el-col>
                            <el-col :span="11">
-                                <el-form-item prop="kplx" label="开票类型">
+                                <el-form-item prop="kplx" label="开票类型" style="text-align: left">
                                     <el-radio-group v-model="kpxxForm.kplx" size="small" auto-complete="off" @change="fplxChange()">
                                         <el-radio class="radio" :label="'1'">增值税专用发票</el-radio>
                                         <el-radio class="radio" :label="'2'">增值税普通发票</el-radio>
@@ -235,9 +235,9 @@
                 </div>
                 <!--企业问卷调查-->
                 <div id="wjdcView" class="pt15" v-show="isWjdcShow">
-                    <el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
+                    <el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
 						<el-col :span="24">
-							<strong style="color: #20a0ff;">企业问卷调查</strong>
+							<strong style="color: #e40613;">企业问卷调查</strong>
 						</el-col>
                     </el-row>
                     <el-form :inline="true" class="el-form demo-form-inline" ref="wjdcForm" :model="wjdcForm" label-position="right" :rules="wjdcRules">
@@ -262,8 +262,8 @@
                         </el-row>
                         <el-row class="tr mb5" v-show="ishwdlcp">
                             <el-col :span="24">
-                                <el-form-item prop="hwdlcppp" label="产品品牌" :rules="this.ishwdlcp?wjdcRules.hwdlcppp:[{ required: false, message: '请输入产品品牌', trigger: 'blur' }]">
-                                    <el-input size="small" v-model="wjdcForm.hwdlcppp" placeholder="产品品牌"></el-input>
+                                <el-form-item prop="hwdlcppp" label="代理海外产品品牌" :rules="this.ishwdlcp?wjdcRules.hwdlcppp:[{ required: false, message: '请输入产品品牌', trigger: 'blur' }]">
+                                    <el-input size="small" v-model="wjdcForm.hwdlcppp" placeholder="代理海外产品品牌"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -300,7 +300,7 @@
                         </el-row>
                         <el-row class="tr mb5" v-show="isgxjsqy">
                             <el-col :span="24">
-                                <el-form-item label="高新技术级别" prop="gxjsjb" :rules="this.isgxjsqy?wjdcRules.gxjsjb:[{ required: false, message: '请选择高新技术级别', trigger: 'blur' }]" style="text-align: left">
+                                <el-form-item label="企业高新技术级别" prop="gxjsjb" :rules="this.isgxjsqy?wjdcRules.gxjsjb:[{ required: false, message: '请选择企业高新技术级别', trigger: 'blur' }]" style="text-align: left">
                                     <el-radio-group v-model="wjdcForm.gxjsjb" size="small" auto-complete="off">
                                         <el-radio v-for="item in gxjsjb_data" :label="item.codeValue" class="radio"><v-text v-text="item.codeName"></v-text></el-radio>
                                     </el-radio-group>
@@ -370,9 +370,9 @@
                 </div>
                 <!--企业和产品介绍-->
                 <div id="cpjsView" class="pt15" v-show="isCpjsShow">
-                    <el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
+                    <el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
 						<el-col :span="24">
-							<strong style="color: #20a0ff;">企业介绍</strong>
+							<strong style="color: #e40613;">企业介绍</strong>
 						</el-col>
                     </el-row>
                     <el-form :inline="true" class="el-form demo-form-inline" ref="qyjsForm" :model="qyjsForm" label-position="right" :rules="qyjsRules">
@@ -404,58 +404,60 @@
                             </el-col>
                         </el-row>
                     </el-form>
-                    <el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
+                    <el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
 						<el-col :span="12">
-							<strong style="color: #20a0ff;">产品介绍</strong>
+							<strong style="color: #e40613;">产品介绍</strong>
                         </el-col>
                         <el-col :span="12" class="pb1">
 							<el-button type="primary" icon="el-icon-plus" size="small" class="r" @click="addDomain"></el-button>
 						</el-col>
                     </el-row>
-                    <el-form :inline="true" class="el-form demo-form-inline" ref="qyjsForm.qycpjsVOList" :model="qyjsForm.qycpjsVOList" label-position="right" >
-                        <el-form-item v-for="(domain, index) in qyjsForm.qycpjsVOList" :key="domain.key" label-position="right" style="width: 140%">
-							<el-card class="card_style">
-								<div slot="header" class="clearfix">
-									<strong class="card_title_font">产品{{index+1}}</strong>
-									<el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 3px -20px 0px;"></el-button>
-                                </div>
-                                <el-row class="tr">
-									<el-col :span="13">
-                                        <el-form-item label="产品图片" style="text-align: left">
-                                                <el-upload
-                                                class="avatar-uploader"
-                                                ref="uploadCpPics"
-                                                action="/zhapi/qycpjs/upload"
-                                                :on-success="picSuccess"
-                                                :on-change="CpPicsChange"
-                                                :auto-upload="false"
-                                                :show-file-list="false"
-                                                >
-                                                <img @click="getIndex(index)" v-if="domain.cptpBase64!==''" :src="domain.cptpBase64" class="avatar">
-                                                <i v-else class="el-icon-plus avatar-uploader-icon" @click="getIndex(index)"></i>
-                                            </el-upload>
-                                        </el-form-item>
-									</el-col>
-                                </el-row>
-                                <el-row class="tr">
-                                    <el-col :span="13">
-                                        <el-form-item prop="cplx" label="产品所属分类">
-                                            <el-cascader :options="cpssfl_data" :props="defaultProps" size="small" v-model="domain.cplx" placeholder="产品所属分类" class="searchSelect"
-                                        clearable show-all-levels></el-cascader>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="tr">
-                                    <el-col :span="13">
-                                        <el-form-item prop="cpjj" label="产品简介">
-                                            <el-input type="textarea" :rows="2" placeholder="企业简介" v-model="domain.cpjj"></el-input>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
-                                
-							</el-card>
-						</el-form-item>
-                    </el-form>
+                    <el-row class="mt10 mb20" style="overflow-x: hidden">
+                        <el-form :inline="true" class="el-form demo-form-inline" ref="qyjsForm.qycpjsVOList" :model="qyjsForm.qycpjsVOList" label-position="right">
+                            <el-form-item v-for="(domain, index) in qyjsForm.qycpjsVOList" :key="domain.key" label-position="right" style="width: 143%">
+                                <el-card class="card_style">
+                                    <div slot="header" class="clearfix">
+                                        <strong class="card_title_font">产品{{index+1}}</strong>
+                                        <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 3px -20px 0px;"></el-button>
+                                    </div>
+                                    <el-row class="tr">
+                                        <el-col :span="13">
+                                            <el-form-item label="产品图片" style="text-align: left">
+                                                    <el-upload
+                                                    class="avatar-uploader"
+                                                    ref="uploadCpPics"
+                                                    action="/zhapi/qycpjs/upload"
+                                                    :on-success="picSuccess"
+                                                    :on-change="CpPicsChange"
+                                                    :auto-upload="false"
+                                                    :show-file-list="false"
+                                                    >
+                                                    <img @click="getIndex(index)" v-if="domain.cptpBase64!==''" :src="domain.cptpBase64" class="avatar">
+                                                    <i v-else class="el-icon-plus avatar-uploader-icon" @click="getIndex(index)"></i>
+                                                </el-upload>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="tr">
+                                        <el-col :span="13">
+                                            <el-form-item prop="cplx" label="产品所属分类">
+                                                <el-cascader :options="cpssfl_data" :props="defaultProps" size="small" v-model="domain.cplx" placeholder="产品所属分类" class="searchSelect"
+                                            clearable show-all-levels></el-cascader>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="tr">
+                                        <el-col :span="13">
+                                            <el-form-item prop="cpjj" label="产品简介">
+                                                <el-input type="textarea" :rows="2" placeholder="企业简介" v-model="domain.cpjj"></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                    
+                                </el-card>
+                            </el-form-item>
+                        </el-form>
+                    </el-row>
                     <el-row class="mt10 mb20">
                         <el-form :inline="true" class="el-form demo-form-inline">
                             <el-row>
@@ -469,9 +471,9 @@
                 </div>
                 <!--企业参展展位需求意向-->
                 <div id="xqyxView" class="pt15" v-show="isXqyxShow">
-                    <el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
+                    <el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
 						<el-col :span="24">
-							<strong style="color: #20a0ff;">参展展位需求意向</strong>
+							<strong style="color: #e40613;">参展展位需求意向</strong>
 						</el-col>
                     </el-row>
                     <el-form :inline="true" class="el-form demo-form-inline" ref="xqyxForm" :model="xqyxForm" label-position="right">
@@ -524,22 +526,22 @@
                 <el-dialog title="手机号码验证" :visible.sync="dialogSjFormVisible" @close="closeDialog()" :close-on-click-modal="false">
                     <el-form :inline="true" class="el-form demo-form-inline" ref="sjform" :model="sjform" label-position="right" :rules="sjformRules">
                         <el-row class="tr mb5">
-                            <el-col :span="18">
+                            <el-col :span="20">
                                 <el-form-item prop="sjh" label="手机号">
                                     <el-input size="small" v-model="sjform.sjh" placeholder="手机号">
                                         <el-button id="mobile-btn" slot="append" @click="getMessageCode()" v-text=messageCodeText></el-button>
                                      </el-input>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="6">&nbsp;</el-col>
+                            <el-col :span="4">&nbsp;</el-col>
                         </el-row>
                         <el-row class="tr mb5">
-                            <el-col :span="18">
+                            <el-col :span="20">
                                 <el-form-item prop="yzm" label="短信验证码">
                                     <el-input size="small" v-model="sjform.yzm" placeholder="短信验证码"></el-input>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="6">&nbsp;</el-col>
+                            <el-col :span="4">&nbsp;</el-col>
                         </el-row>
                     </el-form>
                     <div slot="footer" class="dialog-footer">  
@@ -554,12 +556,12 @@
                             请输入邮箱<span v-text="this.baseInforForm.dzyx1" style="font-style:italic;margin-right: 2px;"></span>收到的验证码
                         </el-row>
                         <el-row class="tr mb5">
-                            <el-col :span="18">
+                            <el-col :span="20">
                                 <el-form-item prop="yzm" label="验证码">
                                     <el-input size="small" v-model="yxform.yzm" placeholder="验证码"></el-input>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="6">&nbsp;</el-col>
+                            <el-col :span="4">&nbsp;</el-col>
                         </el-row>
                     </el-form>
                     <div slot="footer" class="dialog-footer">  

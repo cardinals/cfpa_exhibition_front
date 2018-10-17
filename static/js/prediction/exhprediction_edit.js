@@ -94,11 +94,14 @@ var vm = new Vue({
             mailCheck: false,
             //通过验证的邮箱地址（记录以防验证后修改邮箱）
             checkedMailAddress:'',
+            //短信验证按钮文字
             messageCodeText: "获取验证码",
             //短信验证码
             messageCodeReal:"",
             //邮箱验证码
             mailCodeReal:"",
+            //邮箱验证按钮文字
+            mailCodeText:"验证",
             time: 60,
             timer: null,
             //产品index
@@ -171,7 +174,8 @@ var vm = new Vue({
                     { required: true, message: '请输入网址', trigger: 'blur' }
                   ],
                 dzyx1: [
-                    { required: true, message: '请输入邮箱', trigger: 'blur' }
+                    { required: true, message: '请输入邮箱', trigger: 'blur' },
+                    { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
                   ]
               },
             kpxxRules: {
@@ -628,9 +632,9 @@ var vm = new Vue({
                             axios.post('/zhapi/qyjbxx/doInsertByVo', params).then(function (res) {
                                 this.upLoadData.qyid = res.data.result.qyid;
                                 this.$refs.uploadPics.submit();
-                                this.$alert('成功保存企业基本信息', '提示', {
-                                    type: 'success',
-                                    confirmButtonText: '确定',
+                                this.$message({
+                                    message: '企业基本信息暂存成功',
+                                    type: 'success'
                                 });
                                 this.active = 1;
                                 this.isJbxxShow = false;
@@ -677,9 +681,9 @@ var vm = new Vue({
                             axios.post('/zhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
                                 this.upLoadData.qyid = this.baseInforForm.qyid;
                                 this.$refs.uploadPics.submit();
-                                this.$alert('成功保存企业基本信息', '提示', {
-                                    type: 'success',
-                                    confirmButtonText: '确定',
+                                this.$message({
+                                    message: '企业基本信息暂存成功',
+                                    type: 'success'
                                 });
                                 this.active = 1;
                                 this.isJbxxShow = false;
@@ -721,9 +725,9 @@ var vm = new Vue({
                             cjrmc: this.shiroData.username
                         }
                         axios.post('/zhapi/qykpxx/doInsertByVo', params).then(function (res) {
-                            this.$alert('成功保存企业开票信息', '提示', {
-                                type: 'success',
-                                confirmButtonText: '确定',
+                            this.$message({
+                                message: '企业开票信息暂存成功',
+                                type: 'success'
                             });
                             this.active = 2;
                             this.isKpxxShow = false;
@@ -750,9 +754,9 @@ var vm = new Vue({
                             xgrmc: this.shiroData.username
                         }
                         axios.post('/zhapi/qykpxx/doUpdateByVO', params).then(function (res) {
-                            this.$alert('成功保存企业开票信息', '提示', {
-                                type: 'success',
-                                confirmButtonText: '确定',
+                            this.$message({
+                                message: '企业开票信息暂存成功',
+                                type: 'success'
                             });
                             this.active = 2;
                             this.isKpxxShow = false;
@@ -801,9 +805,9 @@ var vm = new Vue({
                             reserve1: reserve1.substr(0,reserve1.length-1),//eg.1001消防车
                         }
                         axios.post('/zhapi/qywjdc/doInsertByVo', params).then(function (res) {
-                            this.$alert('成功保存企问卷调查', '提示', {
-                                type: 'success',
-                                confirmButtonText: '确定',
+                            this.$message({
+                                message: '企业问卷调查暂存成功',
+                                type: 'success'
                             });
                             this.active = 3;
                             this.isWjdcShow = false;
@@ -843,9 +847,9 @@ var vm = new Vue({
                             reserve1: reserve1.substr(0,reserve1.length-1),//eg.1001消防车
                         }
                         axios.post('/zhapi/qywjdc/doUpdateByVO', params).then(function (res) {
-                            this.$alert('成功保存企问卷调查', '提示', {
-                                type: 'success',
-                                confirmButtonText: '确定',
+                            this.$message({
+                                message: '企业问卷调查暂存成功',
+                                type: 'success'
                             });
                             this.active = 3;
                             this.isWjdcShow = false;
@@ -901,9 +905,9 @@ var vm = new Vue({
                             axios.post('/zhapi/qyjs/doInsertByVo', params).then(function (res) {
                                 this.upLoadLogoData.uuid = res.data.result.uuid;
                                 this.$refs.uploadLogo.submit();
-                                this.$alert('成功保存企业产品介绍', '提示', {
-                                    type: 'success',
-                                    confirmButtonText: '确定',
+                                this.$message({
+                                    message: '企业产品介绍暂存成功',
+                                    type: 'success'
                                 });
                                 this.active = 4;
                                 this.isCpjsShow = false;
@@ -928,9 +932,9 @@ var vm = new Vue({
                             axios.post('/zhapi/qyjs/doUpdateQyCpByVO', params).then(function (res) {
                                 this.upLoadLogoData.uuid = res.data.result.uuid;
                                 this.$refs.uploadLogo.submit();
-                                this.$alert('成功保存企业产品介绍', '提示', {
-                                    type: 'success',
-                                    confirmButtonText: '确定',
+                                this.$message({
+                                    message: '企业产品介绍暂存成功',
+                                    type: 'success'
                                 });
                                 this.active = 4;
                                 this.isCpjsShow = false;
@@ -964,12 +968,13 @@ var vm = new Vue({
                         cjrmc: this.shiroData.username
                     }
                     axios.post('/zhapi/qyzwyx/doInsertByVo', params).then(function (res) {
-                        this.$alert('成功保存企业参展展位需求意向', '提示', {
-                            type: 'success',
-                            confirmButtonText: '确定',
+                        this.$message({
+                            message: '企业参展展位需求意向暂存成功',
+                            type: 'success'
                         });
                         this.active = 5;
                         this.xqyxStatus = 1;
+                        this.submit();
                     }.bind(this), function (error) {
                         console.log(error);
                     })
@@ -984,9 +989,9 @@ var vm = new Vue({
                         xgrmc: this.shiroData.username
                     }
                     axios.post('/zhapi/qyzwyx/doUpdateByVO', params).then(function (res) {
-                        this.$alert('成功保存企业参展展位需求意向', '提示', {
-                            type: 'success',
-                            confirmButtonText: '确定',
+                        this.$message({
+                            message: '企业参展展位需求意向暂存成功',
+                            type: 'success'
                         });
                         this.active = 5;
                         //提交展位预报名信息
@@ -1141,14 +1146,21 @@ var vm = new Vue({
             }
         },
         //手机验证码form提交
-        sjformSubmit: function(){
-            if(this.sjform.yzm == this.messageCodeReal){
-                this.baseInforForm.lxrsj = this.sjform.sjh;
-                this.dialogSjFormVisible = false;
+        sjformSubmit: function(formName){
+            if(this.sjform.sjh != null && this.sjform.sjh != ""){
+                if(this.sjform.yzm == this.messageCodeReal && this.messageCodeReal != ""){
+                    this.baseInforForm.lxrsj = this.sjform.sjh;
+                    this.dialogSjFormVisible = false;
+                }else{
+                    this.$message({
+                        message: '验证码错误',
+                        type: 'error'
+                    });
+                }
             }else{
-                this.$alert('验证码错误', '提示', {
-                    type: 'warning',
-                    confirmButtonText: '确定',
+                this.$message({
+                    message: '请输入手机号',
+                    type: 'error'
                 });
             }
         },
@@ -1158,27 +1170,46 @@ var vm = new Vue({
                 this.mailCheck = true;
                 this.checkedMailAddress = this.baseInforForm.dzyx1;
                 this.dialogYxFormVisible = false;
+                this.$message({
+                    message: '邮箱验证成功',
+                    type: 'success'
+                });
             }else{
-                this.$alert('验证码错误', '提示', {
-                    type: 'warning',
-                    confirmButtonText: '确定',
+                this.$message({
+                    message: '验证码错误',
+                    type: 'error'
                 });
             }
         },
         //邮箱修改验证
         openYxYz: function(){
             if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.baseInforForm.dzyx1))) {
-                this.$alert('邮箱格式不正确', '提示', {
-                    type: 'warning',
-                    confirmButtonText: '确定',
+                this.$message({
+                    message: '邮箱格式不正确',
+                    type: 'warning'
                 });
                 return false;
             } else {
                 //查询邮箱是否注册
                 axios.get('/xfxhapi/signin/getMailNum/' + this.baseInforForm.dzyx1.replace(".", "_")).then(function (res) {
                     if (res.data.result == 0) {
+                        this.mailCodeText = "发送中...";
+                        $('#mail-btn').attr('disabled', 'disabled');
                         axios.get('/xfxhapi/signin/sendMail?mail=' + this.baseInforForm.dzyx1).then(function (res) {
                             this.mailCodeReal = res.data.msg;
+                            var count = this.time;
+                            this.timer = setInterval(() => {
+                                if (count == 0) {
+                                    clearInterval(this.timer);
+                                    this.timer = null;
+                                    this.mailCodeText = "验证";
+                                    $('#mail-btn').removeAttr("disabled");
+                                } else {
+                                    this.mailCodeText = count + "秒后获取"
+                                    count--;
+                                    $('#mail-btn').attr('disabled', 'disabled');
+                                }
+                            }, 1000);
                             this.dialogYxFormVisible = true;
                         }.bind(this), function (error) {
                             console.log(error);
@@ -1200,8 +1231,6 @@ var vm = new Vue({
                 }.bind(this), function (error) {
                     console.log(error);
                 });
-                
-                
             }
         },
         //关闭邮箱验证对话
@@ -1210,7 +1239,12 @@ var vm = new Vue({
             //this.yxform.yx = "";
             this.yxform.yzm = "";
         },
-        
+        //邮箱change判断需不需要重新验证
+        dzyxChange: function(){
+            if(this.checkedMailAddress != this.baseInforForm.dzyx1 && this.checkedMailAddress != ""){
+                this.mailCheck = false;
+            }
+        },
         handleAvatarSuccess(res, file) {
             this.imageUrl = URL.createObjectURL(file.raw);
         },
