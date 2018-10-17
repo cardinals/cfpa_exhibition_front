@@ -133,9 +133,7 @@ var vue = new Vue({
 								color: function(params) {
 									// build a color map as your need.
 									var colorList = [
-									  '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
-									   '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-									   '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+									  '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B'
 									];
 									return colorList[params.dataIndex]
 								}
@@ -177,7 +175,8 @@ var vue = new Vue({
 						type: 'pie',
 						radius: '55%',
 						center: ['35%', '50%'],
-						data:this.pieDataz.sort(function (a, b) { return a.value - b.value; }),
+						data:this.pieDataz,
+						// data:this.pieDataz.sort(function (a, b) { return a.value - b.value; }),
 						roseType: 'radius',
 						label: {
 							show: true,
@@ -195,9 +194,7 @@ var vue = new Vue({
 						}
 					}
 				],
-				color: ['#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
-				'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-				'#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0']
+				color: ['#C1232B','#B5C334','#FCCE10','#E87C25','#27727B']
 			};
 		
 			myChart.setOption(option);
