@@ -255,19 +255,19 @@
                         <el-col :span="18">
                             <el-row class="mb10">
                                 <strong>标准展位：</strong>
-                                <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.bzzwgs" :min="0" :max="6" placeholder="标准展位"></el-input-number>
+                                <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.bzzwgs" :min="0" :max="6" placeholder="标准展位" :precision="0"></el-input-number>
                                 <v-text v-else v-text="zwyxForm.bzzwgs==''?'无':zwyxForm.bzzwgs+' 个'"></v-text>
                                 &nbsp;&nbsp;(标准展位：每个12平方米)
                             </el-row>
                             <el-row class="mb10">
                                 <strong>室内展位：</strong>
-                                <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.sngdzw" :min="24" :max="1000" placeholder="室内光地展位"></el-input-number>
+                                <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.sngdzw" :min="24" :max="1000" placeholder="室内光地展位" :precision="0"></el-input-number>
                                 <v-text v-else v-text="zwyxForm.sngdzw==''?'无':zwyxForm.sngdzw+' m²'"></v-text>
                                 &nbsp;&nbsp;(室内光地展位：需要特装搭建，24平方米起)
                             </el-row>
                             <el-row class="mb10">
                                 <strong>室外展位：</strong>
-                                <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.swgdzw" :min="0" :max="2000" placeholder="室外光地展位"></el-input-number>
+                                <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.swgdzw" :min="0" :max="2000" placeholder="室外光地展位" :precision="0"></el-input-number>
                                 <v-text v-else v-text="zwyxForm.swgdzw==''?'无':zwyxForm.swgdzw+' m²'"></v-text>
                                 &nbsp;&nbsp;(室外光地展位：仅限消防车类)
                             </el-row>
