@@ -45,9 +45,9 @@
                 <div class="Login">
                     <div id="login" class="Login_n" v-show="formFlag=='loginFlag'||formFlag=='bakFlag'">
                         <div class="Login_nTop">
-                            <a @click="changeForm('GLYloginFlag')">
+                            <!-- <a @click="changeForm('GLYloginFlag')">
                                 <img width="26" height="26" src="../static/images/login/icon-changeuser_hover.png" onMouseOver="this.src='../static/images/login/icon-changeuser.png'"
-                                    onMouseOut="this.src='../static/images/login/icon-changeuser_hover.png'" draggable="false"></a>
+                                    onMouseOut="this.src='../static/images/login/icon-changeuser_hover.png'" draggable="false"></a> -->
                             <span class="yhdl_span current">User Login</span>
                             <div style="float:right;font-size: 8px;color: #fb6a74">No Account?<a @click="changeForm('regFlag')"><u
                                         style="color: #fb6a74">To Regist</u></a></div>
@@ -349,13 +349,22 @@
                                 <li>
                                     <input type="text" class="kong">
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <i class="icon-company"></i>
                                     <input type="text" class="inputstyle" v-model="REAcompanyName" name="REAcompanyName" id="REAcompanyName" placeholder="单位名称">
                                 </li>
                                 <li>
                                     <i class="icon-unscid"></i>
                                     <input type="text" class="inputstyle" v-model="REAunscid" name="REAunscid" id="REAunscid" placeholder="统一社会信用代码">
+                                </li> -->
+                                <li>
+                                    <i class="icon-email"></i>
+                                    <input type="text" class="inputstyle" v-model="FUmail" name="FUmail" id="FUmail" placeholder="Email">
+                                    <button type="button" id="FUmail-btn" class="verficode phonebtn" @click="getFUMailCode()" v-text=FUmailCodeText></button>
+                                </li>
+                                <li>
+                                    <i class="icon-message"></i>
+                                    <input type="text" class="inputstyle" v-model="FUmailCode" name="FUmailCode" id="FUmailCode" placeholder="Mail Verification Code">
                                 </li>
                             </ul>
                             <div class="LoginBtn" id="btn_mt">
