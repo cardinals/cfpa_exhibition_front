@@ -11,6 +11,9 @@
 	<div id="app">
 		<div class="main-box">
 			<div class="main-container" v-loading="loading" element-loading-text="加载中">
+                <div id="lib :: main_container_header('报名信息新增','报名信息新增')"></div>
+                <!-- 面包屑 -->
+                <div id="breadcrumb_box"></div>
                 <!--步骤条-->
                 <div id="steps">
                     <el-steps :active="this.active" align-center finish-status="success">

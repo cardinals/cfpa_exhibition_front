@@ -268,6 +268,13 @@ var vm = new Vue({
             this.findInfoByUserid(this.shiroData.userid);
         }else{//管理员
             this.findInfoByUserid(getQueryString("userid"));
+            var type = getQueryString("type");
+            if(type == "BJ"){
+                loadBreadcrumb("展会报名管理","报名信息编辑");
+            }else{
+                loadBreadcrumb("展会报名管理","报名信息新增");
+            }
+            
         }
         
     },
@@ -342,16 +349,24 @@ var vm = new Vue({
             }
             axios.post('/zhapi/qyjbxx/doFindByUserid', params).then(function (res) {
                 if(res.data.result != null && res.data.result != ""){
-                    this.baseInforForm = res.data.result;
-                    this.baseInforForm.yyzzBase64 = 'data:image/png;base64,'+ this.baseInforForm.yyzzBase64;
-                    //行政区划级联下拉处理
-                    var xzqhArray = [];
-                    xzqhArray.push(res.data.result.yjdzsheng);
-                    xzqhArray.push(res.data.result.yjdzshi);
-                    this.baseInforForm.xzqh = xzqhArray;
-                    this.baseInforForm.dzyx1 = this.baseInforForm.dzyx;
-                    this.jbxxStatus = 1;//修改
-                    this.qyid = res.data.result.qyid;
+                    if(res.data.result.sjzt == '01' || res.data.result.sjzt == '04'){//编辑中，已驳回
+                        this.baseInforForm = res.data.result;
+                        this.baseInforForm.yyzzBase64 = 'data:image/png;base64,'+ this.baseInforForm.yyzzBase64;
+                        //行政区划级联下拉处理
+                        var xzqhArray = [];
+                        xzqhArray.push(res.data.result.yjdzsheng);
+                        xzqhArray.push(res.data.result.yjdzshi);
+                        this.baseInforForm.xzqh = xzqhArray;
+                        this.baseInforForm.dzyx1 = this.baseInforForm.dzyx;
+                        this.jbxxStatus = 1;//修改
+                        this.qyid = res.data.result.qyid;
+                    }else{//已提交，已审核 直接跳转到确认页
+                        var params = {
+                            userid: this.shiroData.userid,
+                            type: "BJ"
+                        }
+                        loadDivParam("prediction/exhprediction_confirm", params);
+                    }
                 }else{
                     this.jbxxStatus = 0;//新增
                     this.baseInforForm.lxrsj = this.shiroData.username;
@@ -511,18 +526,11 @@ var vm = new Vue({
             }
             //document.getElementById("childrenRow").innerHTML="";
         },
-        
-        test:function(){
-            console.log(this.wjdcForm.zycpList);
-        },
+       
+        //关闭标签
         handleTagClose:function(tag){
             this.wjdcForm.zycpList.splice(this.wjdcForm.zycpList.indexOf(tag), 1);
         },
-
-        handlePreview(file) {
-            console.log(file);
-        },
-        
         //图片上传成功回调方法
         picSuccess: function (res, file, fileList) {
             console.log(file, fileList);
@@ -594,12 +602,10 @@ var vm = new Vue({
                 }
             }
         },
+        //获取点击上传的产品图片位于第几个card，用于回显base64图片
         getIndex: function(index){
             this.index = index;
             //console.log(index);
-        },
-        picExceed(files, fileList) {
-            this.$message.warning('限制选择 1 张图片！');
         },
         //基本信息提交（下一步）
         submitJbxx: function(formName){
@@ -607,16 +613,16 @@ var vm = new Vue({
                 if (valid) {
                     if(this.jbxxStatus == 0){//新增
                         if(this.mailCheck == false){
-                            this.$alert('请对修改后的邮箱进行验证', '提示', {
-                                type: 'warning',
-                                confirmButtonText: '确定',
+                            this.$message({
+                                message: '请对修改后的邮箱进行验证',
+                                type: 'warning'
                             });
                             console.log('error submit!!');
                             return false;
                         }else if(this.baseInforForm.yyzzBase64 == null || this.baseInforForm.yyzzBase64 == ""){
-                            this.$alert('请上传企业营业执照', '提示', {
-                                type: 'warning',
-                                confirmButtonText: '确定',
+                            this.$message({
+                                message: '请上传企业营业执照',
+                                type: 'warning'
                             });
                             console.log('error submit!!');
                             return false;
@@ -666,9 +672,9 @@ var vm = new Vue({
                     }else{//修改
                         //邮箱修改且邮箱验证通过flag为false
                         if(this.baseInforForm.dzyx != this.baseInforForm.dzyx1 && this.mailCheck == false){
-                            this.$alert('请对修改后的邮箱进行验证', '提示', {
-                                type: 'warning',
-                                confirmButtonText: '确定',
+                            this.$message({
+                                message: '请对修改后的邮箱进行验证',
+                                type: 'warning'
                             });
                             console.log('error submit!!');
                             return false;
@@ -890,9 +896,9 @@ var vm = new Vue({
                     //判断最后一个card产品信息是否填全
                     var cp = this.qyjsForm.qycpjsVOList[this.qyjsForm.qycpjsVOList.length - 1];
                     if(cp.cplx==''||cp.cpjj==''||cp.cptpBase64 ==''){
-                        this.$alert('请完整填写产品信息', '提示', {
-                            type: 'warning',
-                            confirmButtonText: '确定',
+                        this.$message({
+                            message: '请完整填写产品信息',
+                            type: 'warning'
                         });
                         return false;
                     }else{//信息填写完整
@@ -908,9 +914,9 @@ var vm = new Vue({
                         }
                         if(this.cpjsStatus == 0){//新增
                             if(this.qyjsForm.logoBase64 == null || this.qyjsForm.logoBase64 == ""){
-                                this.$alert('请上传企业logo', '提示', {
-                                    type: 'warning',
-                                    confirmButtonText: '确定',
+                                this.$message({
+                                    message: '请上传企业logo',
+                                    type: 'warning'
                                 });
                                 console.log('error submit!!');
                                 return false;
@@ -1026,18 +1032,27 @@ var vm = new Vue({
                 }
                 
             }else{
-                this.$alert('请至少选择一种展位填写需求意向', '提示', {
-                    type: 'warning',
-                    confirmButtonText: '确定',
+                this.$message({
+                    message: '请至少填写一种展位需求意向',
+                    type: 'warning'
                 });
                 console.log('error submit!!');
                 return false;
             }
             
         },
-        
+        //提交
         submit: function(){
-            alert(666);
+            if(this.shiroData.deptid == "ZSYH"){//如果是展商用户跳转到确认页
+                var params = {
+                    userid: this.shiroData.userid,
+                    type: "BJ"
+                }
+                loadDivParam("prediction/exhprediction_confirm", params);
+            }else{//如果是管理员跳转到列表页
+                loadDivParam("prediction/exhprediction_list");
+            }
+           
         },
         //开票信息上一步
         cancelKpxx: function(){
@@ -1106,9 +1121,9 @@ var vm = new Vue({
             //判断最后一个card产品信息是否填全
             var cp = this.qyjsForm.qycpjsVOList[this.qyjsForm.qycpjsVOList.length - 1];
             if(cp.cplx==''||cp.cpjj==''){
-                this.$alert('请完整填写产品信息中的全部内容', '提示', {
-                    type: 'warning',
-                    confirmButtonText: '确定',
+                this.$message({
+                    message: '请完整填写产品信息中的全部内容',
+                    type: 'warning'
                 });
                 return false;
             }else{
@@ -1239,16 +1254,16 @@ var vm = new Vue({
                             console.log(error);
                         });
                     }else if(this.baseInforForm.dzyx1 == this.baseInforForm.dzyx){
-                        this.$alert('此邮箱已通过验证', '提示', {
-                            type: 'success',
-                            confirmButtonText: '确定',
+                        this.$message({
+                            message: '此邮箱已通过验证',
+                            type: 'success'
                         });
                         return false;
                     }
                     else{
-                        this.$alert('此邮箱已被注册,请更换邮箱', '提示', {
-                            type: 'warning',
-                            confirmButtonText: '确定',
+                        this.$message({
+                            message: '此邮箱已被注册,请更换邮箱',
+                            type: 'warning'
                         });
                         return false;
                     }
@@ -1269,21 +1284,7 @@ var vm = new Vue({
                 this.mailCheck = false;
             }
         },
-        handleAvatarSuccess(res, file) {
-            this.imageUrl = URL.createObjectURL(file.raw);
-        },
-        beforeAvatarUpload(file) {
-            const isJPG = file.type === 'image/jpeg';
-            const isLt2M = file.size / 1024 / 1024 < 2;
-            if (!isJPG) {
-              this.$message.error('上传头像图片只能是 JPG 格式!');
-            }
-            if (!isLt2M) {
-              this.$message.error('上传头像图片大小不能超过 2MB!');
-            }
-            return isJPG && isLt2M;
-        },
-        
+       
     },
 
 })
