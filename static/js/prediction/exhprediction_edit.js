@@ -92,6 +92,8 @@ var vm = new Vue({
             dialogYxFormVisible:false,
             //邮箱验证flag
             mailCheck: false,
+            //上传的文件为pdf标识
+            isPdf:false,
             //通过验证的邮箱地址（记录以防验证后修改邮箱）
             checkedMailAddress:'',
             //短信验证按钮文字
@@ -526,16 +528,16 @@ var vm = new Vue({
             console.log(file, fileList);
         },
         //营业执照change
-        PicChange: function (file, fileList) {
+        PicChange: function (file,fileList) {
             const isPng = file.name.endsWith("png");
             const isJpg = file.name.endsWith("jpg");
-            const isPdf = file.name.endsWith("pdf");
+            this.isPdf = file.name.endsWith("pdf");
             const isLt200K = file.size / 1024 < 200;
             if (!isLt200K) {
                 this.$message.error('上传图片大小不能超过200KB!');
                 //fileList.splice(-1, 1);
             }else{
-                if (isPng || isJpg || isPdf) {
+                if (isPng || isJpg) {
                     var reader = new FileReader();
                     reader.readAsDataURL(file.raw);
                     reader.onload = function(e){
@@ -543,7 +545,7 @@ var vm = new Vue({
                     }
                     //this.isPic = true;
                 } else {
-                    this.$message.error('只能上传jpg、png、pdf格式的文件');
+                    this.$message.error('只能上传jpg、png格式的文件');
                     fileList.splice(-1, 1);
                 }
             }
@@ -553,31 +555,43 @@ var vm = new Vue({
         LogoChange: function (file, fileList) {
             const isPng = file.name.endsWith("png");
             const isJpg = file.name.endsWith("jpg");
-            if (isPng || isJpg) {
-                var reader = new FileReader();
-                reader.readAsDataURL(file.raw);
-                reader.onload = function(e){
-                    vm.qyjsForm.logoBase64 = reader.result;
+            const isLt100K = file.size / 1024 < 100;
+            if (!isLt100K) {
+                this.$message.error('上传图片大小不能超过100KB!');
+                //fileList.splice(-1, 1);
+            }else{
+                if (isPng || isJpg) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file.raw);
+                    reader.onload = function(e){
+                        vm.qyjsForm.logoBase64 = reader.result;
+                    }
+                } else {
+                    this.$message.error('只能上传jpg、png格式的图片');
+                    fileList.splice(-1, 1);
                 }
-            } else {
-                this.$message.error('只能上传jpg、png格式的图片');
-                fileList.splice(-1, 1);
             }
         },
         //产品图片
         CpPicsChange: function (file, fileList) {
             const isPng = file.name.endsWith("png");
             const isJpg = file.name.endsWith("jpg");
-            if (isPng || isJpg) {
-                var reader = new FileReader();
-                reader.readAsDataURL(file.raw);
-                reader.onload = function(e){
-                //vm.qyjsForm.logoBase64 = reader.result;
-                vm.qyjsForm.qycpjsVOList[vm.index].cptpBase64 = reader.result;
+            const isLt100K = file.size / 1024 < 100;
+            if (!isLt100K) {
+                this.$message.error('上传图片大小不能超过100KB!');
+                //fileList.splice(-1, 1);
+            }else{
+                if (isPng || isJpg) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file.raw);
+                    reader.onload = function(e){
+                    //vm.qyjsForm.logoBase64 = reader.result;
+                    vm.qyjsForm.qycpjsVOList[vm.index].cptpBase64 = reader.result;
+                    }
+                } else {
+                    this.$message.error('只能上传jpg、png格式的图片');
+                    fileList.splice(-1, 1);
                 }
-            } else {
-                this.$message.error('只能上传jpg、png格式的图片');
-                fileList.splice(-1, 1);
             }
         },
         getIndex: function(index){
@@ -875,7 +889,7 @@ var vm = new Vue({
                 if (valid) {
                     //判断最后一个card产品信息是否填全
                     var cp = this.qyjsForm.qycpjsVOList[this.qyjsForm.qycpjsVOList.length - 1];
-                    if(cp.cplx==''||cp.cpjj==''){
+                    if(cp.cplx==''||cp.cpjj==''||cp.cptpBase64 ==''){
                         this.$alert('请完整填写产品信息', '提示', {
                             type: 'warning',
                             confirmButtonText: '确定',
@@ -885,7 +899,7 @@ var vm = new Vue({
                         var tempList = this.qyjsForm.qycpjsVOList;
                         for(var i in tempList){
                             //产品类型级联下拉处理
-                            if(tempList[i].cplx.length>1){
+                            if((typeof tempList[i].cplx=='object')&&tempList[i].cplx.constructor==Array){
                                 tempList[i].cplx = tempList[i].cplx[tempList[i].cplx.length - 1];
                             }
                             //产品图片base64切成byte
@@ -893,32 +907,42 @@ var vm = new Vue({
                             tempList[i].cptp = temp_str[1];
                         }
                         if(this.cpjsStatus == 0){//新增
-                            var params = {
-                                qyid: this.qyid,
-                            //    logo: this.qyjsForm.logoBase64,
-                                qyjj: this.qyjsForm.qyjj,
-                                qycpjsVOList: tempList,
-                                deleteFlag: 'N',
-                                cjrid: this.shiroData.userid,
-                                cjrmc: this.shiroData.username
-                            }
-                            axios.post('/zhapi/qyjs/doInsertByVo', params).then(function (res) {
-                                this.upLoadLogoData.uuid = res.data.result.uuid;
-                                this.$refs.uploadLogo.submit();
-                                this.$message({
-                                    message: '企业产品介绍暂存成功',
-                                    type: 'success'
+                            if(this.qyjsForm.logoBase64 == null || this.qyjsForm.logoBase64 == ""){
+                                this.$alert('请上传企业logo', '提示', {
+                                    type: 'warning',
+                                    confirmButtonText: '确定',
                                 });
-                                this.active = 4;
-                                this.isCpjsShow = false;
-                                this.isXqyxShow = true;
-                                this.cpjsStatus = 1;
-                                if(this.qyid != null && this.qyid != ''){
-                                    this.findXqyxByQyid(this.qyid);
+                                console.log('error submit!!');
+                                return false;
+                            }else{
+                                var params = {
+                                    qyid: this.qyid,
+                                //    logo: this.qyjsForm.logoBase64,
+                                    qyjj: this.qyjsForm.qyjj,
+                                    qycpjsVOList: tempList,
+                                    deleteFlag: 'N',
+                                    cjrid: this.shiroData.userid,
+                                    cjrmc: this.shiroData.username
                                 }
-                            }.bind(this), function (error) {
-                                console.log(error);
-                            })
+                                axios.post('/zhapi/qyjs/doInsertByVo', params).then(function (res) {
+                                    this.upLoadLogoData.uuid = res.data.result.uuid;
+                                    this.$refs.uploadLogo.submit();
+                                    this.$message({
+                                        message: '企业产品介绍暂存成功',
+                                        type: 'success'
+                                    });
+                                    this.active = 4;
+                                    this.isCpjsShow = false;
+                                    this.isXqyxShow = true;
+                                    this.cpjsStatus = 1;
+                                    if(this.qyid != null && this.qyid != ''){
+                                        this.findXqyxByQyid(this.qyid);
+                                    }
+                                }.bind(this), function (error) {
+                                    console.log(error);
+                                })
+                            }
+                            
                         }else{//修改
                             var params = {
                                 uuid: this.qyUuid,
@@ -1082,7 +1106,7 @@ var vm = new Vue({
             //判断最后一个card产品信息是否填全
             var cp = this.qyjsForm.qycpjsVOList[this.qyjsForm.qycpjsVOList.length - 1];
             if(cp.cplx==''||cp.cpjj==''){
-                this.$alert('请完整填写产品信息', '提示', {
+                this.$alert('请完整填写产品信息中的全部内容', '提示', {
                     type: 'warning',
                     confirmButtonText: '确定',
                 });
