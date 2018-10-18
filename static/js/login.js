@@ -21,6 +21,8 @@ var vm = new Vue({
         messages: "",
         unscid: "",
         loginType: "InfoCollect",
+        //英文版登陆
+        CNcomfrom: "CHN",
         //管理员登录
         GLYusername: "",
         GLYpassword: "",

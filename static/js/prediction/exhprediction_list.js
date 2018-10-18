@@ -169,7 +169,7 @@ var vue = new Vue({
                 userid: val.userid,
                 type: "BJ"
             }
-            loadDivParam("prediction/exhprediction_edit", params);
+            loadDivParam("prediction/exhprediction_confirm", params);
         },
         deleteClick: function () {
             this.$confirm('确定删除已选中报名信息?', '提示', {

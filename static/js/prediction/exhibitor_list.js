@@ -311,20 +311,31 @@ var vue = new Vue({
                     if(this.editPasswordShow){
                         params.password = val.password;
                     }
-                    axios.post('/xfxhapi/user/updateByVO', params).then(function (res){
-                        var result = res.data.result;
-                        this.tableData[this.editIndex].username = result.username;
-                        if(result.usertype == "CHN"){
-                            this.tableData[this.editIndex].usertypeName = "国内"; 
-                        }else if(result.usertype == "ENG"){
-                            this.tableData[this.editIndex].usertypeName = "国外"; 
+                    axios.get('/xfxhapi/account/getNum/' + this.editForm.username).then(function(res){
+                        if(res.data.result != 0){
+                            this.$message({
+                                message: "用户名已存在!",
+                                type: "error"
+                            });
+                        }else{
+                            axios.post('/xfxhapi/user/updateByVO', params).then(function (res){
+                                var result = res.data.result;
+                                this.tableData[this.editIndex].username = result.username;
+                                if(result.usertype == "CHN"){
+                                    this.tableData[this.editIndex].usertypeName = "国内"; 
+                                }else if(result.usertype == "ENG"){
+                                    this.tableData[this.editIndex].usertypeName = "国外"; 
+                                }
+                                this.editFormVisible = false;
+                                this.$message({
+                                    message: "编辑成功！",
+                                    type: "success"
+                                });
+                            }.bind(this), function (error) {
+                                console.log(error)
+                            })
                         }
-                        this.editFormVisible = false;
-                        this.$message({
-                            message: "编辑成功！",
-                            type: "success"
-                        });
-                    }.bind(this), function (error) {
+                    }.bind(this),function(error){
                         console.log(error)
                     })
                 }
