@@ -260,7 +260,7 @@ var vm = new Vue({
                 axios.post('/xfxhapi/signin/insertByVO', params).then(function (res) {
                     //注册成功！ 
                     alert("Registration is successful!");
-                    this.username = this.mobile;
+                    this.username = this.mail;
                     this.password = this.password1;
                     this.changeForm('loginFlag');
                 }.bind(this), function (error) {
