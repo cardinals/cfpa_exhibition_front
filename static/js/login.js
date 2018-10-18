@@ -98,7 +98,15 @@ var vm = new Vue({
     created: function () {
         axios.get('/xfxhapi/shiro').then(function (res) {
             if (res.data != null && res.data.username != null && res.data.username != "") {
-                window.location.href = "../templates/prediction/exhprediction_all.html";
+                var hrefUrl = "";
+                if(res.data.deptid == "GLYH"){
+                    hrefUrl = "../templates/all.html"
+                }else if(res.data.deptid == "ZSYH"){
+                    hrefUrl = "../templates/prediction/exhprediction_all.html";
+                }else{
+                    hrefUrl = "../templates/login.html";
+                }
+                window.location.href = hrefUrl;
             }
         }.bind(this), function (error) {
             console.log(error);
