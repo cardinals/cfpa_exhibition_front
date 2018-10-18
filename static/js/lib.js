@@ -165,7 +165,7 @@ window.loadDiv = function(loadUrl){
         cache: true,
         async: true,
         success: function (html) {
-            $("#component").append(html);
+            $("#component").html(html);
         }
     });
 }
@@ -190,7 +190,7 @@ window.loadDivParam = function(loadUrl, params){
         cache: true,
         async: true,
         success: function (html) {
-            $("#component").append(html);
+            $("#component").html(html);
         }
     });
 }
