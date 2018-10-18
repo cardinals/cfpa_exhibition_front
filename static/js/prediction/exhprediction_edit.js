@@ -1215,7 +1215,7 @@ var vm = new Vue({
                 return false;
             } else {
                 //查询邮箱是否注册
-                axios.get('/xfxhapi/signin/getMailNum/' + this.baseInforForm.dzyx1.replace(".", "_")).then(function (res) {
+                axios.get('/zhapi/qyjbxx/getMailNum/' + this.baseInforForm.dzyx1.replace(".", "_")).then(function (res) {
                     if (res.data.result == 0) {
                         this.mailCodeText = "发送中...";
                         $('#mail-btn').attr('disabled', 'disabled');

@@ -274,21 +274,21 @@
                         <el-row class="tr mb5">
                             <el-col :span="20">
                                 <el-form-item prop="fmzl" label="发明专利(项)">
-                                    <el-input-number v-model="wjdcForm.fmzl" size="small" :min="0" onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode)))" label="发明专利(项)"></el-input-number>
+                                    <el-input-number v-model="wjdcForm.fmzl" size="small" :min="0" :precision="0" label="发明专利(项)"></el-input-number>
                                 </el-form-item>
 							</el-col>
                         </el-row>
                         <el-row class="tr mb5">
                             <el-col :span="20">
                                 <el-form-item prop="syxxzl" label="实用新型专利(项)">
-								    <el-input-number v-model="wjdcForm.syxxzl" size="small" :min="0" onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode)))" label="实用新型专利(项)"></el-input-number>
+								    <el-input-number v-model="wjdcForm.syxxzl" size="small" :min="0" :precision="0" label="实用新型专利(项)"></el-input-number>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row class="tr mb5">
                             <el-col :span="20">
                                 <el-form-item prop="wgsjzl" label="外观设计专利(项)">
-                                    <el-input-number v-model="wjdcForm.wgsjzl" size="small" :min="0" onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode)))" label="外观设计专利(项)"></el-input-number>
+                                    <el-input-number v-model="wjdcForm.wgsjzl" size="small" :min="0" :precision="0" label="外观设计专利(项)"></el-input-number>
                                 </el-form-item>
 							</el-col>
                         </el-row>
@@ -416,7 +416,7 @@
 							<strong style="color: #463132;">产品介绍</strong>
                         </el-col>
                         <el-col :span="12" class="pb1">
-							<el-button type="primary" icon="el-icon-plus" size="small" class="r" style="line-height:1.5" @click="addDomain"></el-button>
+							<el-button type="primary" icon="el-icon-plus" size="small" class="r" @click="addDomain"></el-button>
 						</el-col>
                     </el-row>
                     <el-row class="mt10 mb20" style="overflow-x: hidden">
@@ -425,7 +425,7 @@
                                 <el-card class="card_style">
                                     <div slot="header" class="clearfix">
                                         <strong class="card_title_font"><span style="color:red;">* </span>产品{{index+1}}</strong>
-                                        <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 3px -20px 0px;line-height:1.5"></el-button>
+                                        <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 3px -20px 0px"></el-button>
                                     </div>
                                     <el-row class="tr">
                                         <el-col :span="11">
@@ -487,7 +487,7 @@
                                 <el-label class="mr5 vbm">标准展位(每个12 平方米)</el-label>
                             </el-col>
                             <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                <el-input-number size="small" v-model="xqyxForm.bzzwgs" :min="0" :max="6" onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode)))" placeholder="标准展位"></el-input-number>
+                                <el-input-number size="small" v-model="xqyxForm.bzzwgs" :min="0" :max="6" :precision="0" placeholder="标准展位"></el-input-number>
                             </el-col>
                             <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2" style="text-align: left">
                                 <el-label class="mr5 vbm">&nbsp;&nbsp;个</el-label>
@@ -498,7 +498,7 @@
                                 <el-label class="mr5 vbm">室内光地展位（需要特装搭建，24平方米起）</el-label>
                             </el-col>
                             <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                <el-input-number size="small" v-model="xqyxForm.sngdzw" :min="24" :max="1000" onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode)))" placeholder="室内光地展位"></el-input-number>
+                                <el-input-number size="small" v-model="xqyxForm.sngdzw" :min="24" :max="1000" :precision="0" placeholder="室内光地展位"></el-input-number>
                             </el-col>
                             <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2"style="text-align: left">
                                 <el-label class="mr5 vbm">&nbsp;&nbsp;平方米</el-label>
@@ -509,7 +509,7 @@
                                 <el-label class="mr5 vbm">室外光地展位（仅限消防车类）</el-label>
                             </el-col>
                             <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                <el-input-number size="small" v-model="xqyxForm.swgdzw" :min="0" :max="2000" onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode)))" placeholder="室外光地展位"></el-input-number>
+                                <el-input-number size="small" v-model="xqyxForm.swgdzw" :min="0" :max="2000" :precision="0" placeholder="室外光地展位"></el-input-number>
                             </el-col>
                             <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2" style="text-align: left">
                                 <el-label class="mr5 vbm">&nbsp;&nbsp;平方米</el-label>

@@ -63,3 +63,6 @@ input[type=file] {
 .el-dialog{
     width: 45%;
 }
+.el-button--small{
+    padding: 9px 9px;
+}
