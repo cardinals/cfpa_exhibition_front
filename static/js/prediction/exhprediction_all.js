@@ -20,7 +20,7 @@ $(function () {
             }
             vm.userForm.userid = res.data.userid;
             vm.userForm.usernameWord = res.data.username;
-            vm.userForm.passwordWord = "000000";
+            vm.userForm.passwordWord = "admin123";
             document.querySelector("#realname").innerHTML = realname;
         } else {
             window.location.href = "/templates/login.html";
@@ -51,8 +51,8 @@ var vm = new Vue({
                 passwordWord: "",//仅用于显示
                 userid: "",
                 username: "",
-                password: "",
-                passwordAgain: "",
+                password: "admin123",
+                passwordAgain: "admin123",
                 messageCode: "",
                 messageCodeReal: "",
                 messageCodeText: "获取验证码",
@@ -128,6 +128,7 @@ var vm = new Vue({
                 this.userForm.passwordFlag = true;
                 this.userForm.passwordText = "取消";
                 this.userForm.password = "";
+                this.userForm.passwordAgain = "";
             } else if (this.userForm.passwordFlag == true) {
                 this.userForm.passwordFlag = false;
                 this.userForm.passwordText = "修改";
@@ -174,13 +175,24 @@ var vm = new Vue({
 
         },
         register: function () {
+            if(!this.userForm.usernameFlag && !this.userForm.passwordFlag){
+                this.$message({
+                    showClose: true,
+                    message: '用户名密码未修改！',
+                    type: 'warning'
+                });
+                return;
+            }
             this.$refs["userForm"].validate((valid) => {
                 if (valid) {
-                    debugger;
                     var params = {
-                        userid: this.userForm.userid,
-                        username: this.userForm.username,
-                        password: this.userForm.password,
+                        userid: this.userForm.userid
+                    }
+                    if(!this.usernameFlag){
+                        params.username = this.userForm.username;
+                    }
+                    if(!this.passwordFlag){
+                        params.password = this.userForm.password;
                     }
                     axios.post('/xfxhapi/account/updateByVO', params).then(function (res) {
                         var result = res.data.result;
