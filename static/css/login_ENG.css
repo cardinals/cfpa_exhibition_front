@@ -61,7 +61,7 @@ body,html{ width:100%; height:100%;}
         padding: 0px;
     }
 .Login_n{ width:345px; height:390px; margin:0px;}
-.Login_nTop{height:65px; line-height:65px; font-size:20px;padding-top:15px ; padding-left:20px; padding-right:20px;color:#c0c0c0}
+.Login_nTop{height:65px; line-height:65px; font-size:20px;padding-top:15px ; padding-left:30px; padding-right:20px;color:#c0c0c0}
 .Login_nTop img{position: relative;top: 7px;right: 5px;}
 .Login_nTop span{font-size: 18px;cursor: pointer;}
 .Login_nTop .current{color: #EA2530;}
