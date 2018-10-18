@@ -3,7 +3,6 @@ var vm = new Vue({
     data: {
         //form标识
         loginFlag: true,
-        GLYloginFlag: true,
         regFlag: false,
         FUAFlag: false,
         FUBFlag: false,
@@ -11,7 +10,6 @@ var vm = new Vue({
         FPBFlag: false,
         FPCFlag: false,
         FPDFlag: false,
-        REAFlag: "",
         formFlag: "loginFlag",
         //登录
         username: "",
@@ -36,13 +34,20 @@ var vm = new Vue({
         mobile: "",
         messageCode: "",
         messageCodeReal: "",
+
+        mail: "",
+        mailCode: "",
+        mailCodeReal: "",
+        mailCodeText: "Get Verification Code",
         //获取验证码 
-        messageCodeText: "Get Verification Code",
+        // messageCodeText: "Get Verification Code",
         password1: "",
         password2: "",
         //注册校验标识
-        mobileAlertFlag: false,
-        messageCodeAlertFlag: false,
+        // mobileAlertFlag: false,
+        mailAlertFlag: false,
+        // messageCodeAlertFlag: false,
+        mailCodeAlertFlag: false,
         password1TipFlag: false,
         password1AlertFlag: false,
         password2AlertFlag: false,
@@ -78,23 +83,6 @@ var vm = new Vue({
         FPDpassword1TipFlag: false,
         FPDpassword1AlertFlag: false,
         FPDpassword2AlertFlag: false,
-        //重置账户
-        REAcompanyName: "",
-        REAunscid: "",
-        REAtimer: null,
-        REAmobile: "",
-        REAmessageCode: "",
-        REAmessageCodeReal: "",
-        REAmessageCodeText: "Get Verification Code",
-        REApassword1: "",
-        REApassword2: "",
-        REAregisterData: "",
-        //重置校验标识
-        REAmobileAlertFlag: false,
-        REAmessageCodeAlertFlag: false,
-        REApassword1TipFlag: false,
-        REApassword1AlertFlag: false,
-        REApassword2AlertFlag: false,
     },
     created: function () {
         axios.get('/xfxhapi/shiro').then(function (res) {
@@ -145,38 +133,15 @@ var vm = new Vue({
                 this.FPBmailCodeReal = "";
                 this.FPBmailCodeText = "Get Verification Code";
                 this.FPBtimer = null;
-            } else if (flag == 'FPCFlag') {
-                this.FPCmobile = "";
-                this.FPCmessageCode = "";
-                this.FPCmessageCodeReal = "";
-                this.FPCmessageCodeText = "Get Verification Code";
-                this.FPCtimer = null;
             } else if (flag == 'FPDFlag') {
                 this.FPDusername = "";
                 this.FPDpassword1 = "";
                 this.FPDpassword2 = "";
-            } else if (flag == 'REAAFlag') {
-                this.REAcompanyName = "";
-                this.REAunscid = "";
-            } else if (flag == 'REABFlag') {
-                this.REAmobile = "";
-                this.REAmessageCode = "";
-                this.REAmessageCodeReal = "";
-                this.REAmessageCodeText = "Get Verification Code";
-                this.REApassword1 = "";
-                this.REApassword2 = "";
-                this.REAmobileAlertFlag = false;
-                this.REAmessageCodeAlertFlag = false;
-                this.REApassword1TipFlag = false;
-                this.REApassword1AlertFlag = false;
-                this.REApassword2AlertFlag = false;
             } else if (flag == 'bakFlag') {
-                if(this.formFlag !== 'FPAFlag'){
-                    // 未保存的数据将丢失，确定返回吗？
-                    var r = confirm("Unsaved data will be lost. Do you want to return?");
-                    if (r == false) {
-                        return;
-                    }
+                // 未保存的数据将丢失，确定返回吗？
+                var r = confirm("Unsaved data will be lost. Do you want to return?");
+                if (r == false) {
+                    return;
                 }
             }
             this.formFlag = flag;
@@ -196,75 +161,45 @@ var vm = new Vue({
                 $('#login-form').submit();
             }
         },
-        nlogin: function () {
-            var reg = /^[0-9a-zA-Z]{18}$/;
-            if (this.unscid == null || this.unscid == '') {
-                alert("统一社会信用代码不能为空！")
-            }
-            // else if(!reg.test(this.unscid)){
-            //     alert("统一社会信用代码为18位字母或数字！")
-            // }
-            else {
-                $('#login-form').submit();
-                // window.location.href = "jxcsplan/jxcsplan_all.html?unscid=" + this.unscid;
-            }
-
-        },
-        GLYlogin: function () {
-            if (this.GLYusername == null || this.GLYusername == '') {
-                alert("User name can not be empty!")
-            } else if (this.GLYpassword == null || this.GLYpassword == '') {
-                alert("The password can not be empty!")
-            } else if (this.GLYvalidateCode == null || this.GLYvalidateCode == '') {
-                alert("The verification code can not be empty!")
-            } else {
-                $('#GLYlogin-form').submit();
-            }
-        },
         reloadCode: function () {
             $('#checkCode').attr('src', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
         },
-        //管理员登录
-        reloadGLYCode: function () {
-            $('#GLYcheckCode').attr('src', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
-        },
         //注册
-        mobileCheck: function () {
-            if (!(/^1[34578]\d{9}$/.test(this.mobile))) {
-                this.mobileAlertFlag = true;
+        mailCheck: function () {
+            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.mail))) {
+                // 邮箱格式不正确
+                this.mailAlertFlag = true;
                 return false;
             } else {
-                this.mobileAlertFlag = false;
+                this.mailAlertFlag = false;
                 return true;
             }
         },
-        getMessageCode: function () {
-            this.messageCode = "";
-            if (this.mobileCheck()) {
-                //发送中
-                this.messageCodeText = "Sending...";
-                $('#mobile-btn').attr('disabled', 'disabled');
-                axios.get('/xfxhapi/signin/getMobileNum/' + this.mobile).then(function (res) {
+        getMailCode: function () {
+            this.mailCode = "";
+            if (this.mailCheck()) {
+                this.mailCodeText = "Sending...";
+                $('#mail-btn').attr('disabled', 'disabled');
+                axios.get('/xfxhapi/signin/getMailNumENG/' + this.mail.replace(".", "_")).then(function (res) {
                     if (res.data.result != 0) {
-                        // 用户名已存在！
-                        alert("User name already exists!");
-                        this.messageCodeText = "Get Verification Code";
-                        $('#mobile-btn').removeAttr("disabled");
+                        // 该邮箱已注册！
+                        alert("The email is registered!");
+                        this.mailCodeText = "Get Verification Code";
+                        $('#mail-btn').removeAttr("disabled");
                     } else {
-                        axios.get('/xfxhapi/signin/sendMessage?phone=' + this.mobile).then(function (res) {
-                            this.messageCodeReal = res.data.msg;
+                        axios.get('/xfxhapi/signin/sendMail?mail=' + this.mail).then(function (res) {
+                            this.mailCodeReal = res.data.msg;
                             var count = this.time;
                             this.timer = setInterval(() => {
                                 if (count == 0) {
                                     clearInterval(this.timer);
                                     this.timer = null;
-                                    this.messageCodeText = "Get Verification Code";
-                                    $('#mobile-btn').removeAttr("disabled");
+                                    this.mailCodeText = "Get Verification Code";
+                                    $('#mail-btn').removeAttr("disabled");
                                 } else {
-                                    // 秒后获取
-                                    this.messageCodeText = count + "seconds later"
+                                    this.mailCodeText = count + "seconds later"
                                     count--;
-                                    $('#mobile-btn').attr('disabled', 'disabled');
+                                    $('#mail-btn').attr('disabled', 'disabled');
                                 }
                             }, 1000)
                         }.bind(this), function (error) {
@@ -272,16 +207,16 @@ var vm = new Vue({
                         });
                     }
                 }.bind(this), function (error) {
-                    console.log(error)
-                })
+                    console.log(error);
+                });
             }
         },
-        messageCodeCheck: function () {
-            if (!(/^[0-9a-zA-Z]{6}$/.test(this.messageCode))) {
-                this.messageCodeAlertFlag = true;
+        mailCodeCheck: function () {
+            if (!(/^[0-9a-zA-Z]{6}$/.test(this.mailCode))) {
+                this.mailCodeAlertFlag = true;
                 return false;
             } else {
-                this.messageCodeAlertFlag = false;
+                this.mailCodeAlertFlag = false;
                 return true;
             }
         },
@@ -310,20 +245,20 @@ var vm = new Vue({
             }
         },
         register: function () {
-            this.mobileCheck();
-            this.messageCodeCheck();
+            this.mailCheck();
+            this.mailCodeCheck();
             this.password1Check();
             this.password2Check();
-            if (this.mobileCheck() && this.messageCodeCheck() && this.password1Check() && this.password2Check() && this.messageCode == this.messageCodeReal) {
+            if (this.mailCheck() && this.mailCodeCheck() && this.password1Check() && this.password2Check() && this.messageCode == this.messageCodeReal) {
 
                 var params = {
-                    username: this.mobile,
+                    username: this.mail,
                     password: this.password1,
                     usertype: "ENG",
                     deptid: "ZSYH"
                 }
                 axios.post('/xfxhapi/signin/insertByVO', params).then(function (res) {
-                //注册成功！ 
+                    //注册成功！ 
                     alert("Registration is successful!");
                     this.username = this.mobile;
                     this.password = this.password1;
@@ -337,7 +272,7 @@ var vm = new Vue({
         FUmailCheck: function () {
             if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.FUmail))) {
                 // 邮箱格式不正确
-                alert("The mailbox format is not correct");
+                alert("The email format is not correct");
                 return false;
             } else {
                 return true;
@@ -351,7 +286,7 @@ var vm = new Vue({
                 axios.get('/xfxhapi/signin/getMailNum/' + this.FUmail.replace(".", "_")).then(function (res) {
                     if (res.data.result == 0) {
                         // 该邮箱未注册！
-                        alert("The mailbox is not registered!");
+                        alert("The email is not registered!");
                         this.FUmailCodeText = "Get Verification Code";
                         $('#FUmail-btn').removeAttr("disabled");
                     } else if (res.data.result == 1) {
@@ -381,14 +316,14 @@ var vm = new Vue({
         },
         FUIdentify: function () {
             if (this.FUmail == null || this.FUmail == '') {
-                alert("The mailbox can not be empty!")
+                alert("The email can not be empty!")
             } else if (this.FUmailCode == null || this.FUmailCode == '') {
                 alert("The verification code can not be empty!")
             } else {
                 if (this.FUmailCode == this.FUmailCodeReal) {
                     axios.get('/xfxhapi/signin/getMailNum/' + this.FUmail.replace(".", "_")).then(function (res) {
                         if (res.data.result == 0) {
-                            alert("The mailbox is not registered!");
+                            alert("The email is not registered!");
                         } else if (res.data.result == 1) {
                             axios.get('/xfxhapi/signin/getUsernameByMail/' + this.FUmail.replace(".", "_")).then(function (res) {
                                 alert("User name back to success!");
@@ -450,36 +385,11 @@ var vm = new Vue({
         },
         //
         //忘记密码
-        //A
-        REAIdentify: function () {
-            if (this.REAcompanyName == null || this.REAcompanyName == '') {
-                alert("单位名称不能为空！")
-            } else if (this.REAunscid == null || this.REAunscid == '') {
-                alert("统一社会信用代码不能为空！")
-            } else {
-                var params = {
-                    unscid: this.REAunscid,
-                    companyname: this.REAcompanyName
-                }
-                axios.post('/xfxhapi/signin/findByUnscid/', params).then(function (res) {
-                    this.REAregisterData = res.data.result;
-                    if (this.REAregisterData.length == 0) {
-                        alert("无记录，请重新输入！");
-                    }
-                    else {
-                        this.changeForm('REABFlag');
-                        this.REAmobile = this.REAregisterData[0].username;
-                    }
-                }.bind(this), function (error) {
-                    console.log(error);
-                });
-            }
-        },
         //B
         FPBmailCheck: function () {
             if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.FPBmail))) {
                 //邮箱格式不正确
-                alert("The mailbox format is not correct");
+                alert("The email format is not correct");
                 return false;
             } else {
                 return true;
@@ -493,7 +403,7 @@ var vm = new Vue({
                 axios.get('/xfxhapi/signin/getMailNum/' + this.FPBmail.replace(".", "_")).then(function (res) {
                     if (res.data.result == 0) {
                         //该邮箱未注册！
-                        alert("The mailbox is not registered!");
+                        alert("The email is not registered!");
                         this.FPBmailCodeText = "Get Verification Code";
                         $('#FPBmail-btn').removeAttr("disabled");
                     } else if (res.data.result == 1) {
@@ -524,7 +434,7 @@ var vm = new Vue({
         FPBIdentify: function () {
             if (this.FPBmail == null || this.FPBmail == '') {
                 // 邮箱不能为空！
-                alert("The mailbox can not be empty!")
+                alert("The email can not be empty!")
             } else if (this.FPBmailCode == null || this.FPBmailCode == '') {
                 //验证码不能为空!
                 alert("The verification code can not be empty!")
@@ -542,75 +452,6 @@ var vm = new Vue({
                 } else {
                     //验证码输入错误，请核对后再试
                     alert("Verification code input error, please check and try again.");
-                }
-            }
-        },
-        //C
-        FPCmobileCheck: function () {
-            if (this.FPCmobile == null || this.FPCmobile == '') {
-                alert("手机号不能为空！")
-                return false;
-            } else if (!(/^1[34578]\d{9}$/.test(this.FPCmobile))) {
-                alert("请填写正确的手机号码！")
-                return false;
-            } else {
-                return true;
-            }
-        },
-        getFPCMessageCode: function () {
-            this.FPCmessageCode = "";
-            if (this.FPCmobileCheck()) {
-                this.FPCmessageCodeText = "Sending...";
-                $('#FPCmobile-btn').attr('disabled', 'disabled');
-                axios.get('/xfxhapi/signin/getMobileNum/' + this.FPCmobile).then(function (res) {
-                    if (res.data.result == 0) {
-                        //用户名不存在！
-                        alert("User name does not exist!");
-                        this.FPCmessageCodeText = "Get Verification Code";
-                        $('#FPCmobile-btn').removeAttr("disabled");
-                    } else {
-                        axios.get('/xfxhapi/signin/sendMessage?phone=' + this.FPCmobile).then(function (res) {
-                            this.FPCmessageCodeReal = res.data.msg;
-                            var count = this.time;
-                            this.FPCtimer = setInterval(() => {
-                                if (count == 0) {
-                                    clearInterval(this.FPCtimer);
-                                    this.FPCtimer = null;
-                                    this.FPCmessageCodeText = "Get Verification Code";
-                                    $('#FPCmobile-btn').removeAttr("disabled");
-                                } else {
-                                    this.FPCmessageCodeText = count + "seconds later"
-                                    count--;
-                                    $('#FPCmobile-btn').attr('disabled', 'disabled');
-                                }
-                            }, 1000)
-                        }.bind(this), function (error) {
-                            console.log(error);
-                        });
-                    }
-                }.bind(this), function (error) {
-                    console.log(error);
-                });
-            }
-        },
-        FPCIdentify: function () {
-            if (this.FPCmobile == null || this.FPCmobile == '') {
-                alert("手机号不能为空！")
-            } else if (this.FPCmessageCode == null || this.FPCmessageCode == '') {
-                alert("The verification code can not be empty!")
-            } else {
-                if (this.FPCmessageCode == this.FPCmessageCodeReal) {
-                    axios.get('/xfxhapi/signin/findByPhone/' + this.FPCmobile).then(function (res) {
-                        this.changeForm('FPDFlag');
-                        this.FPDregisterData = res.data.result;
-                        this.FPDusername = this.FPDregisterData[0].username;
-                        $(FPDusername).attr('disabled', 'disabled');
-                        // alert("请输入新密码！");
-                    }.bind(this), function (error) {
-                        console.log(error);
-                    });
-                } else {
-                    alert("验证码输入错误，请核对后再试");
                 }
             }
         },
@@ -650,102 +491,10 @@ var vm = new Vue({
                 }
                 axios.post('/xfxhapi/signin/updateByVO', params).then(function (res) {
                     if (res.data.result == 1) {
-                    //密码修改成功！
+                        //密码修改成功！
                         alert("Password changed successfully!");
                         this.username = this.FPDusername;
                         this.password = this.FPDpassword1;
-                        this.changeForm('loginFlag');
-                    }
-                }.bind(this), function (error) {
-                    console.log(error)
-                })
-            }
-        },
-        //重置账户
-        REAmobileCheck: function () {
-            if (!(/^1[34578]\d{9}$/.test(this.REAmobile))) {
-                this.REAmobileAlertFlag = true;
-                return false;
-            } else {
-                this.REAmobileAlertFlag = false;
-                return true;
-            }
-        },
-        getREAMessageCode: function () {
-            this.REAmessageCode = "";
-            if (this.REAmobileCheck()) {
-                this.REAmessageCodeText = "Sending...";
-                $('#REAmobile-btn').attr('disabled', 'disabled');
-                axios.get('/xfxhapi/signin/sendMessage?phone=' + this.REAmobile).then(function (res) {
-                    this.REAmessageCodeReal = res.data.msg;
-                    var count = this.time;
-                    this.REAtimer = setInterval(() => {
-                        if (count == 0) {
-                            clearInterval(this.REAtimer);
-                            this.REAtimer = null;
-                            this.REAmessageCodeText = "Get Verification Code";
-                            $('#REAmobile-btn').removeAttr("disabled");
-                        } else {
-                            this.REAmessageCodeText = count + "seconds later"
-                            count--;
-                            $('#REAmobile-btn').attr('disabled', 'disabled');
-                        }
-                    }, 1000)
-                }.bind(this), function (error) {
-                    console.log(error);
-                });
-            }
-        },
-        REAmessageCodeCheck: function () {
-            if (!(/^[0-9a-zA-Z]{6}$/.test(this.REAmessageCode))) {
-                this.REAmessageCodeAlertFlag = true;
-                return false;
-            } else {
-                this.REAmessageCodeAlertFlag = false;
-                return true;
-            }
-        },
-        REApassword1Check: function () {
-            if (!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/.test(this.password1))) {
-                this.REApassword1TipFlag = false;
-                this.REApassword1AlertFlag = true;
-                return false;
-            } else {
-                this.REApassword1TipFlag = false;
-                this.REApassword1AlertFlag = false;
-                return true;
-            }
-        },
-        REApassword1Tip: function () {
-            this.REApassword1TipFlag = true;
-            this.REApassword1AlertFlag = false;
-        },
-        REApassword2Check: function () {
-            if (this.REApassword1 !== this.REApassword2) {
-                this.REApassword2AlertFlag = true;
-                return false;
-            } else {
-                this.REApassword2AlertFlag = false;
-                return true;
-            }
-        },
-        REAregister: function () {
-            this.REAmobileCheck();
-            this.REAmessageCodeCheck();
-            this.REApassword1Check();
-            this.REApassword2Check();
-            if (this.REAmobileCheck() && this.REAmessageCodeCheck() && this.REApassword1Check() && this.REApassword2Check() && this.REAmessageCode == this.REAmessageCodeReal) {
-                var params = {
-                    userid: this.REAregisterData[0].userid,
-                    username: this.REAmobile,
-                    password: this.REApassword1,
-                }
-                axios.post('/xfxhapi/signin/updateByVO', params).then(function (res) {
-                    if (res.data.result == 1) {
-
-                        alert("Reset successfully!");
-                        this.username = this.REAmobile;
-                        this.password = this.REApassword1;
                         this.changeForm('loginFlag');
                     }
                 }.bind(this), function (error) {
