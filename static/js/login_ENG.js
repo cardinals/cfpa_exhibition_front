@@ -99,7 +99,7 @@ var vm = new Vue({
     created: function () {
         axios.get('/xfxhapi/shiro').then(function (res) {
             if (res.data != null && res.data.username != null && res.data.username != "") {
-                window.location.href = "../templates/all.html";
+                window.location.href = "../templates/prediction/exhprediction_all_ENG.html";
             }
         }.bind(this), function (error) {
             console.log(error);
