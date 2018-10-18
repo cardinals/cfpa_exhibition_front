@@ -2,8 +2,7 @@
     width: 100% !important;
 }
 #cpjsImg img{
-    /* min-height:80px; */
-    max-height:100px;
+    max-height: 100%;
     max-width: 100%;
 }
 .el-form-item:nth-child(even){
@@ -27,4 +26,7 @@
     margin-bottom: 15px;
     font-size: 13px;
     font-weight: bold;
+}
+.el-card__body {
+    height: 106px;
 }

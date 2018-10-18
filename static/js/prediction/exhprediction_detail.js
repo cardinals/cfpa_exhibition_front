@@ -129,9 +129,14 @@ new Vue({
         //企业问卷调查
         getWjdcData: function (val) {
             axios.get('/zhapi/qywjdc/' + val).then(function (res) {
-                this.wjdcData = res.data.result;
-                if (this.wjdcData == null) {
-                    this.wjdcData = {};
+                if (res.data.result != null) {
+                    this.wjdcData = res.data.result;
+                    var tempList = this.wjdcData.reserve1.split(",");
+                    var zycp = '';
+                    for (var i in tempList) {
+                        zycp = zycp + tempList[i].substr(4) + '、';
+                    }
+                    this.wjdcData.zycp = zycp.substr(0,zycp.length - 1);
                 }
             }.bind(this), function (error) {
                 console.log(error)
