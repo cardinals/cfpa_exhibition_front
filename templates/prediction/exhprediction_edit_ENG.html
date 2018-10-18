@@ -23,9 +23,9 @@
                 </div>
                 <!--基本信息-->
 				<div id="inforView" class="pt15" v-show="isJbxxShow">
-					<el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
+					<el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
 						<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-							<strong style="color: #e40613;">基本信息</strong>
+							<strong style="color: #463132;">基本信息</strong>
 						</el-col>
 					</el-row>
 					<el-form :inline="true" class="el-form demo-form-inline" ref="baseInforForm" :model="baseInforForm" label-position="right" :rules="baseInforRules">
@@ -45,13 +45,14 @@
                         </el-row>
                         <el-row class="tr mb5">
                             <el-col :span="11">
-                                <el-form-item prop="xzqh" label="邮寄地址">
+                                <el-form-item prop="xzqh" label="邮寄地址（省市）">
                                     <el-cascader id="ShengShiCascader" :options="xzqhDataTree" :props="defaultProps" size="small" v-model="baseInforForm.xzqh" placeholder="省/市" class="searchSelect"
                                             clearable show-all-levels></el-cascader>
                                 </el-form-item>
                             </el-col>
-							<el-col :span="12" style="text-align: left;margin-left: 10px;overflow-x:hidden">
-                                <el-form-item prop="yjdzxx" style="width: 140%">
+                            <el-col :span="1">&nbsp;</el-col>
+							<el-col :span="11">
+                                <el-form-item prop="yjdzxx" label="邮寄详细地址">
                                     <el-input size="small" v-model="baseInforForm.yjdzxx" placeholder="详细地址"></el-input>
                                 </el-form-item>
 							</el-col>
@@ -115,20 +116,23 @@
 							</el-col>
 							<el-col :span="1">&nbsp;</el-col>
                         </el-row>
-                        <el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
+                        <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
                             <el-col :span="24">
-                                <strong style="color: #e40613;">营业执照</strong>
+                                <strong style="color: #463132;">营业执照</strong>
                             </el-col>
                         </el-row>
                         <el-row>
                             <el-col :span="11">
-                                <el-upload class="avatar-uploader" ref="uploadPics" action="/zhapi/qyjbxx/upload" 
-                                        :data="upLoadData" :on-preview="handlePreview"
-                                        :on-success="picSuccess" 
+                                <el-upload
+                                        class="avatar-uploader"
+                                        ref="uploadPics"
+                                        action="/zhapi/qyjbxx/upload"
+                                        :data="upLoadData"
+                                        :on-success="picSuccess"
                                         :on-change="PicChange"
+                                        :auto-upload="false"
                                         :show-file-list="false"
-                                        :file-list="fileList"
-                                        :limit="1" :auto-upload="false">
+                                        >
                                     <img v-if="baseInforForm.yyzzBase64!==''" :src="baseInforForm.yyzzBase64" class="avatar">
                                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                 </el-upload>
@@ -148,9 +152,9 @@
                 </div>
                 <!--企业开票信息-->
                 <div id="kpxxView" class="pt15" v-show="isKpxxShow">
-                    <el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
+                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
 						<el-col :span="24">
-							<strong style="color: #e40613;">企业开票信息</strong>
+							<strong style="color: #463132;">企业开票信息</strong>
                         </el-col>
                     </el-row>
                     <el-form :inline="true" class="el-form demo-form-inline" ref="kpxxForm" :model="kpxxForm" label-position="right" :rules="kpxxRules">
@@ -235,14 +239,14 @@
                 </div>
                 <!--企业问卷调查-->
                 <div id="wjdcView" class="pt15" v-show="isWjdcShow">
-                    <el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
+                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
 						<el-col :span="24">
-							<strong style="color: #e40613;">企业问卷调查</strong>
+							<strong style="color: #463132;">企业问卷调查</strong>
 						</el-col>
                     </el-row>
                     <el-form :inline="true" class="el-form demo-form-inline" ref="wjdcForm" :model="wjdcForm" label-position="right" :rules="wjdcRules">
                         <el-row class="tr mb5">
-                            <el-col :span="24">
+                            <el-col :span="20">
                                 <el-form-item prop="gsxz" label="公司性质" style="text-align: left">
                                     <el-radio-group v-model="wjdcForm.gsxz" size="small" auto-complete="off">
                                         <el-radio v-for="item in gsxz_data" :label="item.codeValue" class="radio"><v-text v-text="item.codeName"></v-text></el-radio>
@@ -251,7 +255,7 @@
                             </el-col>
                         </el-row>
                         <el-row class="tr mb5">
-                            <el-col :span="24">
+                            <el-col :span="20">
                                 <el-form-item prop="sfhwdlcp" label="是否代理海外产品" style="text-align: left"> 
                                     <el-radio-group v-model="wjdcForm.sfhwdlcp" size="small" auto-complete="off" @change="sfhwdlcpChange()">
                                         <el-radio class="radio" :label="'1'">是</el-radio>
@@ -261,35 +265,35 @@
                             </el-col>
                         </el-row>
                         <el-row class="tr mb5" v-show="ishwdlcp">
-                            <el-col :span="24">
+                            <el-col :span="20">
                                 <el-form-item prop="hwdlcppp" label="代理海外产品品牌" :rules="this.ishwdlcp?wjdcRules.hwdlcppp:[{ required: false, message: '请输入产品品牌', trigger: 'blur' }]">
                                     <el-input size="small" v-model="wjdcForm.hwdlcppp" placeholder="代理海外产品品牌"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row class="tr mb5">
-                            <el-col :span="24">
+                            <el-col :span="20">
                                 <el-form-item prop="fmzl" label="发明专利(项)">
-                                    <el-input-number v-model="wjdcForm.fmzl" size="small" :min="0" label="发明专利(项)"></el-input-number>
+                                    <el-input-number v-model="wjdcForm.fmzl" size="small" :min="0" :precision="0" label="发明专利(项)"></el-input-number>
                                 </el-form-item>
 							</el-col>
                         </el-row>
                         <el-row class="tr mb5">
-                            <el-col :span="24">
+                            <el-col :span="20">
                                 <el-form-item prop="syxxzl" label="实用新型专利(项)">
-								    <el-input-number v-model="wjdcForm.syxxzl" size="small" :min="0" label="实用新型专利(项)"></el-input-number>
+								    <el-input-number v-model="wjdcForm.syxxzl" size="small" :min="0" :precision="0" label="实用新型专利(项)"></el-input-number>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row class="tr mb5">
-                            <el-col :span="24">
+                            <el-col :span="20">
                                 <el-form-item prop="wgsjzl" label="外观设计专利(项)">
-                                    <el-input-number v-model="wjdcForm.wgsjzl" size="small" :min="0" label="外观设计专利(项)"></el-input-number>
+                                    <el-input-number v-model="wjdcForm.wgsjzl" size="small" :min="0" :precision="0" label="外观设计专利(项)"></el-input-number>
                                 </el-form-item>
 							</el-col>
                         </el-row>
                         <el-row class="tr mb5">
-                            <el-col :span="24">
+                            <el-col :span="20">
                                 <el-form-item prop="sfgxjsqy" label="是否为高新技术企业" style="text-align: left">
                                     <el-radio-group v-model="wjdcForm.sfgxjsqy" size="small" auto-complete="off" @change="sfgxjsqyChange()">
                                         <el-radio class="radio" :label="'1'">是</el-radio>
@@ -299,7 +303,7 @@
                             </el-col>
                         </el-row>
                         <el-row class="tr mb5" v-show="isgxjsqy">
-                            <el-col :span="24">
+                            <el-col :span="20">
                                 <el-form-item label="企业高新技术级别" prop="gxjsjb" :rules="this.isgxjsqy?wjdcRules.gxjsjb:[{ required: false, message: '请选择企业高新技术级别', trigger: 'blur' }]" style="text-align: left">
                                     <el-radio-group v-model="wjdcForm.gxjsjb" size="small" auto-complete="off">
                                         <el-radio v-for="item in gxjsjb_data" :label="item.codeValue" class="radio"><v-text v-text="item.codeName"></v-text></el-radio>
@@ -309,7 +313,7 @@
                         </el-row>
                         
                         <el-row class="tr mb5">
-                            <el-col :span="24" style="text-align:left">
+                            <el-col :span="20" style="text-align:left">
                                 <el-row id="tagRow" class="tr mb5">
                                     <el-col :span="17" style="text-align: left;margin-left: 30%">
                                             <el-tag v-for="tag in wjdcForm.zycpList" :key="tag" closable @close="handleTagClose(tag)" style="margin: 3px">
@@ -330,15 +334,19 @@
                                 -->
                             </el-col>
                         </el-row>
-                        <el-row id="childrenRow" class="tr mb5">
-                            <el-col :span="17" style="text-align: left;margin-left: 30%">
-                                <el-checkbox-group v-model="wjdcForm.zycpList">
-                                    <el-checkbox v-for="item in childrenCpfl" :label="item.codeValue+item.codeName" :key="item.codeValue+item.codeName" @change="test">{{item.codeName}}</el-checkbox>
-                                </el-checkbox-group>
+                        <el-row id="childrenRow" class="tr mb5" style="text-align:left">
+                            <el-col :span="20" style="text-align: left;">
+                                <el-row id="tagRow" class="tr mb5">
+                                    <el-col :span="17" style="text-align: left;margin-left: 30%">
+                                        <el-checkbox-group v-model="wjdcForm.zycpList">
+                                            <el-checkbox v-for="item in childrenCpfl" :label="item.codeValue+item.codeName" :key="item.codeValue+item.codeName">{{item.codeName}}</el-checkbox>
+                                        </el-checkbox-group>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                         </el-row>
                         <el-row class="tr mb5">
-                            <el-col :span="24" style="text-align:left">
+                            <el-col :span="20" style="text-align:left">
                                 <el-form-item prop="sfhyxydj" label="是否在2018年参与中国消防协会消防行业信用等级评价">
                                     <el-radio-group v-model="wjdcForm.sfhyxydj" size="small" auto-complete="off" @change="sfhyxydjChange()">
                                         <el-radio class="radio" :label="'1'">是</el-radio>
@@ -348,7 +356,7 @@
                             </el-col>
                         </el-row>
                         <el-row class="tr mb5" v-show="isSfhyxydj">
-                            <el-col :span="24" style="text-align:left">
+                            <el-col :span="20" style="text-align:left">
                                 <el-form-item label="行业信用等级" prop="hyxydj" :rules="this.isSfhyxydj?wjdcRules.hyxydj:[{ required: false, message: '请选择行业信用等级', trigger: 'blur' }]">
                                     <el-radio-group v-model="wjdcForm.hyxydj" size="small" auto-complete="off">
                                         <el-radio v-for="item in hyxydj_data" :label="item.codeValue" class="radio"><v-text v-text="item.codeName"></v-text></el-radio>
@@ -370,9 +378,9 @@
                 </div>
                 <!--企业和产品介绍-->
                 <div id="cpjsView" class="pt15" v-show="isCpjsShow">
-                    <el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
+                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
 						<el-col :span="24">
-							<strong style="color: #e40613;">企业介绍</strong>
+							<strong style="color: #463132;">企业介绍</strong>
 						</el-col>
                     </el-row>
                     <el-form :inline="true" class="el-form demo-form-inline" ref="qyjsForm" :model="qyjsForm" label-position="right" :rules="qyjsRules">
@@ -393,20 +401,19 @@
                                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                     </el-upload>
                                 </el-form-item>
-                                
                             </el-col>
-                        </el-row>
-                        <el-row class="tr mb5">
-                            <el-col :span="11">
+                            <el-col :span="1">&nbsp;</el-col>
+                            <el-col :span="11" style="margin-left: -10%">
                                 <el-form-item prop="qyjj" style="text-align: left" label="企业简介">
                                     <el-input type="textarea" :rows="2" placeholder="企业简介" v-model="qyjsForm.qyjj"></el-input>
                                 </el-form-item>
                             </el-col>
+                            <el-col :span="1">&nbsp;</el-col>
                         </el-row>
                     </el-form>
-                    <el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
+                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
 						<el-col :span="12">
-							<strong style="color: #e40613;">产品介绍</strong>
+							<strong style="color: #463132;">产品介绍</strong>
                         </el-col>
                         <el-col :span="12" class="pb1">
 							<el-button type="primary" icon="el-icon-plus" size="small" class="r" @click="addDomain"></el-button>
@@ -417,11 +424,11 @@
                             <el-form-item v-for="(domain, index) in qyjsForm.qycpjsVOList" :key="domain.key" label-position="right" style="width: 143%">
                                 <el-card class="card_style">
                                     <div slot="header" class="clearfix">
-                                        <strong class="card_title_font">产品{{index+1}}</strong>
-                                        <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 3px -20px 0px;"></el-button>
+                                        <strong class="card_title_font"><span style="color:red;">* </span>产品{{index+1}}</strong>
+                                        <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 3px -20px 0px"></el-button>
                                     </div>
                                     <el-row class="tr">
-                                        <el-col :span="13">
+                                        <el-col :span="11">
                                             <el-form-item label="产品图片" style="text-align: left">
                                                     <el-upload
                                                     class="avatar-uploader"
@@ -437,23 +444,21 @@
                                                 </el-upload>
                                             </el-form-item>
                                         </el-col>
-                                    </el-row>
-                                    <el-row class="tr">
-                                        <el-col :span="13">
-                                            <el-form-item prop="cplx" label="产品所属分类">
-                                                <el-cascader :options="cpssfl_data" :props="defaultProps" size="small" v-model="domain.cplx" placeholder="产品所属分类" class="searchSelect"
-                                            clearable show-all-levels></el-cascader>
-                                            </el-form-item>
+                                        <el-col :span="1">&nbsp;</el-col>
+                                        <el-col :span="11" style="margin-left: -10%">
+                                            <el-row>
+                                                <el-form-item prop="cplx" label="产品所属分类">
+                                                    <el-cascader :options="cpssfl_data" :props="defaultProps" size="small" v-model="domain.cplx" placeholder="产品所属分类" class="searchSelect"
+                                                clearable show-all-levels></el-cascader>
+                                                </el-form-item>
+                                            </el-row>
+                                            <el-row>
+                                                <el-form-item prop="cpjj" label="产品简介">
+                                                    <el-input type="textarea" :rows="2" placeholder="企业简介" v-model="domain.cpjj"></el-input>
+                                                </el-form-item>
+                                            </el-row>
                                         </el-col>
                                     </el-row>
-                                    <el-row class="tr">
-                                        <el-col :span="13">
-                                            <el-form-item prop="cpjj" label="产品简介">
-                                                <el-input type="textarea" :rows="2" placeholder="企业简介" v-model="domain.cpjj"></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                    
                                 </el-card>
                             </el-form-item>
                         </el-form>
@@ -471,18 +476,18 @@
                 </div>
                 <!--企业参展展位需求意向-->
                 <div id="xqyxView" class="pt15" v-show="isXqyxShow">
-                    <el-row class="mb5" style="border-bottom:1px solid #e40613;line-height: 29px;">
+                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
 						<el-col :span="24">
-							<strong style="color: #e40613;">参展展位需求意向</strong>
+							<strong style="color: #463132;">参展展位需求意向</strong>
 						</el-col>
                     </el-row>
                     <el-form :inline="true" class="el-form demo-form-inline" ref="xqyxForm" :model="xqyxForm" label-position="right">
                         <el-row class="tr mb5">
                             <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                <el-label class="mr5 vbm">标准展位(每个12 平方米)</el-label>
+                                <el-label class="mr5 vbm">标准展位（每个12 平方米）</el-label>
                             </el-col>
                             <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                <el-input-number size="small" v-model="xqyxForm.bzzwgs" :min="0" :max="6" placeholder="标准展位"></el-input-number>
+                                <el-input-number size="small" v-model="xqyxForm.bzzwgs" :min="0" :max="6" :precision="0" placeholder="标准展位"></el-input-number>
                             </el-col>
                             <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2" style="text-align: left">
                                 <el-label class="mr5 vbm">&nbsp;&nbsp;个</el-label>
@@ -493,7 +498,7 @@
                                 <el-label class="mr5 vbm">室内光地展位（需要特装搭建，24平方米起）</el-label>
                             </el-col>
                             <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                <el-input-number size="small" v-model="xqyxForm.sngdzw" :min="24" :max="1000" placeholder="室内光地展位"></el-input-number>
+                                <el-input-number size="small" v-model="xqyxForm.sngdzw" :min="24" :max="1000" :precision="0" placeholder="室内光地展位"></el-input-number>
                             </el-col>
                             <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2"style="text-align: left">
                                 <el-label class="mr5 vbm">&nbsp;&nbsp;平方米</el-label>
@@ -504,7 +509,7 @@
                                 <el-label class="mr5 vbm">室外光地展位（仅限消防车类）</el-label>
                             </el-col>
                             <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                <el-input-number size="small" v-model="xqyxForm.swgdzw" :min="0" :max="2000" placeholder="室外光地展位"></el-input-number>
+                                <el-input-number size="small" v-model="xqyxForm.swgdzw" :min="0" :max="2000" :precision="0" placeholder="室外光地展位"></el-input-number>
                             </el-col>
                             <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2" style="text-align: left">
                                 <el-label class="mr5 vbm">&nbsp;&nbsp;平方米</el-label>
