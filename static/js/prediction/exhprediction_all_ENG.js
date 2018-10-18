@@ -16,7 +16,7 @@ $(function () {
             }
             realname = res.data.username;
             if (realname == null || realname == "") {
-                realname = "欢迎您！"
+                realname = "Welcome"
             }
             vm.userForm.userid = res.data.userid;
             vm.userForm.usernameWord = res.data.username;
@@ -37,9 +37,9 @@ var vm = new Vue({
     data: function () {
         var validatePwdAgain = (rule, value, callback) => {
             if (/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/.test(value) == false) {
-                callback(new Error("密码应为6-16位字母和数字组合"));
+                callback(new Error("Password must be 6-16-bit alphanumeric combination."));
             } else if (value !== this.userForm.password) {
-                callback(new Error("两次输入密码不一致"));
+                callback(new Error("The two entries do not match. Please fill in again."));
             } else {
                 callback();
             }
@@ -55,11 +55,11 @@ var vm = new Vue({
                 passwordAgain: "admin123",
                 messageCode: "",
                 messageCodeReal: "",
-                messageCodeText: "获取验证码",
+                messageCodeText: "Get Verification Code",
                 messageBtnFlag: false,
                 //修改按钮文字
-                usernameText: "修改",
-                passwordText: "修改",
+                usernameText: "edit",
+                passwordText: "edit",
                 //修改框标识位
                 usernameFlag: false,
                 passwordFlag: false,
@@ -69,18 +69,18 @@ var vm = new Vue({
             
             userInforRules: {
                 username: [
-                    { required: true, message: '请输入手机号', trigger: 'blur' },
-                    { pattern: /^1[34578]\d{9}$/, message: '请填写正确的手机号码', trigger: 'blur' }
+                    { required: true, message: 'Please input a email.', trigger: 'blur' },
+                    { pattern: /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/, message: 'The email format is not correct.', trigger: 'blur' }
                 ],
                 messageCode: [
-                    { type: "number", required: true, message: '请输入验证码', trigger: 'blur' },
+                    { type: "number", required: true, message: 'Please input the verification code.', trigger: 'blur' },
                 ],
                 password: [
-                    { required: true, message: '请输入密码', trigger: 'blur' },
-                    { pattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/, message: '密码应为6-16位字母和数字组合', trigger: 'blur' }
+                    { required: true, message: 'Please input a password.', trigger: 'blur' },
+                    { pattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/, message: 'Password must be 6-16-bit alphanumeric combination.', trigger: 'blur' }
                 ],
                 passwordAgain: [
-                    { required: true, message: '请再次输入密码', trigger: 'blur' },
+                    { required: true, message: 'Please input the password again', trigger: 'blur' },
                     { validator: validatePwdAgain, trigger: "blur" }
                 ],
             },
@@ -95,12 +95,12 @@ var vm = new Vue({
         },
         showDialog: function () {
             this.dialogVisible = true;
-            this.userForm.usernameText = "修改";
-            this.userForm.passwordText = "修改";
+            this.userForm.usernameText = "edit";
+            this.userForm.passwordText = "edit";
             this.userForm.usernameFlag = false;
             this.userForm.passwordFlag = false;
             this.timer = null;
-            this.userForm.messageCodeText = "获取验证码";
+            this.userForm.messageCodeText = "Get Verification Code";
             this.userForm.messageBtnFlag = false;
 
             this.$nextTick(() => {
@@ -116,50 +116,50 @@ var vm = new Vue({
         changeUsername: function () {
             if (this.userForm.usernameFlag == false) {
                 this.userForm.usernameFlag = true;
-                this.userForm.usernameText = "取消";
+                this.userForm.usernameText = "cancel";
             } else if (this.userForm.usernameFlag == true) {
                 this.userForm.usernameFlag = false;
-                this.userForm.usernameText = "修改";
+                this.userForm.usernameText = "edit";
                 this.userForm.username = this.userForm.usernameWord;
             }
         },
         changePassword: function () {
             if (this.userForm.passwordFlag == false) {
                 this.userForm.passwordFlag = true;
-                this.userForm.passwordText = "取消";
+                this.userForm.passwordText = "cancel";
                 this.userForm.password = "";
                 this.userForm.passwordAgain = "";
             } else if (this.userForm.passwordFlag == true) {
                 this.userForm.passwordFlag = false;
-                this.userForm.passwordText = "修改";
+                this.userForm.passwordText = "edit";
                 this.userForm.password = this.userForm.passwordWord;
             }
         },
-        getMessageCode: function () {
+        getMailCode: function () {
             this.userForm.messageCode = "";
-            this.userForm.messageCodeText = "发送中...";
+            this.userForm.messageCodeText = "sending...";
             this.userForm.messageBtnFlag = true;
 
-            axios.get('/xfxhapi/signin/getMobileNum/' + this.userForm.username).then(function (res) {
+            axios.get('/xfxhapi/signin/getMailNumENG/' + this.userForm.username).then(function (res) {
                 if (res.data.result != 0) {
                     this.$message({
-                        message: '用户名已存在',
+                        message: 'The email is registered!',
                         type: 'error'
                     });
-                    this.userForm.messageCodeText = "获取验证码";
+                    this.userForm.messageCodeText = "Get Verification Code";
                     this.userForm.messageBtnFlag = false;
                 } else {
-                    axios.get('/xfxhapi/signin/sendMessage?phone=' + this.userForm.username).then(function (res) {
+                    axios.get('/xfxhapi/signin/sendMail?mail=' + this.userForm.username).then(function (res) {
                         this.userForm.messageCodeReal = res.data.msg;
                         var count = this.time;
                         this.timer = setInterval(() => {
                             if (count == 0) {
                                 clearInterval(this.timer);
                                 this.timer = null;
-                                this.userForm.messageCodeText = "获取验证码";
+                                this.userForm.messageCodeText = "Get Verification Code";
                                 this.userForm.messageBtnFlag = false;
                             } else {
-                                this.userForm.messageCodeText = count + "秒后获取"
+                                this.userForm.messageCodeText = count + "seconds later"
                                 count--;
                                 this.userForm.messageBtnFlag = true;
                             }
@@ -178,7 +178,7 @@ var vm = new Vue({
             if(!this.userForm.usernameFlag && !this.userForm.passwordFlag){
                 this.$message({
                     showClose: true,
-                    message: '用户名密码未修改！',
+                    message: 'The username and password did not change!',
                     type: 'warning'
                 });
                 return;
@@ -198,7 +198,7 @@ var vm = new Vue({
                         var result = res.data.result;
                         if (result == 1) {
                             this.$message({
-                                message: '修改成功，3秒后退出登录',
+                                message: 'Modify success, log out after 3 seconds',
                                 type: 'success'
                             });
                             var count = 3;
@@ -211,7 +211,7 @@ var vm = new Vue({
                             }, 1000);
                         } else {
                             this.$message({
-                                message: '修改失败，请重试',
+                                message: 'Modify the failure, please try again',
                                 type: 'error'
                             });
                         }
