@@ -15,8 +15,13 @@
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
                 <div id="remark" v-if="editPage==false">
-                    (1) Booth Requirement Information we collect in Part 5 will be used as references for the booth design. It is Your Booth Selection at our going-to-open online Booth selection process that will be your final choice.
-                    <br>(2) The information of legal representative and contact person you have filled in will only be used as references for censors of our commission, in order to guarantee all exhibitors are from the fire and safety industry. Company introduction, product introduction and related information will be displayed in the company list and product list on our website, which targets to provide a longer promotion period through website channel for our exhibitors. If you have any concern about this, please contact the commission.
+                    (1) Booth Requirement Information we collect in Part 5 will be used as references for the booth design. It is Your Booth
+                    Selection at our going-to-open online Booth selection process that will be your final choice.
+                    <br>(2) The information of legal representative and contact person you have filled in will only be used as
+                    references for censors of our commission, in order to guarantee all exhibitors are from the fire and
+                    safety industry. Company introduction, product introduction and related information will be displayed
+                    in the company list and product list on our website, which targets to provide a longer promotion period
+                    through website channel for our exhibitors. If you have any concern about this, please contact the commission.
                 </div>
                 <div id="qyjbxx">
                     <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
@@ -96,37 +101,23 @@
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="18">
                             <el-row class="mb10">
-                                <strong>Company Name on the Invoice：</strong>
-                                <v-text v-text="kpxxData.kpgsmc||'无'"></v-text>
-                            </el-row>
-                            <el-row class="mb10">
                                 <el-col :span="12">
-                                    <strong>开票类型：</strong>
-                                    <v-text v-text="kpxxData.kplxmc||'无'"></v-text>
+                                    <strong>Company Name on the Invoice：</strong>
+                                    <v-text v-text="kpxxData.kpgsmc||'无'"></v-text>
                                 </el-col>
                                 <el-col :span="12">
-                                    <strong>统一社会信用代码：</strong>
-                                    <v-text v-text="kpxxData.tyshxydm||'无'"></v-text>
+                                    <strong>Fax：</strong>
+                                    <v-text v-text="kpxxData.yhzh||'无'"></v-text>
                                 </el-col>
                             </el-row>
                             <el-row class="mb10">
                                 <el-col :span="12">
-                                    <strong>公司地址：</strong>
+                                    <strong>Customer Contact：</strong>
                                     <v-text v-text="kpxxData.gsdz||'无'"></v-text>
                                 </el-col>
                                 <el-col :span="12">
-                                    <strong>电话号码：</strong>
+                                    <strong>Phone Number：</strong>
                                     <v-text v-text="kpxxData.dhhm||'无'"></v-text>
-                                </el-col>
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>开户银行：</strong>
-                                    <v-text v-text="kpxxData.khyh||'无'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>银行账号：</strong>
-                                    <v-text v-text="kpxxData.yhzh||'无'"></v-text>
                                 </el-col>
                             </el-row>
                         </el-col>
@@ -136,63 +127,11 @@
                     <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;">Major Product Information</strong>
                     </el-row>
-                    <el-row class="mt15">
+                    <el-row class="mt15 mb15">
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="18">
-                            <el-row class="mb10">
-                                <strong>公司性质：</strong>
-                                <v-text v-text="wjdcData.gsxzmc||'无'"></v-text>
-                            </el-row>
-                            <el-row class="mb10">
-                                <strong>Category of Your Major Products：</strong>
-                                <v-text v-text="wjdcData.zycp||'无'"></v-text>
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>是否代理海外产品：</strong>
-                                    <v-text v-text="wjdcData.sfhwdlcp==1?'是':wjdcData.sfhwdlcp==0?'否':'无'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>海外代理产品品牌：</strong>
-                                    <v-text v-text="wjdcData.hwdlcppp||'无'"></v-text>
-                                </el-col>
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>是否高新技术企业：</strong>
-                                    <v-text v-text="wjdcData.sfgxjsqy==1?'是':wjdcData.sfgxjsqy==0?'否':'无'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>高新技术级别：</strong>
-                                    <v-text v-text="wjdcData.gxjsjbmc||'无'"></v-text>
-                                </el-col>
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>是否获得行业信用等级：</strong>
-                                    <v-text v-text="wjdcData.sfhyxydj==1?'是':wjdcData.sfhyxydj==0?'否':'无'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>行业信用等级：</strong>
-                                    <v-text v-text="wjdcData.hyxydjmc||'无'"></v-text>
-                                </el-col>
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>发明专利(项)：</strong>
-                                    <v-text v-text="wjdcData.fmzl||'无'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>实用新型专利(项)：</strong>
-                                    <v-text v-text="wjdcData.syxxzl||'无'"></v-text>
-                                </el-col>
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>外观设计专利(项)：</strong>
-                                    <v-text v-text="wjdcData.wgsjzl||'无'"></v-text>
-                                </el-col>
-                            </el-row>
+                            <strong>Category of Your Major Products：</strong>
+                            <v-text v-text="wjdcData.zycp||'无'"></v-text>
                         </el-col>
                     </el-row>
                 </div>

@@ -54,7 +54,7 @@ new Vue({
         }
     },
     created: function () {
-        var type = getQueryString("type");
+        // var type = getQueryString("type");
         this.shiroData = shiroGlobal;
         this.loading = true;
         this.userid = getQueryString("userid");
