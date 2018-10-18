@@ -204,6 +204,7 @@ var vue = new Vue({
                     userid: val.userid,
                     type: "XZ"
                 }
+                this.userListVisible = false;
                 loadDivParam("prediction/exhprediction_edit", params);
             } else {
                 this.$confirm('选中展商已有报名信息，是否进入编辑?', '提示', {
@@ -215,6 +216,7 @@ var vue = new Vue({
                         userid: val.userid,
                         type: "BJ"
                     }
+                    this.userListVisible = false;
                     loadDivParam("prediction/exhprediction_edit", params);
                 }).catch(() => {
                     // this.$message({
