@@ -136,7 +136,7 @@ new Vue({
                     for (var i in tempList) {
                         zycp = zycp + tempList[i].substr(4) + '、';
                     }
-                    this.wjdcData.zycp = zycp;
+                    this.wjdcData.zycp = zycp.substr(0,zycp.length - 1);
                 }
             }.bind(this), function (error) {
                 console.log(error)
