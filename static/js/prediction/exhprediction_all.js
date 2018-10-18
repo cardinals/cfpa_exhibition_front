@@ -23,7 +23,7 @@ $(function () {
             vm.userForm.passwordWord = "000000";
             document.querySelector("#realname").innerHTML = realname;
         } else {
-            window.location.href = "/templates/prediction/exhprediction_all.html";
+            window.location.href = "/templates/login.html";
         }
     }.bind(this), function (error) {
         console.log(error)
