@@ -66,3 +66,14 @@ input[type=file] {
 .el-button--small{
     padding: 9px 9px;
 }
+.yxLabel{
+    text-align: right;
+    font-size: 14px;
+    color: #606266;
+    line-height: 40px;
+    padding: 0 12px 0 0;
+    box-sizing: border-box;
+    font-weight: 700;
+    max-width: 100%;
+    margin-bottom: 5px;
+}
