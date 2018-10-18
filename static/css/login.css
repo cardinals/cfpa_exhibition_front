@@ -153,8 +153,8 @@ input[type=checkbox]:checked:after  {
 .formbar a{float: right;font-size: 12px;color: #fb6a74;cursor: pointer;}
 .btncolor{color: #fb6a74;}
 .mt_value{margin-top: 50px;}
-#btn_mt{margin-top: 75px;}
-.LoginBtn{ margin-top:20px;cursor: pointer; } 
+#btn_mt{margin-top: 70px;}
+.LoginBtn{ margin-top:10px;cursor: pointer; } 
 .LoginBtn a{
     display:block; 
     width:200px; 

@@ -100,8 +100,8 @@
                                 <span style="color:#fb6a74">记住我</span>
                             </div>
                             <div class="LoginBtn">
-                                <a @click="login()" id="lg" style="display:block;margin-top:45px;">登 录</a>
-                                <a @click="nlogin()" id="nlg" style="display:none;margin-top:45px;">登 录</a>
+                                <a @click="login()" id="lg" style="display:block;margin-top:40px;">登 录</a>
+                                <a @click="nlogin()" id="nlg" style="display:none;margin-top:40px;">登 录</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" v-model="loginType"/>
                             <input type="hidden" class="comfrom" name="comfrom" v-model="CNcomfrom"/>
@@ -139,7 +139,7 @@
                                 <span style="color:#fb6a74">记住我</span>
                             </div>
                             <div class="LoginBtn">
-                                <a @click="GLYlogin()" id="lg" style="display:block;margin-top:45px;">登 录</a>
+                                <a @click="GLYlogin()" id="lg" style="display:block;margin-top:40px;">登 录</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" v-model="GLYloginType" />
                         </form>
@@ -175,7 +175,7 @@
                                     <p class="alert" v-show="password2AlertFlag">*两次填写不一致，请重新填写</p>
                                 </li>
                             </ul>
-                            <div class="LoginBtn">
+                            <div class="LoginBtn" style="margin-top:-1px;">
                                 <a @click="register()">注 册</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" />
