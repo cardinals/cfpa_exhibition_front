@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>展会报名</title>
     <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
     <style>
@@ -10,72 +10,123 @@
             padding-left: 80px;
             padding-right: 80px;
         }
-        #hidden_btn{
-         visibility: hidden;
+
+        #hidden_btn {
+            visibility: hidden;
         }
     </style>
-    
+
 </head>
 
 <body class="fw f14 main-index-body">
-    <div class="header-box navbar" style="z-index: 10001;" id="header_box">
-        <div class="container">
-            <div class="navbar-header">
-                <button class="navbar-toggle collapsed" id="oscar-nav-btn" type="button" data-toggle="collapse" data-target="#bs-navbar"
-                    aria-controls="bs-navbar" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand"><div class="logo2"></div></a>
-            </div>
-            <nav class="navbar-collapse collapse" id="bs-nav">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a class="fix" id="zhanshi" href="/templates/bigscreen/big_screen_all.html">
-                            <img src="../../static/images/shishizhanshi.png">
-                        </a>
-                    </li>
-                    <li>
-                        <a class="f12" href="javascript:;">
-                            <span id="realname">欢迎您！</span>
-                            <span class="glyphicon glyphicon-triangle-top oscar-arrow frame-duration"></span>
-                            <div class="dada abs ovh">
-                                <div class="dada-item">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    <span class="ml5">个人中心</span>
-                                </div>
-                                <form id="login-out-form" action="/xfxhapi/logout" method="get" onsubmit="return false;" style="display:none"></form>
-                                <div class="dada-item" id="logout" onclick="logout()">
-                                    <span class="glyphicon glyphicon-off"></span>
-                                    <span class="ml5">退出</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="dada2 abs ovh f12">
-                <div class="dada-item">
-                    <span class="glyphicon glyphicon-user"></span>
-                    <span class="ml5">个人中心</span>
+    <div id=app_all>
+        <div class="header-box navbar" style="z-index: 10001;" id="header_box">
+            <div class="container">
+                <div class="navbar-header">
+                    <button class="navbar-toggle collapsed" id="oscar-nav-btn" type="button" data-toggle="collapse" data-target="#bs-navbar"
+                        aria-controls="bs-navbar" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand"><div class="logo2"></div></a>
                 </div>
-                <div class="dada-item">
-                    <span class="glyphicon glyphicon-off"></span>
-                    <span class="ml5">退出</span>
+                <nav class="navbar-collapse collapse" id="bs-nav">
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- <li>
+                            <a class="fix" id="zhanshi" href="/templates/bigscreen/big_screen_all.html">
+                                <img src="../../static/images/shishizhanshi.png">
+                            </a>
+                        </li> -->
+                        <li>
+                            <a class="f12" href="javascript:;">
+                                <span id="realname">欢迎您！</span>
+                                <span class="glyphicon glyphicon-triangle-top oscar-arrow frame-duration"></span>
+                                <div class="dada abs ovh">
+                                    <div class="dada-item" @click="showDialog()">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                        <span class="ml5">个人中心</span>
+                                    </div>
+                                    <form id="login-out-form" action="/xfxhapi/logout" method="get" onsubmit="return false;" style="display:none"></form>
+                                    <div class="dada-item" id="logout" @click="logout()">
+                                        <span class="glyphicon glyphicon-off"></span>
+                                        <span class="ml5">退出</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="dada2 abs ovh f12">
+                    <div class="dada-item">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="ml5">个人中心</span>
+                    </div>
+                    <div class="dada-item">
+                        <span class="glyphicon glyphicon-off"></span>
+                        <span class="ml5">退出</span>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div id="component" style="overflow:auto;">
+            <el-dialog title="个人中心" :visible.sync="dialogVisible" width="30%">
+                <el-form ref="userForm" :model="userForm" label-width="75px" :inline="true" :label-position="'left'" label-width="150px" :rules="userInforRules">
+                    <el-row class="mb5">
+                        <el-col :span="20">
+                            <el-form-item prop="username" label="用户名">
+                                <el-input size="small" v-model="userForm.username" placeholder="用户名" :disabled="!userForm.usernameFlag">
+                                </el-input>
+                                <el-button class="abs" style="margin-top: -34px;margin-left: 126px;color:#606266;" size="mini" v-text="userForm.messageCodeText"
+                                    type="text" v-show="userForm.usernameFlag" :disabled="userForm.messageBtnFlag" @click="getMessageCode()"></el-button>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="4">
+                            <el-button v-text="userForm.usernameText" type="text" @click="changeUsername()"></el-button>
+                        </el-col>
+                    </el-row>
+                    <el-row class="mb5" v-show="userForm.usernameFlag">
+                        <el-col :span="20">
+                            <el-form-item prop="messageCode" label="短信验证码">
+                                <el-input size="small" v-model="userForm.messageCode" placeholder="短信验证码">
+                                </el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row class="mb5">
+                        <el-col :span="20">
+                            <el-form-item prop="password" label="密码">
+                                <el-input type="password" size="small" v-model="userForm.password" placeholder="密码" :disabled="!userForm.passwordFlag">
+                                </el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="4">
+                            <el-button v-text="userForm.passwordText" type="text" @click="changePassword()"></el-button>
+                        </el-col>
+                    </el-row>
+                    <el-row class="mb5" v-show="userForm.passwordFlag">
+                        <el-col :span="20">
+                            <el-form-item prop="passwordAgain" label="确认密码">
+                                <el-input size="small" v-model="userForm.passwordAgain" placeholder="确认密码">
+                                </el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                    <el-button size="small" @click="dialogVisible = false">取 消</el-button>
+                    <el-button size="small" type="primary" @click="register()">确 定</el-button>
+                </span>
+            </el-dialog>
+        </div>
     </div>
-    
-    <div id="app" style="overflow:auto;">     
-    </div>
-    
 </body>
 
 <script src="../../static/js/common/config.js"></script>
 <script src="../../static/js/lib.js"></script>
 <script src="../../static/js/prediction/exhprediction_all.js"></script>
 <!-- <script src="../../static/js/all.js"></script> -->
+
 </html>

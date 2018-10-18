@@ -47,7 +47,7 @@ $(function () {
 //axios默认设置cookie
 axios.defaults.withCredentials = true;	
 new Vue({
-    el: '#app',
+    el: '#component',
     data: function () {
         return {
             index: '',
