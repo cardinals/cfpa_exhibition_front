@@ -204,15 +204,17 @@
                     </el-row>
                     <el-row class="mt15 mb10">
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="18">
+                        <el-col :span="9">
                             <strong>企业简介：</strong>
                             <v-text v-text="qyjsData.qyjj||'无'"></v-text>
                         </el-col>
-                        <el-col :span="5" class="tc">
-                            <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" @click="imgPreview(qyjsData.logoBase64)"
-                                style="width:75%;">
-                            <img v-else src="../../static/images/noPic.png" style="width:100px;">
-                            <br>企业Logo
+                        <el-col :span="8">
+                            <el-row>
+                                <strong class="vt">企业Logo：</strong>
+                                <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" @click="imgPreview(qyjsData.logoBase64)"
+                                    style="max-width:75%;max-height:160px;">
+                                <img v-else src="../../static/images/noPic.png" style="width:100px;">
+                            </el-row>
                         </el-col>
                     </el-row>
                     <el-row class="mb10">

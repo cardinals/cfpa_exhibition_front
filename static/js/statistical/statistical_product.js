@@ -9,13 +9,12 @@ var vue = new Vue({
 				dateStart: "",
 				dateEnd: "",
 			},
-			//tjfx
+			//统计分析的数据
 			tjfxdata: [],
 			tjfxname: [],
 			tjfxczqysl: [],
 			tjfxgdzwmj: [],
 			tjfxbwzwgssl: [],
-			//tabledata
 			tabledata: [],
 			total: 0,
 			//表高度变量
