@@ -96,6 +96,25 @@ var vm = new Vue({
         REApassword2AlertFlag: false,
     },
     created: function () {
+        var reg = new RegExp("(^|&)msg=([^&]*)(&|$)",'i');
+        var r = window.location.search.substr(1).match(reg);
+        var msg = "";
+        if(r != null){
+            msg = unescape(r[2]);
+        }
+        if(msg.indexOf("UnknownAccountException") > -1){
+            alert("账号不存在！");
+        }else if(msg.indexOf("IncorrectCredentialsException") > -1){
+            alert("密码不正确！");
+        }else if(msg.indexOf("ExcessiveAttemptsException") > -1){
+            alert("密码输入错误次数超过5次！");
+        }else if(msg.indexOf("kaptchaValidateFailed") > -1){
+            alert("验证码错误！");
+        }
+        if(msg != ""){
+            history.replaceState(null, null, top.location.href.substr(0,top.location.href.indexOf("?")));
+        }
+
         axios.get('/xfxhapi/shiro').then(function (res) {
             if (res.data != null && res.data.username != null && res.data.username != "") {
                 var hrefUrl = "";
