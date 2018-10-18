@@ -89,7 +89,7 @@
                     </el-row>
                     <el-row class="mb5" v-show="userForm.usernameFlag">
                         <el-col :span="22">
-                            <el-form-item prop="messageCode" label="验证码">
+                            <el-form-item prop="messageCode" label="验证码" :rules="this.userForm.usernameFlag?userInforRules.messageCode:[{ required: false, message: '请输入验证码', trigger: 'blur' }]">
                                 <el-input size="small" v-model="userForm.messageCode" placeholder="短信验证码">
                                 </el-input>
                             </el-form-item>
@@ -109,7 +109,7 @@
                     <el-row class="mb5" v-show="userForm.passwordFlag">
                         <el-col :span="22">
                             <el-form-item prop="passwordAgain" label="确认密码">
-                                <el-input size="small" v-model="userForm.passwordAgain" placeholder="确认密码">
+                                <el-input type="password" size="small" v-model="userForm.passwordAgain" placeholder="确认密码">
                                 </el-input>
                             </el-form-item>
                         </el-col>

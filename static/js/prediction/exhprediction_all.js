@@ -23,7 +23,7 @@ $(function () {
             vm.userForm.passwordWord = "000000";
             document.querySelector("#realname").innerHTML = realname;
         } else {
-            window.location.href = "/templates/login.html";
+            window.location.href = "/templates/prediction/exhprediction_all.html";
         }
     }.bind(this), function (error) {
         console.log(error)
@@ -35,6 +35,15 @@ axios.defaults.withCredentials = true;
 var vm = new Vue({
     el: '#app_all',
     data: function () {
+        var validatePwdAgain = (rule, value, callback) => {
+            if (/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/.test(value) == false) {
+                callback(new Error("密码应为6-16位字母和数字组合"));
+            } else if (value !== this.userForm.password) {
+                callback(new Error("两次输入密码不一致"));
+            } else {
+                callback();
+            }
+        };
         return {
             dialogVisible: false,
             userForm: {
@@ -57,19 +66,22 @@ var vm = new Vue({
             },
             time: 60,
             timer: "",
+            
             userInforRules: {
                 username: [
-                    { type: "number", required: true, message: '请输入手机号', trigger: 'blur' },
-                    // { pattern: /^1[34578]\d{9}$/, message: '请填写正确的手机号码', trigger: 'blur' }
+                    { required: true, message: '请输入手机号', trigger: 'blur' },
+                    { pattern: /^1[34578]\d{9}$/, message: '请填写正确的手机号码', trigger: 'blur' }
                 ],
                 messageCode: [
                     { type: "number", required: true, message: '请输入验证码', trigger: 'blur' },
                 ],
                 password: [
                     { required: true, message: '请输入密码', trigger: 'blur' },
+                    { pattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/, message: '密码应为6-16位字母和数字组合', trigger: 'blur' }
                 ],
                 passwordAgain: [
                     { required: true, message: '请再次输入密码', trigger: 'blur' },
+                    { validator: validatePwdAgain, trigger: "blur" }
                 ],
             },
         }
@@ -162,35 +174,43 @@ var vm = new Vue({
 
         },
         register: function () {
-            var params = {
-                userid: this.userForm.userid,
-                username: this.userForm.username,
-                password: this.userForm.password,
-            }
-            axios.post('/xfxhapi/account/updateByVO', params).then(function (res) {
-                var result = res.data.result;
-                if (result == 1) {
-                    this.$message({
-                        message: '修改成功，3秒后退出登录',
-                        type: 'success'
-                    });
-                    var count = 3;
-                    var timer = setInterval(() => {
-                        if (count == 0) {
-                            this.logout();
+            this.$refs["userForm"].validate((valid) => {
+                if (valid) {
+                    debugger;
+                    var params = {
+                        userid: this.userForm.userid,
+                        username: this.userForm.username,
+                        password: this.userForm.password,
+                    }
+                    axios.post('/xfxhapi/account/updateByVO', params).then(function (res) {
+                        var result = res.data.result;
+                        if (result == 1) {
+                            this.$message({
+                                message: '修改成功，3秒后退出登录',
+                                type: 'success'
+                            });
+                            var count = 3;
+                            var timer = setInterval(() => {
+                                if (count == 0) {
+                                    this.logout();
+                                } else {
+                                    count--;
+                                }
+                            }, 1000);
                         } else {
-                            count--;
+                            this.$message({
+                                message: '修改失败，请重试',
+                                type: 'error'
+                            });
                         }
-                    }, 1000);
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
                 } else {
-                    this.$message({
-                        message: '修改失败，请重试',
-                        type: 'error'
-                    });
+                  console.log('error submit!!');
+                  return false;
                 }
-            }.bind(this), function (error) {
-                console.log(error)
-            })
+            });
         }
     },
 
