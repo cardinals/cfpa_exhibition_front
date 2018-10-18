@@ -178,7 +178,7 @@
                                     <!-- 请输入密码 -->
                                     <input type="password" class="inputstyle" v-model="password1" name="password1" id="password1" placeholder="Please input a password" @focus="password1Tip"
                                         @blur="password1Check">
-                                    <p class="tip" v-show="password1TipFlag">*Password must be 6-16-bit alphanumeric combination</p>
+                                    <p class="tip" v-show="password1TipFlag" style="margin-left: -8px !important;">*Password must be 6-16-bit alphanumeric combination.</p>
                                     <p class="alert" v-show="password1AlertFlag">*Password is not in order. Please fill it out again.</p>
                                 </li>
                                 <li>
@@ -212,7 +212,6 @@
                                     <i class="icon-message"></i>
                                     <input type="text" class="inputstyle" v-model="FUmailCode" name="FUmailCode" id="FUmailCode" placeholder="Mail Verification Code">
                                 </li>
-
                             </ul>
                             <div class="LoginBtn" id="btn_mt">
                                 <a @click="FUIdentify()">Confirm</a>
@@ -321,7 +320,7 @@
                                     <input type="password" class="inputstyle" v-model="FPDpassword1" name="FPDpassword1" id="FPDpassword1" placeholder="Please input a password"
                                         @focus="FPDpassword1Tip" @blur="FPDpassword1Check">
                                         <!-- 密码需为6-16位字母数字组合 -->
-                                    <p class="tip" v-show="FPDpassword1TipFlag">*The password must be 6-16 digit alphanumeric combination</p>
+                                    <p class="tip" v-show="FPDpassword1TipFlag" style="margin-left: -8px !important;">*The password must be 6-16 digit alphanumeric combination.</p>
                                         <!-- 密码不合规，请重新填写 -->
                                     <p class="alert" v-show="FPDpassword1AlertFlag">*Password is not compliant, please fill in again</p>
                                 </li>
@@ -400,7 +399,7 @@
                                     <i class="icon-password"></i>
                                     <input type="password" class="inputstyle" v-model="REApassword1" name="REApassword1" id="REApassword1" placeholder="请输入密码"
                                         @focus="REApassword1Tip" @blur="REApassword1Check">
-                                    <p class="tip" v-show="REApassword1TipFlag">*The password must be 6-16 digit alphanumeric combination</p>
+                                    <p class="tip" v-show="REApassword1TipFlag" style="margin-left: -8px !important;">*The password must be 6-16 digit alphanumeric combination.</p>
                                     <p class="alert" v-show="REApassword1AlertFlag">*Password is not compliant, please fill in again</p>
                                 </li>
                                 <li>
