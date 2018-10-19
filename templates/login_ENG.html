@@ -150,7 +150,7 @@
                                 </li>
                                 <li>
                                     <i class="icon-email"></i>
-                                    <input type="text" class="inputstyle" v-model="FUmail" name="FUmail" id="FUmail" placeholder="Email">
+                                    <input type="text" class="inputstyle" v-model="FUmail" name="FUmail" id="FUmail" placeholder="Association Email">
                                     <button type="button" id="FUmail-btn" class="verficode phonebtn" @click="getFUMailCode()" v-text=FUmailCodeText></button>
                                 </li>
                                 <li>
@@ -207,7 +207,7 @@
                                 </li>
                                 <li>
                                     <i class="icon-email"></i>
-                                    <input type="text" class="inputstyle" v-model="FPBmail" name="FPBmail" id="FPBmail" placeholder="Association Mailbox">
+                                    <input type="text" class="inputstyle" v-model="FPBmail" name="FPBmail" id="FPBmail" placeholder="Email">
                                     <!-- 邮箱 -->
                                     <button type="button" id="FPBmail-btn" class="verficode phonebtn" @click="getFPBMailCode()" v-text=FPBmailCodeText></button>
                                 </li>
@@ -240,7 +240,7 @@
                                 </li>
                                 <li>
                                     <i class="icon-password"></i>
-                                    <input type="password" class="inputstyle" v-model="FPDpassword2" name="FPDpassword2" id="FPDpassword2" placeholder="请再次输入密码"
+                                    <input type="password" class="inputstyle" v-model="FPDpassword2" name="FPDpassword2" id="FPDpassword2" placeholder="Please input the password again"
                                         @blur="FPDpassword2Check">
                                         <!-- 两次填写不一致，请重新填写 -->
                                     <p class="alert" v-show="FPDpassword2AlertFlag">*The two time is inconsistent, please fill in again</p>

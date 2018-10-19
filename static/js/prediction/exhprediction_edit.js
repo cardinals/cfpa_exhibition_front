@@ -914,9 +914,10 @@ var vm = new Vue({
                             //产品图片base64切成byte
                             var temp_str = this.qyjsForm.qycpjsVOList[i].cptpBase64.split(",");
                             var obj_temp = {
-                                cptp:temp_str[1],
-                                cplx:cplx_temp,
-                                cpjj:cpjj_temp
+                                qyid: this.qyid,
+                                cptp: temp_str[1],
+                                cplx: cplx_temp,
+                                cpjj: cpjj_temp
                             }
                             tempList.push(obj_temp);
                         }
