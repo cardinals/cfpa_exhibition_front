@@ -222,8 +222,8 @@
                             <el-form id="cpjs" v-if="cpjsData.length>0" :inline="true" style="width: 100%;" class="demo-form-inline">
                                 <el-form-item v-for="(cpjs,index) in cpjsData" style="width: 49%;">
                                     <el-card class="mb10 card_style" id="cpjsImg">
-                                        <el-row>
-                                            <el-col :span="5">
+                                        <el-row class="h100">
+                                            <el-col :span="5" class="h100">
                                                 <img v-if="cpjs!==null&&cpjs.cptpBase64!==''" :src="'data:image/png;base64,'+cpjs.cptpBase64" @click="imgPreview(cpjs.cptpBase64)">
                                                 <img v-else src="../../static/images/noPic.png">
                                             </el-col>
