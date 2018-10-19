@@ -265,7 +265,7 @@ var vm = new Vue({
             if (this.mobileCheck()) {
                 this.messageCodeText = "发送中...";
                 $('#mobile-btn').attr('disabled', 'disabled');
-                axios.get('/xfxhapi/signin/getMobileNum/' + this.mobile).then(function (res) {
+                axios.get('/xfxhapi/signin/getUsernameNum/' + this.mobile).then(function (res) {
                     if (res.data.result != 0) {
                         alert("用户名已存在！");
                         this.messageCodeText = "获取验证码";
@@ -573,7 +573,7 @@ var vm = new Vue({
             if (this.FPCmobileCheck()) {
                 this.FPCmessageCodeText = "发送中...";
                 $('#FPCmobile-btn').attr('disabled', 'disabled');
-                axios.get('/xfxhapi/signin/getMobileNum/' + this.FPCmobile).then(function (res) {
+                axios.get('/xfxhapi/signin/getUsernameNum/' + this.FPCmobile).then(function (res) {
                     if (res.data.result == 0) {
                         alert("用户名不存在！");
                         this.FPCmessageCodeText = "获取验证码";
@@ -610,7 +610,7 @@ var vm = new Vue({
                 alert("验证码不能为空！")
             } else {
                 if (this.FPCmessageCode == this.FPCmessageCodeReal) {
-                    axios.get('/xfxhapi/signin/findByPhone/' + this.FPCmobile).then(function (res) {
+                    axios.get('/xfxhapi/signin/findByUsername/' + this.FPCmobile).then(function (res) {
                         this.changeForm('FPDFlag');
                         this.FPDregisterData = res.data.result;
                         this.FPDusername = this.FPDregisterData[0].username;

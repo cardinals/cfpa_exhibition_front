@@ -400,7 +400,7 @@ var vm = new Vue({
             if (this.FPBmailCheck()) {
                 this.FPBmailCodeText = "Sending...";
                 $('#FPBmail-btn').attr('disabled', 'disabled');
-                axios.get('/xfxhapi/signin/getMailNum/' + this.FPBmail.replace(".", "_")).then(function (res) {
+                axios.get('/xfxhapi/signin/getUsernameNum/' + this.FPBmail.replace(".", "_")).then(function (res) {
                     if (res.data.result == 0) {
                         //该邮箱未注册！
                         alert("The email is not registered!");
@@ -440,7 +440,7 @@ var vm = new Vue({
                 alert("The verification code can not be empty!")
             } else {
                 if (this.FPBmailCode == this.FPBmailCodeReal) {
-                    axios.get('/xfxhapi/signin/findByMail/' + this.FPBmail.replace(".", "_")).then(function (res) {
+                    axios.get('/xfxhapi/signin/findByUsername/' + this.FPBmail.replace(".", "_")).then(function (res) {
                         this.changeForm('FPDFlag');
                         this.FPDregisterData = res.data.result;
                         this.FPDusername = this.FPDregisterData[0].username;
