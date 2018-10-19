@@ -48,7 +48,7 @@ new Vue({
     },
     created: function () {
         var type = getQueryString("type");
-        loadBreadcrumb("展会报名管理 ", " 展会报名详情");
+        loadBreadcrumb("展会报名管理", "展会报名详情");
 
         this.loading = true;
         this.qyid = getQueryString("id");
