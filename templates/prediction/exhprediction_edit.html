@@ -132,6 +132,7 @@
                                     :on-change="PicChange" :auto-upload="false" :show-file-list="false">
                                     <img v-if="baseInforForm.yyzzBase64!==''" :src="baseInforForm.yyzzBase64" class="avatar">
                                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                    <div class="el-upload__tip" slot="tip">jpg/png文件，且不超过200kb</div>
                                 </el-upload>
                             </el-col>
                             <el-col :span="1">&nbsp;</el-col>
@@ -410,17 +411,18 @@
                     </el-row>
                     <el-form class="el-form demo-form-inline" ref="qyjsForm" :model="qyjsForm" label-position="right" label-width="150px" :rules="qyjsRules">
                         <el-row class="tr mb5">
-                            <el-col :span="11">
+                            <el-col :span="9">
                                 <el-form-item label="企业LOGO图标" style="text-align: left">
                                     <el-upload class="avatar-uploader" ref="uploadLogo" action="/zhapi/qyjs/upload" :data="upLoadLogoData" :on-success="picSuccess"
                                         :on-change="LogoChange" :auto-upload="false" :show-file-list="false">
                                         <img v-if="qyjsForm.logoBase64!==''" :src="qyjsForm.logoBase64" class="avatar">
                                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                        <div class="el-upload__tip" slot="tip">jpg/png文件，且不超过200kb</div>
                                     </el-upload>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="1">&nbsp;</el-col>
-                            <el-col :span="11" style="margin-left: -10%" id="qycpArea">
+                            <!-- <el-col :span="1">&nbsp;</el-col> -->
+                            <el-col :span="14" style="margin-left: -10%" id="qycpArea">
                                 <el-form-item prop="qyjj" style="text-align: left" label="企业简介">
                                     <el-input type="textarea" :rows="5" placeholder="企业简介" v-model="qyjsForm.qyjj"></el-input>
                                 </el-form-item>
@@ -447,17 +449,18 @@
                                         <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 3px -15px 0px 1px"></el-button>
                                     </div>
                                     <el-row class="tr">
-                                        <el-col :span="11">
+                                        <el-col :span="9">
                                             <el-form-item label="产品图片" style="text-align: left">
                                                 <el-upload class="avatar-uploader" ref="uploadCpPics" action="/zhapi/qycpjs/upload" :on-success="picSuccess" :on-change="CpPicsChange"
                                                     :auto-upload="false" :show-file-list="false">
                                                     <img @click="getIndex(index)" v-if="domain.cptpBase64!==''" :src="domain.cptpBase64" class="avatar">
                                                     <i v-else class="el-icon-plus avatar-uploader-icon" @click="getIndex(index)"></i>
+                                                    <div class="el-upload__tip" slot="tip">jpg/png文件，且不超过200kb</div>
                                                 </el-upload>
                                             </el-form-item>
                                         </el-col>
-                                        <el-col :span="1">&nbsp;</el-col>
-                                        <el-col :span="11" style="margin-left: -10%">
+                                        <!-- <el-col :span="1">&nbsp;</el-col> -->
+                                        <el-col :span="14" style="margin-left: -10%">
                                             <el-row>
                                                 <el-form-item prop="cplx" label="产品所属分类">
                                                     <el-cascader :options="cpssfl_data" :props="defaultProps" size="small" v-model="domain.cplx" placeholder="产品所属分类" class="searchSelect"
