@@ -140,10 +140,26 @@ new Vue({
         },
         //展位需求意向
         getZwyxData: function (val) {
-            axios.get('/zhapi/qyzwyx/' + val).then(function (res) {
-                this.zwyxData = res.data.result;
-                if (res.data.result != null) {
-                    this.zwyxForm = res.data.result;
+            var params = {
+                qyid: val,
+                deleteFlag: 'N'
+            }
+            axios.post('/zhapi/qyzwyx/list', params).then(function (res) {
+                if (res.data.result.length > 0) {
+                    //this.xqyxForm = res.data.result[0];
+                    //返回null时不自动带入min值
+                    if (res.data.result[0].bzzwgs != null) {
+                        this.zwyxData.bzzwgs = res.data.result[0].bzzwgs;
+                        this.zwyxForm.bzzwgs = res.data.result[0].bzzwgs;
+                    }
+                    if (res.data.result[0].sngdzw != null) {
+                        this.zwyxData.sngdzw = res.data.result[0].sngdzw;
+                        this.zwyxForm.sngdzw = res.data.result[0].sngdzw;
+                    }
+                    if (res.data.result[0].swgdzw != null) {
+                        this.zwyxData.swgdzw = res.data.result[0].swgdzw;
+                        this.zwyxForm.swgdzw = res.data.result[0].swgdzw;
+                    }
                 }
             }.bind(this), function (error) {
                 console.log(error)

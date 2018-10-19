@@ -48,17 +48,7 @@ new Vue({
     },
     created: function () {
         var type = getQueryString("type");
-        // if (type == "GJSS") {
-        //     loadBreadcrumb("高级搜索", "预案详情");
-        // } else if (type == "YASH") {
-        //     loadBreadcrumb("预案审核", "预案详情");
-        // } else if (type == "YAFF") {
-        //     loadBreadcrumb("预案分发", "预案详情");
-        // } else if (type == "ZDDW") {
-        //     loadBreadcrumb("重点单位详情", "预案详情");
-        // } else {
-        //     loadBreadcrumb("重点单位预案", "重点单位预案详情");
-        // }
+        loadBreadcrumb("展会报名管理 ", " 展会报名详情");
 
         this.loading = true;
         this.qyid = getQueryString("id");
@@ -136,7 +126,7 @@ new Vue({
                     for (var i in tempList) {
                         zycp = zycp + tempList[i].substr(4) + '、';
                     }
-                    this.wjdcData.zycp = zycp.substr(0,zycp.length - 1);
+                    this.wjdcData.zycp = zycp.substr(0, zycp.length - 1);
                 }
             }.bind(this), function (error) {
                 console.log(error)
