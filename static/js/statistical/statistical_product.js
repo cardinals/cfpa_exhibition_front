@@ -81,6 +81,18 @@ var vue = new Vue({
 					x: 'center',
 					y: '-3',
 				},
+				//保存图表为图片功能
+				// toolbox: {
+				// 	　　show: true,
+				// 		x: 'left',
+				// 	　　feature: {
+				// 	　　　　saveAsImage: {
+				// 	　　　　show:true,
+				// 	　　　　excludeComponents :['toolbox'],
+				// 	　　　　pixelRatio: 2
+				// 	　　　　}
+				// 	　　}
+				// 	},
 				tooltip: {
 					trigger: 'axis',
 					axisPointer: {            // 坐标轴指示器，坐标轴触发有效
