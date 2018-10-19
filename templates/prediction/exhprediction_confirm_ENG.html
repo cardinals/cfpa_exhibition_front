@@ -23,11 +23,11 @@
                     in the company list and product list on our website, which targets to provide a longer promotion period
                     through website channel for our exhibitors. If you have any concern about this, please contact the commission.
                 </div>
-                <div id="qyjbxx">
-                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
-                        <strong style="color: #463132;">Brief Company Information</strong>
+                <div id="qyjbxx" class="mb5">
+                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
+                        <strong style="color: #463132;" class="f15">Brief Company Information</strong>
                     </el-row>
-                    <el-row class="mt15">
+                    <el-row>
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="22">
                             <el-row>
@@ -93,11 +93,11 @@
                         </el-col>
                     </el-row>
                 </div>
-                <div id="qykpxx">
-                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
-                        <strong style="color: #463132;">Invoice Information</strong>
+                <div id="qykpxx" class="mb5">
+                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
+                        <strong style="color: #463132;" class="f15">Invoice Information</strong>
                     </el-row>
-                    <el-row class="mt15">
+                    <el-row>
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="22">
                             <el-row class="mb10">
@@ -123,11 +123,11 @@
                         </el-col>
                     </el-row>
                 </div>
-                <div id="qywjdc">
-                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
-                        <strong style="color: #463132;">Major Product Information</strong>
+                <div id="qywjdc" class="mb5">
+                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
+                        <strong style="color: #463132;" class="f15">Major Product Information</strong>
                     </el-row>
-                    <el-row class="mt15 mb15">
+                    <el-row class="mb10">
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="22">
                             <strong>Category of Your Major Products：</strong>
@@ -135,11 +135,11 @@
                         </el-col>
                     </el-row>
                 </div>
-                <div id="qycpjs">
-                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
-                        <strong style="color: #463132;">Company Information Details and Product Examples</strong>
+                <div id="qycpjs" class="mb5">
+                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
+                        <strong style="color: #463132;" class="f15">Company Information Details and Product Examples</strong>
                     </el-row>
-                    <el-row class="mt15 mb10">
+                    <el-row class="mb10">
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="11">
                             <strong class="vt">Company Logo：</strong>
@@ -181,13 +181,13 @@
                         </el-col>
                     </el-row>
                 </div>
-                <div id="qyzwyx">
-                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
-                        <strong style="color: #463132;vertical-align: -webkit-baseline-middle;">Questionnaire on your Booth Requirement</strong>
-                        <el-button v-if="editZwyx&&editPage" type="success" icon="el-icon-document" size="small" class="r" @click="saveClick">save</el-button>
-                        <el-button v-else-if="editPage" type="primary" icon="el-icon-edit" size="small" class="r" @click="editZwyx=true">edit</el-button>
+                <div id="qyzwyx" class="mb5">
+                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
+                        <strong style="color: #463132;vertical-align: -webkit-baseline-middle;" class="f15">Questionnaire on your Booth Requirement</strong>
+                        <el-button v-if="editZwyx&&editPage" type="success" icon="el-icon-document" size="small" class="r" @click="saveClick">Save</el-button>
+                        <el-button v-else-if="editPage" type="primary" icon="el-icon-edit" size="small" class="r" @click="editZwyx=true">Edit</el-button>
                     </el-row>
-                    <el-row class="mt15 mb10">
+                    <el-row class="mb10">
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="18">
                             <el-row class="mb10">
@@ -213,8 +213,8 @@
                 </div>
                 <div id="option" v-if="editPage==false">
                     <el-row class="mt20 mb5 tc">
-                        <el-button type="info" icon="el-icon-close" size="small" @click="canclClick">cancle</el-button>
-                        <el-button type="success" icon="el-icon-check" size="small" @click="submitClick">submit</el-button>
+                        <el-button type="info" icon="el-icon-close" size="small" @click="canclClick">Cancle</el-button>
+                        <el-button type="success" icon="el-icon-check" size="small" @click="submitClick">Submit</el-button>
                     </el-row>
                 </div>
                 <!--图片预览-->
