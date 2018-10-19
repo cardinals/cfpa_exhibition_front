@@ -32,6 +32,12 @@ input[type=file] {
     padding: 0px 20px;
    
 }*/
+#qycpArea .el-form-item__error {
+    padding-top: 8px !important; 
+}
+#cp_card .el-card__header{
+    padding: 1px 15px; 
+}
 .el-card__body{
     padding: 10px 0px 10px 0px;    
 }

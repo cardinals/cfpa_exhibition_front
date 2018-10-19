@@ -417,9 +417,9 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :span="1">&nbsp;</el-col>
-                            <el-col :span="11" style="margin-left: -10%">
+                            <el-col :span="11" style="margin-left: -10%" id="qycpArea">
                                 <el-form-item prop="qyjj" style="text-align: left" label="企业简介">
-                                    <el-input type="textarea" :rows="2" placeholder="企业简介" v-model="qyjsForm.qyjj"></el-input>
+                                    <el-input type="textarea" :rows="5" placeholder="企业简介" v-model="qyjsForm.qyjj"></el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="1">&nbsp;</el-col>
@@ -435,12 +435,11 @@
                     </el-row>
                     <el-row class="mt15 mb20" style="overflow-x: hidden">
                         <el-form class="el-form demo-form-inline" ref="qyjsForm.qycpjsVOList" :model="qyjsForm.qycpjsVOList" label-width="150px" label-position="right">
-                            <!-- <el-form-item v-for="(domain, index) in qyjsForm.qycpjsVOList" :key="domain.key" label-position="right" style="width: 143%"> -->
-                            <div v-for="(domain, index) in qyjsForm.qycpjsVOList" :key="domain.key">
-                                <el-card class="card_style">
+                            <el-form-item v-for="(domain, index) in qyjsForm.qycpjsVOList" :key="domain.key" label-position="right" style="margin-left: -150px;">
+                                <el-card class="card_style" id="cp_card">
                                     <div slot="header" class="clearfix">
                                         <strong class="card_title_font"><span style="color:red;">* </span>产品{{index+1}}</strong>
-                                        <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 0px -15px 0px 1px"></el-button>
+                                        <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 3px -15px 0px 1px"></el-button>
                                     </div>
                                     <el-row class="tr">
                                         <el-col :span="11">
@@ -475,8 +474,7 @@
                                         </el-col>
                                     </el-row>
                                 </el-card>
-                            </div>
-                            <!-- </el-form-item> -->
+                            </el-form-item>
                         </el-form>
                     </el-row>
                     <el-row class="mt15 mb20">
