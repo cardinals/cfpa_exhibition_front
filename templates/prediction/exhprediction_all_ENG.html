@@ -19,7 +19,7 @@
             width: auto !important;
         }
 
-        .hqyzm{
+        .hqyzm_en{
             width: 94px !important;
         }
     </style>
@@ -85,7 +85,7 @@
                         <el-form-item prop="username" label="username">
                             <el-input size="small" v-model="userForm.username" placeholder="username" :disabled="!userForm.usernameFlag">
                             </el-input>
-                            <el-button class="abs hqyzm" size="mini" v-text="userForm.messageCodeText"
+                            <el-button class="hqyzm_en abs" size="mini" v-text="userForm.messageCodeText"
                                 type="text" v-show="userForm.usernameFlag" :disabled="userForm.messageBtnFlag" @click="getMailCode()"></el-button>
                         </el-form-item>
                     </el-col>
