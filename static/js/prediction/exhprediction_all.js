@@ -140,7 +140,7 @@ var vm = new Vue({
             this.userForm.messageCodeText = "发送中...";
             this.userForm.messageBtnFlag = true;
 
-            axios.get('/xfxhapi/signin/getMobileNum/' + this.userForm.username).then(function (res) {
+            axios.get('/xfxhapi/signin/getUsernameNum/' + this.userForm.username).then(function (res) {
                 if (res.data.result != 0) {
                     this.$message({
                         message: '用户名已存在',
