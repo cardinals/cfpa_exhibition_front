@@ -173,14 +173,13 @@ var vue = new Vue({
 						itemStyle: {
 							normal: {
 								barBorderRadius: [5, 5, 0, 0],
-								// color: new echarts.graphic.LinearGradient(
-								// 	0, 0, 0, 1,
-								// 	[
-								// 		{offset: 0, color: '#E90DA8'},
-								// 		{offset: 0.5, color: '#F12D60'},
-								// 		{offset: 1, color: '#F12D60'}
-								// 	]
-								// ),
+								// label: {
+								// 	show: true, //开启显示
+								// 	position: 'top', //在上方显示
+								// 	textStyle: { //数值样式
+								// 		fontSize: 16
+								// 	}
+								// },
 								opacity: 0.85
 							}
 						},
@@ -198,14 +197,13 @@ var vue = new Vue({
 						itemStyle: {
 							normal: {
 								barBorderRadius: [5, 5, 0, 0],
-								// color: new echarts.graphic.LinearGradient(
-								// 	0, 0, 0, 1,
-								// 	[
-								// 		{offset: 0, color: '#E90DA8'},
-								// 		{offset: 0.5, color: '#F12D60'},
-								// 		{offset: 1, color: '#F12D60'}
-								// 	]
-								// ),
+								// label: {
+								// 	show: true, //开启显示
+								// 	position: 'top', //在上方显示
+								// 	textStyle: { //数值样式
+								// 		fontSize: 16
+								// 	}
+								// },
 								opacity: 0.85
 							}
 						},
@@ -221,14 +219,13 @@ var vue = new Vue({
 						itemStyle: {
 							normal: {
 								barBorderRadius: [5, 5, 0, 0],
-								// color: new echarts.graphic.LinearGradient(
-								// 	0, 0, 0, 1,
-								// 	[
-								// 		{offset: 0, color: '#E90DA8'},
-								// 		{offset: 0.5, color: '#F12D60'},
-								// 		{offset: 1, color: '#F12D60'}
-								// 	]
-								// ),
+								// label: {
+								// 	show: true, //开启显示
+								// 	position: 'top', //在上方显示
+								// 	textStyle: { //数值样式
+								// 		fontSize: 16
+								// 	}
+								// },
 								opacity: 0.85
 							}
 						},
