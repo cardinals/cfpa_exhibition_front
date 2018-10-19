@@ -85,6 +85,9 @@ input[type=file] {
     max-width: 100%;
     margin-bottom: 5px;
 }
+#cplx_btn_group{
+    margin-bottom: 10px;
+}
 #cplx_btn_group .el-button--small{
     margin-right: 10px;
 }
@@ -96,4 +99,7 @@ input[type=file] {
 }
 #cplx_chb_group .el-checkbox+.el-checkbox {
     margin-left: 0;
+}
+#cplx_btn_group .el-form-item__error {
+    padding-top: 8px;
 }
