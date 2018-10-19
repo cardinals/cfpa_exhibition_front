@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
+<link rel="stylesheet" type="text/css" href="../../static/css/prediction/exhprediction_edit.css">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="../../static/css/prediction/exhprediction_edit.css">
+
 	<title>展会报名</title>
 </head>
 
@@ -31,7 +31,7 @@
 							<strong style="color: #463132;">基本信息</strong>
 						</el-col>
 					</el-row>
-					<el-form :inline="true" class="el-form demo-form-inline" ref="baseInforForm" :model="baseInforForm" label-position="right" :rules="baseInforRules">
+					<el-form class="el-form demo-form-inline" ref="baseInforForm" :model="baseInforForm" label-width="150px" label-position="right" :rules="baseInforRules">
 						<el-row class="tr mb5">
 							<el-col :span="11">
                                 <el-form-item prop="zwgsmc" label="中文公司名称">
@@ -142,7 +142,7 @@
                             <el-col :span="1">&nbsp;</el-col>
                         </el-row>
                         <el-row class="mt10 mb20">
-                            <el-form :inline="true" class="el-form demo-form-inline">
+                            <el-form class="el-form demo-form-inline">
                                 <el-row>
                                     <el-col :span="24" class="editform-button">
                                         <el-button type="success" icon="check" size="small" class="btn_submit" @click="submitJbxx('baseInforForm')">下一步</el-button>
@@ -159,7 +159,7 @@
 							<strong style="color: #463132;">企业开票信息</strong>
                         </el-col>
                     </el-row>
-                    <el-form :inline="true" class="el-form demo-form-inline" ref="kpxxForm" :model="kpxxForm" label-position="right" :rules="kpxxRules">
+                    <el-form class="el-form demo-form-inline" ref="kpxxForm" :model="kpxxForm" label-position="right" label-width="150px" :rules="kpxxRules">
                         
                         <el-row class="tr mb5">
                            <el-col :span="5">&nbsp;</el-col>
@@ -228,7 +228,7 @@
                             <el-col :span="6">&nbsp;</el-col>
                         </el-row>
                         <el-row class="mt10 mb20">
-                            <el-form :inline="true" class="el-form demo-form-inline">
+                            <el-form class="el-form demo-form-inline">
                                 <el-row>
                                     <el-col :span="24" class="editform-button">
                                         <el-button type="info" icon="check" size="small" class="btn_submit" @click="cancelKpxx('kpxxForm')">上一步</el-button>
@@ -246,7 +246,7 @@
 							<strong style="color: #463132;">企业问卷调查</strong>
 						</el-col>
                     </el-row>
-                    <el-form :inline="true" class="el-form demo-form-inline" ref="wjdcForm" :model="wjdcForm" label-position="right" :rules="wjdcRules">
+                    <el-form class="el-form demo-form-inline" ref="wjdcForm" :model="wjdcForm" label-position="right" label-width="150px" :rules="wjdcRules">
                         <el-row class="tr mb5">
                             <el-col :span="20">
                                 <el-form-item prop="gsxz" label="公司性质" style="text-align: left">
@@ -367,7 +367,7 @@
 							</el-col>
                         </el-row>
                         <el-row class="mt10 mb20">
-                            <el-form :inline="true" class="el-form demo-form-inline">
+                            <el-form class="el-form demo-form-inline">
                                 <el-row>
                                     <el-col :span="24" class="editform-button">
                                         <el-button type="info" icon="check" size="small" class="btn_submit" @click="cancelWjdc('wjdcForm')">上一步</el-button>
@@ -385,7 +385,7 @@
 							<strong style="color: #463132;">企业介绍</strong>
 						</el-col>
                     </el-row>
-                    <el-form :inline="true" class="el-form demo-form-inline" ref="qyjsForm" :model="qyjsForm" label-position="right" :rules="qyjsRules">
+                    <el-form class="el-form demo-form-inline" ref="qyjsForm" :model="qyjsForm" label-position="right" label-width="150px" :rules="qyjsRules">
                         <el-row class="tr mb5">
                             <el-col :span="11">
                                 <el-form-item label="企业LOGO图标" style="text-align: left">
@@ -422,7 +422,7 @@
 						</el-col>
                     </el-row>
                     <el-row class="mt10 mb20" style="overflow-x: hidden">
-                        <el-form :inline="true" class="el-form demo-form-inline" ref="qyjsForm.qycpjsVOList" :model="qyjsForm.qycpjsVOList" label-position="right">
+                        <el-form class="el-form demo-form-inline" ref="qyjsForm.qycpjsVOList" :model="qyjsForm.qycpjsVOList" label-width="150px" label-position="right">
                             <el-form-item v-for="(domain, index) in qyjsForm.qycpjsVOList" :key="domain.key" label-position="right" style="width: 143%">
                                 <el-card class="card_style">
                                     <div slot="header" class="clearfix">
@@ -466,7 +466,7 @@
                         </el-form>
                     </el-row>
                     <el-row class="mt10 mb20">
-                        <el-form :inline="true" class="el-form demo-form-inline">
+                        <el-form class="el-form demo-form-inline">
                             <el-row>
                                 <el-col :span="24" class="editform-button">
                                     <el-button type="info" icon="check" size="small" class="btn_submit" @click="cancelCpjs('qyjsForm')">上一步</el-button>
@@ -483,7 +483,7 @@
 							<strong style="color: #463132;">参展展位需求意向</strong>
 						</el-col>
                     </el-row>
-                    <el-form :inline="true" class="el-form demo-form-inline" ref="xqyxForm" :model="xqyxForm" label-position="right">
+                    <el-form class="el-form demo-form-inline" ref="xqyxForm" :model="xqyxForm" label-width="150px" label-position="right">
                         <el-row class="tr mb5">
                             <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
                                 <el-label class="mr5 vbm yxLabel">标准展位（每个12 平方米）</el-label>
@@ -518,7 +518,7 @@
                             </el-col>
                         </el-row>
                         <el-row class="mt20 mb20">
-                            <el-form :inline="true" class="el-form demo-form-inline">
+                            <el-form class="el-form demo-form-inline">
                                 <el-row>
                                     <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="editform-button">
                                         <el-button type="info" icon="check" size="small" class="btn_submit" @click="cancelXqyx()">上一步</el-button>
@@ -531,24 +531,24 @@
                 </div>
                 <!--手机验证dialog-->
                 <el-dialog title="手机号码验证" :visible.sync="dialogSjFormVisible" @close="closeDialog()" :close-on-click-modal="false">
-                    <el-form :inline="true" class="el-form demo-form-inline" ref="sjform" :model="sjform" label-position="right" :rules="sjformRules">
+                    <el-form class="el-form demo-form-inline" ref="sjform" :model="sjform" label-position="right" label-width="120px" :rules="sjformRules">
                         <el-row class="tr mb5">
-                            <el-col :span="20">
+                            <el-col :span="22">
                                 <el-form-item prop="sjh" label="手机号">
                                     <el-input size="small" v-model="sjform.sjh" placeholder="手机号">
                                         <el-button id="mobile-btn" slot="append" @click="getMessageCode()" v-text=messageCodeText></el-button>
                                      </el-input>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="4">&nbsp;</el-col>
+                            <el-col :span="2">&nbsp;</el-col>
                         </el-row>
                         <el-row class="tr mb5">
-                            <el-col :span="20">
+                            <el-col :span="22">
                                 <el-form-item prop="yzm" label="短信验证码">
                                     <el-input size="small" v-model="sjform.yzm" placeholder="短信验证码"></el-input>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="4">&nbsp;</el-col>
+                            <el-col :span="2">&nbsp;</el-col>
                         </el-row>
                     </el-form>
                     <div slot="footer" class="dialog-footer">  
@@ -558,17 +558,17 @@
                 </el-dialog>
                 <!--邮箱验证dialog-->
                 <el-dialog title="邮箱验证" :visible.sync="dialogYxFormVisible" @close="closeYxDialog()" :close-on-click-modal="false">
-                    <el-form :inline="true" class="el-form demo-form-inline" ref="yxform" :model="yxform" label-position="right">
+                    <el-form class="el-form demo-form-inline" ref="yxform" :model="yxform" label-width="120px" label-position="right">
                         <el-row class="tr mb5" style="text-align: left;margin-left: 10px">
                             请输入邮箱<span v-text="this.baseInforForm.dzyx1" style="font-style:italic;margin-right: 2px;"></span>收到的验证码
                         </el-row>
                         <el-row class="tr mb5">
-                            <el-col :span="20">
+                            <el-col :span="22">
                                 <el-form-item prop="yzm" label="验证码">
                                     <el-input size="small" v-model="yxform.yzm" placeholder="验证码"></el-input>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="4">&nbsp;</el-col>
+                            <el-col :span="2">&nbsp;</el-col>
                         </el-row>
                     </el-form>
                     <div slot="footer" class="dialog-footer">  
