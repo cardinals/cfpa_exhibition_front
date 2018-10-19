@@ -15,46 +15,50 @@
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
                 <div id="remark" v-if="editPage==false">
-                    （1）贵公司此次填写的展位需求仅为参展意向调查。实际展位选择结果需以贵公司在展位选择阶段的最终自主选择结果为准。
-                    <br>（2）贵公司所提供的营业执照、法人代表及企业联系人相关信息仅用于贵公司申请参加第十八届国际消防展的审核工作；贵公司自主填写的公司信息及产品信息则将显示在网站的产品及展商名录内容里。
+                    (1) 贵公司此次填写的展位需求仅为参展意向调查。实际展位选择结果需以贵公司在展位选择阶段的最终自主选择结果为准。
+                    <br>(2) 贵公司所提供的营业执照、法人代表及企业联系人相关信息仅用于贵公司申请参加第十八届国际消防展的审核工作；贵公司自主填写的公司信息及产品信息则将显示在网站的产品及展商名录内容里。
                 </div>
-                <div id="qyjbxx">
-                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
+                <div id="qyjbxx" class="mb5">
+                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;">企业基本信息</strong>
                     </el-row>
-                    <el-row class="mt15">
+                    <el-row>
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="18">
+                        <el-col :span="22">
+                            <el-row>
+                                <el-col :span="12">
+                                    <strong class="vt">营业执照：</strong>
+                                    <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
+                                        style="max-width:100%;max-height:140px;">
+                                    <img v-else src="../../static/images/noPic.png" style="width:100px;">
+                                </el-col>
+                                <el-col :span="12">
+                                    <el-row class="mb10">
+                                        <strong>办公电话：</strong>
+                                        <v-text v-text="jbxxData.bgdh||'无'"></v-text>
+                                    </el-row>
+                                    <el-row class="mb10">
+                                        <strong>传真：</strong>
+                                        <v-text v-text="jbxxData.cz||'无'"></v-text>
+                                    </el-row>
+                                    <el-row class="mb10">
+                                        <strong>网址：</strong>
+                                        <v-text v-text="jbxxData.wz||'无'"></v-text>
+                                    </el-row>
+                                    <el-row class="mb10">
+                                        <strong>电子邮箱：</strong>
+                                        <v-text v-text="jbxxData.dzyx||'无'"></v-text>
+                                    </el-row>
+                                    <el-row class="mb10">
+                                        <strong>法人代表：</strong>
+                                        <v-text v-text="jbxxData.frdb||'无'"></v-text>
+                                    </el-row>
+                                </el-col>
+                            </el-row>
                             <el-row class="mb10">
                                 <el-col :span="12">
                                     <strong>中文公司名称：</strong>
                                     <v-text v-text="jbxxData.zwgsmc||'无'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>英文公司名称：</strong>
-                                    <v-text v-text="jbxxData.ywgsmc||'无'"></v-text>
-                                </el-col>
-                            </el-row>
-                            <el-row class="mb10">
-                                <!-- <el-col :span="12"> -->
-                                <strong>邮寄地址：</strong>
-                                <v-text v-text="jbxxData.yjdz||'无'"></v-text>
-                                <!-- </el-col> -->
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>办公电话：</strong>
-                                    <v-text v-text="jbxxData.bgdh||'无'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>传真：</strong>
-                                    <v-text v-text="jbxxData.cz||'无'"></v-text>
-                                </el-col>
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>法人代表：</strong>
-                                    <v-text v-text="jbxxData.frdb||'无'"></v-text>
                                 </el-col>
                                 <el-col :span="12">
                                     <strong>法人代表电话：</strong>
@@ -63,40 +67,34 @@
                             </el-row>
                             <el-row class="mb10">
                                 <el-col :span="12">
+                                    <strong>英文公司名称：</strong>
+                                    <v-text v-text="jbxxData.ywgsmc||'无'"></v-text>
+                                </el-col>
+                                <el-col :span="12">
                                     <strong>联系人：</strong>
                                     <v-text v-text="jbxxData.lxr||'无'"></v-text>
+                                </el-col>
+                            </el-row>
+                            <el-row class="mb10">
+                                <el-col :span="12">
+                                    <strong>邮寄地址：</strong>
+                                    <v-text v-text="jbxxData.yjdz||'无'"></v-text>
                                 </el-col>
                                 <el-col :span="12">
                                     <strong>联系人手机：</strong>
                                     <v-text v-text="jbxxData.lxrsj||'无'"></v-text>
                                 </el-col>
                             </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>网址：</strong>
-                                    <v-text v-text="jbxxData.wz||'无'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>电子邮箱：</strong>
-                                    <v-text v-text="jbxxData.dzyx||'无'"></v-text>
-                                </el-col>
-                            </el-row>
-                        </el-col>
-                        <el-col :span="5" class="tc">
-                            <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
-                                style="max-width:75%;max-height:160px;">
-                            <img v-else src="../../static/images/noPic.png" style="width:100px;">
-                            <br>营业执照
                         </el-col>
                     </el-row>
                 </div>
-                <div id="qykpxx">
-                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
+                <div id="qykpxx" class="mb5">
+                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;">企业开票信息</strong>
                     </el-row>
-                    <el-row class="mt15">
+                    <el-row>
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="18">
+                        <el-col :span="22">
                             <el-row class="mb10">
                                 <strong>开票公司名称：</strong>
                                 <v-text v-text="kpxxData.kpgsmc||'无'"></v-text>
@@ -134,13 +132,13 @@
                         </el-col>
                     </el-row>
                 </div>
-                <div id="qywjdc">
-                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
+                <div id="qywjdc" class="mb5">
+                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;">企业问卷调查</strong>
                     </el-row>
-                    <el-row class="mt15">
+                    <el-row>
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="18">
+                        <el-col :span="22">
                             <el-row class="mb10">
                                 <strong>公司性质：</strong>
                                 <v-text v-text="wjdcData.gsxzmc||'无'"></v-text>
@@ -198,32 +196,30 @@
                         </el-col>
                     </el-row>
                 </div>
-                <div id="qycpjs">
-                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
+                <div id="qycpjs" class="mb5">
+                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;">企业和产品介绍</strong>
                     </el-row>
-                    <el-row class="mt15 mb10">
+                    <el-row class="mb10">
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="9">
+                        <el-col :span="11">
+                            <strong class="vt">企业Logo：</strong>
+                            <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" @click="imgPreview(qyjsData.logoBase64)"
+                                style="max-width:100%;max-height:140px;">
+                            <img v-else src="../../static/images/noPic.png" style="width:100px;">
+                        </el-col>
+                        <el-col :span="11">
                             <strong>企业简介：</strong>
                             <v-text v-text="qyjsData.qyjj||'无'"></v-text>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-row>
-                                <strong class="vt">企业Logo：</strong>
-                                <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" @click="imgPreview(qyjsData.logoBase64)"
-                                    style="max-width:75%;max-height:160px;">
-                                <img v-else src="../../static/images/noPic.png" style="width:100px;">
-                            </el-row>
                         </el-col>
                     </el-row>
                     <el-row class="mb10">
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="18">
+                        <el-col :span="22">
                             <el-row class="mb10">
                                 <strong>产品介绍：</strong>
                             </el-row>
-                            <el-form v-if="cpjsData.length>0" :inline="true" style="width: 100%;" class="demo-form-inline">
+                            <el-form id="cpjs" v-if="cpjsData.length>0" :inline="true" style="width: 100%;" class="demo-form-inline">
                                 <el-form-item v-for="(cpjs,index) in cpjsData" style="width: 49%;">
                                     <el-card class="mb10 card_style" id="cpjsImg">
                                         <el-row>
@@ -246,15 +242,15 @@
                         </el-col>
                     </el-row>
                 </div>
-                <div id="qyzwyx">
-                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
+                <div id="qyzwyx" class="mb5">
+                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;vertical-align: -webkit-baseline-middle;">企业参展展位需求意向</strong>
                         <el-button v-if="editZwyx&&editPage" type="success" icon="el-icon-document" size="small" class="r" @click="saveClick">保存</el-button>
                         <el-button v-else-if="editPage" type="primary" icon="el-icon-edit" size="small" class="r" @click="editZwyx=true">修改</el-button>
                     </el-row>
-                    <el-row class="mt15 mb10">
+                    <el-row>
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="18">
+                        <el-col :span="22">
                             <el-row class="mb10">
                                 <strong>标准展位：</strong>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.bzzwgs" :min="0" :max="6" placeholder="标准展位" :precision="0"></el-input-number>
@@ -282,6 +278,16 @@
                         <el-button type="success" icon="el-icon-check" size="small" @click="submitClick">提交</el-button>
                     </el-row>
                 </div>
+                <!--图片预览-->
+                <el-dialog id="previewImgDialog" :visible.sync="showPicVisible" :close-on-click-modal="false" size="large">
+                    <template>
+                        <el-carousel type="card" height="350px" :autoplay="false" arrow="never" indicator-position="none">
+                            <el-carousel-item>
+                                <img :src="'data:image/png;base64,'+previewImg" width="100%"></img>
+                            </el-carousel-item>
+                        </el-carousel>
+                    </template>
+                </el-dialog>
             </div>
 
         </div>
