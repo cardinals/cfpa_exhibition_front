@@ -91,6 +91,11 @@ var vm = new Vue({
     methods: {
         //退出登录
         logout: function () {
+            // axios.get('/xfxhapi/ENG/logout').then(function (res) {
+            //     console.log("ENG LOGOUT");
+            // }.bind(this), function (error) {
+            //     console.log(error)
+            // });
             $('#login-out-form')[0].submit();
         },
         showDialog: function () {
