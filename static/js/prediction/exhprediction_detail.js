@@ -68,6 +68,7 @@ new Vue({
                 // this.jbxxData = res.data.result;
                 if (res.data.result != null) {
                     this.jbxxData = res.data.result;
+                    this.jbxxData.yjdz = this.jbxxData.yjdzshengmc + this.jbxxData.yjdzshimc + this.jbxxData.yjdzxx;
                     //创建时间格式化
                     if (this.jbxxData.cjsj == null || this.jbxxData.cjsj == "") {
                         this.jbxxData.cjsj = '';
