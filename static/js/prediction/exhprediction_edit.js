@@ -349,7 +349,7 @@ var vm = new Vue({
             }
             axios.post('/zhapi/qyjbxx/doFindByUserid', params).then(function (res) {
                 if(res.data.result != null && res.data.result != ""){
-                    if(res.data.result.sjzt == '01' || res.data.result.sjzt == '04'){//编辑中，已驳回
+                    if(this.shiroData.deptid == "GLYH"||res.data.result.sjzt == '01' || res.data.result.sjzt == '04'){//编辑中，已驳回
                         this.baseInforForm = res.data.result;
                         this.baseInforForm.yyzzBase64 = 'data:image/png;base64,'+ this.baseInforForm.yyzzBase64;
                         //行政区划级联下拉处理

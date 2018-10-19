@@ -1,6 +1,7 @@
 input[type=file] {
     display: none;
 }
+/*
 .el-cascader,.el-select{
     width: 100%;
 }
@@ -17,6 +18,7 @@ input[type=file] {
 .el-form--inline .el-form-item__content {
     width: 70%;
 }
+
 .el-form-item__content {
     margin-left: 0 !important; 
 }
@@ -28,8 +30,8 @@ input[type=file] {
 }
 .el-card__header{
     padding: 0px 20px;
-    /* color: #20a0ff; */
-}
+   
+}*/
 .el-card__body{
     padding: 10px 0px 10px 0px;    
 }

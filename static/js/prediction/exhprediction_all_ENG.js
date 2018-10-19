@@ -8,7 +8,7 @@ $(function () {
         shiroGlobal = res.data;
         if (res.data != null && res.data != "") {
             //动态加载main
-            loadDiv("prediction/exhprediction_edit");
+            loadDiv("prediction/exhprediction_edit_ENG");
 
             //用户权限
             for (var i in res.data.permissions) {
