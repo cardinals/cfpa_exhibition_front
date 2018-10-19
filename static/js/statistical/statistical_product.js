@@ -167,27 +167,71 @@ var vue = new Vue({
 						name: '参展企业数量',
 						type: 'bar',
 						// barWidth: '100%',
-						// barWidth: '45',
+						barWidth: '40',
 						data: this.tjfxczqysl,
 						// data: this.getList('zongdui'),
+						itemStyle: {
+							normal: {
+								barBorderRadius: [5, 5, 0, 0],
+								// color: new echarts.graphic.LinearGradient(
+								// 	0, 0, 0, 1,
+								// 	[
+								// 		{offset: 0, color: '#E90DA8'},
+								// 		{offset: 0.5, color: '#F12D60'},
+								// 		{offset: 1, color: '#F12D60'}
+								// 	]
+								// ),
+								opacity: 0.85
+							}
+						},
+				
+
 					},
 					{
 						name: '标准展位数量',
 						type: 'bar',
 						// barWidth: '100%',
-						// barWidth: '45',
+						barWidth: '40',
 						yAxisIndex: 1,
 						data: this.tjfxbwzwgssl,
 						// data: this.getList('zhidui'),
+						itemStyle: {
+							normal: {
+								barBorderRadius: [5, 5, 0, 0],
+								// color: new echarts.graphic.LinearGradient(
+								// 	0, 0, 0, 1,
+								// 	[
+								// 		{offset: 0, color: '#E90DA8'},
+								// 		{offset: 0.5, color: '#F12D60'},
+								// 		{offset: 1, color: '#F12D60'}
+								// 	]
+								// ),
+								opacity: 0.85
+							}
+						},
 					},
 					{
 						name: '光地展位面积m²',
 						type: 'bar',
 						// barWidth: '100%',
-						// barWidth: '45',
+						barWidth: '40',
 						yAxisIndex: 2,
 						data: this.tjfxgdzwmj,
 						// data: this.getList('dazhongdui'),
+						itemStyle: {
+							normal: {
+								barBorderRadius: [5, 5, 0, 0],
+								// color: new echarts.graphic.LinearGradient(
+								// 	0, 0, 0, 1,
+								// 	[
+								// 		{offset: 0, color: '#E90DA8'},
+								// 		{offset: 0.5, color: '#F12D60'},
+								// 		{offset: 1, color: '#F12D60'}
+								// 	]
+								// ),
+								opacity: 0.85
+							}
+						},
 					}
 
 				]

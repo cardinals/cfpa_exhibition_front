@@ -130,13 +130,15 @@ var vue = new Vue({
 						// color: ['#ff6364', '#fdc107', '#29bb9d'],
 						itemStyle: {
 							normal: {
+								barBorderRadius: [5, 5, 0, 0],
 								color: function(params) {
 									// build a color map as your need.
 									var colorList = [
 									  '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B'
 									];
 									return colorList[params.dataIndex]
-								}
+								},
+								opacity: 0.85
 							}
 						}
 					}
@@ -191,7 +193,13 @@ var vue = new Vue({
 						animationEasing: 'elasticOut',
 						animationDelay: function (idx) {
 							return Math.random() * 200;
+						},
+						itemStyle: {
+							normal: {
+								opacity: 0.85
+							}
 						}
+						
 					}
 				],
 				color: ['#C1232B','#B5C334','#FCCE10','#E87C25','#27727B']
