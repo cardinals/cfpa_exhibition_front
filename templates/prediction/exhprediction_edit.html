@@ -331,7 +331,7 @@
                                             </el-tag>
                                     </el-col>
                                 </el-row>
-                                <el-form-item label="公司主营产品类型" prop="zycpList">
+                                <el-form-item label="公司主营产品类型" prop="zycpList" id="cplx_btn_group">
                                     <el-button v-for="item in zycp_data" plain size="small" @click="selectCpfl(item.codeValue)"><v-text v-text="item.codeName"></v-text></el-button>
                                 </el-form-item>
                                 <!--
@@ -348,9 +348,9 @@
                         <el-row id="childrenRow" class="tr mb5" style="text-align:left">
                             <el-col :span="22" style="text-align: left;">
                                 <el-row id="tagRow" class="tr mb5">
-                                    <el-col :span="17" style="text-align: left;margin-left: 200px;">
-                                        <el-checkbox-group v-model="wjdcForm.zycpList">
-                                            <el-checkbox v-for="item in childrenCpfl" :label="item.codeValue+item.codeName" :key="item.codeValue+item.codeName">{{item.codeName}}</el-checkbox>
+                                    <el-col :span="19" style="text-align: left;margin-left: 200px;">
+                                        <el-checkbox-group v-model="wjdcForm.zycpList" id="cplx_chb_group">
+                                                <el-checkbox v-for="item in childrenCpfl" :label="item.codeValue+item.codeName" :key="item.codeValue+item.codeName">{{item.codeName}}</el-checkbox>
                                         </el-checkbox-group>
                                     </el-col>
                                 </el-row>
