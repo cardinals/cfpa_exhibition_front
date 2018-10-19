@@ -902,15 +902,23 @@ var vm = new Vue({
                         });
                         return false;
                     }else{//信息填写完整
-                        var tempList = this.qyjsForm.qycpjsVOList;
-                        for(var i in tempList){
+                        //var tempList = this.qyjsForm.qycpjsVOList;
+                        var tempList = [];
+                        for(var i in this.qyjsForm.qycpjsVOList){
+                            var cpjj_temp = this.qyjsForm.qycpjsVOList[i].cpjj;
                             //产品类型级联下拉处理
-                            if((typeof tempList[i].cplx=='object')&&tempList[i].cplx.constructor==Array){
-                                tempList[i].cplx = tempList[i].cplx[tempList[i].cplx.length - 1];
+                            if((typeof this.qyjsForm.qycpjsVOList[i].cplx=='object')&&this.qyjsForm.qycpjsVOList[i].cplx.constructor==Array&&this.qyjsForm.qycpjsVOList[i].cplx.length>0){
+                                var length = this.qyjsForm.qycpjsVOList[i].cplx.length;
+                                var cplx_temp = this.qyjsForm.qycpjsVOList[i].cplx[length-1];
                             }
                             //产品图片base64切成byte
-                            var temp_str = tempList[i].cptpBase64.split(",");
-                            tempList[i].cptp = temp_str[1];
+                            var temp_str = this.qyjsForm.qycpjsVOList[i].cptpBase64.split(",");
+                            var obj_temp = {
+                                cptp:temp_str[1],
+                                cplx:cplx_temp,
+                                cpjj:cpjj_temp
+                            }
+                            tempList.push(obj_temp);
                         }
                         if(this.cpjsStatus == 0){//新增
                             if(this.qyjsForm.logoBase64 == null || this.qyjsForm.logoBase64 == ""){
