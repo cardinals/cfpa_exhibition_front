@@ -15,6 +15,10 @@
             visibility: hidden;
         }
 
+        #userForm .el-form-item__content {
+            width: auto !important;
+        }
+        
         .hqyzm{
             width: 94px !important;
         }
@@ -75,9 +79,9 @@
             </div>
         </div>
         <el-dialog title="Personal center" :visible.sync="dialogVisible" width="30%">
-            <el-form ref="userForm" :model="userForm" label-width="80px" :inline="true" :label-position="'left'" label-width="150px" :rules="userInforRules">
+            <el-form id="userForm" ref="userForm" :model="userForm" label-width="80px" :label-position="'left'" label-width="150px" :rules="userInforRules">
                 <el-row class="mb5">
-                    <el-col :span="22">
+                    <el-col :span="21">
                         <el-form-item prop="username" label="username">
                             <el-input size="small" v-model="userForm.username" placeholder="username" :disabled="!userForm.usernameFlag">
                             </el-input>
@@ -85,12 +89,13 @@
                                 type="text" v-show="userForm.usernameFlag" :disabled="userForm.messageBtnFlag" @click="getMailCode()"></el-button>
                         </el-form-item>
                     </el-col>
+                    <el-col :span="1">&nbsp</el-col>
                     <el-col :span="2">
                         <el-button v-text="userForm.usernameText" type="text" @click="changeUsername()"></el-button>
                     </el-col>
                 </el-row>
                 <el-row class="mb5" v-show="userForm.usernameFlag">
-                    <el-col :span="22">
+                    <el-col :span="21">
                         <el-form-item prop="messageCode" label="validate code" :rules="this.userForm.usernameFlag?userInforRules.messageCode:[{ required: false, message: 'Please input a password', trigger: 'blur' }]">
                             <el-input size="small" v-model="userForm.messageCode" placeholder="validate code">
                             </el-input>
@@ -98,18 +103,19 @@
                     </el-col>
                 </el-row>
                 <el-row class="mb5">
-                    <el-col :span="22">
+                    <el-col :span="21">
                         <el-form-item prop="password" label="password">
                             <el-input type="password" size="small" v-model="userForm.password" placeholder="password" :disabled="!userForm.passwordFlag">
                             </el-input>
                         </el-form-item>
                     </el-col>
+                    <el-col :span="1">&nbsp</el-col>
                     <el-col :span="2">
                         <el-button v-text="userForm.passwordText" type="text" @click="changePassword()"></el-button>
                     </el-col>
                 </el-row>
                 <el-row class="mb5" v-show="userForm.passwordFlag">
-                    <el-col :span="22">
+                    <el-col :span="21">
                         <el-form-item prop="passwordAgain" label="confirm password" :rules="this.userForm.passwordFlag?userInforRules.passwordAgain:[{ required: false, message: 'Please input the password again', trigger: 'blur' }]">
                             <el-input type="password" size="small" v-model="userForm.passwordAgain" placeholder="confirm password">
                             </el-input>

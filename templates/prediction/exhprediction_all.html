@@ -14,6 +14,10 @@
         #hidden_btn {
             visibility: hidden;
         }
+
+        #userForm .el-form-item__content {
+            width: auto !important;
+        }
     </style>
 
 </head>
@@ -71,22 +75,23 @@
             </div>
         </div>
         <el-dialog title="个人中心" :visible.sync="dialogVisible" width="30%">
-            <el-form ref="userForm" :model="userForm" label-width="80px" :inline="true" :label-position="'left'" label-width="150px" :rules="userInforRules">
+            <el-form id="userForm" ref="userForm" :model="userForm" label-width="80px" :label-position="'left'" :rules="userInforRules">
                 <el-row class="mb5">
-                    <el-col :span="22">
+                    <el-col :span="21">
                         <el-form-item prop="username" label="用户名">
                             <el-input size="small" v-model="userForm.username" placeholder="用户名" :disabled="!userForm.usernameFlag">
                             </el-input>
-                            <el-button class="abs hqyzm" size="mini" v-text="userForm.messageCodeText"
-                                type="text" v-show="userForm.usernameFlag" :disabled="userForm.messageBtnFlag" @click="getMessageCode()"></el-button>
+                            <el-button class="abs hqyzm" size="mini" v-text="userForm.messageCodeText" type="text" v-show="userForm.usernameFlag" :disabled="userForm.messageBtnFlag"
+                                @click="getMessageCode()"></el-button>
                         </el-form-item>
                     </el-col>
+                    <el-col :span="1">&nbsp</el-col>
                     <el-col :span="2">
                         <el-button v-text="userForm.usernameText" type="text" @click="changeUsername()"></el-button>
                     </el-col>
                 </el-row>
                 <el-row class="mb5" v-show="userForm.usernameFlag">
-                    <el-col :span="22">
+                    <el-col :span="21">
                         <el-form-item prop="messageCode" label="验证码" :rules="this.userForm.usernameFlag?userInforRules.messageCode:[{ required: false, message: '请输入验证码', trigger: 'blur' }]">
                             <el-input size="small" v-model="userForm.messageCode" placeholder="短信验证码">
                             </el-input>
@@ -94,18 +99,19 @@
                     </el-col>
                 </el-row>
                 <el-row class="mb5">
-                    <el-col :span="22">
+                    <el-col :span="21">
                         <el-form-item prop="password" label="密码">
                             <el-input type="password" size="small" v-model="userForm.password" placeholder="密码" :disabled="!userForm.passwordFlag">
                             </el-input>
                         </el-form-item>
                     </el-col>
+                    <el-col :span="1">&nbsp</el-col>
                     <el-col :span="2">
                         <el-button v-text="userForm.passwordText" type="text" @click="changePassword()"></el-button>
                     </el-col>
                 </el-row>
                 <el-row class="mb5" v-show="userForm.passwordFlag">
-                    <el-col :span="22">
+                    <el-col :span="21">
                         <el-form-item prop="passwordAgain" label="确认密码" :rules="this.userForm.passwordFlag?userInforRules.passwordAgain:[{ required: false, message: '请输入确认密码', trigger: 'blur' }]">
                             <el-input type="password" size="small" v-model="userForm.passwordAgain" placeholder="确认密码">
                             </el-input>
