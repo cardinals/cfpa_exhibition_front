@@ -29,45 +29,51 @@
                     </el-row>
                     <el-row class="mt15">
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="18">
+                        <el-col :span="22">
+                            <el-row>
+                                <el-col :span="12">
+                                    <strong class="vt">Business licence：</strong>
+                                    <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
+                                        style="max-width:100%;max-height:140px;">
+                                    <img v-else src="../../static/images/noPic.png" style="width:100px;">
+                                </el-col>
+                                <el-col :span="12">
+                                    <el-row class="mb10">
+                                        <strong>Phone：</strong>
+                                        <v-text v-text="jbxxData.bgdh||'无'"></v-text>
+                                    </el-row>
+                                    <el-row class="mb10">
+                                        <strong>Fax：</strong>
+                                        <v-text v-text="jbxxData.cz||'无'"></v-text>
+                                    </el-row>
+                                    <el-row class="mb10">
+                                        <strong>Company Website：</strong>
+                                        <v-text v-text="jbxxData.wz||'无'"></v-text>
+                                    </el-row>
+                                    <el-row class="mb10">
+                                        <strong>Legal Representative：</strong>
+                                        <v-text v-text="jbxxData.frdb||'无'"></v-text>
+                                    </el-row>
+                                    <el-row class="mb10">
+                                        <strong>Legal Representative's Phone：</strong>
+                                        <v-text v-text="jbxxData.frdbdh||'无'"></v-text>
+                                    </el-row>
+                                </el-col>
+                            </el-row>
                             <el-row class="mb10">
                                 <el-col :span="12">
                                     <strong>Company Name：</strong>
                                     <v-text v-text="jbxxData.zwgsmc||'无'"></v-text>
                                 </el-col>
                                 <el-col :span="12">
-                                    <strong>Postal Code：</strong>
-                                    <v-text v-text="jbxxData.reserve2||'无'"></v-text>
-                                </el-col>
-                            </el-row>
-                            <el-row class="mb10">
-                                <strong>Company Address：</strong>
-                                <v-text v-text="jbxxData.yjdz||'无'"></v-text>
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>Phone：</strong>
-                                    <v-text v-text="jbxxData.bgdh||'无'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>Fax：</strong>
-                                    <v-text v-text="jbxxData.cz||'无'"></v-text>
-                                </el-col>
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>Legal Representative：</strong>
-                                    <v-text v-text="jbxxData.frdb||'无'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>Legal Representative's Phone：</strong>
-                                    <v-text v-text="jbxxData.frdbdh||'无'"></v-text>
-                                </el-col>
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
                                     <strong>Contact Person：</strong>
                                     <v-text v-text="jbxxData.lxr||'无'"></v-text>
+                                </el-col>
+                            </el-row>
+                            <el-row class="mb10">
+                                <el-col :span="12">
+                                    <strong>Company Address：</strong>
+                                    <v-text v-text="jbxxData.yjdz||'无'"></v-text>
                                 </el-col>
                                 <el-col :span="12">
                                     <strong>Contact Person's Phone：</strong>
@@ -76,20 +82,14 @@
                             </el-row>
                             <el-row class="mb10">
                                 <el-col :span="12">
-                                    <strong>Company Website：</strong>
-                                    <v-text v-text="jbxxData.wz||'无'"></v-text>
+                                    <strong>Postal Code：</strong>
+                                    <v-text v-text="jbxxData.reserve2||'无'"></v-text>
                                 </el-col>
                                 <el-col :span="12">
                                     <strong>Standby Email for Password Retrieve：</strong>
                                     <v-text v-text="jbxxData.dzyx||'无'"></v-text>
                                 </el-col>
                             </el-row>
-                        </el-col>
-                        <el-col :span="5" class="tc">
-                            <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
-                                style="max-width:75%;max-height:160px;">
-                            <img v-else src="../../static/images/noPic.png" style="width:100px;">
-                            <br>营业执照
                         </el-col>
                     </el-row>
                 </div>
@@ -99,7 +99,7 @@
                     </el-row>
                     <el-row class="mt15">
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="18">
+                        <el-col :span="22">
                             <el-row class="mb10">
                                 <el-col :span="12">
                                     <strong>Company Name on the Invoice：</strong>
@@ -129,7 +129,7 @@
                     </el-row>
                     <el-row class="mt15 mb15">
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="18">
+                        <el-col :span="22">
                             <strong>Category of Your Major Products：</strong>
                             <v-text v-text="wjdcData.zycp||'无'"></v-text>
                         </el-col>
@@ -141,26 +141,24 @@
                     </el-row>
                     <el-row class="mt15 mb10">
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="9">
+                        <el-col :span="11">
+                            <strong class="vt">Company Logo：</strong>
+                            <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" @click="imgPreview(qyjsData.logoBase64)"
+                                style="max-width:100%;max-height:140px;">
+                            <img v-else src="../../static/images/noPic.png" style="width:100px;">
+                        </el-col>
+                        <el-col :span="11">
                             <strong>Company Introduction：</strong>
                             <v-text v-text="qyjsData.qyjj||'无'"></v-text>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-row>
-                                <strong class="vt">Company Logo：</strong>
-                                <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" @click="imgPreview(qyjsData.logoBase64)"
-                                    style="max-width:75%;max-height:160px;">
-                                <img v-else src="../../static/images/noPic.png" style="width:100px;">
-                            </el-row>
                         </el-col>
                     </el-row>
                     <el-row class="mb10">
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="18">
+                        <el-col :span="22">
                             <el-row class="mb10">
                                 <strong>Product Introduction：</strong>
                             </el-row>
-                            <el-form v-if="cpjsData.length>0" :inline="true" style="width: 100%;" class="demo-form-inline">
+                            <el-form id="cpjs" v-if="cpjsData.length>0" :inline="true" style="width: 100%;" class="demo-form-inline">
                                 <el-form-item v-for="(cpjs,index) in cpjsData" style="width: 49%;">
                                     <el-card class="mb10 card_style" id="cpjsImg">
                                         <el-row>
@@ -219,8 +217,17 @@
                         <el-button type="success" icon="el-icon-check" size="small" @click="submitClick">submit</el-button>
                     </el-row>
                 </div>
+                <!--图片预览-->
+                <el-dialog id="previewImgDialog" :visible.sync="showPicVisible" :close-on-click-modal="false" size="large">
+                    <template>
+                        <el-carousel type="card" height="350px" :autoplay="false" arrow="never" indicator-position="none">
+                            <el-carousel-item>
+                                <img :src="'data:image/png;base64,'+previewImg" width="100%"></img>
+                            </el-carousel-item>
+                        </el-carousel>
+                    </template>
+                </el-dialog>
             </div>
-
         </div>
         <!-- main-container -->
     </div>
