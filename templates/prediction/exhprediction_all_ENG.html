@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>展会报名</title>
+    <title>Exhibition registration</title>
     <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
     <style>
         .main-box {
@@ -13,6 +13,10 @@
 
         #hidden_btn {
             visibility: hidden;
+        }
+
+        .hqyzm{
+            width: 94px !important;
         }
     </style>
 
@@ -41,17 +45,17 @@
                         </li> -->
                         <li>
                             <a class="f12" href="javascript:;">
-                                <span id="realname">欢迎您！</span>
+                                <span id="realname">Welcome！</span>
                                 <span class="glyphicon glyphicon-triangle-top oscar-arrow frame-duration"></span>
                                 <div class="dada abs ovh">
                                     <div class="dada-item" @click="showDialog()">
                                         <span class="glyphicon glyphicon-user"></span>
-                                        <span class="ml5">个人中心</span>
+                                        <span class="ml5">Personal center</span>
                                     </div>
                                     <form id="login-out-form" action="/xfxhapi/logout" method="get" onsubmit="return false;" style="display:none"></form>
                                     <div class="dada-item" id="logout" @click="logout()">
                                         <span class="glyphicon glyphicon-off"></span>
-                                        <span class="ml5">退出</span>
+                                        <span class="ml5">Logout</span>
                                     </div>
                                 </div>
                             </a>
@@ -61,24 +65,24 @@
                 <div class="dada2 abs ovh f12">
                     <div class="dada-item">
                         <span class="glyphicon glyphicon-user"></span>
-                        <span class="ml5">个人中心</span>
+                        <span class="ml5">Personal center</span>
                     </div>
                     <div class="dada-item">
                         <span class="glyphicon glyphicon-off"></span>
-                        <span class="ml5">退出</span>
+                        <span class="ml5">Logout</span>
                     </div>
                 </div>
             </div>
         </div>
-        <el-dialog title="个人中心" :visible.sync="dialogVisible" width="30%">
+        <el-dialog title="Personal center" :visible.sync="dialogVisible" width="30%">
             <el-form ref="userForm" :model="userForm" label-width="80px" :inline="true" :label-position="'left'" label-width="150px" :rules="userInforRules">
                 <el-row class="mb5">
                     <el-col :span="22">
-                        <el-form-item prop="username" label="用户名">
-                            <el-input size="small" v-model="userForm.username" placeholder="用户名" :disabled="!userForm.usernameFlag">
+                        <el-form-item prop="username" label="username">
+                            <el-input size="small" v-model="userForm.username" placeholder="username" :disabled="!userForm.usernameFlag">
                             </el-input>
                             <el-button class="abs hqyzm" size="mini" v-text="userForm.messageCodeText"
-                                type="text" v-show="userForm.usernameFlag" :disabled="userForm.messageBtnFlag" @click="getMessageCode()"></el-button>
+                                type="text" v-show="userForm.usernameFlag" :disabled="userForm.messageBtnFlag" @click="getMailCode()"></el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="2">
@@ -87,16 +91,16 @@
                 </el-row>
                 <el-row class="mb5" v-show="userForm.usernameFlag">
                     <el-col :span="22">
-                        <el-form-item prop="messageCode" label="验证码" :rules="this.userForm.usernameFlag?userInforRules.messageCode:[{ required: false, message: '请输入验证码', trigger: 'blur' }]">
-                            <el-input size="small" v-model="userForm.messageCode" placeholder="短信验证码">
+                        <el-form-item prop="messageCode" label="validate code" :rules="this.userForm.usernameFlag?userInforRules.messageCode:[{ required: false, message: 'Please input a password', trigger: 'blur' }]">
+                            <el-input size="small" v-model="userForm.messageCode" placeholder="validate code">
                             </el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row class="mb5">
                     <el-col :span="22">
-                        <el-form-item prop="password" label="密码">
-                            <el-input type="password" size="small" v-model="userForm.password" placeholder="密码" :disabled="!userForm.passwordFlag">
+                        <el-form-item prop="password" label="password">
+                            <el-input type="password" size="small" v-model="userForm.password" placeholder="password" :disabled="!userForm.passwordFlag">
                             </el-input>
                         </el-form-item>
                     </el-col>
@@ -106,16 +110,16 @@
                 </el-row>
                 <el-row class="mb5" v-show="userForm.passwordFlag">
                     <el-col :span="22">
-                        <el-form-item prop="passwordAgain" label="确认密码" :rules="this.userForm.passwordFlag?userInforRules.passwordAgain:[{ required: false, message: '请输入确认密码', trigger: 'blur' }]">
-                            <el-input type="password" size="small" v-model="userForm.passwordAgain" placeholder="确认密码">
+                        <el-form-item prop="passwordAgain" label="confirm password" :rules="this.userForm.passwordFlag?userInforRules.passwordAgain:[{ required: false, message: 'Please input the password again', trigger: 'blur' }]">
+                            <el-input type="password" size="small" v-model="userForm.passwordAgain" placeholder="confirm password">
                             </el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
             </el-form>
             <span slot="footer" class="dialog-footer">
-                <el-button size="small" @click="dialogVisible = false">取 消</el-button>
-                <el-button size="small" type="primary" @click="register()">确 定</el-button>
+                <el-button size="small" @click="dialogVisible = false">cancel</el-button>
+                <el-button size="small" type="primary" @click="register()">confirm</el-button>
             </span>
         </el-dialog>
         <div id="component" style="overflow:auto;"></div>

@@ -134,8 +134,7 @@
                                         :on-success="picSuccess"
                                         :on-change="PicChange"
                                         :auto-upload="false"
-                                        :show-file-list="false"
-                                        >
+                                        :show-file-list="false">
                                     <img v-if="baseInforForm.yyzzBase64!==''" :src="baseInforForm.yyzzBase64" class="avatar">
                                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                 </el-upload>
