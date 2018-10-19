@@ -5,16 +5,16 @@
     max-height: 100%;
     max-width: 100%;
 }
-.el-form-item:nth-child(even){
+#cpjs .el-form-item:nth-child(even){
     margin-right: 0;
 }
-.el-tabs__content {
+.inform-content .el-tabs__content {
     padding: 20px 25px 20px 30px !important;
 }
 #previewImgDialog .el-dialog{
     background-color: rgba(0, 0, 0, 0.2);
 }
-.el-input-number--small {
+#qyzwyx .el-input-number--small {
     width: 300px;
 }
 #remark{
@@ -27,6 +27,6 @@
     font-size: 13px;
     font-weight: bold;
 }
-.el-card__body {
+#cpjs .el-card__body {
     height: 106px;
 }

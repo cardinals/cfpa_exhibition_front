@@ -189,24 +189,24 @@
                     </el-row>
                     <el-row class="mb10">
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="18">
+                        <el-col :span="22">
                             <el-row class="mb10">
                                 <strong>Standard Booth：</strong>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.bzzwgs" :min="0" :max="6" :precision="0"></el-input-number>
                                 <v-text v-else v-text="zwyxForm.bzzwgs==''||zwyxForm.bzzwgs==null?'no':zwyxForm.bzzwgs+' Booth(s)'"></v-text>
-                                &nbsp;&nbsp;(Standard Booth: 12m2 Each)
+                                &nbsp;&nbsp;(12m2 Each)
                             </el-row>
                             <el-row class="mb10">
                                 <strong>Indoor Raw Space Booth：</strong>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.sngdzw" :min="24" :max="1000" :precision="0"></el-input-number>
                                 <v-text v-else v-text="zwyxForm.sngdzw==''||zwyxForm.sngdzw==null?'no':zwyxForm.sngdzw+' m²'"></v-text>
-                                &nbsp;&nbsp;(Indoor Raw Space Booth: Minimum 24m²)
+                                &nbsp;&nbsp;(Minimum 24m²)
                             </el-row>
                             <el-row class="mb10">
                                 <strong>Outdoor Raw Space Booth：</strong>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.swgdzw" :min="0" :max="2000" :precision="0"></el-input-number>
                                 <v-text v-else v-text="zwyxForm.swgdzw==''||zwyxForm.swgdzw==null?'no':zwyxForm.swgdzw+' m²'"></v-text>
-                                &nbsp;&nbsp;(Outdoor Raw Space Booth: Only Available to Fire Engines)
+                                &nbsp;&nbsp;(Only Available to Fire Engines)
                             </el-row>
                         </el-col>
                     </el-row>
