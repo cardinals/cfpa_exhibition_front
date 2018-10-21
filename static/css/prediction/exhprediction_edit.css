@@ -103,3 +103,7 @@ input[type=file] {
 #cplx_btn_group .el-form-item__error {
     padding-top: 8px;
 }
+#tagCheckbox .el-checkbox__label{
+    padding-left:5px;
+    font-size: 10px;
+}
