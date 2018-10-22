@@ -174,6 +174,7 @@ new Vue({
             this.showPicVisible = true;
         },
         saveClick: function () {
+            debugger
             if (this.zwyxForm.bzzwgs > 0 || this.zwyxForm.sngdzw > 0 || this.zwyxForm.swgdzw > 0) {
                 if (this.zwyxData == null) {//新增
                     var params = {
@@ -199,7 +200,7 @@ new Vue({
                     })
                 } else {//修改
                     var params = {
-                        uuid: this.zwyxForm.uuid,
+                        uuid: this.zwyxData.uuid,
                         qyid: this.qyid,
                         bzzwgs: this.zwyxForm.bzzwgs,
                         sngdzw: this.zwyxForm.sngdzw,

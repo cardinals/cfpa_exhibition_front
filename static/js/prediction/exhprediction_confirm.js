@@ -142,19 +142,22 @@ new Vue({
                 deleteFlag: 'N'
             }
             axios.post('/zhapi/qyzwyx/list', params).then(function (res) {
-                if (res.data.result.length > 0) {
+                if (res.data.result.length == 0) {
+                    this.zwyxData = null;
+                } else if (res.data.result.length > 0) {
                     //this.xqyxForm = res.data.result[0];
                     //返回null时不自动带入min值
+                    this.zwyxData = res.data.result[0];
                     if (res.data.result[0].bzzwgs != null) {
-                        this.zwyxData.bzzwgs = res.data.result[0].bzzwgs;
+                        // this.zwyxData.bzzwgs = res.data.result[0].bzzwgs;
                         this.zwyxForm.bzzwgs = res.data.result[0].bzzwgs;
                     }
                     if (res.data.result[0].sngdzw != null) {
-                        this.zwyxData.sngdzw = res.data.result[0].sngdzw;
+                        // this.zwyxData.sngdzw = res.data.result[0].sngdzw;
                         this.zwyxForm.sngdzw = res.data.result[0].sngdzw;
                     }
                     if (res.data.result[0].swgdzw != null) {
-                        this.zwyxData.swgdzw = res.data.result[0].swgdzw;
+                        // this.zwyxData.swgdzw = res.data.result[0].swgdzw;
                         this.zwyxForm.swgdzw = res.data.result[0].swgdzw;
                     }
                 }
@@ -192,7 +195,7 @@ new Vue({
                     })
                 } else {//修改
                     var params = {
-                        uuid: this.zwyxForm.uuid,
+                        uuid: this.zwyxData.uuid,
                         qyid: this.qyid,
                         bzzwgs: this.zwyxForm.bzzwgs,
                         sngdzw: this.zwyxForm.sngdzw,
