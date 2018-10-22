@@ -174,7 +174,6 @@ new Vue({
             this.showPicVisible = true;
         },
         saveClick: function () {
-            debugger
             if (this.zwyxForm.bzzwgs > 0 || this.zwyxForm.sngdzw > 0 || this.zwyxForm.swgdzw > 0) {
                 if (this.zwyxData == null) {//新增
                     var params = {
@@ -232,7 +231,7 @@ new Vue({
             var params = {
                 userid: this.userid
             }
-            loadDivParam("prediction/exhprediction_edit", params);
+            loadDivParam("prediction/exhprediction_edit_ENG", params);
         },
         submitClick: function () {
             this.$confirm('提交后仅可修改展位意向信息，其他信息不能修改', '提示', {
