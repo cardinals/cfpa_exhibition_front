@@ -167,7 +167,11 @@ var vue = new Vue({
                 userid: val.userid,
                 type: "BJ"
             }
-            loadDivParam("prediction/exhprediction_edit", params);
+            if (val.usertype == 'CHN') {
+                loadDivParam("prediction/exhprediction_edit", params);
+            } else if (val.usertype == 'ENG') {
+                loadDivParam("prediction/exhprediction_edit_ENG", params);
+            }
         },
         deleteClick: function () {
             this.$confirm('确定删除已选中报名信息?', '提示', {
