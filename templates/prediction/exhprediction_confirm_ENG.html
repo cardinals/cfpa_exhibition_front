@@ -40,54 +40,58 @@
                                 <el-col :span="12">
                                     <el-row class="mb10">
                                         <strong>Phone：</strong>
-                                        <v-text v-text="jbxxData.bgdh||'无'"></v-text>
+                                        <v-text v-text="jbxxData.bgdh||'no'"></v-text>
                                     </el-row>
                                     <el-row class="mb10">
                                         <strong>Fax：</strong>
-                                        <v-text v-text="jbxxData.cz||'无'"></v-text>
+                                        <v-text v-text="jbxxData.cz||'no'"></v-text>
                                     </el-row>
                                     <el-row class="mb10">
                                         <strong>Company Website：</strong>
-                                        <v-text v-text="jbxxData.wz||'无'"></v-text>
+                                        <v-text v-text="jbxxData.wz||'no'"></v-text>
                                     </el-row>
                                     <el-row class="mb10">
                                         <strong>Legal Representative：</strong>
-                                        <v-text v-text="jbxxData.frdb||'无'"></v-text>
+                                        <v-text v-text="jbxxData.frdb||'no'"></v-text>
                                     </el-row>
                                     <el-row class="mb10">
                                         <strong>Legal Representative's Phone：</strong>
-                                        <v-text v-text="jbxxData.frdbdh||'无'"></v-text>
+                                        <v-text v-text="jbxxData.frdbdh||'no'"></v-text>
+                                    </el-row>
+                                    <el-row class="mb10">
+                                        <strong>Contact Person：</strong>
+                                    <v-text v-text="jbxxData.lxr||'no'"></v-text>
                                     </el-row>
                                 </el-col>
                             </el-row>
                             <el-row class="mb10">
                                 <el-col :span="12">
                                     <strong>Company Name：</strong>
-                                    <v-text v-text="jbxxData.zwgsmc||'无'"></v-text>
+                                    <v-text v-text="jbxxData.zwgsmc||'no'"></v-text>
                                 </el-col>
                                 <el-col :span="12">
-                                    <strong>Contact Person：</strong>
-                                    <v-text v-text="jbxxData.lxr||'无'"></v-text>
+                                    <strong>Contact Person's Phone：</strong>
+                                    <v-text v-text="jbxxData.lxrsj||'no'"></v-text>
                                 </el-col>
                             </el-row>
                             <el-row class="mb10">
                                 <el-col :span="12">
                                     <strong>Company Address：</strong>
-                                    <v-text v-text="jbxxData.yjdz||'无'"></v-text>
+                                    <v-text v-text="jbxxData.yjdz||'no'"></v-text>
                                 </el-col>
                                 <el-col :span="12">
-                                    <strong>Contact Person's Phone：</strong>
-                                    <v-text v-text="jbxxData.lxrsj||'无'"></v-text>
+                                    <strong>Standby Email for Password Retrieve：</strong>
+                                    <v-text v-text="jbxxData.dzyx||'no'"></v-text>
                                 </el-col>
                             </el-row>
                             <el-row class="mb10">
                                 <el-col :span="12">
                                     <strong>Postal Code：</strong>
-                                    <v-text v-text="jbxxData.reserve2||'无'"></v-text>
+                                    <v-text v-text="jbxxData.reserve2||'no'"></v-text>
                                 </el-col>
                                 <el-col :span="12">
-                                    <strong>Standby Email for Password Retrieve：</strong>
-                                    <v-text v-text="jbxxData.dzyx||'无'"></v-text>
+                                    <strong>Email：</strong>
+                                    <v-text v-text="jbxxData.email||'no'"></v-text>
                                 </el-col>
                             </el-row>
                         </el-col>
@@ -103,21 +107,21 @@
                             <el-row class="mb10">
                                 <el-col :span="12">
                                     <strong>Company Name on the Invoice：</strong>
-                                    <v-text v-text="kpxxData.kpgsmc||'无'"></v-text>
+                                    <v-text v-text="kpxxData.kpgsmc||'no'"></v-text>
                                 </el-col>
                                 <el-col :span="12">
                                     <strong>Fax：</strong>
-                                    <v-text v-text="kpxxData.yhzh||'无'"></v-text>
+                                    <v-text v-text="kpxxData.yhzh||'no'"></v-text>
                                 </el-col>
                             </el-row>
                             <el-row class="mb10">
                                 <el-col :span="12">
                                     <strong>Customer Contact：</strong>
-                                    <v-text v-text="kpxxData.gsdz||'无'"></v-text>
+                                    <v-text v-text="kpxxData.gsdz||'no'"></v-text>
                                 </el-col>
                                 <el-col :span="12">
                                     <strong>Phone Number：</strong>
-                                    <v-text v-text="kpxxData.dhhm||'无'"></v-text>
+                                    <v-text v-text="kpxxData.dhhm||'no'"></v-text>
                                 </el-col>
                             </el-row>
                         </el-col>
@@ -131,7 +135,7 @@
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="22">
                             <strong>Category of Your Major Products：</strong>
-                            <v-text v-text="wjdcData.zycp||'无'"></v-text>
+                            <v-text v-text="wjdcData.zycp||'no'"></v-text>
                         </el-col>
                     </el-row>
                 </div>
@@ -149,7 +153,7 @@
                         </el-col>
                         <el-col :span="11">
                             <strong>Company Introduction：</strong>
-                            <v-text v-text="qyjsData.qyjj||'无'"></v-text>
+                            <v-text v-text="qyjsData.qyjj||'no'"></v-text>
                         </el-col>
                     </el-row>
                     <el-row class="mb10">
@@ -168,10 +172,10 @@
                                             </el-col>
                                             <el-col :span="19" style="line-height: 24px;">
                                                 <strong class="dtdlStyle">Category of the Product：</strong>
-                                                <v-text v-text="cpjs.cplxmc||'无'"></v-text>
+                                                <v-text v-text="cpjs.cplxmc||'no'"></v-text>
                                                 <br>
                                                 <strong class="dtdlStyle">Product Introduction：</strong>
-                                                <v-text v-text="cpjs.cpjj||'无'"></v-text>
+                                                <v-text v-text="cpjs.cpjj||'no'"></v-text>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -194,7 +198,7 @@
                                 <strong>Standard Booth：</strong>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.bzzwgs" :min="0" :max="6" :precision="0"></el-input-number>
                                 <v-text v-else v-text="zwyxForm.bzzwgs==''||zwyxForm.bzzwgs==null?'no':zwyxForm.bzzwgs+' Booth(s)'"></v-text>
-                                &nbsp;&nbsp;(12m2 Each)
+                                &nbsp;&nbsp;(12m² Each)
                             </el-row>
                             <el-row class="mb10">
                                 <strong>Indoor Raw Space Booth：</strong>
