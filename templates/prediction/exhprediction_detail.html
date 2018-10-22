@@ -252,7 +252,8 @@
                                                     </el-col>
                                                     <el-col :span="19" style="line-height: 24px;">
                                                         <strong class="dtdlStyle">产品类型：</strong>
-                                                        <v-text v-text="cpjs.cplxmc||'无'"></v-text>
+                                                        <v-text v-if="jbxxData.usertype === 'CHN'" v-text="cpjs.cplxmc||'无'"></v-text>
+                                                        <v-text v-if="jbxxData.usertype === 'ENG'" v-text="cpjs.cplxmc_ENG||'无'"></v-text>
                                                         <br>
                                                         <strong class="dtdlStyle">产品介绍：</strong>
                                                         <v-text v-text="cpjs.cpjj||'无'"></v-text>
