@@ -532,8 +532,8 @@ var vm = new Vue({
             this.wjdcForm.zycpList.splice(this.wjdcForm.zycpList.indexOf(tag), 1);
         },
         //图片上传成功回调方法
-        picSuccess: function (res, file, fileList) {
-            console.log(file, fileList);
+        picSuccess: function (res, file) {
+            console.log(file);
         },
         //营业执照change
         PicChange: function (file,fileList) {
@@ -543,7 +543,7 @@ var vm = new Vue({
             const isLt200K = file.size / 1024 < 200;
             if (!isLt200K) {
                 this.$message.error('上传图片大小不能超过200KB!');
-                //fileList.splice(-1, 1);
+                fileList.splice(-1, 1);
             }else{
                 if (isPng || isJpg) {
                     var reader = new FileReader();
@@ -551,7 +551,6 @@ var vm = new Vue({
                     reader.onload = function(e){
                         vm.baseInforForm.yyzzBase64 = reader.result;
                     }
-                    //this.isPic = true;
                 } else {
                     this.$message.error('只能上传jpg、png格式的文件');
                     fileList.splice(-1, 1);
@@ -560,13 +559,13 @@ var vm = new Vue({
             
         },
         //企业logo
-        LogoChange: function (file, fileList) {
+        LogoChange: function (file,fileList) {
             const isPng = file.name.endsWith("png");
             const isJpg = file.name.endsWith("jpg");
             const isLt100K = file.size / 1024 < 100;
             if (!isLt100K) {
                 this.$message.error('上传图片大小不能超过100KB!');
-                //fileList.splice(-1, 1);
+                fileList.splice(-1, 1);
             }else{
                 if (isPng || isJpg) {
                     var reader = new FileReader();
@@ -581,13 +580,13 @@ var vm = new Vue({
             }
         },
         //产品图片
-        CpPicsChange: function (file, fileList) {
+        CpPicsChange: function (file,fileList) {
             const isPng = file.name.endsWith("png");
             const isJpg = file.name.endsWith("jpg");
             const isLt100K = file.size / 1024 < 100;
             if (!isLt100K) {
                 this.$message.error('上传图片大小不能超过100KB!');
-                //fileList.splice(-1, 1);
+                fileList.splice(-1, 1);
             }else{
                 if (isPng || isJpg) {
                     var reader = new FileReader();
