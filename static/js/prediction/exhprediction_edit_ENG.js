@@ -107,6 +107,7 @@ var vm = new Vue({
             mailCodeText:"check",
             //email验证按钮
             emailCodeText:"check",
+            emailCodeText1:"change",
             time: 60,
             timer: null,
             //产品index
@@ -1119,6 +1120,7 @@ var vm = new Vue({
                 return false;
             } else {
                 this.emailCodeText = "sending...";
+                this.emailCodeText1 = "sending...";
                 $('#email-btn').attr('disabled', 'disabled');
                 $('#email-btn2').attr('disabled', 'disabled');
                 axios.get('/xfxhapi/signin/sendMail?mail=' + this.emailform.email).then(function (res) {
@@ -1129,10 +1131,12 @@ var vm = new Vue({
                             clearInterval(this.timer);
                             this.timer = null;
                             this.emailCodeText = "check";
+                            this.emailCodeText1 = "change";
                             $('#email-btn').removeAttr("disabled");
                             $('#email-btn2').removeAttr("disabled");
                     }else{
                             this.emailCodeText = count + "s"
+                            this.emailCodeText1 = count + "s"
                             count--;
                             $('#email-btn').attr('disabled', 'disabled');
                             $('#email-btn2').attr('disabled', 'disabled');
