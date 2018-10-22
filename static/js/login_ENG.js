@@ -85,6 +85,25 @@ var vm = new Vue({
         FPDpassword2AlertFlag: false,
     },
     created: function () {
+        var reg = new RegExp("(^|&)msg=([^&]*)(&|$)",'i');
+        var r = window.location.search.substr(1).match(reg);
+        var msg = "";
+        if(r != null){
+            msg = unescape(r[2]);
+        }
+        if(msg.indexOf("UnknownAccountException") > -1){
+            alert("Account does not exist！");
+        }else if(msg.indexOf("IncorrectCredentialsException") > -1){
+            alert("The password is incorrect！");
+        }else if(msg.indexOf("ExcessiveAttemptsException") > -1){
+            alert("Password entered more than 5 errors！");
+        }else if(msg.indexOf("kaptchaValidateFailed") > -1){
+            alert("The verification code error！");
+        }
+        if(msg != ""){
+            history.replaceState(null, null, top.location.href.substr(0,top.location.href.indexOf("?")));
+        }
+
         axios.get('/xfxhapi/shiro').then(function (res) {
             if (res.data != null && res.data.username != null && res.data.username != "") {
                 window.location.href = "../templates/prediction/exhprediction_all_ENG.html";
