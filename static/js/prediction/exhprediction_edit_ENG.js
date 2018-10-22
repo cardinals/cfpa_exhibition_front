@@ -442,7 +442,7 @@ var vm = new Vue({
             const isLt100K = file.size / 1024 < 100;
             if (!isLt100K) {
                 this.$message.error('上传图片大小不能超过100KB!');
-                //fileList.splice(-1, 1);
+                fileList.splice(-1, 1);
             }else{
                 if (isPng || isJpg) {
                     var reader = new FileReader();
@@ -463,7 +463,7 @@ var vm = new Vue({
             const isLt100K = file.size / 1024 < 100;
             if (!isLt100K) {
                 this.$message.error('上传图片大小不能超过100KB!');
-                //fileList.splice(-1, 1);
+                fileList.splice(-1, 1);
             }else{
                 if (isPng || isJpg) {
                     var reader = new FileReader();
