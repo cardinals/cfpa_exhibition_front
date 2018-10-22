@@ -184,14 +184,12 @@
                                 <el-tab-pane label="企业问卷调查" name="third">
                                     <!-- <div v-if="wjdcData!==null"> -->
                                     <el-row class="mb10">
-                                        <el-col :span="12">
-                                            <strong>公司性质：</strong>
-                                            <v-text v-text="wjdcData.gsxzmc||'无'"></v-text>
-                                        </el-col>
-                                        <el-col :span="12">
-                                            <strong>主营产品：</strong>
-                                            <v-text v-text="wjdcData.zycp||'无'"></v-text>
-                                        </el-col>
+                                        <strong>公司性质：</strong>
+                                        <v-text v-text="wjdcData.gsxzmc||'无'"></v-text>
+                                    </el-row>
+                                    <el-row class="mb10">
+                                        <strong>主营产品：</strong>
+                                        <v-text v-text="wjdcData.zycp||'无'"></v-text>
                                     </el-row>
                                     <el-row class="mb10">
                                         <el-col :span="12">
