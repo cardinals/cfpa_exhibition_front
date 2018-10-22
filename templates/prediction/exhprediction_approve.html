@@ -110,8 +110,8 @@
                                 <br>营业执照
                             </el-col>
                             <el-col :span="16">
-                                <el-row class="mb10" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
-                                    <strong style="color: #20a0ff;">审核信息</strong>
+                                <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
+                                    <strong style="color: #463132;">审核信息</strong>
                                 </el-row>
                                 <el-row class="mb10 ml15">
                                     <strong class="dtdlStyle">公司名称：</strong>
@@ -125,8 +125,8 @@
                                     <strong class="dtdlStyle">法人代表：</strong>
                                     <v-text v-text="approveForm.frdb||'无'"></v-text>
                                 </el-row>
-                                <el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
-                                    <strong style="color: #20a0ff;">审核结果</strong>
+                                <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
+                                    <strong style="color: #463132;">审核结果</strong>
                                 </el-row>
                                 <el-form :model="approveForm" label-width="100px" ref="approveForm">
                                     <el-row>
@@ -156,8 +156,8 @@
                                         <el-form :inline="true" class="el-form demo-form-inline">
                                             <el-row>
                                                 <el-col :xs="23" :sm="23" :md="23" :lg="23" :xl="23" class="editform-button">
-                                                    <el-button type="clear" icon="close" size="small" class="btn_submit" @click.native="closeDialog(approveForm)"> 取消</el-button>
-                                                    <el-button type="success" icon="check" size="small" class="btn_submit" @click.native="approveSubmit(approveForm)">审核</el-button>
+                                                    <el-button type="clear" icon="el-icon-close" size="small" class="btn_submit" @click.native="closeDialog(approveForm)">取消</el-button>
+                                                    <el-button type="success" icon="el-icon-check" size="small" class="btn_submit" @click.native="approveSubmit(approveForm)">审核</el-button>
                                                 </el-col>
                                             </el-row>
                                         </el-form>
