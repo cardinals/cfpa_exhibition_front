@@ -203,7 +203,12 @@ var vue = new Vue({
                     type: "XZ"
                 }
                 this.userListVisible = false;
-                loadDivParam("prediction/exhprediction_edit", params);
+                if (val.usertype == 'CHN') {
+                    loadDivParam("prediction/exhprediction_edit", params);
+                } else if (val.usertype == 'ENG') {
+                    loadDivParam("prediction/exhprediction_edit_ENG", params);
+                }
+
             } else {
                 this.$confirm('选中展商已有报名信息，是否进入编辑?', '提示', {
                     confirmButtonText: '确定',
@@ -215,7 +220,11 @@ var vue = new Vue({
                         type: "BJ"
                     }
                     this.userListVisible = false;
-                    loadDivParam("prediction/exhprediction_edit", params);
+                    if (val.usertype == 'CHN') {
+                        loadDivParam("prediction/exhprediction_edit", params);
+                    } else if (val.usertype == 'ENG') {
+                        loadDivParam("prediction/exhprediction_edit_ENG", params);
+                    }
                 }).catch(() => {
                     // this.$message({
                     //     type: 'info',
