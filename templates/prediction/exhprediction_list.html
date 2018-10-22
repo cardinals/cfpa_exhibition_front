@@ -59,8 +59,8 @@
                             <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
                             <el-table-column prop="zwgsmc" label="公司名称" show-overflow-tooltip min-width="34%" align="center">
                                 <template slot-scope="scope">
-                                    <a v-if="scope.row.usertype == 'CHN'" v-text="scope.row.zwgsmc" @click="qyDetails(scope.row)"></a>
-                                    <a v-else-if="scope.row.usertype == 'ENG'" v-text="scope.row.ywgsmc" @click="qyDetails(scope.row)"></a>
+                                    <a v-if="scope.row.usertype == 'ENG'" v-text="scope.row.ywgsmc" @click="qyDetails(scope.row)"></a>
+                                    <a v-else v-text="scope.row.zwgsmc" @click="qyDetails(scope.row)"></a>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="lxr" label="联系人" show-overflow-tooltip min-width="13%" align="center"></el-table-column>
