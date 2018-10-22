@@ -94,6 +94,8 @@ var vm = new Vue({
             mailCheck: false,
             //上传的文件为pdf标识
             isPdf:false,
+            //是否为已驳回的申请
+            isYbh:false,
             //通过验证的邮箱地址（记录以防验证后修改邮箱）
             checkedMailAddress:'',
             //短信验证按钮文字
@@ -119,6 +121,7 @@ var vm = new Vue({
             },
             //上传图片Data
             fileList: [],
+            pdfFile:'',
             //上传加参数
             upLoadData:{
                 qyid:'',
@@ -350,6 +353,9 @@ var vm = new Vue({
             axios.post('/zhapi/qyjbxx/doFindByUserid', params).then(function (res) {
                 if(res.data.result != null && res.data.result != ""){
                     if(this.shiroData.deptid == "GLYH"||res.data.result.sjzt == '01' || res.data.result.sjzt == '04'){//编辑中，已驳回
+                        if(res.data.result.sjzt == '04'){
+                            this.isYbh = true;
+                        }
                         this.baseInforForm = res.data.result;
                         this.baseInforForm.yyzzBase64 = 'data:image/png;base64,'+ this.baseInforForm.yyzzBase64;
                         //行政区划级联下拉处理
@@ -551,7 +557,13 @@ var vm = new Vue({
                     reader.onload = function(e){
                         vm.baseInforForm.yyzzBase64 = reader.result;
                     }
-                } else {
+                }
+                /*
+                else if(this.isPdf){
+                    this.pdfFile = file;
+                    console.log(this.pdfFile);
+                }*/
+                else {
                     this.$message.error('只能上传jpg、png格式的文件');
                     fileList.splice(-1, 1);
                 }
@@ -700,6 +712,18 @@ var vm = new Vue({
                             axios.post('/zhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
                                 this.upLoadData.qyid = this.baseInforForm.qyid;
                                 this.$refs.uploadPics.submit();
+                                /*
+                                if(this.isPdf){
+                                    axios.post('/zhapi/qyjbxx/pdfupload', params).then(function (res) {
+
+                                    }.bind(this), function (error) {
+                                        console.log(error);
+                                    })
+                                }
+                                else{
+                                    this.$refs.uploadPics.submit();
+                                }*/
+                                
                                 this.$message({
                                     message: '企业基本信息暂存成功',
                                     type: 'success'
