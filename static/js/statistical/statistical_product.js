@@ -101,8 +101,8 @@ var vue = new Vue({
 				},
 				legend: {
 					orient: 'horizontal',
-					x: 'right',
-					y: '-3',
+					top: 20,
+					right: 80,
 					iGap: 16,
 					iWidth: 18,
 					// data:this.tjfxdata.cplxmc,
@@ -162,7 +162,7 @@ var vue = new Vue({
 					},
 					{
 						type: 'value',
-						name: '光地展位面积m²',
+						name: '面积m²',
 						axisLine: {
 							lineStyle: {
 								color: '#FCCE10'
@@ -179,7 +179,7 @@ var vue = new Vue({
 						name: '参展企业数量',
 						type: 'bar',
 						// barWidth: '100%',
-						barWidth: '40',
+						// barWidth: '40',
 						data: this.tjfxczqysl,
 						// data: this.getList('zongdui'),
 						itemStyle: {
@@ -202,7 +202,7 @@ var vue = new Vue({
 						name: '标准展位数量',
 						type: 'bar',
 						// barWidth: '100%',
-						barWidth: '40',
+						// barWidth: '40',
 						yAxisIndex: 1,
 						data: this.tjfxbwzwgssl,
 						// data: this.getList('zhidui'),
@@ -224,7 +224,7 @@ var vue = new Vue({
 						name: '光地展位面积m²',
 						type: 'bar',
 						// barWidth: '100%',
-						barWidth: '40',
+						// barWidth: '40',
 						yAxisIndex: 2,
 						data: this.tjfxgdzwmj,
 						// data: this.getList('dazhongdui'),
