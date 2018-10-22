@@ -26,8 +26,6 @@ var vue = new Vue({
             previewImg: '',
             imgViewVisible: false,
             approveFormVisible: false,
-            //表高度变量
-            tableheight: 443,
             //显示加载中样
             loading: false,
             //当前页
