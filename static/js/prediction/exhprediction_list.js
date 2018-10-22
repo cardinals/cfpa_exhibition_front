@@ -141,11 +141,11 @@ var vue = new Vue({
                 pageNum: this.currentPage_user
             };
             axios.post('/zhapi/qyjbxx/doFindZsxxByQyjbxx', params).then(function (res) {
-                // debugger
-                // var tableTemp = new Array((this.currentPage_user - 1) * this.pageSize_user);
-                // this.tableData_user = tableTemp.concat(res.data.result);
-                this.tableData_user = res.data.result;
-                this.total_user = res.data.result.length;
+                var tableTemp = new Array((this.currentPage_user - 1) * this.pageSize_user);
+                this.tableData_user = tableTemp.concat(res.data.result.list);
+                this.total_user = res.data.result.total;
+                // this.tableData_user = res.data.result;
+                // this.total_user = res.data.result.length;
                 this.userListVisible = true;
                 this.loading_user = false;
             }.bind(this), function (error) {

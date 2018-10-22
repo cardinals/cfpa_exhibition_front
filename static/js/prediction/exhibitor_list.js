@@ -95,8 +95,11 @@ var vue = new Vue({
                 pageNum: this.currentPage
             }
             axios.post('/zhapi/qyjbxx/doFindZsxxByQyjbxx', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+                var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
+                // this.tableData = res.data.result;
+                // this.total = res.data.result.length;
                 _self.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
