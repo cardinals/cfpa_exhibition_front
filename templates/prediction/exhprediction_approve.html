@@ -54,21 +54,34 @@
                             <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
                             <el-table-column prop="zwgsmc" label="公司名称" show-overflow-tooltip min-width="30%" align="center">
                                 <template slot-scope="scope">
-                                    <a @click="qyDetails(scope.row)">{{scope.row.zwgsmc}}</a>
+                                    <a v-if="scope.row.usertype == 'ENG'" v-text="scope.row.ywgsmc" @click="qyDetails(scope.row)"></a>
+                                    <a v-else v-text="scope.row.zwgsmc" @click="qyDetails(scope.row)"></a>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="tyshxydm" label="统一社会信用代码" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
                             <el-table-column label="营业执照" show-overflow-tooltip min-width="15%" align="center">
                                 <template slot-scope="scope">
-                                    <el-button type="text" @click="imgPreview(scope.row)">预览</el-button>
+                                    <el-button v-if="scope.row.usertype == 'CHN'" type="text" @click="imgPreview(scope.row)">预览</el-button>
+                                    <span v-if="scope.row.usertype == 'ENG'">--</span>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="shztmc" label="审核状态" show-overflow-tooltip min-width="10%" align="center">
                                 <template slot-scope="scope">
-                                    <span v-if="scope.row.shzt == '01'" v-text="scope.row.shztmc" style="color:#FF4949"></span>
-                                    <span v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#F7BA2A"></span>
-                                    <span v-else-if="scope.row.shzt == '03'" v-text="scope.row.shztmc" style="color:#42D885"></span>
-                                    <span v-else v-text="scope.row.shztmc"></span>
+                                    <el-popover placement="bottom" width="100" trigger="click" v-if="scope.row.reserve1!=null && scope.row.reserve1!=''">
+                                        <el-row>审核意见:
+                                            <v-text v-text="scope.row.reserve1"></v-text>
+                                        </el-row>
+                                        <a type="text" slot="reference" v-if="scope.row.shzt == '01'" v-text="scope.row.shztmc" style="color:#FF4949"></a>
+                                        <a type="text" slot="reference" v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#F7BA2A"></a>
+                                        <a type="text" slot="reference" v-else-if="scope.row.shzt == '03'" v-text="scope.row.shztmc" style="color:#42D885"></a>
+                                        <a type="text" slot="reference" v-else v-text="scope.row.shztmc"></a>
+                                    </el-popover>
+                                    <div v-else>
+                                        <span v-if="scope.row.shzt == '01'" v-text="scope.row.shztmc" style="color:#FF4949"></span>
+                                        <span v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#F7BA2A"></span>
+                                        <span v-else-if="scope.row.shzt == '03'" v-text="scope.row.shztmc" style="color:#42D885"></span>
+                                        <span v-else v-text="scope.row.shztmc"></span>
+                                    </div>
                                 </template>
                             </el-table-column>
                             <el-table-column label="操作" width="65" align="center" v-if="hasPermission('prediction/exhprediction_approve:approve')">
@@ -109,8 +122,8 @@
                                 <br>营业执照
                             </el-col>
                             <el-col :span="16">
-                                <el-row class="mb10" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
-                                    <strong style="color: #20a0ff;">审核信息</strong>
+                                <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
+                                    <strong style="color: #463132;">审核信息</strong>
                                 </el-row>
                                 <el-row class="mb10 ml15">
                                     <strong class="dtdlStyle">公司名称：</strong>
@@ -124,8 +137,8 @@
                                     <strong class="dtdlStyle">法人代表：</strong>
                                     <v-text v-text="approveForm.frdb||'无'"></v-text>
                                 </el-row>
-                                <el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
-                                    <strong style="color: #20a0ff;">审核结果</strong>
+                                <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
+                                    <strong style="color: #463132;">审核结果</strong>
                                 </el-row>
                                 <el-form :model="approveForm" label-width="100px" ref="approveForm">
                                     <el-row>
@@ -155,8 +168,8 @@
                                         <el-form :inline="true" class="el-form demo-form-inline">
                                             <el-row>
                                                 <el-col :xs="23" :sm="23" :md="23" :lg="23" :xl="23" class="editform-button">
-                                                    <el-button type="clear" icon="close" size="small" class="btn_submit" @click.native="closeDialog(approveForm)"> 取消</el-button>
-                                                    <el-button type="success" icon="check" size="small" class="btn_submit" @click.native="approveSubmit(approveForm)">审核</el-button>
+                                                    <el-button type="clear" icon="el-icon-close" size="small" class="btn_submit" @click.native="closeDialog(approveForm)">取消</el-button>
+                                                    <el-button type="success" icon="el-icon-check" size="small" class="btn_submit" @click.native="approveSubmit(approveForm)">审核</el-button>
                                                 </el-col>
                                             </el-row>
                                         </el-form>

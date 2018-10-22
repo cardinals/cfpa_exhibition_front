@@ -153,9 +153,8 @@ new Vue({
                 qyid: val
             }
             axios.post('/zhapi/qycpjs/doFindCpxxById', param).then(function (res) {
-                this.cpjsData = res.data.result;
-                if (this.cpjsData == null) {
-                    this.cpjsData = [];
+                if (res.data.result != null) {
+                    this.cpjsData = res.data.result;
                 }
             }.bind(this), function (error) {
                 console.log(error)
@@ -164,9 +163,8 @@ new Vue({
         //展位需求意向
         getZwyxData: function (val) {
             axios.get('/zhapi/qyzwyx/' + val).then(function (res) {
-                this.zwyxData = res.data.result;
-                if (this.zwyxData == null) {
-                    this.zwyxData = {};
+                if (res.data.result != null) {
+                    this.zwyxData = res.data.result;
                 }
             }.bind(this), function (error) {
                 console.log(error)

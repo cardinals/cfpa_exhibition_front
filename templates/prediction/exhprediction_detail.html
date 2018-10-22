@@ -52,15 +52,13 @@
                             <el-tabs v-model="activeName" type="border-card">
                                 <el-tab-pane label="企业基本信息" name="first">
                                     <el-row class="mb10">
-                                        <el-col :span="12">
-                                            <strong>公司名称：</strong>
-                                            <v-text v-if="jbxxData.usertype === 'CHN'" v-text="jbxxData.zwgsmc||'无'"></v-text>
-                                            <v-text v-else-if="jbxxData.usertype === 'ENG'" v-text="jbxxData.ywgsmc||'无'"></v-text>
-                                        </el-col>
-                                        <el-col :span="12">
-                                            <strong>邮寄地址：</strong>
-                                            <v-text v-text="jbxxData.yjdz||'无'"></v-text>
-                                        </el-col>
+                                        <strong>公司名称：</strong>
+                                        <v-text v-if="jbxxData.usertype === 'CHN'" v-text="jbxxData.zwgsmc||'无'"></v-text>
+                                        <v-text v-else-if="jbxxData.usertype === 'ENG'" v-text="jbxxData.ywgsmc||'无'"></v-text>
+                                    </el-row>
+                                    <el-row class="mb10">
+                                        <strong>邮寄地址：</strong>
+                                        <v-text v-text="jbxxData.yjdz||'无'"></v-text>
                                     </el-row>
                                     <el-row class="mb10">
                                         <el-col :span="12">
@@ -95,12 +93,17 @@
                                     <el-row class="mb10">
                                         <el-col :span="12">
                                             <strong>电子邮箱：</strong>
-                                            <v-text v-text="jbxxData.dzyx||'无'"></v-text>
+                                            <v-text v-if="jbxxData.usertype==='CHN'" v-text="jbxxData.dzyx||'无'"></v-text>
+                                            <v-text v-if="jbxxData.usertype==='ENG'" v-text="jbxxData.email||'无'"></v-text>
                                         </el-col>
                                         <el-col :span="12">
                                             <strong>网址：</strong>
                                             <v-text v-text="jbxxData.wz||'无'"></v-text>
                                         </el-col>
+                                    </el-row>
+                                    <el-row class="mb10" v-if="jbxxData.usertype==='ENG'">
+                                        <strong>密码找回邮箱：</strong>
+                                        <v-text v-text="jbxxData.dzyx||'无'"></v-text>
                                     </el-row>
                                     <el-row class="mb10">&nbsp;</el-row>
                                     <el-row class="mb10">
@@ -184,14 +187,12 @@
                                 <el-tab-pane label="企业问卷调查" name="third">
                                     <!-- <div v-if="wjdcData!==null"> -->
                                     <el-row class="mb10">
-                                        <el-col :span="12">
-                                            <strong>公司性质：</strong>
-                                            <v-text v-text="wjdcData.gsxzmc||'无'"></v-text>
-                                        </el-col>
-                                        <el-col :span="12">
-                                            <strong>主营产品：</strong>
-                                            <v-text v-text="wjdcData.zycp||'无'"></v-text>
-                                        </el-col>
+                                        <strong>公司性质：</strong>
+                                        <v-text v-text="wjdcData.gsxzmc||'无'"></v-text>
+                                    </el-row>
+                                    <el-row class="mb10">
+                                        <strong>主营产品：</strong>
+                                        <v-text v-text="wjdcData.zycp||'无'"></v-text>
                                     </el-row>
                                     <el-row class="mb10">
                                         <el-col :span="12">
@@ -252,7 +253,8 @@
                                                     </el-col>
                                                     <el-col :span="19" style="line-height: 24px;">
                                                         <strong class="dtdlStyle">产品类型：</strong>
-                                                        <v-text v-text="cpjs.cplxmc||'无'"></v-text>
+                                                        <v-text v-if="jbxxData.usertype === 'CHN'" v-text="cpjs.cplxmc||'无'"></v-text>
+                                                        <v-text v-if="jbxxData.usertype === 'ENG'" v-text="cpjs.cplxmc_ENG||'无'"></v-text>
                                                         <br>
                                                         <strong class="dtdlStyle">产品介绍：</strong>
                                                         <v-text v-text="cpjs.cpjj||'无'"></v-text>

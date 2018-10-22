@@ -46,11 +46,7 @@ new Vue({
             cpjsData: [],
             //展位需求意向
             zwyxData: {},
-            zwyxForm: {
-                bzzwgs: '',
-                sngdzw: '',
-                swgdzw: ''
-            }
+            zwyxForm: {}
         }
     },
     created: function () {
