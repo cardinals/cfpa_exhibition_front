@@ -196,12 +196,14 @@
                         <el-col :span="22">
                             <el-row class="mb10">
                                 <strong>Standard Booth：</strong>
+                                <span v-if="editZwyx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.bzzwgs" :min="0" :max="6" :precision="0"></el-input-number>
                                 <v-text v-else v-text="zwyxForm.bzzwgs==''||zwyxForm.bzzwgs==null?'no':zwyxForm.bzzwgs+' Booth(s)'"></v-text>
                                 &nbsp;&nbsp;(12m² Each)
                             </el-row>
                             <el-row class="mb10">
                                 <strong>Indoor Raw Space Booth：</strong>
+                                <span v-if="editZwyx">&nbsp;&nbsp;</span>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.sngdzw" :min="24" :max="1000" :precision="0"></el-input-number>
                                 <v-text v-else v-text="zwyxForm.sngdzw==''||zwyxForm.sngdzw==null?'no':zwyxForm.sngdzw+' m²'"></v-text>
                                 &nbsp;&nbsp;(Minimum 24m²)
