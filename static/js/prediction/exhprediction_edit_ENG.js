@@ -1030,7 +1030,8 @@ var vm = new Vue({
         //修改邮箱，默认是登录名
         openEmail:function(){
             this.dialogEmailFormVisible = true;
-            $('#mail-btn').attr('disabled', 'disabled');
+            $('#email-btn').attr('disabled', 'disabled');
+            $('#email-btn2').attr('disabled', 'disabled');
         },
         //email提交
         emailformSubmit:function(){
@@ -1038,7 +1039,8 @@ var vm = new Vue({
                 if(this.emailform.yzm == this.emailCodeReal && this.emailCodeReal != ""){
                     this.baseInforForm.email = this.emailform.email;
                     this.dialogEmailFormVisible = false;
-                    $('#mail-btn').removeAttr("disabled");
+                    $('#email-btn').removeAttr("disabled");
+                    $('#email-btn2').removeAttr("disabled");
                     this.$message({
                         message: 'success',
                         type: 'success'
@@ -1118,6 +1120,7 @@ var vm = new Vue({
             } else {
                 this.emailCodeText = "sending...";
                 $('#email-btn').attr('disabled', 'disabled');
+                $('#email-btn2').attr('disabled', 'disabled');
                 axios.get('/xfxhapi/signin/sendMail?mail=' + this.emailform.email).then(function (res) {
                     this.emailCodeReal = res.data.msg;
                     var count = this.time;
@@ -1127,10 +1130,12 @@ var vm = new Vue({
                             this.timer = null;
                             this.emailCodeText = "check";
                             $('#email-btn').removeAttr("disabled");
+                            $('#email-btn2').removeAttr("disabled");
                     }else{
                             this.emailCodeText = count + "s"
                             count--;
                             $('#email-btn').attr('disabled', 'disabled');
+                            $('#email-btn2').attr('disabled', 'disabled');
                         }
                     }, 1000);
                     }.bind(this), function (error) {
@@ -1149,7 +1154,8 @@ var vm = new Vue({
             this.dialogEmailFormVisible = false;
             this.emailform.email = "";
             this.emailform.yzm = "";
-            $('#mail-btn').removeAttr("disabled");
+            $('#email-btn').removeAttr("disabled");
+            $('#email-btn2').removeAttr("disabled");
         },
         //邮箱change判断需不需要重新验证
         dzyxChange: function(){

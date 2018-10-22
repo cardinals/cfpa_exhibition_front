@@ -103,7 +103,7 @@
 							<el-col :span="11">
                                 <el-form-item prop="email" label="Email">
                                     <el-input disabled size="small" v-model="baseInforForm.email" placeholder="Email">
-                                        <el-button id="mail-btn" slot="append" @click="openEmail">edit</el-button>
+                                        <el-button id="email-btn" slot="append" @click="openEmail" v-text=emailCodeText></el-button>
                                     </el-input>
                                 </el-form-item>
 							</el-col>
@@ -121,7 +121,7 @@
 							<el-col :span="11">
                                 <el-form-item prop="dzyx1" label="Standby Email">
                                     <el-input size="small" v-model="baseInforForm.dzyx1" placeholder="For Password Retrieve" @change="dzyxChange()">
-                                        <el-button slot="append" @click="openYxYz" v-text=mailCodeText></el-button>
+                                        <el-button id="mail-btn" slot="append" @click="openYxYz" v-text=mailCodeText></el-button>
                                     </el-input>
                                 </el-form-item>
                             </el-col>
@@ -442,7 +442,7 @@
                             <el-col :span="22">
                                 <el-form-item prop="email" label="New Email">
                                     <el-input size="small" v-model="emailform.email" placeholder="Email">
-                                        <el-button id="email-btn" slot="append" @click="getEMessageCode()" v-text=emailCodeText></el-button>
+                                        <el-button id="email-btn2" slot="append" @click="getEMessageCode()" v-text=emailCodeText></el-button>
                                      </el-input>
                                 </el-form-item>
                             </el-col>
