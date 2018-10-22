@@ -27,73 +27,73 @@
                     <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;" class="f15">Brief Company Information</strong>
                     </el-row>
-                    <el-row>
+                    <el-row class="mb10">
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="22">
-                            <el-row>
-                                <el-col :span="12">
-                                    <strong class="vt">Business licence：</strong>
-                                    <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
-                                        style="max-width:100%;max-height:165px;">
-                                    <img v-else src="../../static/images/noPic.png" style="width:100px;">
-                                </el-col>
-                                <el-col :span="12">
-                                    <el-row class="mb10">
-                                        <strong>Phone：</strong>
-                                        <v-text v-text="jbxxData.bgdh||'no'"></v-text>
-                                    </el-row>
-                                    <el-row class="mb10">
-                                        <strong>Fax：</strong>
-                                        <v-text v-text="jbxxData.cz||'no'"></v-text>
-                                    </el-row>
-                                    <el-row class="mb10">
-                                        <strong>Company Website：</strong>
-                                        <v-text v-text="jbxxData.wz||'no'"></v-text>
-                                    </el-row>
-                                    <el-row class="mb10">
-                                        <strong>Legal Representative：</strong>
-                                        <v-text v-text="jbxxData.frdb||'no'"></v-text>
-                                    </el-row>
-                                    <el-row class="mb10">
-                                        <strong>Legal Representative's Phone：</strong>
-                                        <v-text v-text="jbxxData.frdbdh||'no'"></v-text>
-                                    </el-row>
-                                    <el-row class="mb10">
-                                        <strong>Contact Person：</strong>
-                                    <v-text v-text="jbxxData.lxr||'no'"></v-text>
-                                    </el-row>
-                                </el-col>
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>Company Name：</strong>
-                                    <v-text v-text="jbxxData.zwgsmc||'no'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>Contact Person's Phone：</strong>
-                                    <v-text v-text="jbxxData.lxrsj||'no'"></v-text>
-                                </el-col>
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>Company Address：</strong>
-                                    <v-text v-text="jbxxData.yjdz||'no'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>Standby Email for Password Retrieve：</strong>
-                                    <v-text v-text="jbxxData.dzyx||'no'"></v-text>
-                                </el-col>
-                            </el-row>
-                            <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>Postal Code：</strong>
-                                    <v-text v-text="jbxxData.reserve2||'no'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>Email：</strong>
-                                    <v-text v-text="jbxxData.email||'no'"></v-text>
-                                </el-col>
-                            </el-row>
+                            <strong>Company Name：</strong>
+                            <v-text v-text="jbxxData.zwgsmc||'no'"></v-text>
+                        </el-col>
+                    </el-row>
+                    <el-row class="mb10">
+                        <el-col :span="1">&nbsp;</el-col>
+                        <el-col :span="22">
+                            <strong>Company Address：</strong>
+                            <v-text v-text="jbxxData.yjdz||'no'"></v-text>
+                        </el-col>
+                    </el-row>
+                    <el-row class="mb10">
+                        <el-col :span="1">&nbsp;</el-col>
+                        <el-col :span="11">
+                            <strong>Postal Code：</strong>
+                            <v-text v-text="jbxxData.reserve2||'no'"></v-text>
+                        </el-col>
+                        <el-col :span="11">
+                            <strong>Legal Representative：</strong>
+                            <v-text v-text="jbxxData.frdb||'no'"></v-text>
+                        </el-col>
+                    </el-row>
+                    <el-row class="mb10">
+                        <el-col :span="1">&nbsp;</el-col>
+                        <el-col :span="11">
+                            <strong>Phone：</strong>
+                            <v-text v-text="jbxxData.bgdh||'no'"></v-text>
+                        </el-col>
+                        <el-col :span="11">
+                            <strong>Legal Representative's Phone：</strong>
+                            <v-text v-text="jbxxData.frdbdh||'no'"></v-text>
+                        </el-col>
+                    </el-row>
+                    <el-row class="mb10">
+                        <el-col :span="1">&nbsp;</el-col>
+                        <el-col :span="11">
+                            <strong>Fax：</strong>
+                            <v-text v-text="jbxxData.cz||'no'"></v-text>
+                        </el-col>
+                        <el-col :span="11">
+                            <strong>Contact Person：</strong>
+                            <v-text v-text="jbxxData.lxr||'no'"></v-text>
+                        </el-col>
+                    </el-row>
+                    <el-row class="mb10">
+                        <el-col :span="1">&nbsp;</el-col>
+                        <el-col :span="11">
+                            <strong>Email：</strong>
+                            <v-text v-text="jbxxData.email||'no'"></v-text>
+                        </el-col>
+                        <el-col :span="11">
+                            <strong>Contact Person's Phone：</strong>
+                            <v-text v-text="jbxxData.lxrsj||'no'"></v-text>
+                        </el-col>
+                    </el-row>
+                    <el-row class="mb10">
+                        <el-col :span="1">&nbsp;</el-col>
+                        <el-col :span="11">
+                            <strong>Standby Email for Password Retrieve：</strong>
+                            <v-text v-text="jbxxData.dzyx||'no'"></v-text>
+                        </el-col>
+                        <el-col :span="11">
+                            <strong>Company Website：</strong>
+                            <v-text v-text="jbxxData.wz||'no'"></v-text>
                         </el-col>
                     </el-row>
                 </div>
@@ -105,19 +105,17 @@
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="22">
                             <el-row class="mb10">
-                                <el-col :span="12">
-                                    <strong>Company Name on the Invoice：</strong>
-                                    <v-text v-text="kpxxData.kpgsmc||'no'"></v-text>
-                                </el-col>
-                                <el-col :span="12">
-                                    <strong>Fax：</strong>
-                                    <v-text v-text="kpxxData.yhzh||'no'"></v-text>
-                                </el-col>
+                                <strong>Company Name on the Invoice：</strong>
+                                <v-text v-text="kpxxData.kpgsmc||'no'"></v-text>
+                            </el-row>
+                            <el-row class="mb10">
+                                <strong>Customer Contact：</strong>
+                                <v-text v-text="kpxxData.gsdz||'no'"></v-text>
                             </el-row>
                             <el-row class="mb10">
                                 <el-col :span="12">
-                                    <strong>Customer Contact：</strong>
-                                    <v-text v-text="kpxxData.gsdz||'no'"></v-text>
+                                    <strong>Fax：</strong>
+                                    <v-text v-text="kpxxData.yhzh||'no'"></v-text>
                                 </el-col>
                                 <el-col :span="12">
                                     <strong>Phone Number：</strong>

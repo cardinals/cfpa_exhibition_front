@@ -20,8 +20,6 @@ var vue = new Vue({
             imgViewVisible: false,
             //多选值
             multipleSelection: [],
-            //表高度变量
-            tableheight: 443,
             //显示加载中样
             loading: false,
             //当前页
