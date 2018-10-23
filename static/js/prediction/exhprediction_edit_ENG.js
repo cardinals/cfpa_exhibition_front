@@ -261,7 +261,7 @@ var vm = new Vue({
                 userid: userid,
                 deleteFlag : 'N'
             }
-            axios.post('/zhapi/qyjbxx/doFindByUserid', params).then(function (res) {
+            axios.post('/xfxhapi/qyjbxx/doFindByUserid', params).then(function (res) {
                 if(res.data.result != null && res.data.result != ""){
                     if(this.shiroData.deptid == "GLYH"||res.data.result.sjzt == '01' || res.data.result.sjzt == '04'){//编辑中，已驳回
                         this.baseInforForm = res.data.result;
@@ -294,7 +294,7 @@ var vm = new Vue({
                 qyid: qyid,
                 deleteFlag : 'N'
             }
-            axios.post('/zhapi/qykpxx/list', params).then(function (res) {
+            axios.post('/xfxhapi/qykpxx/list', params).then(function (res) {
                 if(res.data.result.length>0){
                     this.kpxxForm = res.data.result[0];
                     this.kpxxStatus = 1;//修改
@@ -322,7 +322,7 @@ var vm = new Vue({
                 qyid: qyid,
                 deleteFlag : 'N'
             }
-            axios.post('/zhapi/qywjdc/list', params).then(function (res) {
+            axios.post('/xfxhapi/qywjdc/list', params).then(function (res) {
                 if(res.data.result.length>0){
                     this.wjdcForm = res.data.result[0];
                     this.wjdcForm.zycpList = [];
@@ -347,14 +347,14 @@ var vm = new Vue({
                 qyid: qyid,
                 deleteFlag : 'N'
             }
-            axios.post('/zhapi/qyjs/list', params).then(function (res) {
+            axios.post('/xfxhapi/qyjs/list', params).then(function (res) {
                 if(res.data.result.length>0){
                     var resultForm = res.data.result[0];
                     var params = {
                         qyid: qyid,
                         deleteFlag : 'N'
                     }
-                    axios.post('/zhapi/qycpjs/list', params).then(function (res) {
+                    axios.post('/xfxhapi/qycpjs/list', params).then(function (res) {
                         var result = res.data.result;
                         for(var i in result){
                             var cplxArray = [];
@@ -397,7 +397,7 @@ var vm = new Vue({
                 qyid: qyid,
                 deleteFlag : 'N'
             }
-            axios.post('/zhapi/qyzwyx/list', params).then(function (res) {
+            axios.post('/xfxhapi/qyzwyx/list', params).then(function (res) {
                 if(res.data.result.length>0){
                     //this.xqyxForm = res.data.result[0];
                     //返回null时不自动带入min值
@@ -516,7 +516,7 @@ var vm = new Vue({
                                 cjrmc: this.shiroData.username,
                                 reserve2:this.baseInforForm.reserve2//邮政编码
                             }
-                            axios.post('/zhapi/qyjbxx/doInsertByVo', params).then(function (res) {
+                            axios.post('/xfxhapi/qyjbxx/doInsertByVo', params).then(function (res) {
                                 //this.upLoadData.qyid = res.data.result.qyid;
                                 //this.$refs.uploadPics.submit();
                                 this.$message({
@@ -563,7 +563,7 @@ var vm = new Vue({
                                 xgrid: this.shiroData.userid,
                                 xgrmc: this.shiroData.username
                             }
-                            axios.post('/zhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
+                            axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
                                 this.upLoadData.qyid = this.baseInforForm.qyid;
                                 this.$message({
                                     message: 'Brief Company Information has been saved!',
@@ -604,7 +604,7 @@ var vm = new Vue({
                             cjrid: this.shiroData.userid,
                             cjrmc: this.shiroData.username
                         }
-                        axios.post('/zhapi/qykpxx/doInsertByVo', params).then(function (res) {
+                        axios.post('/xfxhapi/qykpxx/doInsertByVo', params).then(function (res) {
                             this.$message({
                                 message: 'Invoice Information has been saved!',
                                 type: 'success'
@@ -630,7 +630,7 @@ var vm = new Vue({
                             xgrid: this.shiroData.userid,
                             xgrmc: this.shiroData.username
                         }
-                        axios.post('/zhapi/qykpxx/doUpdateByVO', params).then(function (res) {
+                        axios.post('/xfxhapi/qykpxx/doUpdateByVO', params).then(function (res) {
                             this.$message({
                                 message: 'Invoice Information has been saved!',
                                 type: 'success'
@@ -671,7 +671,7 @@ var vm = new Vue({
                             cjrmc: this.shiroData.username,
                             reserve1: reserve1.substr(0,reserve1.length-1),//eg.1001消防车
                         }
-                        axios.post('/zhapi/qywjdc/doInsertByVo', params).then(function (res) {
+                        axios.post('/xfxhapi/qywjdc/doInsertByVo', params).then(function (res) {
                             this.$message({
                                 message: 'Major Product Information has been saved!',
                                 type: 'success'
@@ -703,7 +703,7 @@ var vm = new Vue({
                             xgrmc: this.shiroData.username,
                             reserve1: reserve1.substr(0,reserve1.length-1),//eg.1001消防车
                         }
-                        axios.post('/zhapi/qywjdc/doUpdateByVO', params).then(function (res) {
+                        axios.post('/xfxhapi/qywjdc/doUpdateByVO', params).then(function (res) {
                             this.$message({
                                 message: 'Major Product Information has been saved!',
                                 type: 'success'
@@ -775,7 +775,7 @@ var vm = new Vue({
                                     cjrid: this.shiroData.userid,
                                     cjrmc: this.shiroData.username
                                 }
-                                axios.post('/zhapi/qyjs/doInsertByVo', params).then(function (res) {
+                                axios.post('/xfxhapi/qyjs/doInsertByVo', params).then(function (res) {
                                     this.upLoadLogoData.uuid = res.data.result.uuid;
                                     this.$refs.uploadLogo.submit();
                                     this.$message({
@@ -804,7 +804,7 @@ var vm = new Vue({
                                 xgrid: this.shiroData.userid,
                                 xgrmc: this.shiroData.username
                             }
-                            axios.post('/zhapi/qyjs/doUpdateQyCpByVO', params).then(function (res) {
+                            axios.post('/xfxhapi/qyjs/doUpdateQyCpByVO', params).then(function (res) {
                                 this.upLoadLogoData.uuid = res.data.result.uuid;
                                 this.$refs.uploadLogo.submit();
                                 this.$message({
@@ -842,7 +842,7 @@ var vm = new Vue({
                         cjrid: this.shiroData.userid,
                         cjrmc: this.shiroData.username
                     }
-                    axios.post('/zhapi/qyzwyx/doInsertByVo', params).then(function (res) {
+                    axios.post('/xfxhapi/qyzwyx/doInsertByVo', params).then(function (res) {
                         this.$message({
                             message: 'Questionnaire on your Booth Requirement has been saved!',
                             type: 'success'
@@ -863,7 +863,7 @@ var vm = new Vue({
                         xgrid: this.shiroData.userid,
                         xgrmc: this.shiroData.username
                     }
-                    axios.post('/zhapi/qyzwyx/doUpdateByVO', params).then(function (res) {
+                    axios.post('/xfxhapi/qyzwyx/doUpdateByVO', params).then(function (res) {
                         this.$message({
                             message: 'Questionnaire on your Booth Requirement has been saved!',
                             type: 'success'
@@ -1069,7 +1069,7 @@ var vm = new Vue({
                 return false;
             } else {
                 //查询邮箱是否注册
-                axios.get('/zhapi/qyjbxx/getMailNum/' + this.baseInforForm.dzyx1.replace(".", "_")).then(function (res) {
+                axios.get('/xfxhapi/qyjbxx/getMailNum/' + this.baseInforForm.dzyx1.replace(".", "_")).then(function (res) {
                     if (res.data.result == 0) {
                         this.mailCodeText = "sending...";
                         $('#mail-btn').attr('disabled', 'disabled');

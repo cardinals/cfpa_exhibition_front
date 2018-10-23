@@ -94,7 +94,7 @@ var vue = new Vue({
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
-            axios.post('/zhapi/qyjbxx/doFindZsxxByQyjbxx', params).then(function (res) {
+            axios.post('/xfxhapi/qyjbxx/doFindZsxxByQyjbxx', params).then(function (res) {
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;

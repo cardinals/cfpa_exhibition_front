@@ -65,7 +65,7 @@ new Vue({
                 userid: this.userid,
                 deleteFlag: 'N'
             }
-            axios.post('/zhapi/qyjbxx/doFindByUserid', params).then(function (res) {
+            axios.post('/xfxhapi/qyjbxx/doFindByUserid', params).then(function (res) {
                 if (res.data.result != null) {
                     this.jbxxData = res.data.result;
                     this.jbxxData.yjdz = this.jbxxData.yjdzshengmc + this.jbxxData.yjdzshimc + this.jbxxData.yjdzxx;
@@ -88,7 +88,7 @@ new Vue({
         },
         //企业开票信息
         getKpxxData: function (val) {
-            axios.get('/zhapi/qykpxx/' + val).then(function (res) {
+            axios.get('/xfxhapi/qykpxx/' + val).then(function (res) {
                 if (res.data.result != null) {
                     this.kpxxData = res.data.result;
                 }
@@ -98,7 +98,7 @@ new Vue({
         },
         //企业问卷调查
         getWjdcData: function (val) {
-            axios.get('/zhapi/qywjdc/' + val).then(function (res) {
+            axios.get('/xfxhapi/qywjdc/' + val).then(function (res) {
                 if (res.data.result != null) {
                     this.wjdcData = res.data.result;
                     var tempList = this.wjdcData.reserve1.split(",");
@@ -114,7 +114,7 @@ new Vue({
         },
         //企业介绍
         getQyjsData: function (val) {
-            axios.get('/zhapi/qyjs/doFindQyjsById/' + val).then(function (res) {
+            axios.get('/xfxhapi/qyjs/doFindQyjsById/' + val).then(function (res) {
                 if (res.data.result != null) {
                     this.qyjsData = res.data.result;
                 }
@@ -127,7 +127,7 @@ new Vue({
             var param = {
                 qyid: val
             }
-            axios.post('/zhapi/qycpjs/doFindCpxxById', param).then(function (res) {
+            axios.post('/xfxhapi/qycpjs/doFindCpxxById', param).then(function (res) {
                 if (res.data.result != null) {
                     this.cpjsData = res.data.result;
                 }
@@ -141,7 +141,7 @@ new Vue({
                 qyid: val,
                 deleteFlag: 'N'
             }
-            axios.post('/zhapi/qyzwyx/list', params).then(function (res) {
+            axios.post('/xfxhapi/qyzwyx/list', params).then(function (res) {
                 if (res.data.result.length == 0) {
                     this.zwyxData = null;
                 } else if (res.data.result.length > 0) {
@@ -181,7 +181,7 @@ new Vue({
                         cjrid: this.shiroData.userid,
                         cjrmc: this.shiroData.username
                     }
-                    axios.post('/zhapi/qyzwyx/doInsertByVo', params).then(function (res) {
+                    axios.post('/xfxhapi/qyzwyx/doInsertByVo', params).then(function (res) {
                         if (res.data.result == 1) {
                             this.$message({
                                 message: '成功保存企业参展展位需求意向',
@@ -203,7 +203,7 @@ new Vue({
                         xgrid: this.shiroData.userid,
                         xgrmc: this.shiroData.username
                     }
-                    axios.post('/zhapi/qyzwyx/doUpdateByVO', params).then(function (res) {
+                    axios.post('/xfxhapi/qyzwyx/doUpdateByVO', params).then(function (res) {
                         if (res.data.result == 1) {
                             this.$message({
                                 message: '成功保存企业参展展位需求意向',
@@ -242,7 +242,7 @@ new Vue({
                     xgrid: this.shiroData.userid,
                     xgrmc: this.shiroData.username
                 }
-                axios.post('/zhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
+                axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
                     if (res.data.result == 1) {
                         this.$message({
                             message: '报名信息已提交待审核',

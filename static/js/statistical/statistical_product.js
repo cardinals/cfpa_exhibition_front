@@ -44,7 +44,7 @@ var vue = new Vue({
 		//获取统计分析图表数据
 		getCPLX: function () {
 			var params = {};
-			axios.post('/zhapi/qyzwyx/dofindtjfx', params).then(function (res) {
+			axios.post('/xfxhapi/qyzwyx/dofindtjfx', params).then(function (res) {
 				this.tjfxdata = res.data.result;
 				this.total = res.data.result.length;
 				for (var i = 0; i < this.tjfxdata.length; i++) {
@@ -306,7 +306,7 @@ var vue = new Vue({
 			if (r != null) return unescape(r[2]); return null;
 		},
 		exportClick: function () {
-			window.open("/zhapi/qyzwyx/doExportTjfx/cplx");
+			window.open("/xfxhapi/qyzwyx/doExportTjfx/cplx");
 		}
 
 	}

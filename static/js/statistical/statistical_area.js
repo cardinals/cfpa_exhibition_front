@@ -50,7 +50,7 @@ var vue = new Vue({
 		//获取产品类型
 		getCPLX: function () {
 			var params = {};
-			axios.post('/zhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {	
+			axios.post('/xfxhapi/qyzwyx/dofindtjfxsj',params).then(function (res) {	
 				this.tjfxtabledata = res.data.result;
 				this.total = res.data.result.length;
 				for(var i=0; i<this.tjfxtabledata.length;i++){
@@ -229,7 +229,7 @@ var vue = new Vue({
 			if (r != null) return unescape(r[2]); return null;
 		},
 		exportClick:function(){
-			window.open("/zhapi/qyzwyx/doExportTjfx/gdzwmj");
+			window.open("/xfxhapi/qyzwyx/doExportTjfx/gdzwmj");
 		}
 	}
 })

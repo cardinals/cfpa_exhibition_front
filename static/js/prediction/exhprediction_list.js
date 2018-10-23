@@ -94,7 +94,7 @@ var vue = new Vue({
                 orgUuid: this.shiroData.organizationVO.uuid,
                 orgJgid: this.shiroData.organizationVO.jgid
             }
-            axios.post('/zhapi/qyjbxx/page', params).then(function (res) {
+            axios.post('/xfxhapi/qyjbxx/page', params).then(function (res) {
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
@@ -138,7 +138,7 @@ var vue = new Vue({
                 pageSize: this.pageSize_user,
                 pageNum: this.currentPage_user
             };
-            axios.post('/zhapi/qyjbxx/doFindZsxxByQyjbxx', params).then(function (res) {
+            axios.post('/xfxhapi/qyjbxx/doFindZsxxByQyjbxx', params).then(function (res) {
                 var tableTemp = new Array((this.currentPage_user - 1) * this.pageSize_user);
                 this.tableData_user = tableTemp.concat(res.data.result.list);
                 this.total_user = res.data.result.total;
@@ -184,7 +184,7 @@ var vue = new Vue({
                     this.multipleSelection[i].xgrmc = this.shiroData.realName;
                     this.multipleSelection[i].deleteFlag = 'Y';
                 }
-                axios.post('/zhapi/qyjbxx/doDeleteJbxx', this.multipleSelection).then(function (res) {
+                axios.post('/xfxhapi/qyjbxx/doDeleteJbxx', this.multipleSelection).then(function (res) {
                     this.$message({
                         message: "成功删除" + res.data.result + "条报名信息",
                         showClose: true,

@@ -65,7 +65,7 @@ new Vue({
         //企业基本信息
         getJbxxData: function (val) {
             this.loading = true;
-            axios.get('/zhapi/qyjbxx/doFindJbxxById/' + val).then(function (res) {
+            axios.get('/xfxhapi/qyjbxx/doFindJbxxById/' + val).then(function (res) {
                 // this.jbxxData = res.data.result;
                 if (res.data.result != null) {
                     this.jbxxData = res.data.result;
@@ -99,7 +99,7 @@ new Vue({
         },
         //企业开票信息
         getKpxxData: function (val) {
-            axios.get('/zhapi/qykpxx/' + val).then(function (res) {
+            axios.get('/xfxhapi/qykpxx/' + val).then(function (res) {
                 this.kpxxData = res.data.result;
                 if (this.kpxxData != null) {
                     //创建时间格式化
@@ -123,7 +123,7 @@ new Vue({
         },
         //企业问卷调查
         getWjdcData: function (val) {
-            axios.get('/zhapi/qywjdc/' + val).then(function (res) {
+            axios.get('/xfxhapi/qywjdc/' + val).then(function (res) {
                 if (res.data.result != null) {
                     this.wjdcData = res.data.result;
                     var tempList = this.wjdcData.reserve1.split(",");
@@ -139,7 +139,7 @@ new Vue({
         },
         //企业介绍
         getQyjsData: function (val) {
-            axios.get('/zhapi/qyjs/doFindQyjsById/' + val).then(function (res) {
+            axios.get('/xfxhapi/qyjs/doFindQyjsById/' + val).then(function (res) {
                 if (res.data.result != null) {
                     this.qyjsData = res.data.result;
                 }
@@ -152,7 +152,7 @@ new Vue({
             var param = {
                 qyid: val
             }
-            axios.post('/zhapi/qycpjs/doFindCpxxById', param).then(function (res) {
+            axios.post('/xfxhapi/qycpjs/doFindCpxxById', param).then(function (res) {
                 if (res.data.result != null) {
                     this.cpjsData = res.data.result;
                 }
@@ -162,7 +162,7 @@ new Vue({
         },
         //展位需求意向
         getZwyxData: function (val) {
-            axios.get('/zhapi/qyzwyx/' + val).then(function (res) {
+            axios.get('/xfxhapi/qyzwyx/' + val).then(function (res) {
                 if (res.data.result != null) {
                     this.zwyxData = res.data.result;
                 }

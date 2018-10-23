@@ -75,7 +75,7 @@ var vue = new Vue({
                 orgUuid: this.shiroData.organizationVO.uuid,
                 orgJgid: this.shiroData.organizationVO.jgid
             }
-            axios.post('/zhapi/qyjbxx/page', params).then(function (res) {
+            axios.post('/xfxhapi/qyjbxx/page', params).then(function (res) {
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
@@ -101,7 +101,7 @@ var vue = new Vue({
         //营业执照预览
         imgPreview: function (val) {
             this.previewTitle = val.zwgsmc;
-            axios.get('/zhapi/qyjbxx/doFindJbxxById/' + val.qyid).then(function (res) {
+            axios.get('/xfxhapi/qyjbxx/doFindJbxxById/' + val.qyid).then(function (res) {
                 this.previewImg = res.data.result.yyzzBase64;
             }.bind(this), function (error) {
                 console.log(error)
@@ -115,7 +115,7 @@ var vue = new Vue({
         //审核操作列点击
         approveClick: function (val) {
             this.approveForm = Object.assign({}, val);
-            axios.get('/zhapi/qyjbxx/doFindJbxxById/' + val.qyid).then(function (res) {
+            axios.get('/xfxhapi/qyjbxx/doFindJbxxById/' + val.qyid).then(function (res) {
                 this.approveForm.yyzzBase64 = res.data.result.yyzzBase64;
             }.bind(this), function (error) {
                 console.log(error)
@@ -168,7 +168,7 @@ var vue = new Vue({
                         shrmc: this.shiroData.realName,
                         shsj: '1'
                     };
-                    axios.post('/zhapi/qyjbxx/updateByVO', params).then(function (res) {
+                    axios.post('/xfxhapi/qyjbxx/updateByVO', params).then(function (res) {
                         if (res.data.result == 1) {
                             this.tableData[this.selectIndex].shzt = val.shzt;
                             if(this.tableData[this.selectIndex].shzt=='01'){
