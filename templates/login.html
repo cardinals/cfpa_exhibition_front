@@ -127,7 +127,7 @@
                                 <li>
                                     <i class="icon-verficode" style="margin-left:14px;"></i>
                                     <input type="text" class="inputstyle" v-model="GLYvalidateCode" name="validateCode" id="GLYvalidateCode" placeholder="验证码"
-                                        @keyup.enter="login()">
+                                        @keyup.enter="GLYlogin()">
                                     <a href="javascript:;" @click="reloadGLYCode()">
                                         <img v-bind:src="GLYsrc" id="GLYcheckCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';"
                                             style="vertical-align: bottom;border-radius:20px;" width="50" height="20">
