@@ -24,6 +24,15 @@
                         <el-step title="Questionnaire on your Booth Requirement"></el-step>
                     </el-steps>
                 </div>
+                <!--审核状态-->
+                <div id="remark" v-if="isYbh">
+                    <el-row class="tr mb5">
+                        <el-col :span="1">&nbsp;</el-col>
+                        <el-col :span="7" style="text-align: left">Last Approval Status:Reject</el-col>
+                        <el-col :span="1">&nbsp;</el-col>
+                        <el-col :span="15" style="text-align: left">Reason:<span v-text="baseInforForm.reserve1"></span></el-col>
+                    </el-row>
+                </div>
                 <!--基本信息-->
 				<div id="inforView" class="pt15" v-show="isJbxxShow">
 					<el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
@@ -111,7 +120,7 @@
                         </el-row>
                         <el-row class="tr mb5">
                             <el-col :span="11">
-                                <el-form-item prop="wz" label="Company Website" :rules="noWebsit?baseInforRules.wz:[{ required: true, message: 'Please enter the company website', trigger: 'blur' }]">
+                                <el-form-item prop="wz" label="Company Website" :rules="noWebsit?baseInforRules.wz:[{ required: true, message: 'Company Website is required', trigger: 'blur' }]">
                                     <el-input size="small" v-model="baseInforForm.wz" placeholder="Company Website" :disabled=noWebsit></el-input>
                                 </el-form-item>
 							</el-col>
@@ -267,7 +276,7 @@
                                         :on-change="LogoChange" :auto-upload="false" :show-file-list="false">
                                         <img v-if="qyjsForm.logoBase64!==''" :src="qyjsForm.logoBase64" class="avatar">
                                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                                        <div class="el-upload__tip" slot="tip">jpg/png,less than 200kb</div>
+                                        <div class="el-upload__tip" slot="tip">jpg/png,less than 1MB</div>
                                     </el-upload>
                                 </el-form-item>
                             </el-col>
@@ -276,16 +285,19 @@
                                 <el-form-item prop="qyjj" style="text-align: left" label="Company Introduction">
                                     <el-input type="textarea" :rows="5" placeholder="Company Introduction" v-model="qyjsForm.qyjj"></el-input>
                                 </el-form-item>
+                                <el-row>
+                                    <div class="el-upload__tip">less than 400 characters</div>
+                                </el-row>
                             </el-col>
                             <el-col :span="1">&nbsp;</el-col>
                         </el-row>
                     </el-form>
                     <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <el-col :span="12">
-                            <strong style="color: #463132;">Product Examples</strong>
+                            <strong style="color: #463132;">Product Examples(at least 1,at most 6)</strong>
                         </el-col>
                         <el-col :span="12" class="pb1">
-                            <el-button type="primary" icon="el-icon-plus" size="small" class="r" @click="addDomain"></el-button>
+                            <el-button type="primary" icon="el-icon-plus" size="small" class="r" @click="addDomain">Add Product</el-button>
                         </el-col>
                     </el-row>
                     <el-row class="mt15 mb20" style="overflow-x: hidden">
@@ -296,7 +308,7 @@
                                     <div slot="header" class="clearfix">
                                         <strong class="card_title_font">
                                             <span style="color:red;">* </span>Product NO.{{index+1}}</strong>
-                                        <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 3px -15px 0px 1px"></el-button>
+                                        <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 3px -15px 0px 1px">Delete Product</el-button>
                                     </div>
                                     <el-row class="tr">
                                         <el-col :span="9">
@@ -305,7 +317,7 @@
                                                     :auto-upload="false" :show-file-list="false">
                                                     <img @click="getIndex(index)" v-if="domain.cptpBase64!==''" :src="domain.cptpBase64" class="avatar">
                                                     <i v-else class="el-icon-plus avatar-uploader-icon" @click="getIndex(index)"></i>
-                                                    <div class="el-upload__tip" slot="tip">jpg/png,less than 200kb</div>
+                                                    <div class="el-upload__tip" slot="tip">jpg/png,less than 2MB</div>
                                                 </el-upload>
                                             </el-form-item>
                                         </el-col>
@@ -321,6 +333,9 @@
                                                 <el-form-item prop="cpjj" label="Product Introduction">
                                                     <el-input type="textarea" :rows="2" placeholder="Product Introduction" v-model="domain.cpjj"></el-input>
                                                 </el-form-item>
+                                            </el-row>
+                                            <el-row>
+                                                <div class="el-upload__tip">less than 300 characters</div>
                                             </el-row>
                                         </el-col>
                                     </el-row>

@@ -92,6 +92,8 @@ var vm = new Vue({
 
             //有无网址flag
             noWebsit: false,
+            //是否为已驳回的申请
+            isYbh:false,
             //通过验证的邮箱地址（记录以防验证后修改邮箱）
             checkedMailAddress:'',
             //短信验证按钮文字
@@ -150,28 +152,43 @@ var vm = new Vue({
             },
             baseInforRules: {
                 ywgsmc: [
-                  { required: true, message: 'Company name is required', trigger: 'blur' }
+                  { required: true, message: 'Company name is required', trigger: 'blur' },
+                  { pattern: /^[A-Za-z ]+$/, message: 'English and blank only',trigger: 'blur' },
+                  { min: 1, max: 100, message: 'less than 100 characters', trigger: 'blur' }
                 ],
                 yjdzxx: [
-                  { required: true, message: 'Company address is required', trigger: 'blur' }
+                  { required: true, message: 'Company address is required', trigger: 'blur' },
+                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'English and number and blank only',trigger: 'blur' },
+                  { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                 ],
                 bgdh: [
-                    { required: true, message: 'Phone number is required', trigger: 'blur' }
+                    { required: true, message: 'Phone number is required', trigger: 'blur' },
+                    { pattern: /^[\d\-]+$/, message: 'number and hyphen only',trigger: 'blur' },
+                    { min: 1, max: 30, message: 'less than 30 characters', trigger: 'blur' }
                   ],
                 frdb: [
-                    { required: true, message: 'Legal Representative is required', trigger: 'blur' }
+                    { required: true, message: 'Legal Representative is required', trigger: 'blur' },
+                    { pattern: /^[A-Za-z ]+$/, message: 'English and blank only',trigger: 'blur' },
+                    { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                   ],
                 frdbdh: [
-                    { required: true, message: "Legal Representative's Phone is required", trigger: 'blur' }
+                    { required: true, message: "Legal Representative's Phone is required", trigger: 'blur' },
+                    { pattern: /^[\d\-]+$/, message: 'number and hyphen only',trigger: 'blur' },
+                    { min: 1, max: 30, message: 'less than 30 characters', trigger: 'blur' }
                   ],
                 lxr: [
-                    { required: true, message: 'Contact Person is required', trigger: 'blur' }
+                    { required: true, message: 'Contact Person is required', trigger: 'blur' },
+                    { pattern: /^[A-Za-z ]+$/, message: 'English and blank only',trigger: 'blur' },
+                    { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                   ],
                 lxrsj: [
-                    { required: true, message: "Contact Person's Phone is required", trigger: 'blur' }
+                    { required: true, message: "Contact Person's Phone is required", trigger: 'blur' },
+                    { pattern: /^[\d\-]+$/, message: 'Number and hyphen only',trigger: 'blur' },
+                    { min: 1, max: 30, message: 'less than 30 characters', trigger: 'blur' }
                   ],
                 wz: [
-                    { required: false, message: 'Company Website is required', trigger: 'blur' }
+                    { required: false, message: 'Company Website is required', trigger: 'blur' },
+                    { min: 1, max: 100, message: 'less than 100 characters', trigger: 'blur' }
                   ],
                 dzyx1: [
                     { required: false, message: 'Standby Email is required', trigger: 'blur' },
@@ -180,20 +197,38 @@ var vm = new Vue({
                 email: [
                     { required: true, message: 'Email is required', trigger: 'blur' },
                     { type: 'email', message: 'Error Email', trigger: ['blur', 'change'] }
+                  ],
+                reserve2: [
+                    { required: false, message: 'Postal Code is required', trigger: 'blur' },
+                    { pattern: /^[0-9]*$/, message: 'Number only',trigger: 'blur' },
+                    { min: 1, max: 36, message: 'less than 36 characters', trigger: 'blur' }
+                  ],
+                cz: [
+                    { required: false, message: 'Postal Code is required', trigger: 'blur' },
+                    { pattern: /^[0-9]*$/, message: 'Number only',trigger: 'blur' },
+                    { min: 1, max: 30, message: 'less than 30 characters', trigger: 'blur' }
                   ]
               },
             kpxxRules: {
                 kpgsmc: [
-                  { required: true, message: 'Company Name on the Invoice is required', trigger: 'blur' }
+                  { required: true, message: 'Company Name on the Invoice is required', trigger: 'blur' },
+                  { pattern: /^[A-Za-z ]+$/, message: 'English and blank only',trigger: 'blur' },
+                  { min: 1, max: 100, message: 'less than 100 characters', trigger: 'blur' }
                 ],
                 gsdz: [
-                  { required: true, message: 'Customer Contact is required', trigger: 'blur' }
+                  { required: true, message: 'Customer Contact is required', trigger: 'blur' },
+                  { pattern: /^[A-Za-z ]+$/, message: 'English and blank only',trigger: 'blur' },
+                  { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                 ],
                 dhhm: [
-                  { required: true, message: 'Phone Number is required', trigger: 'blur' }
+                  { required: true, message: 'Phone Number is required', trigger: 'blur' },
+                  { pattern: /^[\d\-]+$/, message: 'Number and hyphen only',trigger: 'blur' },
+                  { min: 1, max: 30, message: 'less than 30 characters', trigger: 'blur' }
                 ],
                 yhzh: [
-                  { required: true, message: 'Fax is required', trigger: 'blur' }
+                  { required: true, message: 'Fax is required', trigger: 'blur' },
+                  { pattern: /^[0-9]*$/, message: 'Number only',trigger: 'blur' },
+                  { min: 1, max: 16, message: 'less than 16 characters', trigger: 'blur' }
                 ]
             },
             wjdcRules: {
@@ -203,15 +238,17 @@ var vm = new Vue({
             },
             qyjsRules: {
                 qyjj: [
-                  { required: true, message: 'Company Introduction is required', trigger: 'blur' }
+                  { required: true, message: 'Company Introduction is required', trigger: 'blur' },
+                  { min: 1, max: 400, message: 'less than 400 characters', trigger: 'blur' }
                 ]
             },
             cpjsRules: {
                 cplx: [
-                  { required: true, message: '请选择产品所属分类', trigger: 'change' }
+                  { required: true, message: 'Category of the Product is required', trigger: 'change' }
                 ],
                 cpjj: [
-                  { required: true, message: '请输入产品简介', trigger: 'blur' }
+                  { required: true, message: 'Product Introduction is required', trigger: 'blur' },
+                  { min: 1, max: 300, message: 'less than 300 characters', trigger: 'blur' }
                 ]
             },
             /*
@@ -264,6 +301,9 @@ var vm = new Vue({
             axios.post('/xfxhapi/qyjbxx/doFindByUserid', params).then(function (res) {
                 if(res.data.result != null && res.data.result != ""){
                     if(this.shiroData.deptid == "GLYH"||res.data.result.sjzt == '01' || res.data.result.sjzt == '04'){//编辑中，已驳回
+                        if(res.data.result.sjzt == '04'){
+                            this.isYbh = true;
+                        }
                         this.baseInforForm = res.data.result;
                         this.baseInforForm.dzyx1 = this.baseInforForm.dzyx;
                         if(this.baseInforForm.wz == ''||this.baseInforForm.wz == null){
@@ -437,11 +477,11 @@ var vm = new Vue({
         },
         //企业logo
         LogoChange: function (file, fileList) {
-            const isPng = file.name.endsWith("png");
-            const isJpg = file.name.endsWith("jpg");
-            const isLt100K = file.size / 1024 < 100;
-            if (!isLt100K) {
-                this.$message.error('上传图片大小不能超过100KB!');
+            const isPng = file.name.endsWith("png") || file.name.endsWith("PNG");
+            const isJpg = file.name.endsWith("jpg") || file.name.endsWith("JPG");
+            const isLt1M = file.size / 1024 /1024 < 1;
+            if (!isLt1M) {
+                this.$message.error('Picture has to be less than 1MB!');
                 fileList.splice(-1, 1);
             }else{
                 if (isPng || isJpg) {
@@ -451,18 +491,18 @@ var vm = new Vue({
                         vm.qyjsForm.logoBase64 = reader.result;
                     }
                 } else {
-                    this.$message.error('只能上传jpg、png格式的图片');
+                    this.$message.error('Picture has to be endswith png or jpg');
                     fileList.splice(-1, 1);
                 }
             }
         },
         //产品图片
         CpPicsChange: function (file, fileList) {
-            const isPng = file.name.endsWith("png");
-            const isJpg = file.name.endsWith("jpg");
-            const isLt100K = file.size / 1024 < 100;
-            if (!isLt100K) {
-                this.$message.error('上传图片大小不能超过100KB!');
+            const isPng = file.name.endsWith("png") || file.name.endsWith("PNG");
+            const isJpg = file.name.endsWith("jpg") || file.name.endsWith("JPG");
+            const isLt2M = file.size / 1024 /1024 < 2;
+            if (!isLt2M) {
+                this.$message.error('Picture has to be less than 1MB!!');
                 fileList.splice(-1, 1);
             }else{
                 if (isPng || isJpg) {
@@ -473,7 +513,7 @@ var vm = new Vue({
                     vm.qyjsForm.qycpjsVOList[vm.index].cptpBase64 = reader.result;
                     }
                 } else {
-                    this.$message.error('只能上传jpg、png格式的图片');
+                    this.$message.error('Picture has to be endswith png or jpg');
                     fileList.splice(-1, 1);
                 }
             }
@@ -935,14 +975,21 @@ var vm = new Vue({
                 });
                 return false;
             }else{
-                this.qyjsForm.qycpjsVOList.push({
-                    qyid:this.qyid,
-                    cptp:'',
-                    cplx:[],
-                    cpjj:'',
-                    cptpBase64:'',
-                    key: Date.now()
-                });
+                if(this.qyjsForm.qycpjsVOList.length < 6){
+                    this.qyjsForm.qycpjsVOList.push({
+                        qyid:this.qyid,
+                        cptp:'',
+                        cplx:[],
+                        cpjj:'',
+                        cptpBase64:'',
+                        key: Date.now()
+                    });
+                }else{
+                    this.$message({
+                        message: 'You can add at most 6 product Examples',
+                        type: 'warning'
+                    });
+                }
             }
             
         },
@@ -953,6 +1000,11 @@ var vm = new Vue({
                 if (index !== -1) {
                     this.qyjsForm.qycpjsVOList.splice(index, 1)
                 }
+            }else{
+                this.$message({
+                    message: 'Please fill out at least one product example',
+                    type: 'warning'
+                });
             }
            
         },

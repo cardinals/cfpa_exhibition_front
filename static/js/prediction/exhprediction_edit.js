@@ -96,6 +96,8 @@ var vm = new Vue({
             isPdf:false,
             //是否为已驳回的申请
             isYbh:false,
+            //有无网址flag
+            noWebsit: false,
             //通过验证的邮箱地址（记录以防验证后修改邮箱）
             checkedMailAddress:'',
             //短信验证按钮文字
@@ -152,31 +154,49 @@ var vm = new Vue({
             },
             baseInforRules: {
                 zwgsmc: [
-                  { required: true, message: '请输入中文公司名称', trigger: 'blur' }
+                  { required: true, message: '请输入中文公司名称', trigger: 'blur' },
+                  { min: 1, max: 50, message: '最多可输入50个字', trigger: 'blur' }
+                ],
+                ywgsmc: [
+                  { required: false, message: '请输入英文公司名称', trigger: 'blur' },
+                  { pattern: /^[A-Za-z ]+$/, message: '英文公司名称只能输入字母和空格',trigger: 'blur' },
+                  { min: 1, max: 100, message: '最多可输入100个字符', trigger: 'blur' }
                 ],
                 xzqh: [
                     { required: true, message: '请选择邮寄地址省市', trigger: 'change' }
                 ],
                 yjdzxx: [
-                  { required: true, message: '请输入详细地址', trigger: 'blur' }
+                  { required: true, message: '请输入详细地址', trigger: 'blur' },
+                  { min: 1, max: 25, message: '最多可输入25个字', trigger: 'blur' }
                 ],
                 bgdh: [
-                    { required: true, message: '请输入办公电话', trigger: 'blur' }
+                    { required: true, message: '请输入办公电话', trigger: 'blur' },
+                    { pattern: /^[0-9]*$/, message: '只能输入数字',trigger: 'blur' },
+                    { min: 1, max: 15, message: '电话格式不正确', trigger: 'blur' }
                   ],
                 frdb: [
-                    { required: true, message: '请输入法人代表', trigger: 'blur' }
+                    { required: true, message: '请输入法人代表', trigger: 'blur' },
+                    { min: 1, max: 25, message: '最多可输入25个字', trigger: 'blur' }
                   ],
                 frdbdh: [
-                    { required: true, message: '请输入法人代表电话', trigger: 'blur' }
+                    { required: true, message: '请输入法人代表电话', trigger: 'blur' },
+                    { pattern: /^[0-9]*$/, message: '只能输入数字',trigger: 'blur' },
+                    { min: 1, max: 15, message: '电话格式不正确', trigger: 'blur' }
+                  ],
+                cz: [
+                    { pattern: /^[0-9]*$/, message: '只能输入数字',trigger: 'blur' },
+                    { min: 1, max: 30, message: '传真格式不正确', trigger: 'blur' }
                   ],
                 lxr: [
-                    { required: true, message: '请输入联系人', trigger: 'blur' }
+                    { required: true, message: '请输入联系人', trigger: 'blur' },
+                    { min: 1, max: 25, message: '最多可输入25个字', trigger: 'blur' }
                   ],
                 lxrsj: [
                     { required: true, message: '请输入联系人手机号码', trigger: 'blur' }
                   ],
                 wz: [
-                    { required: true, message: '请输入网址', trigger: 'blur' }
+                    { required: false, message: '请输入网址', trigger: 'blur' },
+                    { min: 1, max: 50, message: '最多可输入50个字', trigger: 'blur' }
                   ],
                 dzyx1: [
                     { required: true, message: '请输入邮箱', trigger: 'blur' },
@@ -188,23 +208,31 @@ var vm = new Vue({
                     { required: true, message: '请选择开票类型', trigger: 'change' }
                   ],
                 kpgsmc: [
-                  { required: true, message: '请输入开票公司名称', trigger: 'blur' }
+                  { required: true, message: '请输入开票公司名称', trigger: 'blur' },
+                  { min: 1, max: 50, message: '最多可输入50个字', trigger: 'blur' }
                 ],
                 tyshxydm: [
                     { required: true, message: '请输入统一社会信用代码', trigger: 'blur' },
-                    { min: 18, max: 18, message: '请输入18位统一社会信用代码', trigger: 'blur' }
+                    { min: 18, max: 18, message: '请输入18位统一社会信用代码', trigger: 'blur' },
+                    { pattern: /^[A-Za-z0-9]+$/, message: '只能输入数字和字母',trigger: 'blur' },
                 ],
                 gsdz: [
-                  { required: true, message: '请输入公司地址', trigger: 'blur' }
+                  { required: true, message: '请输入公司地址', trigger: 'blur' },
+                  { min: 1, max: 30, message: '最多可输入30个字', trigger: 'blur' }
                 ],
                 dhhm: [
-                  { required: true, message: '请输入电话号码', trigger: 'blur' }
+                  { required: true, message: '请输入电话号码', trigger: 'blur' },
+                  { pattern: /^[0-9]*$/, message: '只能输入数字',trigger: 'blur' },
+                  { min: 1, max: 15, message: '电话格式不正确', trigger: 'blur' }
                 ],
                 khyh: [
-                  { required: true, message: '请输入开户银行', trigger: 'blur' }
+                  { required: true, message: '请输入开户银行', trigger: 'blur' },
+                  { min: 1, max: 15, message: '最多可输入15个字', trigger: 'blur' }
                 ],
                 yhzh: [
-                  { required: true, message: '请输入银行账号', trigger: 'blur' }
+                  { required: true, message: '请输入银行账号', trigger: 'blur' },
+                  { pattern: /^[0-9]*$/, message: '只能输入数字',trigger: 'blur' },
+                  { min: 1, max: 16, message: '最多可输入16个字符', trigger: 'blur' }
                 ]
             },
             wjdcRules: {
@@ -215,10 +243,11 @@ var vm = new Vue({
                     { required: true, message: '请选择是否代理海外产品', trigger: 'change' }
                 ],
                 hwdlcppp: [
-                    { required: true, message: '请输入产品品牌', trigger: 'blur' }
+                    { required: true, message: '请输入产品品牌', trigger: 'blur' },
+                    { min: 1, max: 25, message: '最多可输入25个字', trigger: 'blur' }
                 ],
                 fmzl: [
-                  { required: true, message: '请输入发明专利(项)', trigger: 'blur' }
+                  { required: true, message: '请输入发明专利(项)', trigger: 'blur' },
                 ],
                 syxxzl: [
                   { required: true, message: '请输入实用新型专利(项)', trigger: 'blur' }
@@ -244,7 +273,8 @@ var vm = new Vue({
             },
             qyjsRules: {
                 qyjj: [
-                  { required: true, message: '请输入企业简介', trigger: 'blur' }
+                  { required: true, message: '请输入企业简介', trigger: 'blur' },
+                  { min: 1, max: 200, message: '最多可输入200个字', trigger: 'blur' }
                 ]
             },
             cpjsRules: {
@@ -252,7 +282,8 @@ var vm = new Vue({
                   { required: true, message: '请选择产品所属分类', trigger: 'change' }
                 ],
                 cpjj: [
-                  { required: true, message: '请输入产品简介', trigger: 'blur' }
+                  { required: true, message: '请输入产品简介', trigger: 'blur' },
+                  { min: 1, max: 150, message: '最多可输入150个字', trigger: 'blur' }
                 ]
             },
             sjformRules:{
@@ -364,6 +395,9 @@ var vm = new Vue({
                         xzqhArray.push(res.data.result.yjdzshi);
                         this.baseInforForm.xzqh = xzqhArray;
                         this.baseInforForm.dzyx1 = this.baseInforForm.dzyx;
+                        if(this.baseInforForm.wz == ''||this.baseInforForm.wz == null){
+                            this.noWebsit = true;
+                        }
                         this.jbxxStatus = 1;//修改
                         this.qyid = res.data.result.qyid;
                     }else{//已提交，已审核 直接跳转到确认页
@@ -543,12 +577,12 @@ var vm = new Vue({
         },
         //营业执照change
         PicChange: function (file,fileList) {
-            const isPng = file.name.endsWith("png");
-            const isJpg = file.name.endsWith("jpg");
-            this.isPdf = file.name.endsWith("pdf");
-            const isLt200K = file.size / 1024 < 200;
-            if (!isLt200K) {
-                this.$message.error('上传图片大小不能超过200KB!');
+            const isPng = file.name.endsWith("png") || file.name.endsWith("PNG");
+            const isJpg = file.name.endsWith("jpg") || file.name.endsWith("JPG");
+            this.isPdf = file.name.endsWith("pdf") || file.name.endsWith("PDF");
+            const isLt2M = file.size / 1024 /1024< 2;
+            if (!isLt2M) {
+                this.$message.error('上传图片大小不能超过2MB!');
                 fileList.splice(-1, 1);
             }else{
                 if (isPng || isJpg) {
@@ -572,11 +606,11 @@ var vm = new Vue({
         },
         //企业logo
         LogoChange: function (file,fileList) {
-            const isPng = file.name.endsWith("png");
-            const isJpg = file.name.endsWith("jpg");
-            const isLt100K = file.size / 1024 < 100;
-            if (!isLt100K) {
-                this.$message.error('上传图片大小不能超过100KB!');
+            const isPng = file.name.endsWith("png") || file.name.endsWith("PNG");
+            const isJpg = file.name.endsWith("jpg") || file.name.endsWith("JPG");
+            const isLt1M = file.size / 1024 /1024 < 1;
+            if (!isLt1M) {
+                this.$message.error('上传图片大小不能超过1MB!');
                 fileList.splice(-1, 1);
             }else{
                 if (isPng || isJpg) {
@@ -593,11 +627,11 @@ var vm = new Vue({
         },
         //产品图片
         CpPicsChange: function (file,fileList) {
-            const isPng = file.name.endsWith("png");
-            const isJpg = file.name.endsWith("jpg");
-            const isLt100K = file.size / 1024 < 100;
-            if (!isLt100K) {
-                this.$message.error('上传图片大小不能超过100KB!');
+            const isPng = file.name.endsWith("png") || file.name.endsWith("PNG");
+            const isJpg = file.name.endsWith("jpg") || file.name.endsWith("JPG");
+            const isLt2M = file.size / 1024 /1024 < 2;
+            if (!isLt2M) {
+                this.$message.error('上传图片大小不能超过2MB!');
                 fileList.splice(-1, 1);
             }else{
                 if (isPng || isJpg) {
@@ -1160,14 +1194,22 @@ var vm = new Vue({
                 });
                 return false;
             }else{
-                this.qyjsForm.qycpjsVOList.push({
-                    qyid:this.qyid,
-                    cptp:'',
-                    cplx:[],
-                    cpjj:'',
-                    cptpBase64:'',
-                    key: Date.now()
-                });
+                if(this.qyjsForm.qycpjsVOList.length < 6){
+                    this.qyjsForm.qycpjsVOList.push({
+                        qyid:this.qyid,
+                        cptp:'',
+                        cplx:[],
+                        cpjj:'',
+                        cptpBase64:'',
+                        key: Date.now()
+                    });
+                }else{
+                    this.$message({
+                        message: '最多可添加6条产品介绍',
+                        type: 'warning'
+                    });
+                }
+                
             }
             
         },
@@ -1178,6 +1220,11 @@ var vm = new Vue({
                 if (index !== -1) {
                     this.qyjsForm.qycpjsVOList.splice(index, 1)
                 }
+            }else{
+                this.$message({
+                    message: '请最少填写一条产品介绍',
+                    type: 'warning'
+                });
             }
            
         },
