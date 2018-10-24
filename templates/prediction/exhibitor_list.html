@@ -129,7 +129,7 @@
                                     <el-col :span="1">&nbsp;</el-col>
 									<el-col :span="21">
 										<el-form-item label="密码" prop="password">
-											<el-input v-model="editForm.password" type="password" placeholder="请输入密码，密码为6-16位数字字母组合" size="small" auto-complete="off" clearable></el-input>
+											<el-input v-model="editForm.password" type="password" placeholder="请输入密码，密码为6-16位数字字母组合" size="small" auto-complete="off" clearable maxlength="60"></el-input>
 										</el-form-item>
 									</el-col>
 									<el-col :span="2">&nbsp;</el-col>
@@ -138,7 +138,7 @@
                                     <el-col :span="1">&nbsp;</el-col>
                                     <el-col :span="21">
                                         <el-form-item label="确认密码" prop="checkPass">
-                                            <el-input v-model="editForm.checkPass" type="password" placeholder="请输入确认密码" size="small" auto-complete="off" clearable></el-input>
+                                            <el-input v-model="editForm.checkPass" type="password" placeholder="请输入确认密码" size="small" auto-complete="off" clearable maxlength="60"></el-input>
                                         </el-form-item>
                                     </el-col>
 									<el-col :span="2">&nbsp;</el-col>
