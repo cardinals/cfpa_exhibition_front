@@ -117,6 +117,9 @@
                         <form id="GLYlogin-form" autocomplete="off" name="login-form" action="/xfxhapi/login" method="post">
                             <ul style="display:block;">
                                 <li>
+                                    <input type="text" class="kong">
+                                </li>
+                                <li>
                                     <i class="icon-user"></i>
                                     <input type="text" class="inputstyle" v-model="GLYusername" name="username" id="GLYusername" placeholder="用户名">
                                 </li>
@@ -124,7 +127,7 @@
                                     <i class="icon-password"></i>
                                     <input type="password" class="inputstyle" v-model="GLYpassword" name="password" id="GLYpassword" placeholder="密码">
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <i class="icon-verficode" style="margin-left:14px;"></i>
                                     <input type="text" class="inputstyle" v-model="GLYvalidateCode" name="validateCode" id="GLYvalidateCode" placeholder="验证码"
                                         @keyup.enter="GLYlogin()">
@@ -132,7 +135,7 @@
                                         <img v-bind:src="GLYsrc" id="GLYcheckCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';"
                                             style="vertical-align: bottom;border-radius:20px;" width="50" height="20">
                                     </a>
-                                </li>
+                                </li> -->
                             </ul>
                             <div class="formbar">
                                 <input type="checkbox" name="rememberMe" id="GLYrememberMe" />&nbsp;&nbsp;
