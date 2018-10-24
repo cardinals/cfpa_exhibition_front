@@ -175,7 +175,7 @@ var vue = new Vue({
 					{
 						name: this.pieTitle,
 						type: 'pie',
-						radius: '55%',
+						radius: '46.5%',
 						center: ['35%', '50%'],
 						data:this.pieDataz,
 						// data:this.pieDataz.sort(function (a, b) { return a.value - b.value; }),
