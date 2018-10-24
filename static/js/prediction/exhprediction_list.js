@@ -8,7 +8,7 @@ var vue = new Vue({
             activeIndex: '',
             //搜索表单
             searchForm: {
-                zwgsmc: '',
+                gsmc: '',
                 // yjdz: '',
                 sjzt: '',
                 shzt: ''
@@ -85,7 +85,7 @@ var vue = new Vue({
             }
             this.loading = true;//表格重新加载
             var params = {
-                zwgsmc: this.searchForm.zwgsmc,
+                gsmc: this.searchForm.gsmc,
                 // yjdz: this.searchForm.yjdz,
                 shzt: this.searchForm.shzt,
                 sjzt: this.searchForm.sjzt,
@@ -105,7 +105,7 @@ var vue = new Vue({
         },
         //清空查询条件
         clearClick: function () {
-            this.searchForm.zwgsmc = '';
+            this.searchForm.gsmc = '';
             this.searchForm.yjdz = '';
             this.searchForm.shzt = '';
             this.searchForm.sjzt = '';
