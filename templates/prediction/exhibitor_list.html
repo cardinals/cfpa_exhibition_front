@@ -116,8 +116,8 @@
                                     <el-col :span="1">&nbsp;</el-col>
 									<el-col :span="21">
 										<el-form-item label="用户名" prop="username">
-											<el-input v-if="editForm.usertype == 'ENG'" v-model="editForm.username" placeholder="请输入用户名，用户名为邮箱" size="small" auto-complete="off" clearable :disabled="editFlag"></el-input>
-											<el-input v-else v-model="editForm.username" placeholder="请输入用户名，用户名为手机号" size="small" auto-complete="off" clearable :disabled="editFlag"></el-input>
+											<el-input v-if="editForm.usertype == 'ENG'" v-model="editForm.username" placeholder="请输入用户名，用户名为邮箱" size="small" auto-complete="off" clearable :disabled="editFlag" maxlength="30"></el-input>
+											<el-input v-else v-model="editForm.username" placeholder="请输入用户名，用户名为手机号" size="small" auto-complete="off" clearable :disabled="editFlag" maxlength="30"></el-input>
 										</el-form-item>
 									</el-col>
 									<el-col :span="2">
