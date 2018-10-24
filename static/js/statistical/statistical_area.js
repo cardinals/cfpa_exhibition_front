@@ -179,7 +179,7 @@ var vue = new Vue({
 						center: ['35%', '50%'],
 						data:this.pieDataz,
 						// data:this.pieDataz.sort(function (a, b) { return a.value - b.value; }),
-						roseType: 'radius',
+						// roseType: 'radius',
 						label: {
 							show: true,
 							// position: 'inside',
