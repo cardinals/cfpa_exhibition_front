@@ -8,7 +8,7 @@ var vue = new Vue({
             activeIndex: '',
             //搜索表单
             searchForm: {
-                zwgsmc: '',
+                gsmc: '',
                 // yjdz: '',
                 shzt: '01'
             },
@@ -66,7 +66,7 @@ var vue = new Vue({
             }
             this.loading = true;//表格重新加载
             var params = {
-                zwgsmc: this.searchForm.zwgsmc,
+                gsmc: this.searchForm.gsmc,
                 // yjdz: this.searchForm.yjdz,
                 shzt: this.searchForm.shzt,
                 approveflag: 'y',
@@ -86,7 +86,7 @@ var vue = new Vue({
         },
         //清空查询条件
         clearClick: function () {
-            this.searchForm.zwgsmc = '';
+            this.searchForm.gsmc = '';
             this.searchForm.yjdz = '';
             this.searchForm.shzt = '01';
             this.searchClick('reset');
@@ -114,16 +114,20 @@ var vue = new Vue({
         },
         //审核操作列点击
         approveClick: function (val) {
-            this.approveForm = Object.assign({}, val);
-            axios.get('/xfxhapi/qyjbxx/doFindJbxxById/' + val.qyid).then(function (res) {
-                this.approveForm.yyzzBase64 = res.data.result.yyzzBase64;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-            //如果是未通过审核意见显示*代表必填
-            if (this.approveForm.shzt == '02')
-                this.isReject = true;
-            this.approveFormVisible = true;
+            var params = {
+                id: val.qyid
+            }
+            loadDivParam("prediction/exhprediction_approveSubmit", params);
+            // this.approveForm = Object.assign({}, val);
+            // axios.get('/xfxhapi/qyjbxx/doFindJbxxById/' + val.qyid).then(function (res) {
+            //     this.approveForm.yyzzBase64 = res.data.result.yyzzBase64;
+            // }.bind(this), function (error) {
+            //     console.log(error)
+            // })
+            // //如果是未通过审核意见显示*代表必填
+            // if (this.approveForm.shzt == '02')
+            //     this.isReject = true;
+            // this.approveFormVisible = true;
         },
         //审核提交事件
         approveSubmit: function (val) {

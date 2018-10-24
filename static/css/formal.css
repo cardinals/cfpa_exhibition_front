@@ -279,3 +279,12 @@ body{height:100%;overflow:hidden;}
 .el-dialog__body {
     padding: 0px 20px 20px;
 }
+#previewImgDialog .el-carousel__item--card.is-active{
+    transform: translateX(15px) scale(1) !important;
+}
+#previewImgDialog .el-carousel__item--card{
+    width: 95% !important;
+}
+#previewImgDialog .el-dialog__title {
+    color: #fff;
+}

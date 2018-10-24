@@ -21,7 +21,7 @@
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="9" class="searchInline">
                                     <label class="el-form-item__label searchLabel">公司名称</label>
-                                    <el-input size="small" v-model="searchForm.zwgsmc" placeholder="公司名称" clearable></el-input>
+                                    <el-input size="small" v-model="searchForm.gsmc" placeholder="公司名称" clearable></el-input>
                                 </el-col>
                                 <el-col :span="2">&nbsp;</el-col>
                                 <el-col :span="9" class="searchInline">
@@ -52,18 +52,23 @@
                             @row-click="showRow">
                             <!-- <el-table-column type="selection" width="45"></el-table-column> -->
                             <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
-                            <el-table-column prop="zwgsmc" label="公司名称" show-overflow-tooltip min-width="30%" align="center">
+                            <el-table-column prop="zwgsmc" label="公司名称" show-overflow-tooltip min-width="25%" align="center">
                                 <template slot-scope="scope">
                                     <a v-if="scope.row.usertype == 'ENG'" v-text="scope.row.ywgsmc" @click="qyDetails(scope.row)"></a>
                                     <a v-else v-text="scope.row.zwgsmc" @click="qyDetails(scope.row)"></a>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="tyshxydm" label="统一社会信用代码" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-                            <el-table-column label="营业执照" show-overflow-tooltip min-width="15%" align="center">
+                            <!-- <el-table-column label="营业执照" show-overflow-tooltip min-width="15%" align="center">
                                 <template slot-scope="scope">
                                     <el-button v-if="scope.row.usertype == 'CHN'" type="text" @click="imgPreview(scope.row)">预览</el-button>
-                                    <span v-if="scope.row.usertype == 'ENG'">--</span>
+                                    <span v-if="scope.row.usertype == 'ENG'"></span>
                                 </template>
+                            </el-table-column> -->
+                            <el-table-column prop="wz" label="公司网址" show-overflow-tooltip min-width="20%" align="center">
+                                <!-- <template slot-scope="scope">
+                                    <a type="text" v-text="scope.row.wz" :src="scope.row.wz"></a>
+                                </template> -->
                             </el-table-column>
                             <el-table-column prop="shztmc" label="审核状态" show-overflow-tooltip min-width="10%" align="center">
                                 <template slot-scope="scope">
@@ -155,7 +160,7 @@
                                     <el-row>
                                         <el-col :span="23">
                                             <el-form-item label="审核意见" prop="reserve1">
-                                                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="approveForm.reserve1"></el-input>
+                                                <el-input type="textarea" maxlength="200" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="approveForm.reserve1"></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :span="1">

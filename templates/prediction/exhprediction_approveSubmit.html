@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../static/css/prediction/exhprediction_approve.css">
+    <title>展会报名审核</title>
+</head>
+
+<body class="fw f14 main-index-body">
+    <div id="app">
+        <div class="main-box">
+            <div class="main-container" v-loading="loading" element-loading-text="加载中">
+                <div id="lib :: main_container_header('展会报名审核','展会报名审核')"></div>
+                <!-- 面包屑 -->
+                <div id="breadcrumb_box"></div>
+                <div id="tableView">
+                    <el-row class="mt20 ml20 mr20">
+                        <el-col :span="12" class="tl" v-if="approveForm.usertype==='CHN'">
+                            <img v-if="approveForm.yyzzBase64!==''" :src="'data:image/png;base64,'+approveForm.yyzzBase64" @click="imgPreview" class="poi" style="max-height: 100%;max-width: 95%;">
+                            <img v-else src="../../static/images/noPic.png" style="width:150px;">
+                            <br>营业执照
+                        </el-col>
+                        <el-col :span="6" v-else-if="approveForm.usertype==='ENG'">&nbsp;</el-col>
+                        <el-col :span="12">
+                            <el-row class="mb15" style="border-bottom:1px solid #463132;line-height: 29px;">
+                                <strong style="color: #463132;">审核信息</strong>
+                            </el-row>
+                            <el-row class="mb15 ml15">
+                                <strong class="dtdlStyle">公司名称：</strong>
+                                <v-text v-if="approveForm.usertype==='CHN'" v-text="approveForm.zwgsmc||'无'"></v-text>
+                                <v-text v-if="approveForm.usertype==='ENG'" v-text="approveForm.ywgsmc||'无'"></v-text>
+                            </el-row>
+                            <el-row class="mb15 ml15" v-if="approveForm.usertype==='CHN'">
+                                <strong class="dtdlStyle">统一社会信用代码：</strong>
+                                <v-text v-text="approveForm.tyshxydm||'无'"></v-text>
+                            </el-row>
+                            <el-row class="mb15 ml15" v-if="approveForm.usertype==='ENG'">
+                                <strong class="dtdlStyle">公司网址：</strong>
+                                <a :href="approveForm.wz" v-text="approveForm.wz||'无'"></a>
+                            </el-row>
+                            <el-row class="mb20 ml15">
+                                <strong class="dtdlStyle">法人代表：</strong>
+                                <v-text v-text="approveForm.frdb||'无'"></v-text>
+                            </el-row>
+                            <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
+                                <strong style="color: #463132;">审核结果</strong>
+                            </el-row>
+                            <el-form :model="approveForm" label-width="100px" ref="approveForm">
+                                <el-row>
+                                    <el-col :span="23">
+                                        <el-form-item label="审核状态" prop="shzt">
+                                            <el-radio-group class="yash_radio" v-model="approveForm.shzt" auto-complete="off" @change="radioChange">
+                                                <el-radio :label="'01'" disabled>未审核</el-radio>
+                                                <el-radio :label="'02'">未通过</el-radio>
+                                                <el-radio :label="'03'">已通过</el-radio>
+                                            </el-radio-group>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :span="23">
+                                        <el-form-item label="审核意见" prop="reserve1">
+                                            <el-input type="textarea" maxlength="200" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="approveForm.reserve1"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="1">
+                                        <v-text v-show="isReject" style="color: red">&nbsp;
+                                            <strong>*</strong>
+                                        </v-text>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="mt10 mb20">
+                                    <el-form :inline="true" class="el-form demo-form-inline">
+                                        <el-row>
+                                            <el-col :xs="23" :sm="23" :md="23" :lg="23" :xl="23" class="editform-button">
+                                                <el-button type="clear" icon="el-icon-close" size="small" class="btn_submit" @click.native="closeDialog(approveForm)">取消</el-button>
+                                                <el-button type="success" icon="el-icon-check" size="small" class="btn_submit" @click.native="approveSubmit(approveForm)">审核</el-button>
+                                            </el-col>
+                                        </el-row>
+                                    </el-form>
+                                </el-row>
+                            </el-form>
+                        </el-col>
+                    </el-row>
+                    
+
+                    <!--图片预览-->
+                    <el-dialog id="previewImgDialog" :title="previewTitle" :visible.sync="imgViewVisible" :close-on-click-modal="false" size="large">
+                        <template>
+                            <el-carousel type="card" height="350px" :autoplay="false" arrow="never" indicator-position="none">
+                                <el-carousel-item>
+                                    <img v-if="previewImg!==''" :src="'data:image/png;base64,'+previewImg" style="width: 100%;">
+                                    <img v-else src="../../static/images/noPic.png" style="width: 100%;">
+                                </el-carousel-item>
+                            </el-carousel>
+                        </template>
+                    </el-dialog>
+                </div>
+            </div>
+            <!-- main-container -->
+        </div>
+    </div>
+</body>
+<script src="../../static/js/prediction/exhprediction_approveSubmit.js"></script>
+
+</html>
