@@ -94,8 +94,8 @@ var vue = new Vue({
             var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
-                username: this.searchForm.username,
-                zwgsmc: this.searchForm.zwgsmc,
+                username: this.searchForm.username.replace(/%/g,"\\%"),
+                zwgsmc: this.searchForm.zwgsmc.replace(/%/g,"\\%"),
                 usertype: this.searchForm.usertype,
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
