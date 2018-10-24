@@ -32,7 +32,7 @@
                                 <el-col :span="12">
                                     <strong class="vt">营业执照：</strong>
                                     <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
-                                        style="max-width:100%;max-height:140px;">
+                                        style="max-width:100%;max-height:140px;" class="poi">
                                     <img v-else src="../../static/images/noPic.png" style="width:100px;">
                                 </el-col>
                                 <el-col :span="12">
@@ -208,7 +208,7 @@
                         <el-col :span="11">
                             <strong class="vt">企业Logo：</strong>
                             <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" @click="imgPreview(qyjsData.logoBase64)"
-                                style="max-width:100%;max-height:140px;">
+                                style="max-width:100%;max-height:140px;" class="poi">
                             <img v-else src="../../static/images/noPic.png" style="width:100px;">
                         </el-col>
                         <el-col :span="11">
@@ -227,7 +227,7 @@
                                     <el-card class="mb10 card_style" id="cpjsImg">
                                         <el-row class="h100">
                                             <el-col :span="5" class="h100">
-                                                <img v-if="cpjs!==null&&cpjs.cptpBase64!==''" :src="'data:image/png;base64,'+cpjs.cptpBase64" @click="imgPreview(cpjs.cptpBase64)">
+                                                <img v-if="cpjs!==null&&cpjs.cptpBase64!==''" :src="'data:image/png;base64,'+cpjs.cptpBase64" @click="imgPreview(cpjs.cptpBase64)" class="poi">
                                                 <img v-else src="../../static/images/noPic.png">
                                             </el-col>
                                             <el-col :span="19" style="line-height: 24px;">

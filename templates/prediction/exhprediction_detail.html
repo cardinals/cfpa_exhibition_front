@@ -19,7 +19,7 @@
                         <div class="l tc">
                             <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" @click="imgPreview(qyjsData.logoBase64)"
                                 class="detail_picture_top">
-                            <img v-else src="../../static/images/noPic.png" style="width:100px;">
+                            <img v-else src="../../static/images/noPic.png" style="width:100px;" class="poi">
                             <br>企业Logo
                         </div>
                         <div class="dib" id="basic-Inform-Title">
@@ -42,7 +42,7 @@
                         </div>
                         <div v-if="!isENG" class="r tc">
                             <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
-                                class="detail_picture_top">
+                                class="detail_picture_top poi">
                             <img v-else src="../../static/images/noPic.png" style="width:100px;">
                             <br>营业执照
                         </div>
@@ -264,7 +264,7 @@
                                             <el-card class="mb10 card_style" id="cpjsImg">
                                                 <el-row class="h100">
                                                     <el-col :span="5" class="h100">
-                                                        <img v-if="cpjs!==null&&cpjs.cptpBase64!==''" :src="'data:image/png;base64,'+cpjs.cptpBase64" @click="imgPreview(cpjs.cptpBase64)">
+                                                        <img v-if="cpjs!==null&&cpjs.cptpBase64!==''" :src="'data:image/png;base64,'+cpjs.cptpBase64" @click="imgPreview(cpjs.cptpBase64)" class="poi">
                                                         <img v-else src="../../static/images/noPic.png">
                                                     </el-col>
                                                     <el-col :span="19" style="line-height: 24px;">
