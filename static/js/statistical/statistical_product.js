@@ -125,7 +125,7 @@ var vue = new Vue({
 						data: this.tjfxname,//this.getList('name'),
 						axisLabel: {
 							interval: 0,
-							// rotate: "15"
+							rotate:15,
 						},
 					}
 				],
