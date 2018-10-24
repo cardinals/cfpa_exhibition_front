@@ -116,9 +116,9 @@
                         </div>
                         <form id="GLYlogin-form" autocomplete="off" name="login-form" action="/xfxhapi/login" method="post">
                             <ul style="display:block;">
-                                <li>
+                                <li class="zw">
                                     <input type="text" class="kong">
-                                </li>
+                                </li> 
                                 <li>
                                     <i class="icon-user"></i>
                                     <input type="text" class="inputstyle" v-model="GLYusername" name="username" id="GLYusername" placeholder="用户名">
@@ -142,7 +142,7 @@
                                 <span style="color:#fb6a74">记住我</span>
                             </div>
                             <div class="LoginBtn">
-                                <a @click="GLYlogin()" id="lg" style="display:block;margin-top:40px;">登 录</a>
+                                <a @click="GLYlogin()" id="lg" style="display:block;margin-top:71px;">登 录</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" v-model="GLYloginType" />
                         </form>
