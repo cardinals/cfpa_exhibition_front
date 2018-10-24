@@ -237,9 +237,12 @@ var vm = new Vue({
                 alert("用户名不能为空！")
             } else if (this.GLYpassword == null || this.GLYpassword == '') {
                 alert("密码不能为空！")
-            } else if (this.GLYvalidateCode == null || this.GLYvalidateCode == '') {
+            } 
+            /** 管理员登录不需要验证验证码 by li.xue 2018/10/24
+            else if (this.GLYvalidateCode == null || this.GLYvalidateCode == '') {
                 alert("验证码不能为空！")
-            } else {
+            }  */
+            else {
                 $('#GLYlogin-form').submit();
             }
         },
