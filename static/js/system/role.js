@@ -178,36 +178,71 @@ var vue = new Vue({
             _self.addFormVisible = true;
             this.getAllResources();
         },
+        //保存前校验
+        validateSave: function(){
+            if(this.editForm.rolename=="" || this.editForm.rolename==null) {
+                this.$message.warning({
+                    message: '请输入角色名！',
+                    showClose: true
+                });
+                return false;
+            }else if(this.editForm.roleinfo=="" || this.editForm.roleinfo==null){
+                this.$message.warning({
+                    message: '请输入角色描述！',
+                    showClose: true
+                });
+                return false;
+            }
+            return true;
+        },
         //新建：提交
         addSubmit: function (val) {
-            var _self = this;
-            axios.get('/xfxhapi/role/getNum/' + this.addForm.rolename).then(function (res) {
-                if (res.data.result != 0) {
-                    _self.$message({
-                        message: "角色名已存在!",
-                        type: "error"
-                    });
-                } else {
-                    val.resource = this.$refs.tree.getCheckedNodes();
-                    var params = {
-                        rolename: val.rolename,
-                        roleinfo: val.roleinfo,
-                        resources: val.resource
+            if(this.addForm.rolename=="" || this.addForm.rolename==null) {
+                this.$message.warning({
+                    message: '请输入角色名称！',
+                    showClose: true
+                });
+                return false;
+            }else if(this.addForm.roleinfo=="" || this.addForm.roleinfo==null){
+                this.$message.warning({
+                    message: '请输入角色描述！',
+                    showClose: true
+                });
+                return false;
+            }else{
+                var _self = this;
+                axios.get('/xfxhapi/role/getNum/' + this.addForm.rolename).then(function (res) {
+                    if (res.data.result != 0) {
+                        _self.$message({
+                            message: "角色名已存在!",
+                            type: "error"
+                        });
+                    } else {
+                        val.resource = this.$refs.tree.getCheckedNodes();
+                        var params = {
+                            rolename: val.rolename,
+                            roleinfo: val.roleinfo,
+                            resources: val.resource
+                        }
+                        axios.post('/xfxhapi/role/insertByVO', params).then(function (res) {
+                            var addData = res.data.result;
+                            addData.createTime = new Date();
+                            _self.tableData.unshift(addData);
+                            _self.total = _self.tableData.length;
+                            this.$message({
+                                message: "角色新增成功！",
+                                type: "success"
+                            });
+                        }.bind(this), function (error) {
+                            console.log(error)
+                        })
+                        this.addFormVisible = false;
+                        loadingData();//重新加载数据
                     }
-                    axios.post('/xfxhapi/role/insertByVO', params).then(function (res) {
-                        var addData = res.data.result;
-                        addData.createTime = new Date();
-                        _self.tableData.unshift(addData);
-                        _self.total = _self.tableData.length;
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    this.addFormVisible = false;
-                    loadingData();//重新加载数据
-                }
-            }.bind(this), function (error) {
-                console.log(error)
-            })
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }
         },
 
         //删除：批量删除
@@ -279,24 +314,30 @@ var vue = new Vue({
 
         //修改：保存按钮
         editSubmit: function (val) {
-            val.resource = this.$refs.tree.getCheckedNodes();
-
-            var params = {
-                roleid: val.roleid,
-                rolename: val.rolename,
-                roleinfo: val.roleinfo,
-                resources: val.resource
-            };
-            axios.post('/xfxhapi/role/updateByVO', params).then(function (res) {
-                this.tableData[this.selectIndex].rolename = val.rolename;
-                this.tableData[this.selectIndex].roleinfo = val.roleinfo;
-                this.tableData[this.selectIndex].alterName = res.data.result.alterName;
-                this.tableData[this.selectIndex].alterTime = new Date();
-                this.tableData[this.selectIndex].resources = val.resource;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-            this.editFormVisible = false;
+            if(this.validateSave()){
+                val.resource = this.$refs.tree.getCheckedNodes();
+                var params = {
+                    roleid: val.roleid,
+                    rolename: val.rolename,
+                    roleinfo: val.roleinfo,
+                    resources: val.resource
+                };
+                axios.post('/xfxhapi/role/updateByVO', params).then(function (res) {
+                    this.tableData[this.selectIndex].rolename = val.rolename;
+                    this.tableData[this.selectIndex].roleinfo = val.roleinfo;
+                    this.tableData[this.selectIndex].alterName = res.data.result.alterName;
+                    this.tableData[this.selectIndex].alterTime = new Date();
+                    this.tableData[this.selectIndex].resources = val.resource;
+                    this.$message({
+                        message: "角色编辑成功！",
+                        type: "success"
+                    });
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+                this.editFormVisible = false;
+            }
+            
         },
 
         closeDialog: function (val) {

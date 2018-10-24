@@ -47,16 +47,16 @@
 						<el-from label-width="100px">
 							<el-col :span="23" class="searchInline">
 								<label class="el-form-item__label searchLabel">资源名称</label>
-								<el-input size="small"  placeholder="请输入内容" v-model="resourceForm.resourcename" clearable>
+								<el-input size="small"  placeholder="请输入内容" v-model="resourceForm.resourcename" clearable maxlength="100">
 								</el-input> 
 							</el-col>
 							<el-col :span="23" class="searchInline">
 								<label class="el-form-item__label searchLabel">资源描述</label>
-								<el-input size="small"  placeholder="请输入内容" v-model="resourceForm.resourceinfo" clearable></el-input>
+								<el-input size="small"  placeholder="请输入内容" v-model="resourceForm.resourceinfo" clearable maxlength="100"></el-input>
 							</el-col>
 							<el-col :span="23" class="searchInline">
 								<label class="el-form-item__label searchLabel">父资源</label>
-								<el-input size="small"  placeholder="请输入内容" v-model="resourceForm.parentid" clearable></el-input>
+								<el-input size="small"  placeholder="请输入内容" v-model="resourceForm.parentid" clearable maxlength="32"></el-input>
 							</el-col>
 							<el-col :span="23" class="searchInline">
 								<label class="el-form-item__label searchLabel">顺序</label>
@@ -64,7 +64,7 @@
 							</el-col>
 							<el-col :span="23" class="searchInline">
 								<label class="el-form-item__label searchLabel">图标地址</label>
-								<el-input size="small"  placeholder="请输入内容" v-model="resourceForm.icon" clearable></el-input>
+								<el-input size="small"  placeholder="请输入内容" v-model="resourceForm.icon" clearable maxlength="100"></el-input>
 							</el-col>
 							<el-col :span="23" class="searchInline">
 								<label class="el-form-item__label searchLabel">资源类型</label>
@@ -112,21 +112,21 @@
 							<el-row>
 								<el-col :span="23" class="searchInline">
 									<el-form-item label="资源名称" prop="resourcename">
-										<el-input size="small" v-model="addForm.resourcename" placeholder="资源名称" auto-complete="off"></el-input>
+										<el-input size="small" v-model="addForm.resourcename" placeholder="资源名称" auto-complete="off" clearable maxlength="100"></el-input>
 									</el-form-item>
 								</el-col>
 							</el-row>
 							<el-row>
 								<el-col :span="23" class="searchInline">
 									<el-form-item label="资源描述" prop="resourceinfo">
-										<el-input size="small" v-model="addForm.resourceinfo" placeholder="资源描述" auto-complete="off"></el-input>
+										<el-input size="small" v-model="addForm.resourceinfo" placeholder="资源描述" auto-complete="off" clearable maxlength="100"></el-input>
 									</el-form-item>
 								</el-col>
 							</el-row>
 							<el-row>
 								<el-col :span="23" class="searchInline">
 									<el-form-item label="图标地址" prop="icon">
-										<el-input size="small" v-model="addForm.icon" placeholder="图标地址" auto-complete="off"></el-input>
+										<el-input size="small" v-model="addForm.icon" placeholder="图标地址" auto-complete="off" clearable maxlength="100"></el-input>
 									</el-form-item>
 								</el-col>
 							</el-row>

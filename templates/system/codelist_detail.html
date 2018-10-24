@@ -21,12 +21,12 @@
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="9" class="searchInline">
                                     <label class="el-form-item__label searchLabel">代码值</label>
-                                    <el-input size="small" v-model="searchForm.codeValue" placeholder="代码值" prefix-icon="el-icon-search"></el-input>
+                                    <el-input size="small" v-model="searchForm.codeValue" placeholder="代码值" prefix-icon="el-icon-search" clearable></el-input>
                                 </el-col>
                                 <el-col :span="2">&nbsp;</el-col>
                                 <el-col :span="9" class="searchInline">
                                     <label class="el-form-item__label searchLabel">代码名称</label>
-                                    <el-input size="small" v-model="searchForm.codeName" placeholder="代码名称" prefix-icon="el-icon-search"></el-input>
+                                    <el-input size="small" v-model="searchForm.codeName" placeholder="代码名称" prefix-icon="el-icon-search" clearable></el-input>
                                 </el-col>
                                 <el-col :span="2">&nbsp;</el-col>
                             </el-row>
@@ -86,7 +86,7 @@
                             <el-row>
                                 <el-col :span="23">
                                     <el-form-item label="代码值" prop="codeValue">
-                                        <el-input v-model="addForm.codeValue" auto-complete="off" placeholder="代码值"></el-input>
+                                        <el-input v-model="addForm.codeValue" size="small" auto-complete="off" placeholder="代码值" maxlength="64" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
@@ -94,7 +94,7 @@
                             <el-row>
                                 <el-col :span="23">
                                     <el-form-item label="代码名称" prop="codeName">
-                                        <el-input v-model="addForm.codeName" auto-complete="off" placeholder="代码名称"></el-input>
+                                        <el-input v-model="addForm.codeName" size="small" auto-complete="off" placeholder="代码名称" maxlength="128" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
@@ -102,7 +102,7 @@
                             <el-row>
                                 <el-col :span="23">
                                     <el-form-item label="备注" prop="remark">
-                                        <el-input v-model="addForm.remark" auto-complete="off" placeholder="备注"></el-input>
+                                        <el-input v-model="addForm.remark" size="small" auto-complete="off" placeholder="备注" maxlength="256" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
@@ -128,7 +128,7 @@
                             <el-row>
                                 <el-col :span="23">
                                     <el-form-item label="代码值" prop="codeValue">
-                                        <el-input v-model="editForm.codeValue" auto-complete="off" placeholder="代码值"></el-input>
+                                        <el-input v-model="editForm.codeValue" size="small" auto-complete="off" placeholder="代码值" maxlength="64" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
@@ -136,7 +136,7 @@
                             <el-row>
                                 <el-col :span="23">
                                     <el-form-item label="代码名称" prop="codeName">
-                                        <el-input v-model="editForm.codeName" auto-complete="off" placeholder="代码名称"></el-input>
+                                        <el-input v-model="editForm.codeName" size="small" auto-complete="off" placeholder="代码名称" maxlength="128" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
@@ -144,7 +144,7 @@
                             <el-row>
                                 <el-col :span="23">
                                     <el-form-item label="备注" prop="remark">
-                                        <el-input v-model="editForm.remark" auto-complete="off" placeholder="备注"></el-input>
+                                        <el-input v-model="editForm.remark" size="small" auto-complete="off" placeholder="备注" maxlength="256" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>

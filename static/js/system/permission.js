@@ -5,11 +5,9 @@ var vue = new Vue({
     data: function () {
         return {
             visible: false,
-            //权限下拉框
-            allPermissions: [],
             //搜索表单
             searchForm: {
-                permissionname: "",
+                permissioninfo: "",
                 createTime:new Array()
             },
             tableData: [],
@@ -58,18 +56,9 @@ var vue = new Vue({
 		//$("#activeIndex").val(getQueryString("index"));
         /**面包屑 by li.xue 20180628*/
         loadBreadcrumb("权限管理", "-1");
-        this.getAllPermissions();
         this.searchClick('click');
     },
     methods: {
-        //所有的权限列表
-        getAllPermissions: function () {
-            axios.get('/xfxhapi/permission/getAll').then(function (res) {
-                this.allPermissions = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
         handleNodeClick(data) {
         },
 
@@ -91,7 +80,7 @@ var vue = new Vue({
             var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
-                permissionname: this.searchForm.permissionname,
+                permissioninfo: this.searchForm.permissioninfo,
                 createTimeBegin: this.searchForm.createTime[0],
                 createTimeEnd: this.searchForm.createTime[1],
                 pageSize: this.pageSize,
@@ -132,32 +121,50 @@ var vue = new Vue({
 
         //新建：保存
         addSubmit: function (val) {
-            var _self = this;
-            axios.get('/xfxhapi/permission/getNum/' + this.addForm.permissionname).then(function (res) {
-                if (res.data.result != 0) {
-                    _self.$message({
-                        message: "权限名已存在!",
-                        type: "error"
-                    });
-                } else {
-                    var params = {
-                        permissionname: val.permissionname,
-                        permissioninfo: val.permissioninfo
+            if(this.addForm.permissionname=="" || this.addForm.permissionname==null) {
+                this.$message.warning({
+                    message: '请输入权限名称！',
+                    showClose: true
+                });
+                return false;
+            }else if(this.addForm.permissioninfo=="" || this.addForm.permissioninfo==null){
+                this.$message.warning({
+                    message: '请输入权限描述！',
+                    showClose: true
+                });
+                return false;
+            }else{
+                var _self = this;
+                axios.get('/xfxhapi/permission/getNum/' + this.addForm.permissionname).then(function (res) {
+                    if (res.data.result != 0) {
+                        _self.$message({
+                            message: "权限名已存在!",
+                            type: "error"
+                        });
+                    } else {
+                        var params = {
+                            permissionname: val.permissionname,
+                            permissioninfo: val.permissioninfo
+                        }
+                        axios.post('/xfxhapi/permission/insertByVO', params).then(function (res) {
+                            var addData = res.data.result;
+                            addData.createTime = new Date();
+                            _self.tableData.unshift(addData);
+                            _self.total = _self.tableData.length;
+                            this.$message({
+                                message: "权限新增成功！",
+                                type: "success"
+                            });
+                        }.bind(this), function (error) {
+                            console.log(error)
+                        })
+                        this.addFormVisible = false;
+                        _self.loadingData();//重新加载数据
                     }
-                    axios.post('/xfxhapi/permission/insertByVO', params).then(function (res) {
-                        var addData = res.data.result;
-                        addData.createTime = new Date();
-                        _self.tableData.unshift(addData);
-                        _self.total = _self.tableData.length;
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    this.addFormVisible = false;
-                    _self.loadingData();//重新加载数据
-                }
-            }.bind(this), function (error) {
-                console.log(error)
-            })
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }
         },
 
         //修改：弹出Dialog
@@ -177,20 +184,38 @@ var vue = new Vue({
 
         //修改：保存
         editSubmit: function (val) {
-            var params = {
-                permissionid: val.permissionid,
-                permissionname: val.permissionname,
-                permissioninfo: val.permissioninfo
-            };
-            axios.post('/xfxhapi/permission/updateByVO', params).then(function (res) {
-                this.tableData[this.selectIndex].permissionname = val.permissionname;
-                this.tableData[this.selectIndex].permissioninfo = val.permissioninfo;
-                this.tableData[this.selectIndex].alterName = res.data.result.alterName;
-                this.tableData[this.selectIndex].alterTime = new Date();
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-            this.editFormVisible = false;
+            if(this.editForm.permissionname=="" || this.editForm.permissionname==null) {
+                this.$message.warning({
+                    message: '请输入权限名称！',
+                    showClose: true
+                });
+                return false;
+            }else if(this.editForm.permissioninfo=="" || this.editForm.permissioninfo==null){
+                this.$message.warning({
+                    message: '请输入权限描述！',
+                    showClose: true
+                });
+                return false;
+            }else{
+                var params = {
+                    permissionid: val.permissionid,
+                    permissionname: val.permissionname,
+                    permissioninfo: val.permissioninfo
+                };
+                axios.post('/xfxhapi/permission/updateByVO', params).then(function (res) {
+                    this.tableData[this.selectIndex].permissionname = val.permissionname;
+                    this.tableData[this.selectIndex].permissioninfo = val.permissioninfo;
+                    this.tableData[this.selectIndex].alterName = res.data.result.alterName;
+                    this.tableData[this.selectIndex].alterTime = new Date();
+                    this.$message({
+                        message: "权限编辑成功！",
+                        type: "success"
+                    });
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+                this.editFormVisible = false;
+            }
         },
 
         //删除:批量删除
@@ -244,7 +269,7 @@ var vue = new Vue({
         },
         //清空查询条件
         clearClick: function () {
-            this.searchForm.permissionname = "",
+            this.searchForm.permissioninfo = "",
             this.searchForm.createTime = new Array(),
             this.searchClick('reset');
         },

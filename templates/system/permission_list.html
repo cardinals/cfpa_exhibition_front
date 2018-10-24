@@ -20,9 +20,7 @@
 								<el-col :span="1">&nbsp;</el-col>
 								<el-col :span="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">权限描述</label>
-									<el-select size="small" v-model="searchForm.permissionname" placeholder="全部" class="searchSelect" clearable>
-										<el-option v-for="permission in allPermissions" :label="permission.permissioninfo" :value="permission.permissionname" :key="permission.permissionname"></el-option>
-									</el-select>
+									<el-input size="small" v-model="searchForm.permissioninfo" placeholder="权限描述" clearable></el-input>
 								</el-col>
 								<el-col :span="1">&nbsp;</el-col>
 								<el-col :span="2">&nbsp;</el-col>
@@ -89,7 +87,7 @@
 							<el-row>
 								<el-col :span="23">
 									<el-form-item label="权限名称" prop="permissionname">
-										<el-input v-model="addForm.permissionname" auto-complete="off" placeholder="权限名称" size="small"></el-input>
+										<el-input v-model="addForm.permissionname" auto-complete="off" placeholder="权限名称" size="small" maxlength="50" clearable></el-input>
 									</el-form-item>
 								</el-col>
 								<el-col :span="1">&nbsp;</el-col>
@@ -97,7 +95,7 @@
 							<el-row>
 								<el-col :span="23">
 									<el-form-item label="权限描述" prop="permissioninfo">
-										<el-input v-model="addForm.permissioninfo" auto-complete="off" placeholder="权限描述" size="small"></el-input>
+										<el-input type="textarea" :autosize="{ minRows: 1, maxRows: 4}" v-model="addForm.permissioninfo" auto-complete="off" placeholder="权限描述" size="small" maxlength="100" clearable></el-input>
 									</el-form-item>
 								</el-col>
 								<el-col :span="1">&nbsp;</el-col>
@@ -123,7 +121,7 @@
 							<el-row>
 								<el-col :span="23">
 									<el-form-item label="权限名称" prop="permissionname">
-										<el-input v-model="editForm.permissionname" auto-complete="off" placeholder="权限名称" size="small"></el-input>
+										<el-input v-model="editForm.permissionname" auto-complete="off" placeholder="权限名称" size="small" maxlength="50"></el-input>
 									</el-form-item>
 								</el-col>
 								<el-col :span="1">&nbsp;</el-col>
@@ -131,7 +129,7 @@
 							<el-row>
 								<el-col :span="23">
 									<el-form-item label="权限描述" prop="permissioninfo">
-										<el-input v-model="editForm.permissioninfo" auto-complete="off" placeholder="权限描述" size="small"></el-input>
+										<el-input type="textarea" :autosize="{ minRows: 1, maxRows: 4}" v-model="editForm.permissioninfo" auto-complete="off" placeholder="权限描述" size="small" maxlength="100"></el-input>
 									</el-form-item>
 								</el-col>
 								<el-col :span="1">&nbsp;</el-col>

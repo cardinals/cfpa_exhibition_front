@@ -420,6 +420,10 @@ var vue = new Vue({
                                 var addData = res.data.result;
                                 this.tableData.unshift(addData);
                                 this.total = this.tableData.length;
+                                this.$message({
+                                    message: "用户新增成功！",
+                                    type: "success"
+                                });
                             }.bind(this),function(error){
                                 console.log(error)
                             })
@@ -443,6 +447,10 @@ var vue = new Vue({
                         this.tableData[this.editIndex].mobile = result.mobile;
                         this.tableData[this.editIndex].email = result.email;
                         this.tableData[this.editIndex].roles = result.roles;
+                        this.$message({
+                            message: "用户编辑成功！",
+                            type: "success"
+                        });
                         this.editFormVisible = false;
                     }.bind(this), function (error) {
                         console.log(error)

@@ -143,33 +143,51 @@ var vue = new Vue({
 
         //新建：保存
         addSubmit: function (val) {
-            var _self = this;
-            axios.get('/xfxhapi/codelist/getNum/' + this.addForm.codetype).then(function (res) {
-                if (res.data.result != 0) {
-                    _self.$message({
-                        message: "代码集类型已存在!",
-                        type: "error"
-                    });
-                } else {
-                    var params = {
-                        codetype: val.codetype.trim(),
-                        codetypeName: val.codetypeName.trim(),
-                        remark: val.remark.trim()
+            if(this.addForm.codetype=="" || this.addForm.codetype==null) {
+                this.$message.warning({
+                    message: '请输入代码集类型！',
+                    showClose: true
+                });
+                return false;
+            }else if(this.addForm.codetypeName=="" || this.addForm.codetypeName==null){
+                this.$message.warning({
+                    message: '请输入代码集类型名称！',
+                    showClose: true
+                });
+                return false;
+            }else{
+                var _self = this;
+                axios.get('/xfxhapi/codelist/getNum/' + this.addForm.codetype).then(function (res) {
+                    if (res.data.result != 0) {
+                        _self.$message({
+                            message: "代码集类型已存在!",
+                            type: "error"
+                        });
+                    } else {
+                        var params = {
+                            codetype: val.codetype.trim(),
+                            codetypeName: val.codetypeName.trim(),
+                            remark: val.remark.trim()
+                        }
+                        axios.post('/xfxhapi/codelist/insertByVO', params).then(function (res) {
+                            var addData = res.data.result;
+                            addData.createTime = new Date();
+                            _self.tableData.unshift(addData);
+                            _self.total = _self.tableData.length;
+                            this.$message({
+                                message: "代码集新增成功！",
+                                type: "success"
+                            });
+                        }.bind(this), function (error) {
+                            console.log(error)
+                        })
+                        this.addFormVisible = false;
+                        _self.loadingData();//重新加载数据
                     }
-                    axios.post('/xfxhapi/codelist/insertByVO', params).then(function (res) {
-                        var addData = res.data.result;
-                        addData.createTime = new Date();
-                        _self.tableData.unshift(addData);
-                        _self.total = _self.tableData.length;
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    this.addFormVisible = false;
-                    _self.loadingData();//重新加载数据
-                }
-            }.bind(this), function (error) {
-                console.log(error)
-            })
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }
         },
 
         //修改：弹出Dialog
@@ -192,33 +210,51 @@ var vue = new Vue({
 
         //修改：保存
         editSubmit: function (val) {
-            if (this.editFormFlag) {
-                var params = {
-                    codeid: val.codeid,
-                    codetype: val.codetype.trim(),
-                    codetypeName: val.codetypeName.trim(),
-                    remark: val.remark,
-                    language: val.language
-                };
-                axios.post('/xfxhapi/codelist/updateByVO', params).then(function (res) {
-                    this.tableData[this.selectIndex].codetype = res.data.result.codetype;
-                    this.tableData[this.selectIndex].codetypeName = res.data.result.codetypeName;
-                    this.tableData[this.selectIndex].remark = res.data.result.remark;
-                    this.tableData[this.selectIndex].language = res.data.result.language;
-                    this.tableData[this.selectIndex].alterName = res.data.result.alterName;
-                    this.tableData[this.selectIndex].alterTime = new Date();
-                }.bind(this), function (error) {
-                    console.log(error)
-                })
-                this.editFormVisible = false;
-                this.editFormFlag = false;
-            }
-            else {
-                this.$message({
-                    message: "数据未发生改动",
-                    type: "error"
+            if(this.editForm.codetype=="" || this.editForm.codetype==null) {
+                this.$message.warning({
+                    message: '请输入代码集类型！',
+                    showClose: true
                 });
-                return;
+                return false;
+            }else if(this.editForm.codetypeName=="" || this.editForm.codetypeName==null){
+                this.$message.warning({
+                    message: '请输入代码集类型名称！',
+                    showClose: true
+                });
+                return false;
+            }else{
+                var _self = this;
+                if (this.editFormFlag) {
+                    var params = {
+                        codeid: val.codeid,
+                        codetype: val.codetype.trim(),
+                        codetypeName: val.codetypeName.trim(),
+                        remark: val.remark,
+                        language: val.language
+                    };
+                    axios.post('/xfxhapi/codelist/updateByVO', params).then(function (res) {
+                        this.tableData[this.selectIndex].codetype = res.data.result.codetype;
+                        this.tableData[this.selectIndex].codetypeName = res.data.result.codetypeName;
+                        this.tableData[this.selectIndex].remark = res.data.result.remark;
+                        this.tableData[this.selectIndex].language = res.data.result.language;
+                        this.tableData[this.selectIndex].alterName = res.data.result.alterName;
+                        this.tableData[this.selectIndex].alterTime = new Date();
+                        this.$message({
+                            message: "代码集编辑成功！",
+                            type: "success"
+                        });
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
+                    this.editFormVisible = false;
+                    this.editFormFlag = false;
+                }else {
+                    this.$message({
+                        message: "数据未发生改动",
+                        type: "error"
+                    });
+                    return;
+                }
             }
         },
 

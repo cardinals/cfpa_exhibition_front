@@ -11,3 +11,6 @@
 .el-form-item__error{
     line-height: 0;
 }
+.el-tree{
+    margin-top: 10px;
+}

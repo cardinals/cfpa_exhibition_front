@@ -135,34 +135,52 @@ var vue = new Vue({
 
         //新建：保存
         addSubmit: function (val) {
-            var _self = this;
-            axios.get('/xfxhapi/codelist/detail/getNum/' + this.codeid + '/' + this.addForm.codeValue).then(function (res) {
-                if (res.data.result != 0) {
-                    _self.$message({
-                        message: "代码值已存在!",
-                        type: "error"
-                    });
-                } else {
-                    var params = {
-                        codeid: this.codeid,
-                        codeValue: val.codeValue.trim(),
-                        codeName: val.codeName.trim(),
-                        remark: val.remark
+            if(this.addForm.codeValue=="" || this.addForm.codeValue==null) {
+                this.$message.warning({
+                    message: '请输入代码值！',
+                    showClose: true
+                });
+                return false;
+            }else if(this.addForm.codeName=="" || this.addForm.codeName==null){
+                this.$message.warning({
+                    message: '请输入代码名称！',
+                    showClose: true
+                });
+                return false;
+            }else{
+                var _self = this;
+                axios.get('/xfxhapi/codelist/detail/getNum/' + this.codeid + '/' + this.addForm.codeValue).then(function (res) {
+                    if (res.data.result != 0) {
+                        _self.$message({
+                            message: "代码值已存在!",
+                            type: "error"
+                        });
+                    } else {
+                        var params = {
+                            codeid: this.codeid,
+                            codeValue: val.codeValue.trim(),
+                            codeName: val.codeName.trim(),
+                            remark: val.remark
+                        }
+                        axios.post('/xfxhapi/codelist/detail/insertByVO', params).then(function (res) {
+                            var addData = res.data.result;
+                            addData.createTime = new Date();
+                            _self.tableData.unshift(addData);
+                            _self.total = _self.tableData.length;
+                            this.$message({
+                                message: "代码集详情新增成功！",
+                                type: "success"
+                            });
+                        }.bind(this), function (error) {
+                            console.log(error)
+                        })
+                        this.addFormVisible = false;
+                        _self.loadingData();//重新加载数据
                     }
-                    axios.post('/xfxhapi/codelist/detail/insertByVO', params).then(function (res) {
-                        var addData = res.data.result;
-                        addData.createTime = new Date();
-                        _self.tableData.unshift(addData);
-                        _self.total = _self.tableData.length;
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    this.addFormVisible = false;
-                    _self.loadingData();//重新加载数据
-                }
-            }.bind(this), function (error) {
-                console.log(error)
-            })
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }
         },
 
         //修改：弹出Dialog
@@ -184,22 +202,42 @@ var vue = new Vue({
 
         //修改：保存
         editSubmit: function (val) {
-            var params = {
-                pkid: val.pkid,
-                codeValue: val.codeValue.trim(),
-                codeName: val.codeName.trim(),
-                remark: val.remark
-            };
-            axios.post('/xfxhapi/codelist/detail/updateByVO', params).then(function (res) {
-                this.tableData[this.selectIndex].codeValue = res.data.result.codeValue;
-                this.tableData[this.selectIndex].codeName = res.data.result.codeName;
-                this.tableData[this.selectIndex].remark = res.data.result.remark;
-                this.tableData[this.selectIndex].alterName = res.data.result.alterName;
-                this.tableData[this.selectIndex].alterTime = new Date();
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-            this.editFormVisible = false;
+            if(this.editForm.codeValue=="" || this.editForm.codeValue==null) {
+                this.$message.warning({
+                    message: '请输入代码值！',
+                    showClose: true
+                });
+                return false;
+            }else if(this.editForm.codeName=="" || this.editForm.codeName==null){
+                this.$message.warning({
+                    message: '请输入代码名称！',
+                    showClose: true
+                });
+                return false;
+            }else{
+                var _self = this;
+                var params = {
+                    pkid: val.pkid,
+                    codeValue: val.codeValue.trim(),
+                    codeName: val.codeName.trim(),
+                    remark: val.remark
+                };
+                axios.post('/xfxhapi/codelist/detail/updateByVO', params).then(function (res) {
+                    this.tableData[this.selectIndex].codeValue = res.data.result.codeValue;
+                    this.tableData[this.selectIndex].codeName = res.data.result.codeName;
+                    this.tableData[this.selectIndex].remark = res.data.result.remark;
+                    this.tableData[this.selectIndex].alterName = res.data.result.alterName;
+                    this.tableData[this.selectIndex].alterTime = new Date();
+                    this.$message({
+                        message: "代码集详情编辑成功！",
+                        type: "success"
+                    });
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+                this.editFormVisible = false;
+            }
+            
         },
 
         //删除:批量删除
