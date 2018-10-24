@@ -154,7 +154,7 @@ var vm = new Vue({
                     this.userForm.messageCodeText = "Get Verification Code";
                     this.userForm.messageBtnFlag = false;
                 } else {
-                    axios.get('/xfxhapi/signin/sendMail?mail=' + this.userForm.username).then(function (res) {
+                    axios.get('/xfxhapi/signin/sendMailEng?mail=' + this.userForm.username).then(function (res) {
                         this.userForm.messageCodeReal = res.data.msg;
                         var count = this.time;
                         this.timer = setInterval(() => {

@@ -206,7 +206,7 @@ var vm = new Vue({
                         this.mailCodeText = "Get Verification Code";
                         $('#mail-btn').removeAttr("disabled");
                     } else {
-                        axios.get('/xfxhapi/signin/sendMail?mail=' + this.mail).then(function (res) {
+                        axios.get('/xfxhapi/signin/sendMailEng?mail=' + this.mail).then(function (res) {
                             this.mailCodeReal = res.data.msg;
                             var count = this.time;
                             this.timer = setInterval(() => {
@@ -309,7 +309,7 @@ var vm = new Vue({
                         this.FUmailCodeText = "Get Verification Code";
                         $('#FUmail-btn').removeAttr("disabled");
                     } else if (res.data.result == 1) {
-                        axios.get('/xfxhapi/signin/sendMail?mail=' + this.FUmail).then(function (res) {
+                        axios.get('/xfxhapi/signin/sendMailEng?mail=' + this.FUmail).then(function (res) {
                             this.FUmailCodeReal = res.data.msg;
                             var count = this.time;
                             this.timer = setInterval(() => {
@@ -426,7 +426,7 @@ var vm = new Vue({
                         this.FPBmailCodeText = "Get Verification Code";
                         $('#FPBmail-btn').removeAttr("disabled");
                     } else if (res.data.result == 1) {
-                        axios.get('/xfxhapi/signin/sendMail?mail=' + this.FPBmail).then(function (res) {
+                        axios.get('/xfxhapi/signin/sendMailEng?mail=' + this.FPBmail).then(function (res) {
                             this.FPBmailCodeReal = res.data.msg;
                             var count = this.time;
                             this.FPBtimer = setInterval(() => {
