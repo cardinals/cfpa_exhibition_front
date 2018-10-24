@@ -65,7 +65,13 @@ var vue = new Vue({
                 checkPass: "",
                 roles: [],
             },
+            //编辑页面用户名备份
+            editFormUsername: "",
             editFormSelect: [],
+            //编辑页按钮显示与隐藏
+            editFlag: false,
+            //编辑页按钮内容
+            editFlagText: "编辑",
             //登陆用户
             shiroData: ""
         }
@@ -143,6 +149,7 @@ var vue = new Vue({
             this.dialogTitle = "展商新增";
             this.editPasswordShow = true;
             this.editFormVisible = true;
+            this.editFlag = false;
         },
         //表格修改事件
         editClick: function(val, index) {
@@ -151,6 +158,7 @@ var vue = new Vue({
             this.editPasswordShow = false;
             this.editSearch(val);
             this.editFormVisible = true;
+            this.editFlag = true;
         },
 
         //重置密码
@@ -190,6 +198,7 @@ var vue = new Vue({
             };
             axios.post('/xfxhapi/user/findByVO', params).then(function(res) {
                 this.editForm = res.data.result[0];
+                this.editFormUsername =  res.data.result[0].username;
                 //密码、再次密码置空
                 this.editForm.password = '';
                 this.editForm.checkPass = '';
@@ -314,33 +323,40 @@ var vue = new Vue({
                     if(this.editPasswordShow){
                         params.password = val.password;
                     }
-                    axios.get('/xfxhapi/account/getNum/' + this.editForm.username).then(function(res){
-                        if(res.data.result != 0){
-                            this.$message({
-                                message: "用户名已存在!",
-                                type: "error"
-                            });
-                        }else{
-                            axios.post('/xfxhapi/user/updateByVO', params).then(function (res){
-                                var result = res.data.result;
-                                this.tableData[this.editIndex].username = result.username;
-                                if(result.usertype == "CHN"){
-                                    this.tableData[this.editIndex].usertypeName = "国内"; 
-                                }else if(result.usertype == "ENG"){
-                                    this.tableData[this.editIndex].usertypeName = "国外"; 
-                                }
-                                this.editFormVisible = false;
+                    if(!this.editFlag){
+                        axios.get('/xfxhapi/account/getNum/' + this.editForm.username).then(function(res){
+                            if(res.data.result != 0){
                                 this.$message({
-                                    message: "编辑成功！",
-                                    type: "success"
+                                    message: "用户名已存在!",
+                                    type: "error"
                                 });
-                            }.bind(this), function (error) {
-                                console.log(error)
-                            })
-                        }
-                    }.bind(this),function(error){
-                        console.log(error)
-                    })
+                            }else{
+                                axios.post('/xfxhapi/user/updateByVO', params).then(function (res){
+                                    var result = res.data.result;
+                                    this.tableData[this.editIndex].username = result.username;
+                                    if(result.usertype == "CHN"){
+                                        this.tableData[this.editIndex].usertypeName = "国内"; 
+                                    }else if(result.usertype == "ENG"){
+                                        this.tableData[this.editIndex].usertypeName = "国外"; 
+                                    }
+                                    this.editFormVisible = false;
+                                    this.$message({
+                                        message: "修改成功！",
+                                        type: "success"
+                                    });
+                                }.bind(this), function (error) {
+                                    console.log(error)
+                                })
+                            }
+                        }.bind(this),function(error){
+                            console.log(error)
+                        })
+                    }else{
+                        this.$message({
+                            message: "用户名未修改!",
+                            type: "error"
+                        });
+                    } 
                 }
             }
         },
@@ -378,6 +394,17 @@ var vue = new Vue({
         closeDialog: function (val) {
             this.editFormVisible = false;
             this.$refs["editForm"].resetFields();
+        },
+        //编辑页按钮显示
+        editFlagChange: function(){
+            if(this.editFlag){
+                this.editFlag = false;
+                this.editFlagText = "取消"; 
+            }else{
+                this.editFlag = true;
+                this.editFlagText = "编辑";
+                this.editForm.username = this.editFormUsername;
+            }
         }
     },
     

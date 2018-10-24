@@ -21,7 +21,7 @@
 									</el-col>
 									<el-col :span="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">公司名称</label>
-										<el-input size="small" v-model="searchForm.zwgsmc" placeholder="中文公司名称" clearable></el-input>
+										<el-input size="small" v-model="searchForm.zwgsmc" placeholder="公司名称" clearable></el-input>
 									</el-col>
 									<el-col :span="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">展商类型</label>
@@ -114,31 +114,34 @@
 								</el-row>
 								<el-row>
                                     <el-col :span="1">&nbsp;</el-col>
-									<el-col :span="22">
+									<el-col :span="21">
 										<el-form-item label="用户名" prop="username">
-											<el-input v-if="editForm.usertype == 'ENG'" v-model="editForm.username" placeholder="请输入用户名，用户名为邮箱" size="small" auto-complete="off" clearable></el-input>
-											<el-input v-else v-model="editForm.username" placeholder="请输入用户名，用户名为手机号" size="small" auto-complete="off" clearable></el-input>
+											<el-input v-if="editForm.usertype == 'ENG'" v-model="editForm.username" placeholder="请输入用户名，用户名为邮箱" size="small" auto-complete="off" clearable :disabled="editFlag"></el-input>
+											<el-input v-else v-model="editForm.username" placeholder="请输入用户名，用户名为手机号" size="small" auto-complete="off" clearable :disabled="editFlag"></el-input>
 										</el-form-item>
 									</el-col>
-									<el-col :span="1">&nbsp;</el-col>
+									<el-col :span="2">
+										&nbsp;
+										<el-button v-if="dialogTitle=='展商编辑'" v-text="editFlagText" type="text" size="small" @click="editFlagChange" style="margin-top:6px;"></el-button>
+									</el-col>
                                 </el-row>
 								<el-row v-if="editPasswordShow">
                                     <el-col :span="1">&nbsp;</el-col>
-									<el-col :span="22">
+									<el-col :span="21">
 										<el-form-item label="密码" prop="password">
 											<el-input v-model="editForm.password" type="password" placeholder="请输入密码，密码为6-16位数字字母组合" size="small" auto-complete="off" clearable></el-input>
 										</el-form-item>
 									</el-col>
-									<el-col :span="1">&nbsp;</el-col>
+									<el-col :span="2">&nbsp;</el-col>
 								</el-row>
 								<el-row v-if="editPasswordShow">
                                     <el-col :span="1">&nbsp;</el-col>
-                                    <el-col :span="22">
+                                    <el-col :span="21">
                                         <el-form-item label="确认密码" prop="checkPass">
                                             <el-input v-model="editForm.checkPass" type="password" placeholder="请输入确认密码" size="small" auto-complete="off" clearable></el-input>
                                         </el-form-item>
                                     </el-col>
-									<el-col :span="1">&nbsp;</el-col>
+									<el-col :span="2">&nbsp;</el-col>
 								</el-row>
 								<el-row class="mt35 mb20">
 									<el-col :span="24" style="text-align: center">
