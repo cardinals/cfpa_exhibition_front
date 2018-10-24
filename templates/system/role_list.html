@@ -101,13 +101,13 @@
                             <el-row>
                                 <el-col :span="11">
                                     <el-form-item label="角色名称" prop="rolename">
-                                        <el-input v-model="addForm.rolename" auto-complete="off" placeholder="角色名称" size="small"></el-input>
+                                        <el-input v-model="addForm.rolename" auto-complete="off" placeholder="角色名称" size="small" maxlength="20"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="11">
                                     <el-form-item label="角色描述" prop="roleinfo">
-                                        <el-input v-model="addForm.roleinfo" auto-complete="off" placeholder="角色描述" size="small"></el-input>
+                                        <el-input v-model="addForm.roleinfo" auto-complete="off" placeholder="角色描述" size="small" maxlength="100"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
@@ -143,13 +143,13 @@
                             <el-row>
                                 <el-col :span="11">
                                     <el-form-item label="角色名称" prop="rolename">
-                                        <el-input v-model="editForm.rolename" auto-complete="off" placeholder="角色名称" size="small"></el-input>
+                                        <el-input v-model="editForm.rolename" auto-complete="off" placeholder="角色名称" size="small" maxlength="20"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="11">
                                     <el-form-item label="角色描述" prop="roleinfo">
-                                        <el-input v-model="editForm.roleinfo" auto-complete="off" placeholder="角色描述" size="small"></el-input>
+                                        <el-input v-model="editForm.roleinfo" auto-complete="off" placeholder="角色描述" size="small" maxlength="100"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
