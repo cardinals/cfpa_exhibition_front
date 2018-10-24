@@ -5,7 +5,7 @@ new Vue({
             activeName: "first",
             loading: false,
             showPicVisible: false,
-            isCHN: false,
+            isENG: false,
             previewImg: '',
             qyid: "",//企业id
 
@@ -69,8 +69,8 @@ new Vue({
                 // this.jbxxData = res.data.result;
                 if (res.data.result != null) {
                     this.jbxxData = res.data.result;
-                    if (this.jbxxData.usertype == 'CHN') {
-                        this.isCHN = true;
+                    if (this.jbxxData.usertype == 'ENG') {
+                        this.isENG = true;
                     }
                     this.jbxxData.yjdz = this.jbxxData.yjdzshengmc + this.jbxxData.yjdzshimc + this.jbxxData.yjdzxx;
                     //创建时间格式化

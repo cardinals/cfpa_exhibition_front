@@ -32,7 +32,7 @@
                             <dl>
                                 <img src="../../static/images/detail_tyshxydm.png">
                                 <dt class="dib inform-small-title detail_margin">统一社会信用代码：</dt>
-                                <dd class="dtdlStyle" v-text="jbxxData.tyshxydm||'无'"></dd>
+                                <dd class="dtdlStyle" v-text="kpxxData.tyshxydm||'无'"></dd>
                                 <br>
                                 <img src="../../static/images/detail_summary2.png">
                                 <dt class="dib inform-small-title detail_margin">企业简介：</dt>
@@ -40,7 +40,7 @@
                                 <dd class="dtdlStyle" v-else>无</dd>
                             </dl>
                         </div>
-                        <div v-if="isCHN" class="r tc">
+                        <div v-if="!isENG" class="r tc">
                             <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
                                 class="detail_picture_top">
                             <img v-else src="../../static/images/noPic.png" style="width:100px;">
@@ -56,7 +56,17 @@
                                         <v-text v-if="jbxxData.usertype === 'CHN'" v-text="jbxxData.zwgsmc||'无'"></v-text>
                                         <v-text v-else-if="jbxxData.usertype === 'ENG'" v-text="jbxxData.ywgsmc||'无'"></v-text>
                                     </el-row>
-                                    <el-row class="mb10">
+                                    <el-row v-if="isENG" class="mb10">
+                                        <el-col :span="12">
+                                            <strong>邮寄地址：</strong>
+                                            <v-text v-text="jbxxData.yjdz||'无'"></v-text>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <strong>邮政编码：</strong>
+                                            <v-text v-text="jbxxData.reserve2||'无'"></v-text>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row v-else class="mb10">
                                         <strong>邮寄地址：</strong>
                                         <v-text v-text="jbxxData.yjdz||'无'"></v-text>
                                     </el-row>
@@ -157,22 +167,28 @@
                                             <strong>开票公司名称：</strong>
                                             <v-text v-text="kpxxData.kpgsmc||'无'"></v-text>
                                         </el-col>
-                                        <el-col :span="12">
+                                        <el-col v-if="!isENG" :span="12">
                                             <strong>开票类型：</strong>
                                             <v-text v-text="kpxxData.kplxmc||'无'"></v-text>
                                         </el-col>
+                                        <el-col v-if="isENG" :span="12">
+                                            <strong>传真：</strong>
+                                            <v-text v-text="kpxxData.yhzh||'无'"></v-text>
+                                        </el-col>
                                     </el-row>
                                     <el-row class="mb10">
                                         <el-col :span="12">
-                                            <strong>公司地址：</strong>
+                                            <strong v-if="isENG">联系人：</strong>
+                                            <strong v-else>公司地址：</strong>
                                             <v-text v-text="kpxxData.gsdz||'无'"></v-text>
                                         </el-col>
                                         <el-col :span="12">
-                                            <strong>电话号码：</strong>
+                                            <strong v-if="isENG">联系人电话：</strong>
+                                            <strong v-else>电话号码：</strong>
                                             <v-text v-text="kpxxData.dhhm||'无'"></v-text>
                                         </el-col>
                                     </el-row>
-                                    <el-row class="mb10">
+                                    <el-row v-if="!isENG" class="mb10">
                                         <el-col :span="12">
                                             <strong>开户银行：</strong>
                                             <v-text v-text="kpxxData.khyh||'无'"></v-text>
@@ -186,7 +202,7 @@
                                 </el-tab-pane>
                                 <el-tab-pane label="企业问卷调查" name="third">
                                     <!-- <div v-if="wjdcData!==null"> -->
-                                    <el-row class="mb10">
+                                    <el-row v-if="!isENG" class="mb10">
                                         <strong>公司性质：</strong>
                                         <v-text v-text="wjdcData.gsxzmc||'无'"></v-text>
                                     </el-row>
@@ -194,7 +210,7 @@
                                         <strong>主营产品：</strong>
                                         <v-text v-text="wjdcData.zycp||'无'"></v-text>
                                     </el-row>
-                                    <el-row class="mb10">
+                                    <el-row v-if="!isENG" class="mb10">
                                         <el-col :span="12">
                                             <strong>是否代理海外产品：</strong>
                                             <v-text v-text="wjdcData.sfhwdlcp==1?'是':wjdcData.sfhwdlcp==0?'否':'无'"></v-text>
@@ -204,7 +220,7 @@
                                             <v-text v-text="wjdcData.hwdlcppp||'无'"></v-text>
                                         </el-col>
                                     </el-row>
-                                    <el-row class="mb10">
+                                    <el-row v-if="!isENG" class="mb10">
                                         <el-col :span="12">
                                             <strong>是否高新技术企业：</strong>
                                             <v-text v-text="wjdcData.sfgxjsqy==1?'是':wjdcData.sfgxjsqy==0?'否':'无'"></v-text>
@@ -214,7 +230,7 @@
                                             <v-text v-text="wjdcData.gxjsjbmc||'无'"></v-text>
                                         </el-col>
                                     </el-row>
-                                    <el-row class="mb10">
+                                    <el-row v-if="!isENG" class="mb10">
                                         <el-col :span="12">
                                             <strong>是否获得行业信用等级：</strong>
                                             <v-text v-text="wjdcData.sfhyxydj==1?'是':wjdcData.sfhyxydj==0?'否':'无'"></v-text>
@@ -224,7 +240,7 @@
                                             <v-text v-text="wjdcData.hyxydjmc||'无'"></v-text>
                                         </el-col>
                                     </el-row>
-                                    <el-row class="mb10">
+                                    <el-row v-if="!isENG" class="mb10">
                                         <el-col :span="12">
                                             <strong>发明专利(项)：</strong>
                                             <v-text v-text="wjdcData.fmzl||'无'"></v-text>
@@ -234,7 +250,7 @@
                                             <v-text v-text="wjdcData.syxxzl||'无'"></v-text>
                                         </el-col>
                                     </el-row>
-                                    <el-row class="mb10">
+                                    <el-row v-if="!isENG" class="mb10">
                                         <el-col :span="12">
                                             <strong>外观设计专利(项)：</strong>
                                             <v-text v-text="wjdcData.wgsjzl||'无'"></v-text>
