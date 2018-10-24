@@ -17,15 +17,21 @@
 #qyzwyx .el-input-number--small {
     width: 300px;
 }
-#remark{
+.remark{
     line-height: 24px;
     padding: 5px 15px;
-    border: 1px solid #e40613;
     border-radius: 5px;
-    color: #e40613;
     margin-bottom: 15px;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
+}
+.redFont{
+    color: #e40613;
+    border: 1px solid #e40613;
+}
+.greenFont{
+    color: #67c23a;
+    border: 1px solid #67c23a;
 }
 #cpjs .el-card__body {
     height: 106px;

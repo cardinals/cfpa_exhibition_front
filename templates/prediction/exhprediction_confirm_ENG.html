@@ -14,7 +14,7 @@
                 <div id="lib :: main_container_header('报名信息确认','报名信息确认')"></div>
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
-                <div id="remark" v-if="editPage==false">
+                <div class="remark redFont" v-if="editPage==false">
                     (1) Booth Requirement Information we collect in Part 5 will be used as references for the booth design. It is Your Booth
                     Selection at our going-to-open online Booth selection process that will be your final choice.
                     <br>(2) The information of legal representative and contact person you have filled in will only be used as
@@ -22,6 +22,9 @@
                     safety industry. Company introduction, product introduction and related information will be displayed
                     in the company list and product list on our website, which targets to provide a longer promotion period
                     through website channel for our exhibitors. If you have any concern about this, please contact the commission.
+                </div>
+                <div class="remark greenFont" v-if="editPage&&jbxxData.shzt==='03'">
+                    Your information has been approved. Please wait for system notification for booth selection.
                 </div>
                 <div id="qyjbxx" class="mb5">
                     <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
@@ -225,8 +228,8 @@
                 <el-dialog id="previewImgDialog" :visible.sync="showPicVisible" :close-on-click-modal="false" size="large">
                     <template>
                         <el-carousel type="card" height="350px" :autoplay="false" arrow="never" indicator-position="none">
-                            <el-carousel-item>
-                                <img :src="'data:image/png;base64,'+previewImg" width="100%"></img>
+                            <el-carousel-item class="tc">
+                                <img :src="'data:image/png;base64,'+previewImg" style="max-width:100%;max-height:100%;"></img>
                             </el-carousel-item>
                         </el-carousel>
                     </template>
