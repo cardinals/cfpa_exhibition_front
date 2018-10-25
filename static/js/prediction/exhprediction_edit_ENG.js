@@ -106,9 +106,9 @@ var vm = new Vue({
             //email邮箱验证码
             emailCodeReal:"",
             //邮箱验证按钮文字
-            mailCodeText:"check",
+            mailCodeText:"verify",
             //email验证按钮
-            emailCodeText:"check",
+            emailCodeText:"verify",
             emailCodeText1:"change",
             time: 60,
             timer: null,
@@ -530,7 +530,7 @@ var vm = new Vue({
                     if(this.jbxxStatus == 0){//新增
                         if(this.mailCheck == false){
                             this.$message({
-                                message: 'Please check the Standby Email',
+                                message: 'Please verify the Standby Email',
                                 type: 'warning'
                             });
                             console.log('error submit!!');
@@ -580,7 +580,7 @@ var vm = new Vue({
                         //邮箱修改且邮箱验证通过flag为false
                         if(this.baseInforForm.dzyx != this.baseInforForm.dzyx1 && this.mailCheck == false){
                             this.$message({
-                                message: 'Please check the Standby Email',
+                                message: 'Please verify the Standby Email',
                                 type: 'warning'
                             });
                             console.log('error submit!!');
@@ -1072,7 +1072,7 @@ var vm = new Vue({
                     message: 'success',
                     type: 'success'
                 });
-                this.mailCodeText = "check";
+                this.mailCodeText = "verify";
             }else{
                 this.$message({
                     message: 'Error Verification Code',
@@ -1132,7 +1132,7 @@ var vm = new Vue({
                                 if (count == 0) {
                                     clearInterval(this.timer);
                                     this.timer = null;
-                                    this.mailCodeText = "check";
+                                    this.mailCodeText = "verify";
                                     $('#mail-btn').removeAttr("disabled");
                                 } else {
                                     this.mailCodeText = count + "s"
@@ -1182,7 +1182,7 @@ var vm = new Vue({
                     if (count == 0) {
                             clearInterval(this.timer);
                             this.timer = null;
-                            this.emailCodeText = "check";
+                            this.emailCodeText = "verify";
                             this.emailCodeText1 = "change";
                             $('#email-btn').removeAttr("disabled");
                             $('#email-btn2').removeAttr("disabled");
