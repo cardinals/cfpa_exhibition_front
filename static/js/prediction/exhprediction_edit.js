@@ -53,6 +53,9 @@ var vm = new Vue({
             kpxxForm: [],
             //问卷调查表单
             wjdcForm: {
+                syxxzl:'',
+                wgsjzl:'',
+                fmzl:'',
                 zycpList:[],
             },
             //企业介绍表单
@@ -835,7 +838,6 @@ var vm = new Vue({
                             xgrid: this.shiroData.userid,
                             xgrmc: this.shiroData.username
                         }
-                        debugger;
                         axios.post('/xfxhapi/qykpxx/doUpdateByVO', params).then(function (res) {
                             this.$message({
                                 message: '企业开票信息暂存成功',
