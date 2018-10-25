@@ -88,10 +88,10 @@
 										@size-change="pageSizeChange" 
 										@current-change="currentPageChange" 
 										:current-page="currentPage"
-											:page-sizes="[10, 20, 30, 50]" 
-											:page-size="pageSize" 
-											layout="total, prev, pager, next, jumper" 
-											:total=parseInt(total)>
+										:page-sizes="[10, 20, 30]" 
+										:page-size="pageSize" 
+										layout="total, sizes, prev, pager, next, jumper" 
+										:total=parseInt(total)>
 									</el-pagination>
 								</el-col>
 							</el-row>

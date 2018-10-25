@@ -64,14 +64,10 @@ var vue = new Vue({
         deep: true
     },
     created: function () {
-        /**菜单选中 by li.xue 20180628*/
-		/**
-        var index = getQueryString("index");
-        $("#activeIndex").val(index);
-        this.activeIndex = index;
-        */
         /**面包屑 by li.xue 20180628*/
         loadBreadcrumb("代码集管理", "-1");
+        //table高度
+        tableheight = tableheight10;
         this.searchClick('click');
     },
     methods: {

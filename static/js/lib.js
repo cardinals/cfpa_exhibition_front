@@ -90,7 +90,14 @@ window.urlRewrite = function(url){
 //分页大小修改事件
 window.pageSizeChange = function(val) {
     vue.pageSize = val;
-    vue.loadingData(); //重新加载数据
+    if(val == 10){
+        tableheight = tableheight10;
+    }else if(val == 20){
+        tableheight = tableheight20;
+    }else if(val == 30){
+        tableheight = tableheight30;
+    }
+    vue.searchClick('page');
 }
 
 //当前页修改事件

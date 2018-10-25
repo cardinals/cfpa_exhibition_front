@@ -109,11 +109,11 @@ var vue = new Vue({
         }
     },
     created: function () {
-        /**菜单选中 by li.xue 20180628*/
-		// $("#activeIndex").val(getQueryString("index"));
 		/**面包屑 by li.xue 20180628*/
 		var type = getQueryString("type");
         loadBreadcrumb("图片管理", "-1");
+        //table高度
+        tableheight = tableheight10;
         this.getAllTypes();
         this.getSavedImgTypes();
         this.searchClick('click');

@@ -10,7 +10,6 @@
     <div id="app">
         <div class="main-box">
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
-                <div id="lib :: main_container_header('展会报名管理','展会报名管理')"></div>
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
                 <div id="tableView">
@@ -95,8 +94,8 @@
                         <!--列表底部工具条和分页符-->
                         <el-row type="flex" justify="end">
                             <el-col :span="18">
-                                <el-pagination @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]" :page-size="pageSize"
-                                    layout="total, prev, pager, next, jumper" :total=parseInt(total)>
+                                <el-pagination @current-change="currentPageChange" @size-change="pageSizeChange" :current-page="currentPage" :page-sizes="[10, 20, 30]" :page-size="pageSize"
+                                    layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
                                 </el-pagination>
                             </el-col>
                         </el-row>
