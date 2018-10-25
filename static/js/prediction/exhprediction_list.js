@@ -88,7 +88,7 @@ var vue = new Vue({
             }
             this.loading = true;//表格重新加载
             var params = {
-                gsmc: this.searchForm.gsmc,
+                gsmc: this.searchForm.gsmc.replace(/%/g,"\\%"),
                 // yjdz: this.searchForm.yjdz,
                 shzt: this.searchForm.shzt,
                 sjzt: this.searchForm.sjzt,
