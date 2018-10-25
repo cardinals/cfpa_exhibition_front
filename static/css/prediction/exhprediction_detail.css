@@ -17,14 +17,17 @@
 #qyzwyx .el-input-number--small {
     width: 300px;
 }
-.remark{
+#remark{
     line-height: 24px;
     padding: 5px 15px;
     border-radius: 5px;
-    margin-bottom: 15px;
+    margin-right: 20px;
     font-size: 15px;
     font-weight: bold;
+    background:#fff;
+    z-index:2;
 }
+.topScroll{position: fixed;top: 51px;}
 .redFont{
     color: #e40613;
     border: 1px solid #e40613;
