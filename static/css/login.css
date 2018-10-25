@@ -20,9 +20,9 @@ body,html{ width:100%; height:100%;}
 /*下方技术支持 by li.xue 2018/10/24*/
 .footText{
     text-align: center;
-    font-size: 18px;
-    /* color: #e6e6e6; */
-    color: #fff;
+    font-size: 20px;
+    color: #e6e6e6;
+    /* color: #fff; */
     margin-top: 5%;
 }
 /*切换*/

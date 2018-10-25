@@ -113,8 +113,8 @@ body{height:100%;overflow:hidden;}
     width:180px;
 }
 #basic-Inform-Title{
-    margin-left: 40px;
-    width: calc(100% - 324px);
+    padding-left: 25px;
+    width: 100%;
 }
 #basic-Inform-Title img{
     width: 15px;
@@ -185,8 +185,8 @@ body{height:100%;overflow:hidden;}
     height: 120px;
 }
 .detail_picture_top{
-    width: 70px;
-    height: 80px;
+    max-width: 100%;
+    max-height: 100px;
 }
 .card_style{
     margin-bottom:12px;

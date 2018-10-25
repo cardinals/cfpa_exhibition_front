@@ -885,11 +885,11 @@ margin-top: 10px;
 }
 /* 内部功能页 */
 .nameBox {
-  min-height: 170px !important;
+  min-height: 165px !important;
 	background-color: #fff;
 	border: 5px solid #ccc;
 	/* margin-top: 15px; */
-	padding: 20px 25px 20px 25px;
+	padding: 20px 25px 0 25px;
   box-shadow: 2px 3px 5px #ccc;
 }
 .echartsBox {

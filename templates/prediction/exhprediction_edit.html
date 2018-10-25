@@ -22,6 +22,7 @@
                         <el-step title="企业问卷调查"></el-step>
                         <el-step title="企业和产品介绍"></el-step>
                         <el-step title="企业参展展位需求意向"></el-step>
+                        <el-step title="确认并提交"></el-step>
                     </el-steps>
                 </div>
                 <!--审核状态-->
@@ -193,7 +194,7 @@
                         <el-row class="tr mb5">
                             <el-col :span="5">&nbsp;</el-col>
                             <el-col :span="12">
-                                <el-form-item prop="tyshxydm" label="统一社会信用代码">
+                                <el-form-item prop="tyshxydm" label="统一社会信用代码" :onkeyup="addBlankXydm()">
                                     <el-input size="small" v-model="kpxxForm.tyshxydm" placeholder="统一社会信用代码"></el-input>
                                 </el-form-item>
                             </el-col>
@@ -229,7 +230,9 @@
                         <el-row class="tr mb5" v-show="isZyfp">
                             <el-col :span="5">&nbsp;</el-col>
                             <el-col :span="12">
-                                <el-form-item prop="yhzh" label="银行账号" :rules="this.isZyfp?kpxxRules.yhzh:[{ required: false, message: '请输入银行账号', trigger: 'blur' }]">
+                                <el-form-item prop="yhzh" label="银行账号"
+                                :onkeyup="addBlankYhzh()"
+                                :rules="this.isZyfp?kpxxRules.yhzh:[{ required: false, message: '请输入银行账号', trigger: 'blur' }]">
                                     <el-input size="small" v-model="kpxxForm.yhzh" placeholder="银行账号"></el-input>
                                 </el-form-item>
                             </el-col>
@@ -459,7 +462,7 @@
                                     <div slot="header" class="clearfix">
                                         <strong class="card_title_font">
                                             <span style="color:red;">* </span>产品{{index+1}}</strong>
-                                        <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 4px -10px 0px 0px">删除产品</el-button>
+                                        <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 4px -15px 0px 0px">删除产品</el-button>
                                     </div>
                                     <el-row class="tr">
                                         <el-col :span="9">
@@ -553,7 +556,8 @@
                                 <el-row>
                                     <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="editform-button">
                                         <el-button type="info" icon="el-icon-arrow-left" size="small" class="btn_submit" @click="cancelXqyx()">上一步</el-button>
-                                        <el-button type="success" icon="el-icon-check" size="small" class="btn_submit" @click="submitXqyx()">&nbsp;提&nbsp;交&nbsp;</el-button>
+                                        <el-button type="success" size="small" class="btn_submit" @click="submitXqyx()">下一步&nbsp;
+                                            <i class="el-icon-arrow-right"></i></el-button>
                                     </el-col>
                                 </el-row>
                             </el-form>
