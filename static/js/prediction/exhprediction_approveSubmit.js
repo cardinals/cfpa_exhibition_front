@@ -24,7 +24,7 @@ var vue = new Vue({
     created: function () {
         this.loading = true;
         /**面包屑 by li.xue 20180628*/
-        loadBreadcrumb("展会报名审核管理", "展会报名审核");
+        loadBreadcrumb("展会报名审核", "审核");
         this.shiroData = shiroGlobal;
         this.qyid = getQueryString("id");
         this.searchClick();
@@ -46,6 +46,10 @@ var vue = new Vue({
                     sjzt: this.approveForm.sjzt,
                     reserve1: this.approveForm.reserve1
                 };
+                //统一社会信用代码格式化
+                if(this.approveForm != "" && this.approveForm != null){
+                    this.approveForm.tyshxydm = longNumFormat(this.approveForm.tyshxydm);
+                }
                 //如果是未通过审核意见显示*代表必填
                 if (this.approveForm.shzt == '02') {
                     this.isReject = true;

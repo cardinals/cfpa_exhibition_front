@@ -91,6 +91,10 @@ new Vue({
             axios.get('/xfxhapi/qykpxx/' + val).then(function (res) {
                 if (res.data.result != null) {
                     this.kpxxData = res.data.result;
+                    //统一社会信用代码格式化
+                    this.kpxxData.tyshxydm = longNumFormat(this.kpxxData.tyshxydm);
+                    //银行账户格式化
+                    this.kpxxData.yhzh = longNumFormat(this.kpxxData.yhzh);
                 }
             }.bind(this), function (error) {
                 console.log(error)
