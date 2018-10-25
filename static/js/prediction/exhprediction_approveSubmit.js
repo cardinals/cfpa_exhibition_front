@@ -47,7 +47,7 @@ var vue = new Vue({
                     reserve1: this.approveForm.reserve1
                 };
                 //统一社会信用代码格式化
-                if(this.approveForm != "" && this.approveForm != null){
+                if (this.approveForm != "" && this.approveForm != null) {
                     this.approveForm.tyshxydm = longNumFormat(this.approveForm.tyshxydm);
                 }
                 //如果是未通过审核意见显示*代表必填
@@ -136,6 +136,9 @@ var vue = new Vue({
         closeDialog: function (val) {
             loadDivParam("prediction/exhprediction_approve");
         },
+        toCompanyWebSite: function (val) {
+            window.open("https://" + val);
+        }
     },
 
 })

@@ -37,7 +37,7 @@
                             </el-row>
                             <el-row class="mb15 ml15" v-if="approveForm.usertype==='ENG'">
                                 <strong class="dtdlStyle">公司网址：</strong>
-                                <a :href="approveForm.wz" v-text="approveForm.wz||'无'"></a>
+                                <a class="poi" v-text="approveForm.wz||'无'" @click="toCompanyWebSite(approveForm.wz)"></a>
                             </el-row>
                             <el-row class="mb20 ml15">
                                 <strong class="dtdlStyle">法人代表：</strong>
