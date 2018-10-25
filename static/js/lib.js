@@ -255,3 +255,22 @@ window.hasPermission = function(val){
         return true;
     }
 }
+
+//字符串每4位加一个空格
+window.longNumFormat = function(val){
+    if(val == null){
+        return null;
+    }else{
+        return val.replace(/(.{4})/g,'$1 ');
+    }
+}
+
+//tab每4位加一个空格格式化
+window.tableLongNumFormat =  function (row, column) {
+    var rowNum = row[column.property];
+    if (rowNum == null || rowNum == "") {
+        return '';
+    } else {
+        return longNumFormat(rowNum);
+    }
+}

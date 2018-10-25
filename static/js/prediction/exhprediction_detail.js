@@ -114,6 +114,10 @@ new Vue({
                     } else {
                         this.kpxxData.xgsj = dateFormat(this.kpxxData.xgsj);
                     }
+                    //统一社会信用代码格式化
+                    this.kpxxData.tyshxydm = longNumFormat(this.kpxxData.tyshxydm);
+                    //银行账户格式化
+                    this.kpxxData.yhzh = longNumFormat(this.kpxxData.yhzh);
                 } else {
                     this.kpxxData = {};
                 }
