@@ -16,36 +16,50 @@
                 <div id="breadcrumb_box"></div>
                 <div id="tableView">
                     <div class="nameBox">
-                        <div class="l tc">
-                            <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" @click="imgPreview(qyjsData.logoBase64)"
-                                class="detail_picture_top">
-                            <img v-else src="../../static/images/noPic.png" style="width:100px;" class="poi">
-                            <br>企业Logo
-                        </div>
-                        <div class="dib" id="basic-Inform-Title">
-                            <div>
-                                <h3 class="dib inform-h3">
-                                    <v-text v-if="jbxxData.usertype === 'CHN'" v-text="jbxxData.zwgsmc||'无'"></v-text>
-                                    <v-text v-else-if="jbxxData.usertype === 'ENG'" v-text="jbxxData.ywgsmc||'无'"></v-text>
-                                </h3>
-                            </div>
-                            <dl>
-                                <img src="../../static/images/detail_tyshxydm.png">
-                                <dt class="dib inform-small-title detail_margin">统一社会信用代码：</dt>
-                                <dd class="dtdlStyle" v-text="kpxxData.tyshxydm||'无'"></dd>
-                                <br>
-                                <img src="../../static/images/detail_summary2.png">
-                                <dt class="dib inform-small-title detail_margin">企业简介：</dt>
-                                <dd class="dtdlStyle" v-if="qyjsData!==null" v-text="qyjsData.qyjj||'无'"></dd>
-                                <dd class="dtdlStyle" v-else>无</dd>
-                            </dl>
-                        </div>
-                        <div v-if="!isENG" class="r tc">
+                        <el-row>
+                            <el-col :span="3" class="tc">
+                                <!-- <div class="l tc"> -->
+                                <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" @click="imgPreview(qyjsData.logoBase64)"
+                                    class="detail_picture_top poi">
+                                <img v-else src="../../static/images/noPic.png" style="width:100px;" class="poi">
+                                <br>企业Logo
+                                <!-- </div> -->
+                            </el-col>
+                            <el-col :span="18">
+                                <div class="dib" id="basic-Inform-Title">
+                                    <div>
+                                        <h3 class="dib inform-h3">
+                                            <v-text v-if="jbxxData.usertype === 'CHN'" v-text="jbxxData.zwgsmc||'无'"></v-text>
+                                            <v-text v-else-if="jbxxData.usertype === 'ENG'" v-text="jbxxData.ywgsmc||'无'"></v-text>
+                                        </h3>
+                                    </div>
+                                    <dl>
+                                        <img src="../../static/images/detail_tyshxydm.png">
+                                        <dt class="dib inform-small-title detail_margin">统一社会信用代码：</dt>
+                                        <dd class="dtdlStyle" v-text="kpxxData.tyshxydm||'无'"></dd>
+                                        <br>
+                                        <img src="../../static/images/detail_summary2.png">
+                                        <dt class="dib inform-small-title detail_margin">企业简介：</dt>
+                                        <dd class="dtdlStyle" v-if="qyjsData!==null" v-text="qyjsData.qyjj||'无'"></dd>
+                                        <dd class="dtdlStyle" v-else>无</dd>
+                                    </dl>
+                                </div>
+                            </el-col>
+                            <el-col :span="3" v-if="!isENG" class="tc">
+                                <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
+                                    class="detail_picture_top poi">
+                                <img v-else src="../../static/images/noPic.png" style="width:100px;">
+                                <br>营业执照
+                            </el-col>
+                        </el-row>
+
+
+                        <!-- <div v-if="!isENG" class="r tc">
                             <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
                                 class="detail_picture_top poi">
                             <img v-else src="../../static/images/noPic.png" style="width:100px;">
                             <br>营业执照
-                        </div>
+                        </div> -->
                     </div>
                     <div class="inform-content">
                         <template>
@@ -264,7 +278,8 @@
                                             <el-card class="mb10 card_style" id="cpjsImg">
                                                 <el-row class="h100">
                                                     <el-col :span="5" class="h100">
-                                                        <img v-if="cpjs!==null&&cpjs.cptpBase64!==''" :src="'data:image/png;base64,'+cpjs.cptpBase64" @click="imgPreview(cpjs.cptpBase64)" class="poi">
+                                                        <img v-if="cpjs!==null&&cpjs.cptpBase64!==''" :src="'data:image/png;base64,'+cpjs.cptpBase64" @click="imgPreview(cpjs.cptpBase64)"
+                                                            class="poi">
                                                         <img v-else src="../../static/images/noPic.png">
                                                     </el-col>
                                                     <el-col :span="19" style="line-height: 24px;">
@@ -302,8 +317,8 @@
                     <el-dialog id="previewImgDialog" :visible.sync="showPicVisible" :close-on-click-modal="false" size="large">
                         <template>
                             <el-carousel type="card" height="350px" :autoplay="false" arrow="never" indicator-position="none">
-                                <el-carousel-item>
-                                    <img :src="'data:image/png;base64,'+previewImg" width="100%"></img>
+                                <el-carousel-item class="tc">
+                                    <img :src="'data:image/png;base64,'+previewImg" style="max-width:100%;max-height:100%;"></img>
                                 </el-carousel-item>
                             </el-carousel>
                         </template>

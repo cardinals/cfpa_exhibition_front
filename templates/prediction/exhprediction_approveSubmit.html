@@ -89,8 +89,8 @@
                     <el-dialog id="previewImgDialog" :title="previewTitle" :visible.sync="imgViewVisible" :close-on-click-modal="false" size="large">
                         <template>
                             <el-carousel type="card" height="350px" :autoplay="false" arrow="never" indicator-position="none">
-                                <el-carousel-item>
-                                    <img v-if="previewImg!==''" :src="'data:image/png;base64,'+previewImg" style="width: 100%;">
+                                <el-carousel-item class="tc">
+                                    <img v-if="previewImg!==''" :src="'data:image/png;base64,'+previewImg" style="max-width:100%;max-height:100%;">
                                     <img v-else src="../../static/images/noPic.png" style="max-width:100%;max-height:100%;">
                                 </el-carousel-item>
                             </el-carousel>
