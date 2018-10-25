@@ -193,7 +193,7 @@
                         <el-row class="tr mb5">
                             <el-col :span="5">&nbsp;</el-col>
                             <el-col :span="12">
-                                <el-form-item prop="tyshxydm" label="统一社会信用代码">
+                                <el-form-item prop="tyshxydm" label="统一社会信用代码" :onkeyup="addBlankXydm()">
                                     <el-input size="small" v-model="kpxxForm.tyshxydm" placeholder="统一社会信用代码"></el-input>
                                 </el-form-item>
                             </el-col>
@@ -229,7 +229,9 @@
                         <el-row class="tr mb5" v-show="isZyfp">
                             <el-col :span="5">&nbsp;</el-col>
                             <el-col :span="12">
-                                <el-form-item prop="yhzh" label="银行账号" :rules="this.isZyfp?kpxxRules.yhzh:[{ required: false, message: '请输入银行账号', trigger: 'blur' }]">
+                                <el-form-item prop="yhzh" label="银行账号"
+                                :onkeyup="addBlankYhzh()"
+                                :rules="this.isZyfp?kpxxRules.yhzh:[{ required: false, message: '请输入银行账号', trigger: 'blur' }]">
                                     <el-input size="small" v-model="kpxxForm.yhzh" placeholder="银行账号"></el-input>
                                 </el-form-item>
                             </el-col>

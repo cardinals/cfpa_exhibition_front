@@ -153,12 +153,12 @@ var vm = new Vue({
             baseInforRules: {
                 ywgsmc: [
                   { required: true, message: 'Company name is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z ]+$/, message: 'English and blank only',trigger: 'blur' },
+                  { pattern: /^[A-Za-z ]+$/, message: 'characters and blank only',trigger: 'blur' },
                   { min: 1, max: 100, message: 'less than 100 characters', trigger: 'blur' }
                 ],
                 yjdzxx: [
                   { required: true, message: 'Company address is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'English and number and blank only',trigger: 'blur' },
+                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'characters and number and blank only',trigger: 'blur' },
                   { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                 ],
                 bgdh: [
@@ -168,7 +168,7 @@ var vm = new Vue({
                   ],
                 frdb: [
                     { required: true, message: 'Legal Representative is required', trigger: 'blur' },
-                    { pattern: /^[A-Za-z ]+$/, message: 'English and blank only',trigger: 'blur' },
+                    { pattern: /^[A-Za-z ]+$/, message: 'characters and blank only',trigger: 'blur' },
                     { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                   ],
                 frdbdh: [
@@ -178,7 +178,7 @@ var vm = new Vue({
                   ],
                 lxr: [
                     { required: true, message: 'Contact Person is required', trigger: 'blur' },
-                    { pattern: /^[A-Za-z ]+$/, message: 'English and blank only',trigger: 'blur' },
+                    { pattern: /^[A-Za-z ]+$/, message: 'characters and blank only',trigger: 'blur' },
                     { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                   ],
                 lxrsj: [
@@ -212,12 +212,12 @@ var vm = new Vue({
             kpxxRules: {
                 kpgsmc: [
                   { required: true, message: 'Company Name on the Invoice is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z ]+$/, message: 'English and blank only',trigger: 'blur' },
+                  { pattern: /^[A-Za-z ]+$/, message: 'characters and blank only',trigger: 'blur' },
                   { min: 1, max: 100, message: 'less than 100 characters', trigger: 'blur' }
                 ],
                 gsdz: [
                   { required: true, message: 'Customer Contact is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z ]+$/, message: 'English and blank only',trigger: 'blur' },
+                  { pattern: /^[A-Za-z ]+$/, message: 'characters and blank only',trigger: 'blur' },
                   { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                 ],
                 dhhm: [
@@ -1125,7 +1125,7 @@ var vm = new Vue({
                     if (res.data.result == 0) {
                         this.mailCodeText = "sending...";
                         $('#mail-btn').attr('disabled', 'disabled');
-                        axios.get('/xfxhapi/signin/sendMail?mail=' + this.baseInforForm.dzyx1).then(function (res) {
+                        axios.get('/xfxhapi/signin/sendMailEng?mail=' + this.baseInforForm.dzyx1).then(function (res) {
                             this.mailCodeReal = res.data.msg;
                             var count = this.time;
                             this.timer = setInterval(() => {
@@ -1175,7 +1175,7 @@ var vm = new Vue({
                 this.emailCodeText1 = "sending...";
                 $('#email-btn').attr('disabled', 'disabled');
                 $('#email-btn2').attr('disabled', 'disabled');
-                axios.get('/xfxhapi/signin/sendMail?mail=' + this.emailform.email).then(function (res) {
+                axios.get('/xfxhapi/signin/sendMailEng?mail=' + this.emailform.email).then(function (res) {
                     this.emailCodeReal = res.data.msg;
                     var count = this.time;
                     this.timer = setInterval(() => {

@@ -213,8 +213,9 @@ var vm = new Vue({
                 ],
                 tyshxydm: [
                     { required: true, message: '请输入统一社会信用代码', trigger: 'blur' },
-                    { min: 18, max: 18, message: '请输入18位统一社会信用代码', trigger: 'blur' },
-                    { pattern: /^[A-Za-z0-9]+$/, message: '只能输入数字和字母',trigger: 'blur' },
+                    { pattern: /^[A-Za-z0-9 ]+$/, message: '只能输入数字和字母',trigger: 'blur' },
+                    { min: 22, max: 22, message: '请输入18位统一社会信用代码（不包含空格）', trigger: 'blur' }
+                    
                 ],
                 gsdz: [
                   { required: true, message: '请输入公司地址', trigger: 'blur' },
@@ -231,8 +232,8 @@ var vm = new Vue({
                 ],
                 yhzh: [
                   { required: true, message: '请输入银行账号', trigger: 'blur' },
-                  { pattern: /^[0-9]*$/, message: '只能输入数字',trigger: 'blur' },
-                  { min: 1, max: 16, message: '最多可输入16个字符', trigger: 'blur' }
+                  { pattern: /^[0-9 ]*$/, message: '只能输入数字',trigger: 'blur' },
+                  { min: 13, max: 23, message: '请输入正确银行账号', trigger: 'blur' }
                 ]
             },
             wjdcRules: {
@@ -787,16 +788,20 @@ var vm = new Vue({
         submitKpxx: function(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    var yhzh_str = null;
+                    if(this.kpxxForm.yhzh!=null&&this.kpxxForm.yhzh!=''&&this.kpxxForm.yhzh!=undefined){
+                        yhzh_str = this.kpxxForm.yhzh.replace(/ /g, "");
+                    }
                     if(this.kpxxStatus == 0){//新增
                         var params={
                             qyid: this.qyid,
                             kplx: this.kpxxForm.kplx,
                             kpgsmc: this.kpxxForm.kpgsmc,
-                            tyshxydm: this.kpxxForm.tyshxydm,
+                            tyshxydm: this.kpxxForm.tyshxydm.replace(/ /g, ""),
                             gsdz: this.kpxxForm.gsdz,
                             dhhm: this.kpxxForm.dhhm,
                             khyh: this.kpxxForm.khyh,
-                            yhzh: this.kpxxForm.yhzh,
+                            yhzh: yhzh_str,
                             deleteFlag: 'N',
                             cjrid: this.shiroData.userid,
                             cjrmc: this.shiroData.username
@@ -822,14 +827,15 @@ var vm = new Vue({
                             uuid: this.kpUuid,
                             kplx: this.kpxxForm.kplx,
                             kpgsmc: this.kpxxForm.kpgsmc,
-                            tyshxydm: this.kpxxForm.tyshxydm,
+                            tyshxydm: this.kpxxForm.tyshxydm.replace(/ /g, ""),
                             gsdz: this.kpxxForm.gsdz,
                             dhhm: this.kpxxForm.dhhm,
                             khyh: this.kpxxForm.khyh,
-                            yhzh: this.kpxxForm.yhzh,
+                            yhzh: yhzh_str,
                             xgrid: this.shiroData.userid,
                             xgrmc: this.shiroData.username
                         }
+                        debugger;
                         axios.post('/xfxhapi/qykpxx/doUpdateByVO', params).then(function (res) {
                             this.$message({
                                 message: '企业开票信息暂存成功',
@@ -1364,7 +1370,16 @@ var vm = new Vue({
                 this.mailCheck = false;
             }
         },
-       
+        addBlankYhzh:function(){
+            if(this.kpxxForm.yhzh != undefined &&this.kpxxForm.yhzh!=''&&this.kpxxForm.yhzh!=null){
+                this.kpxxForm.yhzh =this.kpxxForm.yhzh.replace(/\s/g,'').replace(/(\w{4})(?=\w)/g,"$1 ");
+            }
+        },
+        addBlankXydm:function(){
+            if(this.kpxxForm.tyshxydm != undefined &&this.kpxxForm.tyshxydm!=''&&this.kpxxForm.tyshxydm!=null){
+                this.kpxxForm.tyshxydm =this.kpxxForm.tyshxydm.replace(/\s/g,'').replace(/(\w{4})(?=\w)/g,"$1 ");
+            }
+        },
     },
 
 })
