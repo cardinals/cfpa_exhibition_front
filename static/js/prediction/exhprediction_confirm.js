@@ -56,7 +56,6 @@ new Vue({
         this.userid = getQueryString("userid");
         this.getJbxxData(this.userid);
     },
-
     methods: {
         //企业基本信息
         getJbxxData: function (val) {
