@@ -230,7 +230,7 @@ new Vue({
             loadDivParam("prediction/exhprediction_edit_ENG", params);
         },
         submitClick: function () {
-            this.$confirm('The information of booth intention can only be modified after submitting. Other information cannot be modified', 'Attention', {
+            this.$confirm('The information of booth intention can only be modified after submitting. Other information cannot be modified.', 'Attention', {
                 confirmButtonText: 'Submit',
                 cancelButtonText: 'Cancle',
                 type: 'warning'
