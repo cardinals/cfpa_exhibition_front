@@ -30,14 +30,17 @@
                         <br>(2) 贵公司所提供的营业执照、法人代表及企业联系人相关信息仅用于贵公司申请参加第十八届国际消防展的审核工作；贵公司自主填写的公司信息及产品信息则将显示在网站的产品及展商名录内容里。
                     </el-row>
                 </div>
-                <div id="remark" class="topScroll greenFont" v-if="editPage&&jbxxData.shzt==='03'" style="height:25px;">
-                    <span>经审核您的信息已经通过，请耐心等待系统通知进行展位选择。</span>
+                <div id="remark" class="topScroll remark greenFont tc" v-if="editPage&&jbxxData.shzt==='03'">
+                    ※※※&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;经审核您的信息已经通过，请耐心等待系统通知进行展位选择。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※※※
+                </div>
+                <div id="remark" class="topScroll remark yellowFont tc" v-if="editPage&&jbxxData.shzt==='01'">
+                    ※※※&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;展会报名信息已经提交，等待审核，请随时关注!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※※※
                 </div>
                 <div id="qyjbxx" class="mb5">
                     <el-row class="mb10" v-if="editPage==false" style="margin-top:140px;border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;">企业基本信息</strong>
                     </el-row>
-                    <el-row class="mb10 mt30" v-if="editPage&&jbxxData.shzt==='03'" style="border-bottom:1px solid #463132;line-height: 29px;">
+                    <el-row class="mb10 mt30" v-if="editPage&&(jbxxData.shzt==='03'||jbxxData.shzt==='01')" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;">企业基本信息</strong>
                     </el-row>
                     <el-row>
@@ -273,19 +276,19 @@
                             <el-row class="mb10">
                                 <strong>标准展位：</strong>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.bzzwgs" :min="0" :max="6" placeholder="标准展位" :precision="0"></el-input-number>
-                                <v-text v-else v-text="zwyxForm.bzzwgs==''||zwyxForm.bzzwgs==null?'无':zwyxForm.bzzwgs+' 个'"></v-text>
+                                <v-text v-else v-text="(zwyxForm.bzzwgs==''||zwyxForm.bzzwgs==null)?'无':zwyxForm.bzzwgs+' 个'"></v-text>
                                 &nbsp;&nbsp;(标准展位：每个12平方米)
                             </el-row>
                             <el-row class="mb10">
                                 <strong>室内展位：</strong>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.sngdzw" :min="24" :max="1000" placeholder="室内光地展位" :precision="0"></el-input-number>
-                                <v-text v-else v-text="zwyxForm.sngdzw==''||zwyxForm.sngdzw==null?'无':zwyxForm.sngdzw+' m²'"></v-text>
+                                <v-text v-else v-text="(zwyxForm.sngdzw==''||zwyxForm.sngdzw==null)?'无':zwyxForm.sngdzw+' m²'"></v-text>
                                 &nbsp;&nbsp;(室内光地展位：需要特装搭建，24平方米起)
                             </el-row>
                             <el-row class="mb10">
                                 <strong>室外展位：</strong>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.swgdzw" :min="0" :max="2000" placeholder="室外光地展位" :precision="0"></el-input-number>
-                                <v-text v-else v-text="zwyxForm.swgdzw==''||zwyxForm.swgdzw==null?'无':zwyxForm.swgdzw+' m²'"></v-text>
+                                <v-text v-else v-text="(zwyxForm.swgdzw==''||zwyxForm.swgdzw==null)?'无':zwyxForm.swgdzw+' m²'"></v-text>
                                 &nbsp;&nbsp;(室外光地展位：仅限消防车类)
                             </el-row>
                         </el-col>

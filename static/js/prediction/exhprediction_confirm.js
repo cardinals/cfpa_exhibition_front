@@ -252,6 +252,7 @@ new Vue({
                             type: 'success'
                         });
                         this.editPage = true;
+                        this.jbxxData.shzt = '01';
                     }
                 }.bind(this), function (error) {
                     console.log(error);

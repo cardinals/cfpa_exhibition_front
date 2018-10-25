@@ -30,6 +30,7 @@
     background:#fff;
     z-index:2;
     margin-right: 20px;
+    min-width: 77%;
 }
 .redFont{
     color: #e40613;

@@ -36,14 +36,17 @@
                         the commission.
                     </el-row>
                 </div>
-                <div id="remark" class="topScroll greenFont" v-if="editPage&&jbxxData.shzt==='03'">
-                    Your information has been approved. Please wait for system notification for booth selection.
+                <div id="remark" class="topScroll remark greenFont tc" v-if="editPage&&jbxxData.shzt==='03'">
+                    ※※※&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your information has been approved. Please wait for system notification for booth selection.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※※※
+                </div>
+                <div id="remark" class="topScroll remark yellowFont tc" v-if="editPage&&jbxxData.shzt==='01'">
+                    ※※※&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your information has been submitted, waiting for the audit, please keep your eyes open.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※※※
                 </div>
                 <div id="qyjbxx" class="mb5">
                     <el-row class="mb10" v-if="editPage==false" style="margin-top:230px;border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;" class="f15">Brief Company Information</strong>
                     </el-row>
-                    <el-row class="mb10 mt30" v-if="editPage&&jbxxData.shzt==='03'" style="border-bottom:1px solid #463132;line-height: 29px;">
+                    <el-row class="mb10 mt30" v-if="editPage&&(jbxxData.shzt==='03'||jbxxData.shzt==='01')" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;" class="f15">Brief Company Information</strong>
                     </el-row>
                     <el-row class="mb10">
