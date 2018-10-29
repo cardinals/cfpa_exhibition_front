@@ -1,3 +1,9 @@
+var pageShzt = '';
+window.onbeforeunload = function () {
+    if (pageShzt != '01') {
+        return "确认展会报名数据已经提交？未提交的报名数据将会丢失！";
+    }
+}
 new Vue({
     el: "#app",
     data: function () {
@@ -253,6 +259,7 @@ new Vue({
                         });
                         this.editPage = true;
                         this.jbxxData.shzt = '01';
+                        pageShzt = '01';
                     }
                 }.bind(this), function (error) {
                     console.log(error);
