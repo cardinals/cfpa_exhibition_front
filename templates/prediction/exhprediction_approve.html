@@ -77,13 +77,13 @@
                                             <v-text v-text="scope.row.reserve1"></v-text>
                                         </el-row>
                                         <a type="text" slot="reference" v-if="scope.row.shzt == '01'" v-text="scope.row.shztmc" style="color:#FF4949"></a>
-                                        <a type="text" slot="reference" v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#F7BA2A"></a>
+                                        <a type="text" slot="reference" v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#f7962f"></a>
                                         <a type="text" slot="reference" v-else-if="scope.row.shzt == '03'" v-text="scope.row.shztmc" style="color:#42D885"></a>
                                         <a type="text" slot="reference" v-else v-text="scope.row.shztmc"></a>
                                     </el-popover>
                                     <div v-else>
                                         <span v-if="scope.row.shzt == '01'" v-text="scope.row.shztmc" style="color:#FF4949"></span>
-                                        <span v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#F7BA2A"></span>
+                                        <span v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#f7962f"></span>
                                         <span v-else-if="scope.row.shzt == '03'" v-text="scope.row.shztmc" style="color:#42D885"></span>
                                         <span v-else v-text="scope.row.shztmc"></span>
                                     </div>
