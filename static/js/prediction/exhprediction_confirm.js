@@ -4,6 +4,16 @@ window.onbeforeunload = function () {
         return "确认展会报名数据已经提交？未提交的报名数据将会丢失！";
     }
 }
+$('#menu-toggle-btn').click(function () {
+    var left = $('.left-sidebar'),
+        remark = $('#remark'),
+        $this = $(this);
+    if (left.hasClass('damin')) {
+        remark.css('width', '96%');
+    } else {
+        remark.css('width', 'calc(96% - 240px)');
+    }
+});
 new Vue({
     el: "#app",
     data: function () {
@@ -85,6 +95,7 @@ new Vue({
                     this.getQyjsData(this.qyid);
                     this.getCpjsData(this.qyid);
                     this.getZwyxData(this.qyid);
+                    pageShzt = this.jbxxData.shzt;
                 }
                 this.loading = false;
             }.bind(this), function (error) {
