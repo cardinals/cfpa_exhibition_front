@@ -9,9 +9,9 @@ $('#menu-toggle-btn').click(function () {
         remark = $('#remark'),
         $this = $(this);
     if (left.hasClass('damin')) {
-        remark.css('width', '96%');
+        remark.css('width', 'calc(100% - 55px)');
     } else {
-        remark.css('width', 'calc(96% - 240px)');
+        remark.css('width', 'calc(100% - 295px)');
     }
 });
 new Vue({
