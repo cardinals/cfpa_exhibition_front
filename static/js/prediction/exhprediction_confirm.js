@@ -4,16 +4,6 @@ window.onbeforeunload = function () {
         return "确认展会报名数据已经提交？未提交的报名数据将会丢失！";
     }
 }
-$('#menu-toggle-btn').click(function () {
-    var left = $('.left-sidebar'),
-        remark = $('#remark'),
-        $this = $(this);
-    if (left.hasClass('damin')) {
-        remark.css('width', 'calc(100% - 55px)');
-    } else {
-        remark.css('width', 'calc(100% - 295px)');
-    }
-});
 new Vue({
     el: "#app",
     data: function () {

@@ -4,16 +4,6 @@ window.onbeforeunload = function () {
         return "Do you confirm that the application information have been submitted? Unsubmitted information will be lost!";
     }
 }
-$('#menu-toggle-btn').click(function () {
-    var left = $('.left-sidebar'),
-        remark = $('#remark'),
-        $this = $(this);
-    if (left.hasClass('damin')) {
-        remark.css('width', 'calc(100% - 55px)');
-    } else {
-        remark.css('width', 'calc(100% - 295px)');
-    }
-});
 new Vue({
     el: "#app",
     data: function () {
