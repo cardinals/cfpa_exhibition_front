@@ -26,15 +26,15 @@
 }
 .topScroll{
     position: fixed;
-    top: 50px;
+    top: 51px;
     z-index:2;
     background:#fff;
     width: calc(100% - 216px);
 }
 .redFont{
     position: fixed;
-    top: 50px;
-    left: 0;
+    top: 51px;
+    left: 18px;
     right: 18px;
     z-index:2;
     color: #e40613;
