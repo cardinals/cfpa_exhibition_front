@@ -12,7 +12,7 @@
     <link rel="dns-prefetch" href="//s3b.pstatp.com" />
     <link rel="dns-prefetch" href="//p1.pstatp.com/" />
     <link rel="dns-prefetch" href="//p3.pstatp.com/" />
-
+    <link rel="icon" href="../static/images/login/logo.png">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui"
@@ -97,12 +97,12 @@
                                 <a @click="changeForm('FPAFlag')">忘记密码</a>
                                 <a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
                                 <a @click="changeForm('FUAFlag')">忘记用户名</a>
-                                <input class="checkbox" type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
-                                <span style="color:#fb6a74">记住我</span>
+                                <!-- <input class="checkbox" type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
+                                <span style="color:#fb6a74">记住我</span> -->
                             </div>
                             <div class="LoginBtn">
-                                <a @click="login()" id="lg" style="display:block;margin-top:40px;">登 录</a>
-                                <a @click="nlogin()" id="nlg" style="display:none;margin-top:40px;">登 录</a>
+                                <a @click="login()" id="lg" style="display:block;margin-top:70px;">登 录</a>
+                                <a @click="nlogin()" id="nlg" style="display:none;margin-top:70px;">登 录</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" v-model="loginType"/>
                             <input type="hidden" class="comfrom" name="comfrom" v-model="CNcomfrom"/>
@@ -139,12 +139,12 @@
                                     </a>
                                 </li> -->
                             </ul>
-                            <div class="formbar">
+                            <!-- <div class="formbar">
                                 <input type="checkbox" name="rememberMe" id="GLYrememberMe" />&nbsp;&nbsp;
                                 <span style="color:#fb6a74">记住我</span>
-                            </div>
+                            </div> -->
                             <div class="LoginBtn">
-                                <a @click="GLYlogin()" id="lg" style="display:block;margin-top:40px;">登 录</a>
+                                <a @click="GLYlogin()" id="lg" style="display:block;margin-top:70px;">登 录</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" v-model="GLYloginType" />
                         </form>
