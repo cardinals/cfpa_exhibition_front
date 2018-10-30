@@ -118,3 +118,10 @@ input[type=file] {
     font-size: 16px;
     font-weight: bold;
 }
+#remark i.icon-alarm{
+    width: 28px;
+    height: 25px;
+    display: inline-block;
+    background: url(../../images/alarm.png) no-repeat;
+    background-size:cover;
+}

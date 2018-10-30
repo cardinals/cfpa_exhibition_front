@@ -27,11 +27,11 @@
                 </div>
                 <!--审核状态-->
                 <div id="remark" v-if="isYbh">
-                    <el-row class="tr mb5">
+                    <el-row>
+                        <el-col :span="1" style="text-align: center"><i class="icon-alarm"></i>&nbsp;</el-col>
+                        <el-col :span="6" style="text-align: left">Last Approval Status:&nbsp;&nbsp;Reject</el-col>
                         <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="7" style="text-align: left">Last Approval Status:&nbsp;&nbsp;Reject</el-col>
-                        <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="15" style="text-align: left">Reason:&nbsp;&nbsp;<span v-text="baseInforForm.reserve1"></span></el-col>
+                        <el-col :span="16" style="text-align: left">Reason:&nbsp;&nbsp;<span v-text="baseInforForm.reserve1"></span></el-col>
                     </el-row>
                 </div>
                 <!--基本信息-->

@@ -126,7 +126,6 @@ var vm = new Vue({
             },
             //上传图片Data
             fileList: [],
-            pdfFile:'',
             //上传加参数
             upLoadData:{
                 qyid:'',
@@ -173,9 +172,7 @@ var vm = new Vue({
                   { min: 1, max: 25, message: '最多可输入25个字', trigger: 'blur' }
                 ],
                 bgdh: [
-                    { required: true, message: '请输入办公电话', trigger: 'blur' },
-                    { pattern: /^[0-9]*$/, message: '只能输入数字',trigger: 'blur' },
-                    { min: 1, max: 15, message: '电话格式不正确', trigger: 'blur' }
+                    { required: true, message: '请输入办公电话', trigger: 'blur' }
                   ],
                 frdb: [
                     { required: true, message: '请输入法人代表', trigger: 'blur' },
@@ -225,9 +222,7 @@ var vm = new Vue({
                   { min: 1, max: 30, message: '最多可输入30个字', trigger: 'blur' }
                 ],
                 dhhm: [
-                  { required: true, message: '请输入电话号码', trigger: 'blur' },
-                  { pattern: /^[0-9]*$/, message: '只能输入数字',trigger: 'blur' },
-                  { min: 1, max: 15, message: '电话格式不正确', trigger: 'blur' }
+                  { required: true, message: '请输入电话号码', trigger: 'blur' }
                 ],
                 khyh: [
                   { required: true, message: '请输入开户银行', trigger: 'blur' },
@@ -594,8 +589,7 @@ var vm = new Vue({
                 }
                 /*
                 else if(this.isPdf){
-                    this.pdfFile = file;
-                    console.log(this.pdfFile);
+                    
                 }*/
                 else {
                     this.$message.error('只能上传jpg、png格式的文件');
@@ -748,7 +742,7 @@ var vm = new Vue({
                                 this.$refs.uploadPics.submit();
                                 /*
                                 if(this.isPdf){
-                                    axios.post('/xfxhapi/qyjbxx/pdfupload', params).then(function (res) {
+                                   axios.post('/xfxhapi/qyjbxx/uploadPdf',this.upLoadData).then(function (res) {
 
                                     }.bind(this), function (error) {
                                         console.log(error);
@@ -757,7 +751,7 @@ var vm = new Vue({
                                 else{
                                     this.$refs.uploadPics.submit();
                                 }*/
-                                
+
                                 this.$message({
                                     message: '企业基本信息暂存成功',
                                     type: 'success'
