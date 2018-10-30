@@ -112,6 +112,8 @@ var vm = new Vue({
             emailCodeText1:"change",
             time: 60,
             timer: null,
+            time2: 60,
+            timer2: null,
             //产品index
             index:0,
 
@@ -162,9 +164,7 @@ var vm = new Vue({
                   { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                 ],
                 bgdh: [
-                    { required: true, message: 'Phone number is required', trigger: 'blur' },
-                    { pattern: /^[\d\-]+$/, message: 'number and hyphen only',trigger: 'blur' },
-                    { min: 1, max: 30, message: 'less than 30 characters', trigger: 'blur' }
+                    { required: true, message: 'Phone number is required', trigger: 'blur' }
                   ],
                 frdb: [
                     { required: true, message: 'Legal Representative is required', trigger: 'blur' },
@@ -406,6 +406,7 @@ var vm = new Vue({
                         resultForm.qycpjsVOList = result;
                         this.qyjsForm = resultForm;
                         this.qyjsForm.logoBase64 = 'data:image/png;base64,'+ this.qyjsForm.logo;
+                        this.loading = false;
                     }.bind(this), function (error) {
                         console.log(error)
                     })
@@ -423,9 +424,8 @@ var vm = new Vue({
                             key: Date.now()
                         });
                     }
-                    
+                    this.loading = false;
                 }
-                this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -767,6 +767,7 @@ var vm = new Vue({
         },
         //产品介绍提交（下一步）
         submitCpjs: function(formName){
+            this.loading = true;
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     //判断最后一个card产品信息是否填全
@@ -776,8 +777,17 @@ var vm = new Vue({
                             message: 'Please fill out the Product Examples form',
                             type: 'warning'
                         });
+                        this.loading = false;
                         return false;
-                    }else{//信息填写完整
+                    }else if(this.qyjsForm.logoBase64 == null || this.qyjsForm.logoBase64 == ""){
+                        this.$message({
+                            message: 'Please upload your Company Logo',
+                            type: 'warning'
+                        });
+                        this.loading = false;
+                        return false;
+                    }
+                    else{//信息填写完整
                         //var tempList = this.qyjsForm.qycpjsVOList;
                         var tempList = [];
                         for(var i in this.qyjsForm.qycpjsVOList){
@@ -790,6 +800,7 @@ var vm = new Vue({
                             //产品图片base64切成byte
                             var temp_str = this.qyjsForm.qycpjsVOList[i].cptpBase64.split(",");
                             var obj_temp = {
+                                uuid:this.qyjsForm.qycpjsVOList[i].uuid,
                                 qyid: this.qyid,
                                 cptp:temp_str[1],
                                 cplx:cplx_temp,
@@ -798,42 +809,33 @@ var vm = new Vue({
                             tempList.push(obj_temp);
                         }
                         if(this.cpjsStatus == 0){//新增
-                            if(this.qyjsForm.logoBase64 == null || this.qyjsForm.logoBase64 == ""){
-                                this.$message({
-                                    message: 'Please upload your Company Logo',
-                                    type: 'warning'
-                                });
-                                console.log('error submit!!');
-                                return false;
-                            }else{
-                                var params = {
-                                    qyid: this.qyid,
+                            var params = {
+                                qyid: this.qyid,
                                 //    logo: this.qyjsForm.logoBase64,
-                                    qyjj: this.qyjsForm.qyjj,
-                                    qycpjsVOList: tempList,
-                                    deleteFlag: 'N',
-                                    cjrid: this.shiroData.userid,
-                                    cjrmc: this.shiroData.username
-                                }
-                                axios.post('/xfxhapi/qyjs/doInsertByVo', params).then(function (res) {
-                                    this.upLoadLogoData.uuid = res.data.result.uuid;
-                                    this.$refs.uploadLogo.submit();
-                                    this.$message({
-                                        message: 'Company Information Details and Product Examples has been saved!',
-                                        type: 'success'
-                                    });
-                                    this.active = 4;
-                                    this.isCpjsShow = false;
-                                    this.isXqyxShow = true;
-                                    this.cpjsStatus = 1;
-                                    if(this.qyid != null && this.qyid != ''){
-                                        this.findXqyxByQyid(this.qyid);
-                                    }
-                                }.bind(this), function (error) {
-                                    console.log(error);
-                                })
+                                qyjj: this.qyjsForm.qyjj,
+                                qycpjsVOList: tempList,
+                                deleteFlag: 'N',
+                                cjrid: this.shiroData.userid,
+                                cjrmc: this.shiroData.username
                             }
-                            
+                            axios.post('/xfxhapi/qyjs/doInsertByVo', params).then(function (res) {
+                                this.upLoadLogoData.uuid = res.data.result.uuid;
+                                this.$refs.uploadLogo.submit();
+                                this.$message({
+                                    message: 'Company Information Details and Product Examples has been saved!',
+                                    type: 'success'
+                                });
+                                this.loading = false;
+                                this.active = 4;
+                                this.isCpjsShow = false;
+                                this.isXqyxShow = true;
+                                this.cpjsStatus = 1;
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findXqyxByQyid(this.qyid);
+                                }
+                            }.bind(this), function (error) {
+                                console.log(error);
+                            })
                         }else{//修改
                             var params = {
                                 uuid: this.qyUuid,
@@ -851,6 +853,7 @@ var vm = new Vue({
                                     message: 'Company Information Details and Product Examples has been saved!',
                                     type: 'success'
                                 });
+                                this.loading = false;
                                 this.active = 4;
                                 this.isCpjsShow = false;
                                 this.isXqyxShow = true;
@@ -1084,7 +1087,7 @@ var vm = new Vue({
         openEmail:function(){
             this.dialogEmailFormVisible = true;
             $('#email-btn').attr('disabled', 'disabled');
-            $('#email-btn2').attr('disabled', 'disabled');
+            //$('#email-btn2').attr('disabled', 'disabled');
         },
         //email提交
         emailformSubmit:function(){
@@ -1177,11 +1180,11 @@ var vm = new Vue({
                 $('#email-btn2').attr('disabled', 'disabled');
                 axios.get('/xfxhapi/signin/sendMailEng?mail=' + this.emailform.email).then(function (res) {
                     this.emailCodeReal = res.data.msg;
-                    var count = this.time;
-                    this.timer = setInterval(() => {
+                    var count = this.time2;
+                    this.timer2 = setInterval(() => {
                     if (count == 0) {
-                            clearInterval(this.timer);
-                            this.timer = null;
+                            clearInterval(this.timer2);
+                            this.timer2 = null;
                             this.emailCodeText = "verify";
                             this.emailCodeText1 = "change";
                             $('#email-btn').removeAttr("disabled");

@@ -113,6 +113,8 @@ var vm = new Vue({
             mailCodeText:"验证",
             time: 60,
             timer: null,
+            time2: 60,
+            timer2: null,
             //产品index
             index:0,
 
@@ -501,6 +503,7 @@ var vm = new Vue({
                         resultForm.qycpjsVOList = result;
                         this.qyjsForm = resultForm;
                         this.qyjsForm.logoBase64 = 'data:image/png;base64,'+ this.qyjsForm.logo;
+                        this.loading = false;
                     }.bind(this), function (error) {
                         console.log(error)
                     })
@@ -518,9 +521,9 @@ var vm = new Vue({
                             key: Date.now()
                         });
                     }
-                    
+                    this.loading = false;
                 }
-                this.loading = false;
+                
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -667,6 +670,7 @@ var vm = new Vue({
                             return false;
                         }
                         else{
+                            this.loading = true;
                             var params = {
                                 userid: this.shiroData.userid,
                                 zwgsmc: this.baseInforForm.zwgsmc,
@@ -695,6 +699,7 @@ var vm = new Vue({
                                     message: '企业基本信息暂存成功',
                                     type: 'success'
                                 });
+                                this.loading = false;
                                 this.active = 1;
                                 this.isJbxxShow = false;
                                 this.isKpxxShow = true;
@@ -718,6 +723,7 @@ var vm = new Vue({
                             console.log('error submit!!');
                             return false;
                         }else{
+                            this.loading = true;
                             var params = {
                                 qyid: this.baseInforForm.qyid,
                                 zwgsmc: this.baseInforForm.zwgsmc,
@@ -756,6 +762,7 @@ var vm = new Vue({
                                     message: '企业基本信息暂存成功',
                                     type: 'success'
                                 });
+                                this.loading = false;
                                 this.active = 1;
                                 this.isJbxxShow = false;
                                 this.isKpxxShow = true;
@@ -767,7 +774,6 @@ var vm = new Vue({
                                 console.log(error);
                             })
                         }
-                        
                     }
                    
                 } else {
@@ -781,6 +787,7 @@ var vm = new Vue({
         submitKpxx: function(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    this.loading = true;
                     var yhzh_str = null;
                     if(this.kpxxForm.yhzh!=null&&this.kpxxForm.yhzh!=''&&this.kpxxForm.yhzh!=undefined){
                         yhzh_str = this.kpxxForm.yhzh.replace(/ /g, "");
@@ -804,6 +811,7 @@ var vm = new Vue({
                                 message: '企业开票信息暂存成功',
                                 type: 'success'
                             });
+                            this.loading = false;
                             this.active = 2;
                             this.isKpxxShow = false;
                             this.isWjdcShow = true;
@@ -833,6 +841,7 @@ var vm = new Vue({
                                 message: '企业开票信息暂存成功',
                                 type: 'success'
                             });
+                            this.loading = false;
                             this.active = 2;
                             this.isKpxxShow = false;
                             this.isWjdcShow = true;
@@ -853,6 +862,7 @@ var vm = new Vue({
         submitWjdc: function(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    this.loading = true;
                     if(this.wjdcStatus == 0){//新增
                         var zycp = "";
                         var reserve1 = "";
@@ -884,6 +894,7 @@ var vm = new Vue({
                                 message: '企业问卷调查暂存成功',
                                 type: 'success'
                             });
+                            this.loading = false;
                             this.active = 3;
                             this.isWjdcShow = false;
                             this.isCpjsShow = true;
@@ -926,6 +937,7 @@ var vm = new Vue({
                                 message: '企业问卷调查暂存成功',
                                 type: 'success'
                             });
+                            this.loading = false;
                             this.active = 3;
                             this.isWjdcShow = false;
                             this.isCpjsShow = true;
@@ -946,6 +958,7 @@ var vm = new Vue({
         },
         //产品介绍提交（下一步）
         submitCpjs: function(formName){
+            this.loading = true;
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     //判断最后一个card产品信息是否填全
@@ -955,9 +968,18 @@ var vm = new Vue({
                             message: '请完整填写产品信息',
                             type: 'warning'
                         });
+                        this.loading = false;
                         return false;
-                    }else{//信息填写完整
-                        //var tempList = this.qyjsForm.qycpjsVOList;
+                    }else if(this.qyjsForm.logoBase64 == null || this.qyjsForm.logoBase64 == ""){//判断企业logo是否上传
+                        this.$message({
+                            message: '请上传企业logo',
+                            type: 'warning'
+                        });
+                        console.log('error submit!!');
+                        this.loading = false;
+                        return false;
+                    }
+                    else{//信息填写完整
                         var tempList = [];
                         for(var i in this.qyjsForm.qycpjsVOList){
                             var cpjj_temp = this.qyjsForm.qycpjsVOList[i].cpjj;
@@ -978,43 +1000,35 @@ var vm = new Vue({
                             tempList.push(obj_temp);
                         }
                         if(this.cpjsStatus == 0){//新增
-                            if(this.qyjsForm.logoBase64 == null || this.qyjsForm.logoBase64 == ""){
-                                this.$message({
-                                    message: '请上传企业logo',
-                                    type: 'warning'
-                                });
-                                console.log('error submit!!');
-                                return false;
-                            }else{
-                                var params = {
-                                    qyid: this.qyid,
-                                //    logo: this.qyjsForm.logoBase64,
-                                    qyjj: this.qyjsForm.qyjj,
-                                    qycpjsVOList: tempList,
-                                    deleteFlag: 'N',
-                                    cjrid: this.shiroData.userid,
-                                    cjrmc: this.shiroData.username
-                                }
-                                axios.post('/xfxhapi/qyjs/doInsertByVo', params).then(function (res) {
-                                    this.upLoadLogoData.uuid = res.data.result.uuid;
-                                    this.$refs.uploadLogo.submit();
-                                    this.$message({
-                                        message: '企业产品介绍暂存成功',
-                                        type: 'success'
-                                    });
-                                    this.active = 4;
-                                    this.isCpjsShow = false;
-                                    this.isXqyxShow = true;
-                                    this.cpjsStatus = 1;
-                                    if(this.qyid != null && this.qyid != ''){
-                                        this.findXqyxByQyid(this.qyid);
-                                    }
-                                }.bind(this), function (error) {
-                                    console.log(error);
-                                })
+                            var params = {
+                                qyid: this.qyid,
+                            //  logo: this.qyjsForm.logoBase64,
+                                qyjj: this.qyjsForm.qyjj,
+                                qycpjsVOList: tempList,
+                                deleteFlag: 'N',
+                                cjrid: this.shiroData.userid,
+                                cjrmc: this.shiroData.username
                             }
-                            
+                            axios.post('/xfxhapi/qyjs/doInsertByVo', params).then(function (res) {
+                                this.upLoadLogoData.uuid = res.data.result.uuid;
+                                this.$refs.uploadLogo.submit();
+                                this.$message({
+                                    message: '企业产品介绍暂存成功',
+                                    type: 'success'
+                                });
+                                this.loading = false;
+                                this.active = 4;
+                                this.isCpjsShow = false;
+                                this.isXqyxShow = true;
+                                this.cpjsStatus = 1;
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findXqyxByQyid(this.qyid);
+                                }
+                            }.bind(this), function (error) {
+                                console.log(error);
+                            })
                         }else{//修改
+                            this.loading = true;
                             var params = {
                                 uuid: this.qyUuid,
                                 qyid: this.qyid,
@@ -1031,6 +1045,7 @@ var vm = new Vue({
                                     message: '企业产品介绍暂存成功',
                                     type: 'success'
                                 });
+                                this.loading = false;
                                 this.active = 4;
                                 this.isCpjsShow = false;
                                 this.isXqyxShow = true;
@@ -1045,6 +1060,7 @@ var vm = new Vue({
                     }
                 } else {
                   console.log('error submit!!');
+                  this.loading = false;
                   return false;
                 }
             });
@@ -1052,6 +1068,7 @@ var vm = new Vue({
         //需求意向提交
         submitXqyx: function(){
             if(this.xqyxForm.bzzwgs >0 || this.xqyxForm.sngdzw >0|| this.xqyxForm.swgdzw >0){
+                this.loading = true;
                 if(this.xqyxStatus == 0){//新增
                     var params = {
                         qyid: this.qyid,
@@ -1067,6 +1084,7 @@ var vm = new Vue({
                             message: '企业参展展位需求意向暂存成功',
                             type: 'success'
                         });
+                        this.loading = false;
                         this.active = 5;
                         this.xqyxStatus = 1;
                         this.submit();
@@ -1088,6 +1106,7 @@ var vm = new Vue({
                             message: '企业参展展位需求意向暂存成功',
                             type: 'success'
                         });
+                        this.loading = false;
                         this.active = 5;
                         //提交展位预报名信息
                         this.submit();
@@ -1314,11 +1333,11 @@ var vm = new Vue({
                         $('#mail-btn').attr('disabled', 'disabled');
                         axios.get('/xfxhapi/signin/sendMail?mail=' + this.baseInforForm.dzyx1).then(function (res) {
                             this.mailCodeReal = res.data.msg;
-                            var count = this.time;
-                            this.timer = setInterval(() => {
+                            var count = this.time2;
+                            this.timer2 = setInterval(() => {
                                 if (count == 0) {
-                                    clearInterval(this.timer);
-                                    this.timer = null;
+                                    clearInterval(this.timer2);
+                                    this.timer2 = null;
                                     this.mailCodeText = "验证";
                                     $('#mail-btn').removeAttr("disabled");
                                 } else {
