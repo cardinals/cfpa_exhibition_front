@@ -122,6 +122,7 @@ input[type=file] {
     width: 28px;
     height: 25px;
     display: inline-block;
+    margin-bottom: -5px;
     background: url(../../images/alarm.png) no-repeat;
     background-size:cover;
 }
