@@ -27,8 +27,8 @@
                 </div>
                 <!--审核状态-->
                 <div id="remark" v-if="isYbh">
-                    <el-row class="tr mb5">
-                        <el-col :span="1">&nbsp;</el-col>
+                    <el-row>
+                        <el-col :span="1" style="text-align: center"><i class="icon-alarm"></i>&nbsp;</el-col>
                         <el-col :span="5" style="text-align: left">上次审核状态：已驳回</el-col>
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="15" style="text-align: left">审核意见：<span v-text="baseInforForm.reserve1"></span></el-col>
@@ -74,7 +74,7 @@
                         <el-row class="tr mb5">
                             <el-col :span="11">
                                 <el-form-item prop="bgdh" label="办公电话">
-                                    <el-input size="small" v-model="baseInforForm.bgdh" placeholder="办公电话"></el-input>
+                                    <el-input size="small" v-model="baseInforForm.bgdh" maxlength="50" placeholder="办公电话"></el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="1">&nbsp;</el-col>
@@ -213,7 +213,7 @@
                             <el-col :span="5">&nbsp;</el-col>
                             <el-col :span="12">
                                 <el-form-item prop="dhhm" label="电话号码" :rules="this.isZyfp?kpxxRules.dhhm:[{ required: false, message: '请输入电话号码', trigger: 'blur' }]">
-                                    <el-input size="small" v-model="kpxxForm.dhhm" placeholder="电话号码"></el-input>
+                                    <el-input size="small" v-model="kpxxForm.dhhm" maxlength="50" placeholder="电话号码"></el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="5">&nbsp;</el-col>
