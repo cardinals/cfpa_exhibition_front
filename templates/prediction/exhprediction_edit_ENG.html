@@ -65,7 +65,7 @@
                             <el-col :span="1">&nbsp;</el-col>
 							<el-col :span="11">
                                 <el-form-item prop="bgdh" label="Phone">
-                                    <el-input size="small" v-model="baseInforForm.bgdh" placeholder="Phone"></el-input>
+                                    <el-input size="small" v-model="baseInforForm.bgdh" maxlength="50" placeholder="Phone"></el-input>
                                 </el-form-item>
 							</el-col>
                         </el-row>
@@ -437,7 +437,7 @@
                 <el-dialog title="邮箱验证" :visible.sync="dialogYxFormVisible" @close="closeYxDialog()" :close-on-click-modal="false">
                     <el-form class="el-form demo-form-inline" ref="yxform" :model="yxform" label-width="150px" label-position="right">
                         <el-row class="tr mb5" style="text-align: left;margin-left: 10px">
-                            请输入邮箱<span v-text="this.baseInforForm.dzyx1" style="font-style:italic;margin-right: 2px;color: red"></span>收到的验证码
+                            Please enter the verification code received by<span v-text="this.baseInforForm.dzyx1" style="font-style:italic;margin-right: 2px;color: red"></span>
                         </el-row>
                         <el-row class="tr mb5">
                             <el-col :span="22">
