@@ -74,7 +74,9 @@ new Vue({
             axios.post('/xfxhapi/qyjbxx/doFindByUserid', params).then(function (res) {
                 if (res.data.result != null) {
                     this.jbxxData = res.data.result;
-                    this.jbxxData.yjdz = this.jbxxData.yjdzshengmc + this.jbxxData.yjdzshimc + this.jbxxData.yjdzxx;
+                    //邮寄地址 by li.xue 2018/10/30
+                    this.jbxxData.yjdz = this.jbxxData.yjdzxx;
+                    //this.jbxxData.yjdz = this.jbxxData.yjdzshengmc + this.jbxxData.yjdzshimc + this.jbxxData.yjdzxx;
                     if (this.jbxxData.sjzt == '01' || this.jbxxData.sjzt == '04') {
                         this.editPage = false;
                     } else {
