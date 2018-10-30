@@ -43,7 +43,7 @@
                     ※※※&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your information has been submitted, please waiting for the audit. The audited time will take about 5 working days.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※※※
                 </div>
                 <div id="qyjbxx" class="mb5">
-                    <el-row class="mb10" v-if="editPage==false" style="margin-top:270px;border-bottom:1px solid #463132;line-height: 29px;">
+                    <el-row class="mb10" v-if="editPage==false" style="margin-top:245px;border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;" class="f15">Brief Company Information</strong>
                     </el-row>
                     <el-row class="mb10 mt30" v-if="editPage&&(jbxxData.shzt==='03'||jbxxData.shzt==='01')" style="border-bottom:1px solid #463132;line-height: 29px;">
@@ -190,11 +190,11 @@
                                                 <img v-if="cpjs!==null&&cpjs.cptpBase64!==''" :src="'data:image/png;base64,'+cpjs.cptpBase64" class="poi" @click="imgPreview(cpjs.cptpBase64)">
                                                 <img v-else src="../../static/images/noPic.png">
                                             </el-col>
-                                            <el-col :span="19" style="line-height: 24px;">
-                                                <strong class="dtdlStyle">Category of the Product：</strong>
+                                            <el-col :span="19" style="line-height: 24px;" class="pl15">
+                                                <strong>Category of the Product：</strong>
                                                 <v-text v-text="cpjs.cplxmc_ENG||'no'"></v-text>
                                                 <br>
-                                                <strong class="dtdlStyle">Product Introduction：</strong>
+                                                <strong>Product Introduction：</strong>
                                                 <v-text v-text="cpjs.cpjj||'no'"></v-text>
                                             </el-col>
                                         </el-row>
