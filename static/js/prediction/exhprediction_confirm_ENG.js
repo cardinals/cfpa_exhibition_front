@@ -1,6 +1,6 @@
 var pageShzt = '';
 window.onbeforeunload = function () {
-    if (pageShzt != '01') {
+    if (pageShzt != '01' && pageShzt != '03') {
         return "Do you confirm that the application information have been submitted? Unsubmitted information will be lost!";
     }
 }

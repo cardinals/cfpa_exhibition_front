@@ -14,36 +14,35 @@
                 <div id="lib :: main_container_header('报名信息确认','报名信息确认')"></div>
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
-                <div id="remark" class="topScroll" v-if="editPage==false">
-                    <div id="steps">
-                        <el-steps :active="5" align-center finish-status="success" class="pt10">
-                            <el-step title="Brief Information"></el-step>
-                            <el-step title="Invoice"></el-step>
-                            <el-step title="Product Category"></el-step>
-                            <el-step title="Company and Product Details"></el-step>
-                            <el-step title="Questionnaire"></el-step>
-                            <el-step title="confirmation and Submission"></el-step>
-                        </el-steps>
-                    </div>
-                    <el-row class="remark redFont">
-                        (1) Booth Requirement Information we collect in Part 5 will be used as references for the booth design. It is Your Booth
-                        Selection at our going-to-open online Booth selection process that will be your final choice.
-                        <br>(2) The information of legal representative and contact person you have filled in will only be used
-                        as references for censors of our commission, in order to guarantee all exhibitors are from the fire
-                        and safety industry. Company introduction, product introduction and related information will be displayed
-                        in the company list and product list on our website, which targets to provide a longer promotion
-                        period through website channel for our exhibitors. If you have any concern about this, please contact
-                        the commission.
-                    </el-row>
+                <div id="remark" class="remark redFont" v-if="editPage==false">
+                    (1) Booth Requirement Information we collect in Part 5 will be used as references for the booth design. It is Your Booth
+                    Selection at our going-to-open online Booth selection process that will be your final choice.
+                    <br>(2) The information of legal representative and contact person you have filled in will only be used as
+                    references for censors of our commission, in order to guarantee all exhibitors are from the fire and
+                    safety industry. Company introduction, product introduction and related information will be displayed
+                    in the company list and product list on our website, which targets to provide a longer promotion period
+                    through website channel for our exhibitors. If you have any concern about this, please contact the commission.
                 </div>
-                <div id="remark" class="topScroll remark greenFont tc" v-if="editPage&&jbxxData.shzt==='03'">
-                    ※※※&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your information has been approved, please wait for system notification for booth selection.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※※※
+                <div id="steps" v-if="editPage==false" style="margin-top:135px;">
+                    <el-steps :active="5" align-center finish-status="success" class="pt10">
+                        <el-step title="Brief Information"></el-step>
+                        <el-step title="Invoice"></el-step>
+                        <el-step title="Product Category"></el-step>
+                        <el-step title="Company and Product Details"></el-step>
+                        <el-step title="Questionnaire"></el-step>
+                        <el-step title="confirmation and Submission"></el-step>
+                    </el-steps>
                 </div>
-                <div id="remark" class="topScroll remark yellowFont tc" v-if="editPage&&jbxxData.shzt==='01'">
-                    ※※※&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your information has been submitted, please waiting for the audit. The audited time will take about 5 working days.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※※※
-                </div>
+                <el-button id="remark" type="success" icon="el-icon-warning" class="topScroll remark greenFont tc mt5" v-if="editPage&&jbxxData.shzt==='03'">
+                    Your information has been approved, please wait for system notification for booth selection.
+                    <i class="el-icon-warning"></i>
+                </el-button>
+                <el-button id="remark" type="warning" icon="el-icon-warning" class="topScroll remark yellowFont tc mt5" v-if="editPage&&jbxxData.shzt==='01'">
+                    Your information has been submitted, please waiting for the audit. The audited time will take about 5 working days.
+                    <i class="el-icon-warning"></i>
+                </el-button>
                 <div id="qyjbxx" class="mb5">
-                    <el-row class="mb10" v-if="editPage==false" style="margin-top:245px;border-bottom:1px solid #463132;line-height: 29px;">
+                    <el-row class="mb10" v-if="editPage==false" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;" class="f15">Brief Company Information</strong>
                     </el-row>
                     <el-row class="mb10 mt30" v-if="editPage&&(jbxxData.shzt==='03'||jbxxData.shzt==='01')" style="border-bottom:1px solid #463132;line-height: 29px;">

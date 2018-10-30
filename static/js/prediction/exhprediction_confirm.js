@@ -1,6 +1,6 @@
 var pageShzt = '';
 window.onbeforeunload = function () {
-    if (pageShzt != '01') {
+    if (pageShzt != '01' && pageShzt != '03') {
         return "确认展会报名数据已经提交？未提交的报名数据将会丢失！";
     }
 }
