@@ -49,10 +49,11 @@ var vue = new Vue({
         }
     },
     created: function () {
-        /**菜单选中 by li.xue 20180628*/
-		//$("#activeIndex").val(getQueryString("index"));
 		/**面包屑 by li.xue 20180628*/
         loadBreadcrumb("代码集管理", "代码集详情");
+        //table高度
+        tableheight = tableheight10;
+
         this.loading = true; //重新加载数据
         this.codeid = getQueryString("codeid");
         var params = {

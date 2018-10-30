@@ -1,3 +1,9 @@
+var pageShzt = '';
+window.onbeforeunload = function () {
+    if (pageShzt != '01') {
+        return "确认展会报名数据已经提交？未提交的报名数据将会丢失！";
+    }
+}
 new Vue({
     el: "#app",
     data: function () {
@@ -56,7 +62,6 @@ new Vue({
         this.userid = getQueryString("userid");
         this.getJbxxData(this.userid);
     },
-
     methods: {
         //企业基本信息
         getJbxxData: function (val) {
@@ -80,6 +85,7 @@ new Vue({
                     this.getQyjsData(this.qyid);
                     this.getCpjsData(this.qyid);
                     this.getZwyxData(this.qyid);
+                    pageShzt = this.jbxxData.shzt;
                 }
                 this.loading = false;
             }.bind(this), function (error) {
@@ -253,6 +259,8 @@ new Vue({
                             type: 'success'
                         });
                         this.editPage = true;
+                        this.jbxxData.shzt = '01';
+                        pageShzt = '01';
                     }
                 }.bind(this), function (error) {
                     console.log(error);

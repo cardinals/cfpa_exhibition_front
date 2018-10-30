@@ -14,15 +14,33 @@
                 <div id="lib :: main_container_header('报名信息确认','报名信息确认')"></div>
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
-                <div class="remark redFont" v-if="editPage==false">
-                    (1) 贵公司此次填写的展位需求仅为参展意向调查。实际展位选择结果需以贵公司在展位选择阶段的最终自主选择结果为准。
-                    <br>(2) 贵公司所提供的营业执照、法人代表及企业联系人相关信息仅用于贵公司申请参加第十八届国际消防展的审核工作；贵公司自主填写的公司信息及产品信息则将显示在网站的产品及展商名录内容里。
+                <div id="remark" class="topScroll" v-if="editPage==false">
+                    <div id="steps">
+                        <el-steps :active="5" align-center finish-status="success" class="pt10">
+                            <el-step title="企业基本信息"></el-step>
+                            <el-step title="企业开票信息"></el-step>
+                            <el-step title="企业问卷调查"></el-step>
+                            <el-step title="企业和产品介绍"></el-step>
+                            <el-step title="企业参展展位需求意向"></el-step>
+                            <el-step title="确认并提交"></el-step>
+                        </el-steps>
+                    </div>
+                    <el-row class="remark redFont">
+                        (1) 贵公司此次填写的展位需求仅为参展意向调查。实际展位选择结果需以贵公司在展位选择阶段的最终自主选择结果为准。
+                        <br>(2) 贵公司所提供的营业执照、法人代表及企业联系人相关信息仅用于贵公司申请参加第十八届国际消防展的审核工作；贵公司自主填写的公司信息及产品信息则将显示在网站的产品及展商名录内容里。
+                    </el-row>
                 </div>
-                <div class="remark greenFont" v-if="editPage&&jbxxData.shzt==='03'">
-                    经审核您的信息已经通过，请耐心等待系统通知进行展位选择。
+                <div id="remark" class="topScroll remark greenFont tc" v-if="editPage&&jbxxData.shzt==='03'">
+                    ※※※&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;经审核您的信息已经通过，请耐心等待系统通知进行展位选择。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※※※
+                </div>
+                <div id="remark" class="topScroll remark yellowFont tc" v-if="editPage&&jbxxData.shzt==='01'">
+                    ※※※&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;展会报名信息已经提交，请等待审核，审核时间大概需要5个工作日！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※※※
                 </div>
                 <div id="qyjbxx" class="mb5">
-                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
+                    <el-row class="mb10" v-if="editPage==false" style="margin-top:140px;border-bottom:1px solid #463132;line-height: 29px;">
+                        <strong style="color: #463132;">企业基本信息</strong>
+                    </el-row>
+                    <el-row class="mb10 mt30" v-if="editPage&&(jbxxData.shzt==='03'||jbxxData.shzt==='01')" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;">企业基本信息</strong>
                     </el-row>
                     <el-row>
@@ -227,7 +245,8 @@
                                     <el-card class="mb10 card_style" id="cpjsImg">
                                         <el-row class="h100">
                                             <el-col :span="5" class="h100">
-                                                <img v-if="cpjs!==null&&cpjs.cptpBase64!==''" :src="'data:image/png;base64,'+cpjs.cptpBase64" @click="imgPreview(cpjs.cptpBase64)" class="poi">
+                                                <img v-if="cpjs!==null&&cpjs.cptpBase64!==''" :src="'data:image/png;base64,'+cpjs.cptpBase64" @click="imgPreview(cpjs.cptpBase64)"
+                                                    class="poi">
                                                 <img v-else src="../../static/images/noPic.png">
                                             </el-col>
                                             <el-col :span="19" style="line-height: 24px;">
@@ -245,7 +264,7 @@
                         </el-col>
                     </el-row>
                 </div>
-                <div id="qyzwyx" class="mb5">
+                <div id="qyzwyx" class="mb20">
                     <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;vertical-align: -webkit-baseline-middle;">企业参展展位需求意向</strong>
                         <el-button v-if="editZwyx&&editPage" type="success" icon="el-icon-document" size="small" class="r" @click="saveClick">保存</el-button>
@@ -257,28 +276,28 @@
                             <el-row class="mb10">
                                 <strong>标准展位：</strong>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.bzzwgs" :min="0" :max="6" placeholder="标准展位" :precision="0"></el-input-number>
-                                <v-text v-else v-text="zwyxForm.bzzwgs==''||zwyxForm.bzzwgs==null?'无':zwyxForm.bzzwgs+' 个'"></v-text>
+                                <v-text v-else v-text="(zwyxForm.bzzwgs==''||zwyxForm.bzzwgs==null)?'无':zwyxForm.bzzwgs+' 个'"></v-text>
                                 &nbsp;&nbsp;(标准展位：每个12平方米)
                             </el-row>
                             <el-row class="mb10">
                                 <strong>室内展位：</strong>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.sngdzw" :min="24" :max="1000" placeholder="室内光地展位" :precision="0"></el-input-number>
-                                <v-text v-else v-text="zwyxForm.sngdzw==''||zwyxForm.sngdzw==null?'无':zwyxForm.sngdzw+' m²'"></v-text>
+                                <v-text v-else v-text="(zwyxForm.sngdzw==''||zwyxForm.sngdzw==null)?'无':zwyxForm.sngdzw+' m²'"></v-text>
                                 &nbsp;&nbsp;(室内光地展位：需要特装搭建，24平方米起)
                             </el-row>
                             <el-row class="mb10">
                                 <strong>室外展位：</strong>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.swgdzw" :min="0" :max="2000" placeholder="室外光地展位" :precision="0"></el-input-number>
-                                <v-text v-else v-text="zwyxForm.swgdzw==''||zwyxForm.swgdzw==null?'无':zwyxForm.swgdzw+' m²'"></v-text>
+                                <v-text v-else v-text="(zwyxForm.swgdzw==''||zwyxForm.swgdzw==null)?'无':zwyxForm.swgdzw+' m²'"></v-text>
                                 &nbsp;&nbsp;(室外光地展位：仅限消防车类)
                             </el-row>
                         </el-col>
                     </el-row>
                 </div>
                 <div id="option" v-if="editPage==false">
-                    <el-row class="mt20 mb5 tc">
-                        <el-button type="info" icon="el-icon-close" size="small" @click="canclClick">取消</el-button>
-                        <el-button type="success" icon="el-icon-check" size="small" @click="submitClick">提交</el-button>
+                    <el-row class="tc pt5" style="margin-left:-240px;">
+                        <el-button type="info" icon="el-icon-close" size="medium" @click="canclClick">取消</el-button>
+                        <el-button type="success" icon="el-icon-check" size="medium" @click="submitClick">提交</el-button>
                     </el-row>
                 </div>
                 <!--图片预览-->

@@ -10,7 +10,6 @@
     <div id="app">
         <div class="main-box">
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
-                <div id="lib :: main_container_header('展会报名管理','展会报名管理')"></div>
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
                 <div id="tableView">
@@ -73,13 +72,13 @@
                                             <v-text v-text="scope.row.reserve1"></v-text>
                                         </el-row>
                                         <a type="text" slot="reference" v-if="scope.row.shzt == '01'" v-text="scope.row.shztmc" style="color:#FF4949"></a>
-                                        <a type="text" slot="reference" v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#F7BA2A"></a>
+                                        <a type="text" slot="reference" v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#f7962f"></a>
                                         <a type="text" slot="reference" v-else-if="scope.row.shzt == '03'" v-text="scope.row.shztmc" style="color:#42D885"></a>
                                         <a type="text" slot="reference" v-else v-text="scope.row.shztmc"></a>
                                     </el-popover>
                                     <div v-else>
                                         <span v-if="scope.row.shzt == '01'" v-text="scope.row.shztmc" style="color:#FF4949"></span>
-                                        <span v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#F7BA2A"></span>
+                                        <span v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#f7962f"></span>
                                         <span v-else-if="scope.row.shzt == '03'" v-text="scope.row.shztmc" style="color:#42D885"></span>
                                         <span v-else v-text="scope.row.shztmc"></span>
                                     </div>
@@ -95,8 +94,8 @@
                         <!--列表底部工具条和分页符-->
                         <el-row type="flex" justify="end">
                             <el-col :span="18">
-                                <el-pagination @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]" :page-size="pageSize"
-                                    layout="total, prev, pager, next, jumper" :total=parseInt(total)>
+                                <el-pagination @current-change="currentPageChange" @size-change="pageSizeChange" :current-page="currentPage" :page-sizes="[10, 20, 30]" :page-size="pageSize"
+                                    layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
                                 </el-pagination>
                             </el-col>
                         </el-row>

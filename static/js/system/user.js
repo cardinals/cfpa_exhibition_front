@@ -101,6 +101,9 @@ var vue = new Vue({
     created: function () {
 		/**面包屑 by li.xue 20180628*/
         loadBreadcrumb("用户管理", "-1");
+        //table高度
+        tableheight = tableheight10;
+        //登录用户
         this.shiroData = shiroGlobal;
         this.searchClick('click');
     },

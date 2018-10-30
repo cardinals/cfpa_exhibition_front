@@ -50,10 +50,11 @@ new Vue({
     },
 
     created: function () {
-        /**菜单选中 by li.xue 20180628*/
-		// $("#activeIndex").val(getQueryString("index"));
 		/**面包屑 by li.xue 20180628*/
         loadBreadcrumb("组织机构管理", "-1");
+        //table高度
+        tableheight = tableheight10;
+        //登录用户
         this.getJgidData();
     },
     mounted: function () {

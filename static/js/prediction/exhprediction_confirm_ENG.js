@@ -1,3 +1,9 @@
+var pageShzt = '';
+window.onbeforeunload = function () {
+    if (pageShzt != '01') {
+        return "Do you confirm that the application information have been submitted? Unsubmitted information will be lost!";
+    }
+}
 new Vue({
     el: "#app",
     data: function () {
@@ -80,6 +86,7 @@ new Vue({
                     this.getQyjsData(this.qyid);
                     this.getCpjsData(this.qyid);
                     this.getZwyxData(this.qyid);
+                    pageShzt = this.jbxxData.shzt;
                 }
                 this.loading = false;
             }.bind(this), function (error) {
@@ -184,7 +191,7 @@ new Vue({
                     axios.post('/xfxhapi/qyzwyx/doInsertByVo', params).then(function (res) {
                         if (res.data.result == 1) {
                             this.$message({
-                                message: '成功保存企业参展展位需求意向',
+                                message: 'Questionnaire on your Booth Requirement has been saved!',
                                 type: 'success'
                             });
                             this.getZwyxData(this.qyid);
@@ -206,7 +213,7 @@ new Vue({
                     axios.post('/xfxhapi/qyzwyx/doUpdateByVO', params).then(function (res) {
                         if (res.data.result == 1) {
                             this.$message({
-                                message: '成功保存企业参展展位需求意向',
+                                message: 'Questionnaire on your Booth Requirement has been saved!',
                                 type: 'success'
                             });
                             this.getZwyxData(this.qyid);
@@ -218,7 +225,7 @@ new Vue({
                 }
             } else {
                 this.$message({
-                    message: '请至少选择一种展位填写需求意向',
+                    message: 'Please select at least one booth to fill out the requirements.',
                     type: 'warning'
                 });
             }
@@ -230,9 +237,9 @@ new Vue({
             loadDivParam("prediction/exhprediction_edit_ENG", params);
         },
         submitClick: function () {
-            this.$confirm('提交后仅可修改展位意向信息，其他信息不能修改', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
+            this.$confirm('The information of booth intention can only be modified after submitting. Other information cannot be modified.', 'Attention', {
+                confirmButtonText: 'Submit',
+                cancelButtonText: 'Cancle',
                 type: 'warning'
             }).then(() => {
                 var params = {
@@ -245,10 +252,12 @@ new Vue({
                 axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
                     if (res.data.result == 1) {
                         this.$message({
-                            message: '报名信息已提交待审核',
+                            message: 'Application information has been submitted for review.',
                             type: 'success'
                         });
                         this.editPage = true;
+                        this.jbxxData.shzt = '01';
+                        pageShzt = '01';
                     }
                 }.bind(this), function (error) {
                     console.log(error);
@@ -256,7 +265,7 @@ new Vue({
             }).catch(() => {
                 this.$message({
                     type: 'info',
-                    message: '已取消提交'
+                    message: 'uncommitted.'
                 });
             });
         },

@@ -327,11 +327,7 @@ var vm = new Vue({
     methods: {
         //行政区划级联选择数据
         getXzqhDataTree: function () {
-            var params = {
-                codetype: "XZQH",
-                list: [2,4]
-            };
-            axios.post('/xfxhapi/codelist/getCodelisttree2',params).then(function (res) {
+            axios.post('/xfxhapi/codelist/getYjdz').then(function (res) {
                 this.xzqhDataTree = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
