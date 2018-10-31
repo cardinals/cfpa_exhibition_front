@@ -29,6 +29,8 @@ var vm = new Vue({
             childrenCpfl:[],
             //进度条
             active: 0,
+            //要删除的图片路径list
+            delPicList:[],
             //基本信息表单
             baseInforForm: {
                 ywgsmc:'',
@@ -528,8 +530,11 @@ var vm = new Vue({
             }
         },
         //获取点击上传的产品图片位于第几个card，用于赋src值
-        getIndex: function(index){
+        getIndex: function(index,src){
             this.index = index;
+            if(src!=null && src!=undefined && src!=''){
+                this.delPicList.push(src);
+            }
         },
         //基本信息提交（下一步）
         submitJbxx: function(formName){
@@ -839,6 +844,13 @@ var vm = new Vue({
                                 if(this.qyid != null && this.qyid != ''){
                                     this.findXqyxByQyid(this.qyid);
                                 }
+                                if(this.delPicList.length>0){
+                                    axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
+                                        this.delPicList = [];
+                                    }.bind(this), function (error) {
+                                        console.log(error);
+                                    })
+                                }
                             }.bind(this), function (error) {
                                 console.log(error);
                             })
@@ -866,6 +878,13 @@ var vm = new Vue({
                                 this.cpjsStatus = 1;
                                 if(this.qyid != null && this.qyid != ''){
                                     this.findXqyxByQyid(this.qyid);
+                                }
+                                if(this.delPicList.length>0){
+                                    axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
+                                        this.delPicList = [];
+                                    }.bind(this), function (error) {
+                                        console.log(error);
+                                    })
                                 }
                             }.bind(this), function (error) {
                                 console.log(error);
@@ -963,6 +982,7 @@ var vm = new Vue({
         //产品介绍上一步
         cancelCpjs: function(){
             this.active = 3;
+            this.delPicList = [];
             this.isCpjsShow = false;
             this.isWjdcShow = true;
         },
@@ -1005,9 +1025,14 @@ var vm = new Vue({
         //删除产品card
         removeDomain: function (item) {
             if(this.qyjsForm.qycpjsVOList.length > 1){
-                var index = this.qyjsForm.qycpjsVOList.indexOf(item)
+                var index = this.qyjsForm.qycpjsVOList.indexOf(item);
                 if (index !== -1) {
-                    this.qyjsForm.qycpjsVOList.splice(index, 1)
+                    if(this.qyjsForm.qycpjsVOList[index].src != ''
+                    && this.qyjsForm.qycpjsVOList[index].src != null 
+                    && this.qyjsForm.qycpjsVOList[index].src != undefined){
+                        this.delPicList.push(this.qyjsForm.qycpjsVOList[index].src);
+                    }
+                    this.qyjsForm.qycpjsVOList.splice(index, 1);
                 }
             }else{
                 this.$message({
