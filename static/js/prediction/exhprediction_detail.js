@@ -162,7 +162,7 @@ new Vue({
                 if (res.data.result != null) {
                     this.cpjsData = res.data.result;
                     for(var i in this.cpjsData){
-                        this.cpjsData[i].imageUrl=baseUrl + "/upload/cpjs/" + this.cpjsData[i].src
+                        this.cpjsData[i].imageUrl=baseUrl + "/upload/" + this.cpjsData[i].src
                     }
                 }
             }.bind(this), function (error) {
