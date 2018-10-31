@@ -509,7 +509,7 @@ var vm = new Vue({
                                 cpjj:result[i].cpjj,
                                 cplx:cplxArray,
                                 src:result[i].src,
-                                imageUrl:baseUrl + "/upload/cpjs/" + result[i].src
+                                imageUrl:baseUrl + "/upload/" + result[i].src
                             });
                         }
                         resultForm.qycpjsVOList = qycpjsList;
