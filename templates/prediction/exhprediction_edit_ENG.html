@@ -314,9 +314,9 @@
                                     <el-row class="tr">
                                         <el-col :span="9">
                                             <el-form-item label="Product Photo" style="text-align: left">
-                                                <el-upload class="avatar-uploader" ref="uploadCpPics" action="/xfxhapi/qycpjs/upload" :on-success="picSuccess" :on-change="CpPicsChange"
-                                                    :auto-upload="false" :show-file-list="false">
-                                                    <img @click="getIndex(index)" v-if="domain.cptpBase64!==''" :src="domain.cptpBase64" class="avatar">
+                                                <el-upload class="avatar-uploader" ref="uploadCpPics" action="/xfxhapi/qycpjs/upload" :on-success="cpjsPicSuccess" :before-upload="CpPicsChange"
+                                                    :show-file-list="false" :data="CpjsUpLoadData">
+                                                    <img @click="getIndex(index)" v-if="domain.src!==''" :src="domain.imageUrl" class="avatar">
                                                     <i v-else class="el-icon-plus avatar-uploader-icon" @click="getIndex(index)"></i>
                                                     <div class="el-upload__tip" slot="tip">jpg/png,less than 2MB</div>
                                                 </el-upload>

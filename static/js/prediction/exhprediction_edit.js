@@ -132,6 +132,10 @@ var vm = new Vue({
             upLoadData:{
                 qyid:'',
             },
+            //产品图片上传参数
+            CpjsUpLoadData:{
+                qyid:'',
+            },
             //上传logo加参数
             upLoadLogoData:{
                 uuid:'',
@@ -493,14 +497,22 @@ var vm = new Vue({
                     }
                     axios.post('/xfxhapi/qycpjs/list', params).then(function (res) {
                         var result = res.data.result;
+                        var qycpjsList = [];
                         for(var i in result){
                             var cplxArray = [];
                             cplxArray.push(result[i].cplx.substr(0, 1) + "000");
                             cplxArray.push(result[i].cplx);
-                            result[i].cplx = cplxArray;
-                            result[i].cptpBase64 = 'data:image/png;base64,'+ result[i].cptp;
+                            //result[i].cplx = cplxArray;
+                            qycpjsList.push({
+                                uuid:result[i].uuid,
+                                qyid:result[i].qyid,
+                                cpjj:result[i].cpjj,
+                                cplx:cplxArray,
+                                src:result[i].src,
+                                imageUrl:baseUrl + "/upload/cpjs/" + result[i].src
+                            });
                         }
-                        resultForm.qycpjsVOList = result;
+                        resultForm.qycpjsVOList = qycpjsList;
                         this.qyjsForm = resultForm;
                         this.qyjsForm.logoBase64 = 'data:image/png;base64,'+ this.qyjsForm.logo;
                         this.loading = false;
@@ -509,15 +521,17 @@ var vm = new Vue({
                     })
                     this.cpjsStatus = 1;//修改
                     this.qyUuid = res.data.result[0].uuid;
+                    this.CpjsUpLoadData.qyid = this.qyid;
                 }else{
                     this.cpjsStatus = 0;//新增
+                    this.CpjsUpLoadData.qyid = this.qyid;
                     if(this.qyjsForm.qycpjsVOList.length == 0){
                         this.qyjsForm.qycpjsVOList.push({
                             qyid:this.qyid,
-                            cptp:'',
                             cplx:[],
                             cpjj:'',
-                            cptpBase64:'',
+                            src:'',
+                            imageUrl:'',
                             key: Date.now()
                         });
                     }
@@ -573,6 +587,10 @@ var vm = new Vue({
         picSuccess: function (res, file) {
             console.log(file);
         },
+        cpjsPicSuccess: function (res, file) {
+            this.qyjsForm.qycpjsVOList[this.index].src = res.src;
+            this.qyjsForm.qycpjsVOList[this.index].imageUrl = URL.createObjectURL(file.raw);
+        },
         //营业执照change
         PicChange: function (file,fileList) {
             const isPng = file.name.endsWith("png") || file.name.endsWith("PNG");
@@ -626,28 +644,18 @@ var vm = new Vue({
         CpPicsChange: function (file,fileList) {
             const isPng = file.name.endsWith("png") || file.name.endsWith("PNG");
             const isJpg = file.name.endsWith("jpg") || file.name.endsWith("JPG");
-            const isLt2M = file.size / 1024 /1024 < 2;
-            if (!isLt2M) {
+            const isLt2M = file.size / 1024 /1024 < 2; 
+            if(!isPng && !isJpg){
+                this.$message.error('只能上传jpg、png格式的图片');
+                fileList.splice(-1, 1);
+            }else if(!isLt2M){
                 this.$message.error('上传图片大小不能超过2MB!');
                 fileList.splice(-1, 1);
-            }else{
-                if (isPng || isJpg) {
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file.raw);
-                    reader.onload = function(e){
-                    //vm.qyjsForm.logoBase64 = reader.result;
-                    vm.qyjsForm.qycpjsVOList[vm.index].cptpBase64 = reader.result;
-                    }
-                } else {
-                    this.$message.error('只能上传jpg、png格式的图片');
-                    fileList.splice(-1, 1);
-                }
             }
         },
-        //获取点击上传的产品图片位于第几个card，用于回显base64图片
+        //获取点击上传的产品图片位于第几个card，用于赋src值
         getIndex: function(index){
             this.index = index;
-            //console.log(index);
         },
         //基本信息提交（下一步）
         submitJbxx: function(formName){
@@ -949,7 +957,7 @@ var vm = new Vue({
                         })
 
                     }
-
+                    
                 } else {
                   console.log('error submit!!');
                   return false;
@@ -963,7 +971,7 @@ var vm = new Vue({
                 if (valid) {
                     //判断最后一个card产品信息是否填全
                     var cp = this.qyjsForm.qycpjsVOList[this.qyjsForm.qycpjsVOList.length - 1];
-                    if(cp.cplx==''||cp.cpjj==''||cp.cptpBase64 ==''){
+                    if(cp.cplx==''||cp.cpjj==''||cp.src ==''){
                         this.$message({
                             message: '请完整填写产品信息',
                             type: 'warning'
@@ -988,12 +996,10 @@ var vm = new Vue({
                                 var length = this.qyjsForm.qycpjsVOList[i].cplx.length;
                                 var cplx_temp = this.qyjsForm.qycpjsVOList[i].cplx[length-1];
                             }
-                            //产品图片base64切成byte
-                            var temp_str = this.qyjsForm.qycpjsVOList[i].cptpBase64.split(",");
                             var obj_temp = {
                                 uuid:this.qyjsForm.qycpjsVOList[i].uuid,
                                 qyid: this.qyid,
-                                cptp: temp_str[1],
+                                src: this.qyjsForm.qycpjsVOList[i].src,
                                 cplx: cplx_temp,
                                 cpjj: cpjj_temp
                             }
@@ -1204,7 +1210,7 @@ var vm = new Vue({
         addDomain:function(){
             //判断最后一个card产品信息是否填全
             var cp = this.qyjsForm.qycpjsVOList[this.qyjsForm.qycpjsVOList.length - 1];
-            if(cp.cplx==''||cp.cpjj==''){
+            if(cp.cplx==''||cp.cpjj==''||cp.src ==''){
                 this.$message({
                     message: '请完整填写产品信息中的全部内容',
                     type: 'warning'
@@ -1214,10 +1220,10 @@ var vm = new Vue({
                 if(this.qyjsForm.qycpjsVOList.length < 6){
                     this.qyjsForm.qycpjsVOList.push({
                         qyid:this.qyid,
-                        cptp:'',
                         cplx:[],
                         cpjj:'',
-                        cptpBase64:'',
+                        src:'',
+                        imageUrl:'',
                         key: Date.now()
                     });
                 }else{
