@@ -31,6 +31,8 @@ var vm = new Vue({
             active: 0,
             //要删除的图片路径list
             delPicList:[],
+            //上传后未保存的图片list
+            unsavedPicList:[],
             //基本信息表单
             baseInforForm: {
                 ywgsmc:'',
@@ -491,9 +493,11 @@ var vm = new Vue({
         picSuccess: function (res, file, fileList) {
             console.log(file, fileList);
         },
+        //产品图片上传成功回调方法
         cpjsPicSuccess: function (res, file) {
             this.qyjsForm.qycpjsVOList[this.index].src = res.src;
             this.qyjsForm.qycpjsVOList[this.index].imageUrl = URL.createObjectURL(file.raw);
+            this.unsavedPicList.push(res.src);
         },
         //企业logo
         LogoChange: function (file, fileList) {
@@ -851,6 +855,7 @@ var vm = new Vue({
                                         console.log(error);
                                     })
                                 }
+                                this.unsavedPicList = [];
                             }.bind(this), function (error) {
                                 console.log(error);
                             })
@@ -886,6 +891,7 @@ var vm = new Vue({
                                         console.log(error);
                                     })
                                 }
+                                this.unsavedPicList = [];
                             }.bind(this), function (error) {
                                 console.log(error);
                             })
@@ -983,6 +989,13 @@ var vm = new Vue({
         cancelCpjs: function(){
             this.active = 3;
             this.delPicList = [];
+            if(this.unsavedPicList.length>0){
+                axios.post('/xfxhapi/qycpjs/delPic',this.unsavedPicList).then(function (res) {
+                    this.unsavedPicList = [];
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }
             this.isCpjsShow = false;
             this.isWjdcShow = true;
         },
