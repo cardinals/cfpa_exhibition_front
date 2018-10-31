@@ -94,8 +94,8 @@
                         <!--列表底部工具条和分页符-->
                         <el-row type="flex" justify="end">
                             <el-col :span="18">
-                                <el-pagination @current-change="currentPageChange" @size-change="pageSizeChange" :current-page="currentPage" :page-sizes="[10, 20, 30]" :page-size="pageSize"
-                                    layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
+                                <el-pagination @current-change="currentPageChange" @size-change="pageSizeChange" :current-page="currentPage" :page-sizes="[10, 20, 30]"
+                                    :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
                                 </el-pagination>
                             </el-col>
                         </el-row>
@@ -105,18 +105,14 @@
                 <el-dialog title="选择展商" :visible.sync="userListVisible" :close-on-click-modal="false">
                     <div id="tableView" v-loading="loading_user" element-loading-text="加载中">
                         <el-row>
-                            <el-form :inline="true" class="el-form demo-form-inline">
-                                <el-row class="mb5">
-                                    <el-col :span="17" class="searchInline">
-                                        <label class="el-form-item__label" style="width:95px;" class="tr vbm">用户名</label>
-                                        <el-input size="small" v-model="userForm.username" placeholder="用户名" clearable></el-input>
-                                    </el-col>
-                                    <el-col :span="7" class="btnSearchPlus">
-                                        <el-button type="primary" icon="el-icon-search" size="small" @click="addClick('click')">查询</el-button>
-                                        <el-button type="clear" icon="el-icon-refresh" size="small" @click="clearUserList">重置</el-button>
-                                    </el-col>
-                                </el-row>
-                            </el-form>
+                            <el-col :span="17" class="searchInline">
+                                <label class="el-form-item__label" style="width:95px;" class="tr vbm">用户名</label>
+                                <el-input size="small" v-model="userForm.username" placeholder="用户名" clearable></el-input>
+                            </el-col>
+                            <el-col :span="7" class="btnSearchPlus">
+                                <el-button type="primary" icon="el-icon-search" size="small" @click="addClick('click')">查询</el-button>
+                                <el-button type="clear" icon="el-icon-refresh" size="small" @click="clearUserList">重置</el-button>
+                            </el-col>
                         </el-row>
                         <div class="table_container">
                             <el-table border id="table" :data="tableData_user.slice((currentPage_user-1)*pageSize_user,currentPage_user*pageSize_user)"
