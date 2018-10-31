@@ -245,7 +245,7 @@
                                     <el-card class="mb10 card_style" id="cpjsImg">
                                         <el-row class="h100">
                                             <el-col :span="5" class="h100 tc">
-                                                <img v-if="cpjs!==null&&cpjs.cptpBase64!==''" :src="'data:image/png;base64,'+cpjs.cptpBase64" @click="imgPreview(cpjs.cptpBase64)"
+                                                <img v-if="cpjs.src!==''" :src="cpjs.imageUrl" @click="imgPreview(cpjs.imageUrl)"
                                                     class="poi">
                                                 <img v-else src="../../static/images/noPic.png">
                                             </el-col>
@@ -302,7 +302,7 @@
                 </div>
                 <!--图片预览-->
                 <el-dialog id="previewImgDialog" :visible.sync="showPicVisible" :close-on-click-modal="false" size="tiny">
-                    <img :src="'data:image/png;base64,'+previewImg" width="100%"></img>
+                    <img :src="previewImg" width="100%"></img>
                 </el-dialog>
             </div>
 

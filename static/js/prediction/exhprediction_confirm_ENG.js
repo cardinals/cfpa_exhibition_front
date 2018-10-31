@@ -136,9 +136,12 @@ new Vue({
             var param = {
                 qyid: val
             }
-            axios.post('/xfxhapi/qycpjs/doFindCpxxById', param).then(function (res) {
+            axios.post('/xfxhapi/qycpjs/list', param).then(function (res) {
                 if (res.data.result != null) {
                     this.cpjsData = res.data.result;
+                    for(var i in this.cpjsData){
+                        this.cpjsData[i].imageUrl=baseUrl + "/upload/cpjs/" + this.cpjsData[i].src
+                    }
                 }
             }.bind(this), function (error) {
                 console.log(error)
