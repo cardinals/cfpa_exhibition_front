@@ -243,14 +243,8 @@
                     </el-row>
                 </div>
                 <!--图片预览-->
-                <el-dialog id="previewImgDialog" :visible.sync="showPicVisible" :close-on-click-modal="false" size="large">
-                    <template>
-                        <el-carousel type="card" height="350px" :autoplay="false" arrow="never" indicator-position="none">
-                            <el-carousel-item class="tc">
-                                <img :src="'data:image/png;base64,'+previewImg" style="max-width:100%;max-height:100%;"></img>
-                            </el-carousel-item>
-                        </el-carousel>
-                    </template>
+                <el-dialog id="previewImgDialog" :visible.sync="showPicVisible" :close-on-click-modal="false" size="tiny">
+                    <img :src="'data:image/png;base64,'+previewImg" width="100%"></img>
                 </el-dialog>
             </div>
         </div>

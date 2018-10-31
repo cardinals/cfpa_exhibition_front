@@ -17,7 +17,8 @@
                 <div id="tableView">
                     <el-row class="mt20 ml20 mr20">
                         <el-col :span="12" class="tl" v-if="approveForm.usertype==='CHN'">
-                            <img v-if="approveForm.yyzzBase64!==''" :src="'data:image/png;base64,'+approveForm.yyzzBase64" @click="imgPreview" class="poi" style="max-height: 100%;max-width: 95%;">
+                            <img v-if="approveForm.yyzzBase64!==''" :src="'data:image/png;base64,'+approveForm.yyzzBase64" @click="imgPreview" class="poi"
+                                style="max-height: 100%;max-width: 95%;">
                             <img v-else src="../../static/images/noPic.png" style="width:150px;">
                             <br>营业执照
                         </el-col>
@@ -83,18 +84,12 @@
                             </el-form>
                         </el-col>
                     </el-row>
-                    
+
 
                     <!--图片预览-->
-                    <el-dialog id="previewImgDialog" :title="previewTitle" :visible.sync="imgViewVisible" :close-on-click-modal="false" size="large">
-                        <template>
-                            <el-carousel type="card" height="350px" :autoplay="false" arrow="never" indicator-position="none">
-                                <el-carousel-item class="tc">
-                                    <img v-if="previewImg!==''" :src="'data:image/png;base64,'+previewImg" style="max-width:100%;max-height:100%;">
-                                    <img v-else src="../../static/images/noPic.png" style="max-width:100%;max-height:100%;">
-                                </el-carousel-item>
-                            </el-carousel>
-                        </template>
+                    <el-dialog id="previewImgDialog" :title="previewTitle" :visible.sync="imgViewVisible" :close-on-click-modal="false" size="tiny">
+                        <img v-if="previewImg!==''" :src="'data:image/png;base64,'+previewImg" width="100%">
+                        <img v-else src="../../static/images/noPic.png" width="100%">
                     </el-dialog>
                 </div>
             </div>
