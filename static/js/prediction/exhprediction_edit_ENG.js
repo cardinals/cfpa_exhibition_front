@@ -31,6 +31,7 @@ var vm = new Vue({
             active: 0,
             //要删除的图片路径list
             delPicList:[],
+            delPicSrc:'',
             //上传后未保存的图片list
             unsavedPicList:[],
             //基本信息表单
@@ -60,10 +61,11 @@ var vm = new Vue({
             //企业介绍表单
             qyjsForm: {
                 qyid:'',
-                logo:'',
-                logoBase64:'',
+                //logo:'',
                 qyjj:'',
                 qycpjsVOList:[],
+                src:'',
+                imageUrl:'',
             },
             
             //需求意向表单
@@ -136,6 +138,7 @@ var vm = new Vue({
             //上传logo加参数
             upLoadLogoData:{
                 uuid:'',
+                qyid:'',
             },
             //产品图片上传参数
             CpjsUpLoadData:{
@@ -421,7 +424,7 @@ var vm = new Vue({
                         }
                         resultForm.qycpjsVOList = qycpjsList;
                         this.qyjsForm = resultForm;
-                        this.qyjsForm.logoBase64 = 'data:image/png;base64,'+ this.qyjsForm.logo;
+                        this.qyjsForm.imageUrl = baseUrl + "/upload/" + this.qyjsForm.src;
                         this.loading = false;
                     }.bind(this), function (error) {
                         console.log(error)
@@ -429,9 +432,11 @@ var vm = new Vue({
                     this.cpjsStatus = 1;//修改
                     this.qyUuid = res.data.result[0].uuid;
                     this.CpjsUpLoadData.qyid = this.qyid;
+                    this.upLoadLogoData.qyid = this.qyid;
                 }else{
                     this.cpjsStatus = 0;//新增
                     this.CpjsUpLoadData.qyid = this.qyid;
+                    this.upLoadLogoData.qyid = this.qyid;
                     if(this.qyjsForm.qycpjsVOList.length == 0){
                         this.qyjsForm.qycpjsVOList.push({
                             qyid:this.qyid,
@@ -499,28 +504,27 @@ var vm = new Vue({
             this.qyjsForm.qycpjsVOList[this.index].imageUrl = URL.createObjectURL(file.raw);
             this.unsavedPicList.push(res.src);
         },
-        //企业logo
+        logoPicSuccess: function (res, file) {
+            this.qyjsForm.src = res.src;
+            this.qyjsForm.imageUrl = URL.createObjectURL(file.raw);
+            this.unsavedPicList.push(res.src);
+        },
+        //企业logochange
         LogoChange: function (file, fileList) {
             const isPng = file.name.endsWith("png") || file.name.endsWith("PNG");
             const isJpg = file.name.endsWith("jpg") || file.name.endsWith("JPG");
             const isLt1M = file.size / 1024 /1024 < 1;
-            if (!isLt1M) {
-                this.$message.error('Picture has to be less than 1MB!');
+            if(!isPng && !isJpg){
+                this.$message.error('只能上传jpg、png格式的图片');
+                fileList.splice(-1, 1);
+            }else if(!isLt1M){
+                this.$message.error('上传图片大小不能超过1MB!');
                 fileList.splice(-1, 1);
             }else{
-                if (isPng || isJpg) {
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file.raw);
-                    reader.onload = function(e){
-                        vm.qyjsForm.logoBase64 = reader.result;
-                    }
-                } else {
-                    this.$message.error('Picture has to be endswith png or jpg');
-                    fileList.splice(-1, 1);
-                }
+                this.delPicList.push(this.qyjsForm.src);
             }
         },
-        //产品图片
+        //产品图片change
         CpPicsChange: function (file, fileList) {
             const isPng = file.name.endsWith("png") || file.name.endsWith("PNG");
             const isJpg = file.name.endsWith("jpg") || file.name.endsWith("JPG");
@@ -531,13 +535,16 @@ var vm = new Vue({
             }else if(!isLt2M){
                 this.$message.error('Picture has to be less than 2MB!');
                 fileList.splice(-1, 1);
+            }else{
+                this.delPicList.push(this.delPicSrc);
             }
         },
         //获取点击上传的产品图片位于第几个card，用于赋src值
         getIndex: function(index,src){
             this.index = index;
             if(src!=null && src!=undefined && src!=''){
-                this.delPicList.push(src);
+                //this.delPicList.push(src);
+                this.delPicSrc = src;
             }
         },
         //基本信息提交（下一步）
@@ -796,7 +803,7 @@ var vm = new Vue({
                         });
                         this.loading = false;
                         return false;
-                    }else if(this.qyjsForm.logoBase64 == null || this.qyjsForm.logoBase64 == ""){
+                    }else if(this.qyjsForm.imageUrl == null || this.qyjsForm.imageUrl == ""){//判断企业logo是否上传
                         this.$message({
                             message: 'Please upload your Company Logo',
                             type: 'warning'
@@ -826,16 +833,16 @@ var vm = new Vue({
                         if(this.cpjsStatus == 0){//新增
                             var params = {
                                 qyid: this.qyid,
-                                //    logo: this.qyjsForm.logoBase64,
                                 qyjj: this.qyjsForm.qyjj,
                                 qycpjsVOList: tempList,
                                 deleteFlag: 'N',
+                                src:this.qyjsForm.src,
                                 cjrid: this.shiroData.userid,
                                 cjrmc: this.shiroData.username
                             }
                             axios.post('/xfxhapi/qyjs/doInsertByVo', params).then(function (res) {
-                                this.upLoadLogoData.uuid = res.data.result.uuid;
-                                this.$refs.uploadLogo.submit();
+                                //this.upLoadLogoData.uuid = res.data.result.uuid;
+                                //this.$refs.uploadLogo.submit();
                                 this.$message({
                                     message: 'Company Information Details and Product Examples has been saved!',
                                     type: 'success'
@@ -863,15 +870,15 @@ var vm = new Vue({
                             var params = {
                                 uuid: this.qyUuid,
                                 qyid: this.qyid,
-                            //   logo: this.qyjsForm.logo,
+                                src:this.qyjsForm.src,
                                 qyjj: this.qyjsForm.qyjj,
                                 qycpjsVOList: tempList,
                                 xgrid: this.shiroData.userid,
                                 xgrmc: this.shiroData.username
                             }
                             axios.post('/xfxhapi/qyjs/doUpdateQyCpByVO', params).then(function (res) {
-                                this.upLoadLogoData.uuid = res.data.result.uuid;
-                                this.$refs.uploadLogo.submit();
+                                //this.upLoadLogoData.uuid = res.data.result.uuid;
+                                //this.$refs.uploadLogo.submit();
                                 this.$message({
                                     message: 'Company Information Details and Product Examples has been saved!',
                                     type: 'success'

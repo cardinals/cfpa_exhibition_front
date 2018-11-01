@@ -273,9 +273,9 @@
                         <el-row class="tr mb5">
                             <el-col :span="9">
                                 <el-form-item label="Company Logo" style="text-align: left">
-                                    <el-upload class="avatar-uploader" ref="uploadLogo" action="/xfxhapi/qyjs/upload" :data="upLoadLogoData" :on-success="picSuccess"
-                                        :on-change="LogoChange" :auto-upload="false" :show-file-list="false">
-                                        <img v-if="qyjsForm.logoBase64!==''" :src="qyjsForm.logoBase64" class="avatar">
+                                    <el-upload class="avatar-uploader" ref="uploadLogo" action="/xfxhapi/qyjs/upload" :data="upLoadLogoData" :on-success="logoPicSuccess"
+                                    :before-upload="LogoChange" :show-file-list="false">
+                                        <img v-if="qyjsForm.src!==''" :src="qyjsForm.imageUrl" class="avatar">
                                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                         <div class="el-upload__tip" slot="tip">jpg/png,less than 1MB</div>
                                     </el-upload>
