@@ -179,7 +179,7 @@ var vm = new Vue({
                 ],
                 yjdzxx: [
                   { required: true, message: '请输入详细地址', trigger: 'blur' },
-                  { min: 1, max: 25, message: '最多可输入25个字', trigger: 'blur' }
+                  { min: 1, max: 100, message: '最多可输入100个字', trigger: 'blur' }
                 ],
                 bgdh: [
                     { required: true, message: '请输入办公电话', trigger: 'blur' }
@@ -229,7 +229,7 @@ var vm = new Vue({
                 ],
                 gsdz: [
                   { required: true, message: '请输入公司地址', trigger: 'blur' },
-                  { min: 1, max: 30, message: '最多可输入30个字', trigger: 'blur' }
+                  { min: 1, max: 150, message: '最多可输入150个字', trigger: 'blur' }
                 ],
                 dhhm: [
                   { required: true, message: '请输入电话号码', trigger: 'blur' }

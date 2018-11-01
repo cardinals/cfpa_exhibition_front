@@ -169,7 +169,7 @@ var vm = new Vue({
                 yjdzxx: [
                   { required: true, message: 'Company address is required', trigger: 'blur' },
                   { pattern: /^[A-Za-z0-9 ]+$/, message: 'characters and number and blank only',trigger: 'blur' },
-                  { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
+                  { min: 1, max: 200, message: 'less than 200 characters', trigger: 'blur' }
                 ],
                 bgdh: [
                     { required: true, message: 'Phone number is required', trigger: 'blur' }
@@ -226,7 +226,7 @@ var vm = new Vue({
                 gsdz: [
                   { required: true, message: 'Customer Contact is required', trigger: 'blur' },
                   { pattern: /^[A-Za-z ]+$/, message: 'characters and blank only',trigger: 'blur' },
-                  { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
+                  { min: 1, max: 300, message: 'less than 300 characters', trigger: 'blur' }
                 ],
                 dhhm: [
                   { required: true, message: 'Phone Number is required', trigger: 'blur' },
