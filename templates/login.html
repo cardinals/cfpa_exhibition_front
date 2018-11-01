@@ -126,7 +126,7 @@
                                 </li>
                                 <li>
                                     <i class="icon-password"></i>
-                                    <input type="password" class="inputstyle" v-model="GLYpassword" name="password" id="GLYpassword" placeholder="密码">
+                                    <input type="password" class="inputstyle" v-model="GLYpassword" name="password" id="GLYpassword" placeholder="密码" @keyup.enter="GLYlogin()">
                                 </li>
                                 
                                 <!-- <li>
