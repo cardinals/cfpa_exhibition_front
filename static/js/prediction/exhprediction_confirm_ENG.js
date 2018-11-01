@@ -126,6 +126,7 @@ new Vue({
             axios.get('/xfxhapi/qyjs/doFindQyjsById/' + val).then(function (res) {
                 if (res.data.result != null) {
                     this.qyjsData = res.data.result;
+                    this.qyjsData.imageUrl = baseUrl + "/upload/" + this.qyjsData.src
                 }
             }.bind(this), function (error) {
                 console.log(error)
@@ -139,8 +140,8 @@ new Vue({
             axios.post('/xfxhapi/qycpjs/list', param).then(function (res) {
                 if (res.data.result != null) {
                     this.cpjsData = res.data.result;
-                    for(var i in this.cpjsData){
-                        this.cpjsData[i].imageUrl=baseUrl + "/upload/" + this.cpjsData[i].src
+                    for (var i in this.cpjsData) {
+                        this.cpjsData[i].imageUrl = baseUrl + "/upload/" + this.cpjsData[i].src;
                     }
                 }
             }.bind(this), function (error) {

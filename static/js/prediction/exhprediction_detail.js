@@ -69,10 +69,11 @@ new Vue({
                 // this.jbxxData = res.data.result;
                 if (res.data.result != null) {
                     this.jbxxData = res.data.result;
+                    this.jbxxData.yyzzBase64 = 'data:image/png;base64,'+ this.jbxxData.yyzzBase64;
                     if (this.jbxxData.usertype == 'ENG') {
                         this.isENG = true;
                         this.jbxxData.yjdz = this.jbxxData.yjdzxx;
-                    }else{
+                    } else {
                         this.jbxxData.yjdz = this.jbxxData.yjdzshengmc + this.jbxxData.yjdzshimc + this.jbxxData.yjdzxx;
                     }
                     //创建时间格式化
@@ -148,6 +149,7 @@ new Vue({
             axios.get('/xfxhapi/qyjs/doFindQyjsById/' + val).then(function (res) {
                 if (res.data.result != null) {
                     this.qyjsData = res.data.result;
+                    this.qyjsData.imageUrl = baseUrl + "/upload/" + this.qyjsData.src;
                 }
             }.bind(this), function (error) {
                 console.log(error)
@@ -161,8 +163,8 @@ new Vue({
             axios.post('/xfxhapi/qycpjs/list', param).then(function (res) {
                 if (res.data.result != null) {
                     this.cpjsData = res.data.result;
-                    for(var i in this.cpjsData){
-                        this.cpjsData[i].imageUrl=baseUrl + "/upload/" + this.cpjsData[i].src
+                    for (var i in this.cpjsData) {
+                        this.cpjsData[i].imageUrl = baseUrl + "/upload/" + this.cpjsData[i].src;
                     }
                 }
             }.bind(this), function (error) {

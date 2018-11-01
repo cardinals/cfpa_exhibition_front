@@ -19,7 +19,7 @@
                         <el-row>
                             <el-col :span="3" class="tc">
                                 <!-- <div class="l tc"> -->
-                                <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" @click="imgPreview(qyjsData.logoBase64)"
+                                <img v-if="qyjsData.src!==''" :src="qyjsData.imageUrl" @click="imgPreview(qyjsData.imageUrl)"
                                     class="detail_picture_top poi">
                                 <img v-else src="../../static/images/noPic.png" style="width:100px;" class="poi">
                                 <br>企业Logo
@@ -46,7 +46,7 @@
                                 </div>
                             </el-col>
                             <el-col :span="3" v-if="!isENG" class="tc">
-                                <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
+                                <img v-if="jbxxData.yyzzBase64!==''" :src="jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
                                     class="detail_picture_top poi">
                                 <img v-else src="../../static/images/noPic.png" style="width:100px;">
                                 <br>营业执照

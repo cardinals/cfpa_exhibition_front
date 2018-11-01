@@ -73,6 +73,7 @@ new Vue({
             axios.post('/xfxhapi/qyjbxx/doFindByUserid', params).then(function (res) {
                 if (res.data.result != null) {
                     this.jbxxData = res.data.result;
+                    this.jbxxData.yyzzBase64 = 'data:image/png;base64,'+ this.jbxxData.yyzzBase64;
                     this.jbxxData.yjdz = this.jbxxData.yjdzshengmc + this.jbxxData.yjdzshimc + this.jbxxData.yjdzxx;
                     if (this.jbxxData.sjzt == '01' || this.jbxxData.sjzt == '04') {
                         this.editPage = false;
@@ -127,6 +128,7 @@ new Vue({
             axios.get('/xfxhapi/qyjs/doFindQyjsById/' + val).then(function (res) {
                 if (res.data.result != null) {
                     this.qyjsData = res.data.result;
+                    this.qyjsData.imageUrl = baseUrl + "/upload/" + this.qyjsData.src
                 }
             }.bind(this), function (error) {
                 console.log(error)
@@ -140,8 +142,8 @@ new Vue({
             axios.post('/xfxhapi/qycpjs/list', param).then(function (res) {
                 if (res.data.result != null) {
                     this.cpjsData = res.data.result;
-                    for(var i in this.cpjsData){
-                        this.cpjsData[i].imageUrl=baseUrl + "/upload/" + this.cpjsData[i].src
+                    for (var i in this.cpjsData) {
+                        this.cpjsData[i].imageUrl = baseUrl + "/upload/" + this.cpjsData[i].src
                     }
                 }
             }.bind(this), function (error) {

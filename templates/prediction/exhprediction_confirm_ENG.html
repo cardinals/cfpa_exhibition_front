@@ -166,7 +166,7 @@
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="11">
                             <strong class="vt">Company Logo：</strong>
-                            <img v-if="qyjsData.logoBase64!==''" :src="'data:image/png;base64,'+qyjsData.logoBase64" @click="imgPreview(qyjsData.logoBase64)"
+                            <img v-if="qyjsData.src!==''" :src="qyjsData.imageUrl" @click="imgPreview(qyjsData.imageUrl)"
                                 style="max-width:100%;max-height:140px;" class="poi">
                             <img v-else src="../../static/images/noPic.png" style="width:100px;">
                         </el-col>
