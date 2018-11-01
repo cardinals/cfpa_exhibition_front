@@ -88,7 +88,7 @@
 
                     <!--图片预览-->
                     <el-dialog id="previewImgDialog" :title="previewTitle" :visible.sync="imgViewVisible" :close-on-click-modal="false" size="tiny">
-                        <img v-if="previewImg!==''" :src="'data:image/png;base64,'+previewImg" width="100%">
+                        <img v-if="previewImg!==''" :src="'data:image/png;base64,'+previewImg" width="100%" class="mt15">
                         <img v-else src="../../static/images/noPic.png" width="100%">
                     </el-dialog>
                 </div>
