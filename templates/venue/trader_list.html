@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<title>展管管理</title>
+</head>
+
+<body class="fw f14 main-index-body">
+	<div id="app">
+			<div class="main-box">
+				<div class="main-container" v-loading="loading" element-loading-text="加载中">
+					<!-- 面包屑 -->
+					<div id="breadcrumb_box"></div>
+					<div id="tableView">
+						<el-row>
+							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+								<el-row>
+									<el-col :span="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">展馆名称</label>
+										<el-input size="small" v-model="searchForm.zgmc" placeholder="展馆名称" clearable></el-input>
+									</el-col>
+								</el-row>
+								<div>
+									<el-form>
+										<el-col :span="12" class="btnEditDelete">
+											<el-form-item align="left">
+                                                <el-button v-if="hasPermission('venue/trader:add')" type="success" icon="el-icon-plus" size="small" @click="addClick">新增</el-button>
+                                                <el-button v-if="hasPermission('venue/trader:delete')" type="danger" icon="el-icon-delete" size="small" @click="removeSelection">删除</el-button>
+											</el-form-item>
+										</el-col>
+										<el-col :span="12"></el-col>
+										<el-col :span="12" class="btnSearchPlus">
+											<el-form-item>
+												<el-button type="primary" icon="el-icon-search" size="small" @click="searchClick">查询</el-button>
+												<el-button type="clear" icon="el-icon-refresh" size="small" @click="clearClick">重置</el-button>
+											</el-form-item>
+										</el-col>
+									</el-form>
+								</div>
+							</el-form>
+						</el-row>
+						<div class="table_container">
+							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+								@selection-change="selectionChange" class="tableStyle" :height="tableheight" row-style="height:40px">
+								<el-table-column type="selection" width="35"></el-table-column>
+								<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
+								<el-table-column prop="zgmc" show-overflow-tooltip label="展馆名称" min-width="15%" align="center"></el-table-column>
+								<el-table-column prop="zgtpStr" show-overflow-tooltip label="展馆图片" min-width="12%" align="center">
+								<template  slot-scope="scope" v-if="scope.row.zgtpStr">
+									<el-popover placement="right" title="" rigger="click">
+									<img :src="scope.row.zgtpStr" style="width:500px">
+									<img slot="reference" :src="scope.row.zgtpStr" :alt="scope.row.zgtpStr" style="max-height: 50px;max-width: 130px">
+								   </el-popover>
+								</template> 
+								</el-table-column>
+							</el-table>
+	
+							<!--列表底部工具条和分页符-->
+							<el-row type="flex" justify="end">
+								<el-col :span="18">
+									<el-pagination 
+										@size-change="pageSizeChange" 
+										@current-change="currentPageChange" 
+										:current-page="currentPage"
+										:page-sizes="[10, 20, 30]" 
+										:page-size="pageSize" 
+										layout="total, sizes, prev, pager, next, jumper" 
+										:total=parseInt(total)>
+									</el-pagination>
+								</el-col>
+							</el-row>
+						</div>
+	
+						<!-- 新增上传-->
+						<el-dialog :title="dialogTitle" :visible.sync="editFormVisible" @close="closeDialog(editForm)" :close-on-click-modal="false">
+							
+							   <Form :model="createForm" :label-width="80">
+								<FormItem label="展馆名称">
+									<Input v-model="createForm.name" placeholder="请填写场馆名称..."></Input>
+								</FormItem>
+								<FormItem label="展馆图片">
+									<el-button type="primary" @click="handlerSelectPhotoBtnClick">选择平面图</el-button>
+									<span class="file-name">
+										<template v-if="createForm.photoName">已选择：{{createForm.photoName}}</template>
+										<template v-else>未选择图片</template>
+									</span>
+									<input ref="localImageInput"
+										type="file"
+										name="image"
+										accept="image/*"
+										style="display:none"
+										@change="handlerSelectedPhoto"
+									/>
+								</FormItem>
+							</Form>
+							<el-button type="primary" slot="footer" @click="handlerCreateModalOK">确定</el-button>
+						</el-dialog>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="../../static/js/venue/trader_list.js"></script>
+</html>

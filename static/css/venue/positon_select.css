@@ -1,0 +1,101 @@
+@charset "utf-8";
+.app-viewer {
+	width: 960px;
+	margin: 16px auto;
+}
+
+.app-viewer-list-item {
+	display: flex;
+	flex-direction: column;
+	float: left;
+	width: 300px;
+	height: 240px;
+	margin: 10px;
+}
+
+.app-viewer-list-item>.ivu-card-extra {
+	top: 8px;
+	right: 8px;
+}
+
+.app-viewer-list-item>.ivu-card-extra .ivu-btn-text {
+	padding: 4px 8px;
+}
+
+.app-viewer-list-item>.ivu-card-extra .ivu-icon {
+	font-size: 16px;
+}
+
+.app-viewer-list-item>.ivu-card-body {
+	position: relative;
+	flex: 1;
+	padding: 8px;
+	background-color: #fafafa;
+}
+
+.app-viewer-list-item-add {
+	text-align: center;
+}
+
+.app-viewer-list-item-add>.ivu-icon {
+	line-height: 140px;
+	font-size: 80px;
+	font-weight: bold;
+}
+
+.app-viewer-list-item-thumb {
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: contain;
+}
+
+.app-viewer-ploter-wrap {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	flex-direction: column;
+	background-color: #666;
+}
+
+.app-viewer-ploter-wrap iframe {
+	display: none;
+}
+
+.app-viewer-ploter-navigation {
+	display: flex;
+	height: 40px;
+	background-color: #f5f7f9;
+	border-bottom: 1px solid #eee;
+}
+
+.app-viewer-ploter-navigation>.ploter-navigation-list {
+	flex: 1;
+	line-height: 40px;
+	font-size: 16px;
+	text-indent: 24px;
+}
+
+.app-viewer-ploter-navigation>.ploter-navigation-tools {
+	padding: 4px;
+}
+
+.app-viewer-ploter-iframe {
+	display: block !important;
+	flex: 1;
+	border: none;
+}
+
+.app-viewer-create-model>.file-name {
+	margin-left: 16px;
+}
+
+.app-viewer-cropper-model>.ivu-modal-body {
+	padding: 0;
+}
+
+.app-viewer-cropper-model>.moft-cropper {
+	height: 64vh !important;
+}
