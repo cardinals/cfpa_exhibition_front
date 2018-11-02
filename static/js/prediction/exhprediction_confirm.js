@@ -73,7 +73,7 @@ new Vue({
             axios.post('/xfxhapi/qyjbxx/doFindByUserid', params).then(function (res) {
                 if (res.data.result != null) {
                     this.jbxxData = res.data.result;
-                    this.jbxxData.yyzzBase64 = 'data:image/png;base64,'+ this.jbxxData.yyzzBase64;
+                    this.jbxxData.imageUrl = baseUrl + "/upload/" + this.jbxxData.src;
                     this.jbxxData.yjdz = this.jbxxData.yjdzshengmc + this.jbxxData.yjdzshimc + this.jbxxData.yjdzxx;
                     if (this.jbxxData.sjzt == '01' || this.jbxxData.sjzt == '04') {
                         this.editPage = false;

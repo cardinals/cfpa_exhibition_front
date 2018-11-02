@@ -69,7 +69,7 @@ new Vue({
                 // this.jbxxData = res.data.result;
                 if (res.data.result != null) {
                     this.jbxxData = res.data.result;
-                    this.jbxxData.yyzzBase64 = 'data:image/png;base64,'+ this.jbxxData.yyzzBase64;
+                    this.jbxxData.imageUrl = baseUrl + "/upload/" + this.jbxxData.src;
                     if (this.jbxxData.usertype == 'ENG') {
                         this.isENG = true;
                         this.jbxxData.yjdz = this.jbxxData.yjdzxx;
