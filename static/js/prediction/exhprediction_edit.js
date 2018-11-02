@@ -51,6 +51,7 @@ var vm = new Vue({
                 wz:'',
                 dzyx:'',
                 dzyx1:'',
+                yyzzgs:'',
                 src:'',
                 imageUrl:''
             },
@@ -596,7 +597,7 @@ var vm = new Vue({
         //营业执照图片上传成功回调方法
         picSuccess: function (res, file) {
             this.baseInforForm.src = res.src;
-            this.baseInforForm.imageUrl = URL.createObjectURL(file.raw);
+            this.baseInforForm.imageUrl = baseUrl + "/upload/" + res.src;
             //this.unsavedPicList.push(res.src);
         },
         //产品图片上传成功回调方法
@@ -616,14 +617,25 @@ var vm = new Vue({
             const isJpg = file.name.endsWith("jpg") || file.name.endsWith("JPG");
             this.isPdf = file.name.endsWith("pdf") || file.name.endsWith("PDF");
             const isLt2M = file.size / 1024 /1024< 2;
-            if(!isPng && !isJpg){
-                this.$message.error('只能上传jpg、png格式的图片');
+            if(!isPng && !isJpg && !this.isPdf){
+                this.$message.error('只能上传jpg、png、pdf格式的图片');
                 fileList.splice(-1, 1);
             }else if(!isLt2M){
                 this.$message.error('上传图片大小不能超过2MB!');
                 fileList.splice(-1, 1);
             }else{
                 this.delPicList.push(this.baseInforForm.src);
+                //上次营业执照格式为pdf则删除同名pdf文件
+                if(this.baseInforForm.yyzzgs == ".pdf"){
+                    var path = this.baseInforForm.src.split(".")[0];
+                    var pdfSrc = path + ".pdf";
+                    this.delPicList.push(pdfSrc);
+                }
+                if(isPng || isJpg){
+                    this.baseInforForm.yyzzgs = '';
+                }else{
+                    this.baseInforForm.yyzzgs = '.pdf';
+                }
             }
         },
         //企业logochange
@@ -705,7 +717,8 @@ var vm = new Vue({
                                 deleteFlag: 'N',
                                 cjrid: this.shiroData.userid,
                                 cjrmc: this.shiroData.username,
-                                src:this.baseInforForm.src
+                                src:this.baseInforForm.src,
+                                yyzzgs:this.baseInforForm.yyzzgs
                             }
                             axios.post('/xfxhapi/qyjbxx/doInsertByVo', params).then(function (res) {
                                 this.$message({
@@ -776,7 +789,8 @@ var vm = new Vue({
                                 //yyzz:this.baseInforForm.yyzz,
                                 xgrid: this.shiroData.userid,
                                 xgrmc: this.shiroData.username,
-                                src: this.baseInforForm.src
+                                src: this.baseInforForm.src,
+                                yyzzgs:this.baseInforForm.yyzzgs
                             }
                             axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
                                 this.$message({
