@@ -51,8 +51,8 @@ var vm = new Vue({
                 wz:'',
                 dzyx:'',
                 dzyx1:'',
-                yyzz:'',
-                yyzzBase64: '',
+                src:'',
+                imageUrl:''
             },
             //开票信息表单
             kpxxForm: [],
@@ -396,7 +396,7 @@ var vm = new Vue({
                             this.isYbh = true;
                         }
                         this.baseInforForm = res.data.result;
-                        this.baseInforForm.yyzzBase64 = 'data:image/png;base64,'+ this.baseInforForm.yyzzBase64;
+                        this.baseInforForm.imageUrl = baseUrl + "/upload/" + this.baseInforForm.src;
                         //行政区划级联下拉处理
                         var xzqhArray = [];
                         xzqhArray.push(res.data.result.yjdzsheng);
@@ -408,6 +408,7 @@ var vm = new Vue({
                         }
                         this.jbxxStatus = 1;//修改
                         this.qyid = res.data.result.qyid;
+                        this.upLoadData.qyid = res.data.result.qyid;
                     }else{//已提交，已审核 直接跳转到确认页
                         var params = {
                             userid: this.shiroData.userid,
@@ -592,9 +593,11 @@ var vm = new Vue({
         handleTagClose:function(tag){
             this.wjdcForm.zycpList.splice(this.wjdcForm.zycpList.indexOf(tag), 1);
         },
-        //图片上传成功回调方法
+        //营业执照图片上传成功回调方法
         picSuccess: function (res, file) {
-            console.log(file);
+            this.baseInforForm.src = res.src;
+            this.baseInforForm.imageUrl = URL.createObjectURL(file.raw);
+            //this.unsavedPicList.push(res.src);
         },
         //产品图片上传成功回调方法
         cpjsPicSuccess: function (res, file) {
@@ -613,25 +616,14 @@ var vm = new Vue({
             const isJpg = file.name.endsWith("jpg") || file.name.endsWith("JPG");
             this.isPdf = file.name.endsWith("pdf") || file.name.endsWith("PDF");
             const isLt2M = file.size / 1024 /1024< 2;
-            if (!isLt2M) {
+            if(!isPng && !isJpg){
+                this.$message.error('只能上传jpg、png格式的图片');
+                fileList.splice(-1, 1);
+            }else if(!isLt2M){
                 this.$message.error('上传图片大小不能超过2MB!');
                 fileList.splice(-1, 1);
             }else{
-                if (isPng || isJpg) {
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file.raw);
-                    reader.onload = function(e){
-                        vm.baseInforForm.yyzzBase64 = reader.result;
-                    }
-                }
-                /*
-                else if(this.isPdf){
-                    
-                }*/
-                else {
-                    this.$message.error('只能上传jpg、png格式的文件');
-                    fileList.splice(-1, 1);
-                }
+                this.delPicList.push(this.baseInforForm.src);
             }
             
         },
@@ -677,6 +669,7 @@ var vm = new Vue({
         submitJbxx: function(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    debugger;
                     if(this.jbxxStatus == 0){//新增
                         if(this.mailCheck == false){
                             this.$message({
@@ -685,7 +678,7 @@ var vm = new Vue({
                             });
                             console.log('error submit!!');
                             return false;
-                        }else if(this.baseInforForm.yyzzBase64 == null || this.baseInforForm.yyzzBase64 == ""){
+                        }else if(this.baseInforForm.src == null || this.baseInforForm.src == ""){
                             this.$message({
                                 message: '请上传企业营业执照',
                                 type: 'warning'
@@ -710,15 +703,13 @@ var vm = new Vue({
                                 lxrsj: this.baseInforForm.lxrsj,
                                 wz: this.baseInforForm.wz,
                                 dzyx: this.baseInforForm.dzyx1,
-                                yyzz:this.baseInforForm.yyzz,
                                 sjzt:'01',//编辑中
                                 deleteFlag: 'N',
                                 cjrid: this.shiroData.userid,
-                                cjrmc: this.shiroData.username
+                                cjrmc: this.shiroData.username,
+                                src:this.baseInforForm.src
                             }
                             axios.post('/xfxhapi/qyjbxx/doInsertByVo', params).then(function (res) {
-                                this.upLoadData.qyid = res.data.result.qyid;
-                                this.$refs.uploadPics.submit();
                                 this.$message({
                                     message: '企业基本信息暂存成功',
                                     type: 'success'
@@ -729,9 +720,30 @@ var vm = new Vue({
                                 this.isKpxxShow = true;
                                 this.jbxxStatus = 1;
                                 this.qyid = res.data.result.qyid;
+                                this.baseInforForm.qyid = res.data.result.qyid;
+                                this.upLoadData.qyid = res.data.result.qyid;
                                 if(this.qyid != null && this.qyid != ''){
                                     this.findKpxxByQyid(this.qyid);
                                 }
+                                //删除旧营业执照
+                                if(this.delPicList.length>0){
+                                    axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
+                                        this.delPicList = [];
+                                    }.bind(this), function (error) {
+                                        console.log(error);
+                                    })
+                                }
+                                this.unsavedPicList = [];
+                                //给营业执照移动到qyid文件夹中
+                                var params ={
+                                    qyid:this.qyid,
+                                    src:this.baseInforForm.src
+                                }
+                                axios.post('/xfxhapi/qyjbxx/movePic',params).then(function (res) {
+                                    this.baseInforForm.src = res.data.src;
+                                }.bind(this), function (error) {
+                                    console.log(error);
+                                })
                             }.bind(this), function (error) {
                                 console.log(error);
                             })
@@ -763,25 +775,12 @@ var vm = new Vue({
                                 lxrsj: this.baseInforForm.lxrsj,
                                 wz: this.baseInforForm.wz,
                                 dzyx: this.baseInforForm.dzyx1,
-                                yyzz:this.baseInforForm.yyzz,
+                                //yyzz:this.baseInforForm.yyzz,
                                 xgrid: this.shiroData.userid,
-                                xgrmc: this.shiroData.username
+                                xgrmc: this.shiroData.username,
+                                src: this.baseInforForm.src
                             }
                             axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
-                                this.upLoadData.qyid = this.baseInforForm.qyid;
-                                this.$refs.uploadPics.submit();
-                                /*
-                                if(this.isPdf){
-                                   axios.post('/xfxhapi/qyjbxx/uploadPdf',this.upLoadData).then(function (res) {
-
-                                    }.bind(this), function (error) {
-                                        console.log(error);
-                                    })
-                                }
-                                else{
-                                    this.$refs.uploadPics.submit();
-                                }*/
-
                                 this.$message({
                                     message: '企业基本信息暂存成功',
                                     type: 'success'
@@ -790,10 +789,17 @@ var vm = new Vue({
                                 this.active = 1;
                                 this.isJbxxShow = false;
                                 this.isKpxxShow = true;
-                                //console.log(this.qyid);
                                 if(this.qyid != null && this.qyid != ''){
                                     this.findKpxxByQyid(this.qyid);
                                 }
+                                if(this.delPicList.length>0){
+                                    axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
+                                        this.delPicList = [];
+                                    }.bind(this), function (error) {
+                                        console.log(error);
+                                    })
+                                }
+                                this.unsavedPicList = [];
                             }.bind(this), function (error) {
                                 console.log(error);
                             })
@@ -1353,6 +1359,7 @@ var vm = new Vue({
         },
         //邮箱验证表单提交
         yxformSubmit: function(){
+            debugger;
             if(this.yxform.yzm == this.mailCodeReal){
                 this.mailCheck = true;
                 this.checkedMailAddress = this.baseInforForm.dzyx1;

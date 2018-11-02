@@ -140,8 +140,8 @@
                         <el-row>
                             <el-col :span="11">
                                 <el-upload class="avatar-uploader" ref="uploadPics" action="/xfxhapi/qyjbxx/upload" :data="upLoadData" :on-success="picSuccess"
-                                    :on-change="PicChange" :auto-upload="false" :show-file-list="false">
-                                    <img v-if="baseInforForm.yyzzBase64!==''" :src="baseInforForm.yyzzBase64" class="avatar">
+                                    :before-upload="PicChange" :show-file-list="false">
+                                    <img v-if="baseInforForm.src!==''" :src="baseInforForm.imageUrl" class="avatar">
                                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                     <div class="el-upload__tip" slot="tip">jpg/png文件，且不超过2MB</div>
                                 </el-upload>
