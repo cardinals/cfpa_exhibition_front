@@ -17,7 +17,7 @@
                 <div id="tableView">
                     <el-row class="mt20 ml20 mr20">
                         <el-col :span="12" class="tl" v-if="approveForm.usertype==='CHN'">
-                            <img v-if="approveForm.yyzzBase64!==''" :src="'data:image/png;base64,'+approveForm.yyzzBase64" @click="imgPreview" class="poi"
+                            <img v-if="approveForm.src!==''" :src="approveForm.imageUrl" @click="imgPreview(approveForm.imageUrl)" class="poi"
                                 style="max-height: 100%;max-width: 95%;">
                             <img v-else src="../../static/images/noPic.png" style="width:150px;">
                             <br>营业执照
@@ -87,8 +87,8 @@
 
 
                     <!--图片预览-->
-                    <el-dialog id="previewImgDialog" :title="previewTitle" :visible.sync="imgViewVisible" :close-on-click-modal="false" size="tiny">
-                        <img v-if="previewImg!==''" :src="'data:image/png;base64,'+previewImg" width="100%" class="mt15">
+                    <el-dialog id="previewImgDialog" :visible.sync="imgViewVisible" :close-on-click-modal="false" size="tiny">
+                        <img v-if="previewImg!==''" :src="previewImg" width="100%" class="mt15">
                         <img v-else src="../../static/images/noPic.png" width="100%">
                     </el-dialog>
                 </div>

@@ -13,7 +13,6 @@ var vue = new Vue({
             initData: {},
             shiroData: [],//当前用户信息
             isReject: false,//未通过flag
-            previewTitle: '',
             previewImg: '',
             imgViewVisible: false,
             // approveFormVisible: false,
@@ -33,14 +32,14 @@ var vue = new Vue({
     methods: {
         //营业执照预览
         imgPreview: function (val) {
-            // this.previewTitle = this.initData.zwgsmc;
-            // this.previewImg = this.initData.yyzzBase64;
+            this.previewImg = val;
             this.imgViewVisible = true;
         },
         //审核操作列点击
         searchClick: function (val) {
             axios.get('/xfxhapi/qyjbxx/doFindJbxxById/' + this.qyid).then(function (res) {
                 this.approveForm = res.data.result;
+                this.approveForm.imageUrl = baseUrl + "/upload/" + this.approveForm.src;
                 this.initData = {
                     shzt: this.approveForm.shzt,
                     sjzt: this.approveForm.sjzt,
@@ -54,12 +53,6 @@ var vue = new Vue({
                 if (this.approveForm.shzt == '02') {
                     this.isReject = true;
                 }
-                if (this.approveForm.usertype == 'CHN') {
-                    this.previewTitle = this.approveForm.zwgsmc;
-                } else if (this.approveForm.usertype == 'ENG') {
-                    this.previewTitle = this.approveForm.ywgsmc;
-                }
-                this.previewImg = this.approveForm.yyzzBase64;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
