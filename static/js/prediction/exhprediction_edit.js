@@ -625,7 +625,6 @@ var vm = new Vue({
             }else{
                 this.delPicList.push(this.baseInforForm.src);
             }
-            
         },
         //企业logochange
         LogoChange: function (file,fileList) {
@@ -669,7 +668,6 @@ var vm = new Vue({
         submitJbxx: function(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    debugger;
                     if(this.jbxxStatus == 0){//新增
                         if(this.mailCheck == false){
                             this.$message({
@@ -1359,7 +1357,6 @@ var vm = new Vue({
         },
         //邮箱验证表单提交
         yxformSubmit: function(){
-            debugger;
             if(this.yxform.yzm == this.mailCodeReal){
                 this.mailCheck = true;
                 this.checkedMailAddress = this.baseInforForm.dzyx1;
