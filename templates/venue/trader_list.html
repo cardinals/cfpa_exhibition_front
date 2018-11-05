@@ -4,7 +4,22 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 	<title>展管管理</title>
 </head>
-
+<style>
+	.name{
+		font-size: 14px;
+		color: #606266;
+		padding:10px;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		font-weight: bold;
+	}
+	.file-name{
+		font-size: 14px;
+		color: #606266;
+		padding:10px;
+		
+	}
+</style>
 <body class="fw f14 main-index-body">
 	<div id="app">
 			<div class="main-box">
@@ -75,11 +90,15 @@
 						<el-dialog :title="dialogTitle" :visible.sync="editFormVisible" @close="closeDialog(editForm)" :close-on-click-modal="false">
 							
 							   <Form :model="createForm" :label-width="80">
-								<FormItem label="展馆名称">
-									<Input v-model="createForm.name" placeholder="请填写场馆名称..."></Input>
+								
+								
+								<FormItem label="展馆名称" >
+									<!-- <Input v-model="createForm.name" placeholder="请填写场馆名称..."></Input> -->
+									<span class="name">展馆名称</span><el-input style="width:400px;" v-model="createForm.name" placeholder="请填写场馆名称..." size="small" auto-complete="off" clearable></el-input>
 								</FormItem>
+
 								<FormItem label="展馆图片">
-									<el-button type="primary" @click="handlerSelectPhotoBtnClick">选择平面图</el-button>
+									<el-button type="primary" size="small" @click="handlerSelectPhotoBtnClick">选择平面图</el-button>
 									<span class="file-name">
 										<template v-if="createForm.photoName">已选择：{{createForm.photoName}}</template>
 										<template v-else>未选择图片</template>
@@ -93,7 +112,7 @@
 									/>
 								</FormItem>
 							</Form>
-							<el-button type="primary" slot="footer" @click="handlerCreateModalOK">确定</el-button>
+							<el-button type="success" slot="footer" size="small" @click="handlerCreateModalOK">确定</el-button>
 						</el-dialog>
 					</div>
 				</div>
