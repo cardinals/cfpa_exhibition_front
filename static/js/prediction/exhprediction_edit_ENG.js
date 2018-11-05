@@ -808,18 +808,25 @@ var vm = new Vue({
             this.loading = true;
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    //判断最后一个card产品信息是否填全
                     var cp = this.qyjsForm.qycpjsVOList[this.qyjsForm.qycpjsVOList.length - 1];
-                    if(cp.cplx==''||cp.cpjj==''||cp.src ==''){
+                    var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
+                    if(this.qyjsForm.imageUrl == null || this.qyjsForm.imageUrl == ""){//判断企业logo是否上传
+                        this.$message({
+                            message: 'Please upload your Company Logo',
+                            type: 'warning'
+                        });
+                        this.loading = false;
+                        return false;
+                    }else if(cp.cplx==''||cp.cpjj==''||cp.src ==''){//判断最后一个card产品信息是否填全
                         this.$message({
                             message: 'Please fill out the Product Examples form',
                             type: 'warning'
                         });
                         this.loading = false;
                         return false;
-                    }else if(this.qyjsForm.imageUrl == null || this.qyjsForm.imageUrl == ""){//判断企业logo是否上传
+                    }else if(reg.test(cp.cpjj)){
                         this.$message({
-                            message: 'Please upload your Company Logo',
+                            message: 'Unable to input Chinese',
                             type: 'warning'
                         });
                         this.loading = false;
@@ -1031,9 +1038,16 @@ var vm = new Vue({
         addDomain:function(){
             //判断最后一个card产品信息是否填全
             var cp = this.qyjsForm.qycpjsVOList[this.qyjsForm.qycpjsVOList.length - 1];
+            var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
             if(cp.cplx==''||cp.cpjj==''||cp.src ==''){
                 this.$message({
                     message: 'Please fill out the Product Examples form',
+                    type: 'warning'
+                });
+                return false;
+            }else if(reg.test(cp.cpjj)){
+                this.$message({
+                    message: 'Unable to input Chinese',
                     type: 'warning'
                 });
                 return false;
