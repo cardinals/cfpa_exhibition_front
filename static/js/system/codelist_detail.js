@@ -25,7 +25,10 @@ var vue = new Vue({
             //新建页面是否显示
             addFormVisible: false,
             addFormRules: {
-                codeValue: [{ required: true, message: "请输入代码值", trigger: "blur" }],
+                codeValue: [
+                    { required: true, message: "请输入代码值", trigger: "blur" },
+                    { pattern: /^[0-9A-Za-z]{2,50}$/, message: '代码值应为2-50位字母、数字', trigger: 'blur' },
+                ],
                 codeName: [{ required: true, message: "请输入代码名称", trigger: "blur" }]
             },
             //新建数据
@@ -38,7 +41,10 @@ var vue = new Vue({
             //修改界面是否显示
             editFormVisible: false,
             editFormRules: {
-                codeValue: [{ required: true, message: "请输入代码值", trigger: "blur" }],
+                codeValue: [
+                    { required: true, message: "请输入代码值", trigger: "blur" },
+                    { pattern: /^[0-9A-Za-z]{2,50}$/, message: '代码值应为2-50位字母、数字', trigger: 'blur' },
+                ],
                 codeName: [{ required: true, message: "请输入代码名称", trigger: "blur" }]
             },
             //修改界面数据

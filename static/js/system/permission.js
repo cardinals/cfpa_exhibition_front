@@ -28,7 +28,10 @@ var vue = new Vue({
             //新建页面是否显示
             addFormVisible: false,
             addFormRules: {
-                permissionname: [{ required: true, message: "请输入权限名称", trigger: "blur" }],
+                permissionname: [
+                    { required: true, message: "请输入权限名称", trigger: "blur" },
+                    { pattern: /^[0-9A-Za-z]{2,30}$/, message: '权限名称应为2-30位字母、数字', trigger: 'blur' },
+                ],
                 permissioninfo: [{ required: true, message: "请输入权限描述", trigger: "blur" }]
             },
             //新建数据
@@ -41,7 +44,10 @@ var vue = new Vue({
             //修改界面是否显示
             editFormVisible: false,
             editFormRules: {
-                permissionname: [{ required: true, message: "请输入权限名称", trigger: "blur" }],
+                permissionname: [
+                    { required: true, message: "请输入权限名称", trigger: "blur" },
+                    { pattern: /^[0-9A-Za-z]{2,30}$/, message: '权限名称应为2-30位字母、数字', trigger: 'blur' },
+                ],
                 permissioninfo: [{ required: true, message: "请输入权限描述", trigger: "blur" }]
             },
             //修改界面数据

@@ -31,6 +31,7 @@ var vm = new Vue({
           addFormRules: {
             resourcename: [
                 { required: true, message: '请输入资源名称', trigger: 'blur' },
+                { pattern: /^[0-9A-Za-z]{2,50}$/, message: '资源名称应为2-50位字母、数字', trigger: 'blur' },
             ],
             resourceinfo: [
                 { required: true, message: '请输入资源描述', trigger: 'blur' },
