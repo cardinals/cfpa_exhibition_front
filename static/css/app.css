@@ -942,3 +942,18 @@ body .el-table th.gutter{
 body .el-table colgroup.gutter{
   display: table-cell!important;
 }
+
+.name{
+  font-size: 14px;
+  color: #606266;
+  padding:10px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-weight: bold;
+}
+.file-name{
+  font-size: 14px;
+  color: #606266;
+  padding:10px;
+  
+}

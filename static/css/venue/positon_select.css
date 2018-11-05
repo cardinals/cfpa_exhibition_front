@@ -73,7 +73,7 @@
 
 .app-viewer-ploter-navigation>.ploter-navigation-list {
 	flex: 1;
-	line-height: 40px;
+	line-height: 36px;
 	font-size: 16px;
 	text-indent: 24px;
 }
@@ -102,10 +102,11 @@
 
 .positionlist{
 	height: 100%;
-	padding-left: 240px;
+	/* padding-left: 240px; */
 	overflow:auto;
 	-webkit-transition-duration: 0.3s;
 	-moz-transition-duration: 0.3s;
 	-o-transition-duration: 0.3s;
 	-ms-transition-duration: 0.3s;
+	background:#c0c0c0;
   }
