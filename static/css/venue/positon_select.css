@@ -102,11 +102,19 @@
 
 .positionlist{
 	height: 100%;
-	/* padding-left: 240px; */
+	padding-left: 240px;
 	overflow:auto;
 	-webkit-transition-duration: 0.3s;
 	-moz-transition-duration: 0.3s;
 	-o-transition-duration: 0.3s;
 	-ms-transition-duration: 0.3s;
-	background:#c0c0c0;
+
+  }
+
+  .app-ploter-tools-graphs-menu-item{
+	height:30px;
+	line-height: 0px;
+	background: #0684E5;
+	color: #fff;
+	margin:5px 3px 5px 0px;
   }

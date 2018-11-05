@@ -56,7 +56,7 @@ var vue = new Vue({
             }],
             //门图标
             doors: [{
-                "name": "绘制门",
+                "name": "绘制出口",
                 "id": "door_1",
                 "src": "../../static/images/plot/tools/door",
                 "type": "icon",

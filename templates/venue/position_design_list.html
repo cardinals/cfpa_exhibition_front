@@ -16,12 +16,12 @@
 						</el-button>
 					</div>
 					<div class="ploter-navigation-tools">
-						<el-button @click="handlerDrawArea">绘制展位</el-button>
-						<el-button v-for="door in doors" :key="door.id" @click="handlerDrawDoor(door)" class="app-ploter-tools-graphs-menu-item">
+						<el-button class="btn" @click="handlerDrawArea">绘制展位</el-button>
+						<el-button class="btn" v-for="door in doors" :key="door.id" @click="handlerDrawDoor(door)" class="app-ploter-tools-graphs-menu-item">
 							{{door.name}}
 						</el-button>
-						<el-button @click="handlerSaveBtnClick" :disabled="isDisabled" >保存</el-button>
-						<el-button @click="handlerCancelBtnClick">取消修改</el-button>
+						<el-button class="btn" @click="handlerSaveBtnClick" :disabled="isDisabled" >保存</el-button>
+						<el-button class="btn" @click="handlerCancelBtnClick">取消修改</el-button>
 					</div>
 				</div>
 			</div>

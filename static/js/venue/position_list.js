@@ -82,10 +82,10 @@ var vue = new Vue({
         },
         //清空查询条件
         clearClick: function () {
-            this.searchForm.id = "",
-                this.searchForm.zgmc = "",
-
-                this.searchClick('reset');
+            this.searchForm.zwh = "";
+            this.searchForm.zwzt = "";
+            this.searchForm.zwmc = "";
+            this.searchClick('reset');
         },
         //表格重新加载数据
         loadingData: function () {
