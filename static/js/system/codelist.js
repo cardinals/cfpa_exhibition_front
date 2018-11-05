@@ -27,7 +27,10 @@ var vue = new Vue({
             //新建页面是否显示
             addFormVisible: false,
             addFormRules: {
-                codetype: [{ required: true, message: "请输入代码集类型", trigger: "blur" }],
+                codetype: [
+                    { required: true, message: "请输入代码集类型", trigger: "blur" },
+                    { pattern: /^[0-9A-Za-z]{2,50}$/, message: '代码集类型应为2-50位字母、数字', trigger: 'blur' },
+                ],
                 codetypeName: [{ required: true, message: "请输入代码集类型名称", trigger: "blur" }]
             },
             //新建数据
@@ -44,7 +47,10 @@ var vue = new Vue({
             //修改界面是否显示
             editFormVisible: false,
             editFormRules: {
-                codetype: [{ required: true, message: "请输入代码集类型", trigger: "blur" }],
+                codetype: [
+                    { required: true, message: "请输入代码集类型", trigger: "blur" },
+                    { pattern: /^[0-9A-Za-z]{2,50}$/, message: '代码集类型应为2-50位字母、数字', trigger: 'blur' },
+                ],
                 codetypeName: [{ required: true, message: "请输入代码集类型名称", trigger: "blur" }]
             },
             //修改界面数据

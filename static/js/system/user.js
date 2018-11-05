@@ -3,6 +3,15 @@ axios.defaults.withCredentials = true;
 var vue = new Vue({
     el: '#app',
     data: function () {
+        var validatePwdAgain = (rule, value, callback) => {
+            if (/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/.test(value) == false) {
+                callback(new Error("用户名应为2-16位字母和数字组合！"));
+            } else if (value !== this.editForm.password) {
+                callback(new Error("密码和确认密码不一致！"));
+            } else {
+                callback();
+            }
+        };
         return {
             //搜索表单
             searchForm: {
@@ -49,10 +58,11 @@ var vue = new Vue({
                 ],
                 username: [
                     { required: true, message: '请输入用户名', trigger: 'blur' },
-                    { min: 6, max: 16, message: '长度在 2 到 16 个字符', trigger: 'blur' }
+                    { pattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{2,16}$/, message: '用户名应为2-16位字母和数字组合', trigger: 'blur' },
                 ],
                 mobile: [
                     { required: false, message: '请输入手机号', trigger: 'blur' },
+                    { pattern: /^[1][3,4,5,7,8][0-9]{9}/, message: '手机号格式不正确',trigger: 'blur' },
                     { min: 11, max: 11, message: '手机号格式不正确', trigger: 'blur' }
                 ],
                 email: [
@@ -61,11 +71,11 @@ var vue = new Vue({
                 ],
                 password: [
                     { required: true, message: '请输入密码', trigger: 'blur' },
-                    { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
+                    { pattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/, message: '密码应为6-16位字母和数字组合', trigger: 'blur' }
                 ],
                 checkPass: [
                     { required: true, message: '请输入密码', trigger: 'blur' },
-                    { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
+                    { validator: validatePwdAgain, trigger: "blur" }
                 ],
                 organizationId: [
                     { required: true, message: '请选择组织机构', trigger: 'select' }
@@ -335,7 +345,7 @@ var vue = new Vue({
             }
              */
             else if(this.editForm.mobile!="" && this.editForm.mobile!=null){
-                var mobileReg = '/^[1][3,4,5,7,8][0-9]{9}$/';
+                var mobileReg = /^[1][3,4,5,7,8][0-9]{9}$/;
                 if (!mobileReg.test(this.editForm.mobile)){
                     this.$message.warning({
                         message: '请输入正确手机号！',

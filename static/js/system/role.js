@@ -42,7 +42,10 @@ var vue = new Vue({
             addFormVisible: false,
             addLoading: false,
             addFormRules: {
-                rolename: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
+                rolename: [
+                    { required: true, message: "请输入角色名称", trigger: "blur" },
+                    { pattern: /^[0-9A-Za-z]{2,16}$/, message: '角色名应为2-16位字母和数字组合', trigger: 'blur' },
+                ],
                 roleinfo: [{ required: true, message: "请输入角色描述", trigger: "blur" }]
             },
             //新建数据
@@ -57,7 +60,11 @@ var vue = new Vue({
             editFormVisible: false,
             editLoading: false,
             editFormRules: {
-                rolename: [{ required: true, message: "请输入角色名称", trigger: "blur" }]
+                rolename: [
+                    { required: true, message: "请输入角色名称", trigger: "blur" },
+                    { pattern: /^[0-9A-Za-z]{2,16}$/, message: '角色名应为2-16位字母和数字组合', trigger: 'blur' },
+                ],
+                roleinfo: [{ required: true, message: "请输入角色描述", trigger: "blur" }]
             },
             //修改界面数据
             editForm: {
