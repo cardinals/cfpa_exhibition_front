@@ -45,7 +45,7 @@ var vue = new Vue({
     },
     created: function () {
         /**面包屑 by li.xue 20180628*/
-        loadBreadcrumb("展馆管理", "-1");
+        loadBreadcrumb("展位管理", "-1");
         //table高度
         tableheight = tableheight10;
         //登录用户

@@ -85,7 +85,11 @@
 								</FormItem>
 
 								<FormItem label="展馆图片">
+									<br/>
+									<br/>
+									<span class="name">展馆图片</span>
 									<el-button type="primary" size="small" @click="handlerSelectPhotoBtnClick">选择平面图</el-button>
+									<span class="allname">*选择图片为png格式</span>
 									<span class="file-name">
 										<template v-if="createForm.photoName">已选择：{{createForm.photoName}}</template>
 										<template v-else>未选择图片</template>

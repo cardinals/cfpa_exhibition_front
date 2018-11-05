@@ -957,3 +957,8 @@ body .el-table colgroup.gutter{
   padding:10px;
   
 }
+.allname{
+  font-size: 10px;
+  color: red;
+  padding:10px;
+}

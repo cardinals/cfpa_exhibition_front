@@ -45,6 +45,7 @@ var vue = new Vue({
             }.bind(this), function (error) {
                 console.log(error)
             })
+
         },
         // 标绘工具
         initPlotArea() {
