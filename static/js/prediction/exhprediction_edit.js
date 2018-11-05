@@ -613,9 +613,12 @@ var vm = new Vue({
         },
         //营业执照change
         PicChange: function (file,fileList) {
-            const isPng = file.name.endsWith("png") || file.name.endsWith("PNG");
-            const isJpg = file.name.endsWith("jpg") || file.name.endsWith("JPG");
-            this.isPdf = file.name.endsWith("pdf") || file.name.endsWith("PDF");
+            var fileName = file.name.lastIndexOf(".");//取到文件名开始到最后一个点的长度
+            var fileNameLength = file.name.length;//取到文件名长度
+            var fileFormat = file.name.substring(fileName + 1, fileNameLength);
+            const isPng = fileFormat.toLowerCase() == "png";
+            const isJpg = fileFormat.toLowerCase() == "jpg";
+            this.isPdf = fileFormat.toLowerCase() == "pdf";
             const isLt2M = file.size / 1024 /1024< 2;
             if(!isPng && !isJpg && !this.isPdf){
                 this.$message.error('只能上传jpg、png、pdf格式的图片');
@@ -640,8 +643,11 @@ var vm = new Vue({
         },
         //企业logochange
         LogoChange: function (file,fileList) {
-            const isPng = file.name.endsWith("png") || file.name.endsWith("PNG");
-            const isJpg = file.name.endsWith("jpg") || file.name.endsWith("JPG");
+            var fileName = file.name.lastIndexOf(".");//取到文件名开始到最后一个点的长度
+            var fileNameLength = file.name.length;//取到文件名长度
+            var fileFormat = file.name.substring(fileName + 1, fileNameLength);
+            const isPng = fileFormat.toLowerCase() == "png";
+            const isJpg = fileFormat.toLowerCase() == "jpg";
             const isLt1M = file.size / 1024 /1024 < 1;
             if(!isPng && !isJpg){
                 this.$message.error('只能上传jpg、png格式的图片');
@@ -655,8 +661,11 @@ var vm = new Vue({
         },
         //产品图片change
         CpPicsChange: function (file,fileList) {
-            const isPng = file.name.endsWith("png") || file.name.endsWith("PNG");
-            const isJpg = file.name.endsWith("jpg") || file.name.endsWith("JPG");
+            var fileName = file.name.lastIndexOf(".");//取到文件名开始到最后一个点的长度
+            var fileNameLength = file.name.length;//取到文件名长度
+            var fileFormat = file.name.substring(fileName + 1, fileNameLength);
+            const isPng = fileFormat.toLowerCase() == "png";
+            const isJpg = fileFormat.toLowerCase() == "jpg";
             const isLt2M = file.size / 1024 /1024 < 2; 
             if(!isPng && !isJpg){
                 this.$message.error('只能上传jpg、png格式的图片');
@@ -748,7 +757,8 @@ var vm = new Vue({
                                 //给营业执照移动到qyid文件夹中
                                 var params ={
                                     qyid:this.qyid,
-                                    src:this.baseInforForm.src
+                                    src:this.baseInforForm.src,
+                                    yyzzgs:this.baseInforForm.yyzzgs
                                 }
                                 axios.post('/xfxhapi/qyjbxx/movePic',params).then(function (res) {
                                     this.baseInforForm.src = res.data.src;
@@ -1371,6 +1381,7 @@ var vm = new Vue({
         },
         //邮箱验证表单提交
         yxformSubmit: function(){
+            debugger;
             if(this.yxform.yzm == this.mailCodeReal){
                 this.mailCheck = true;
                 this.checkedMailAddress = this.baseInforForm.dzyx1;
