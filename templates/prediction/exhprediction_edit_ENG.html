@@ -284,7 +284,7 @@
                             <!-- <el-col :span="1">&nbsp;</el-col> -->
                             <el-col :span="14" style="margin-left: -10%" id="qycpArea">
                                 <el-form-item prop="qyjj" style="text-align: left" label="Company Introduction">
-                                    <el-input type="textarea" :rows="5" placeholder="Company Introduction" v-model="qyjsForm.qyjj"></el-input>
+                                    <el-input type="textarea" :rows="5" placeholder="Company Introduction" v-model="qyjsForm.qyjj" maxlength="400"></el-input>
                                 </el-form-item>
                                 <el-row>
                                     <div class="el-upload__tip">less than 400 characters</div>
@@ -332,7 +332,8 @@
                                             </el-row>
                                             <el-row>
                                                 <el-form-item prop="cpjj" label="Product Introduction">
-                                                    <el-input type="textarea" :rows="2" placeholder="Product Introduction" v-model="domain.cpjj"></el-input>
+                                                    <el-input type="textarea" :rows="2" placeholder="Product Introduction" 
+                                                    v-model="domain.cpjj" maxlength="300"></el-input>
                                                 </el-form-item>
                                             </el-row>
                                             <el-row>

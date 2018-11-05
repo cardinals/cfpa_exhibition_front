@@ -63,7 +63,12 @@ var vm = new Vue({
                 qyid:'',
                 //logo:'',
                 qyjj:'',
-                qycpjsVOList:[],
+                qycpjsVOList:[{
+                    qyid:'',
+                    src:'',
+                    cplx:'',
+                    cpjj:''
+                }],
                 src:'',
                 imageUrl:'',
             },
@@ -166,30 +171,31 @@ var vm = new Vue({
             baseInforRules: {
                 ywgsmc: [
                   { required: true, message: 'Company name is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z ]+$/, message: 'characters and blank only',trigger: 'blur' },
+                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
                   { min: 1, max: 100, message: 'less than 100 characters', trigger: 'blur' }
                 ],
                 yjdzxx: [
                   { required: true, message: 'Company address is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'characters and number and blank only',trigger: 'blur' },
+                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
                   { min: 1, max: 200, message: 'less than 200 characters', trigger: 'blur' }
                 ],
                 bgdh: [
-                    { required: true, message: 'Phone number is required', trigger: 'blur' }
+                    { required: true, message: 'Phone number is required', trigger: 'blur' },
+                    { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
                   ],
                 frdb: [
                     { required: true, message: 'Legal Representative is required', trigger: 'blur' },
-                    { pattern: /^[A-Za-z ]+$/, message: 'characters and blank only',trigger: 'blur' },
+                    { pattern: /^[A-Za-z ]+$/, message: 'Characters and blank only',trigger: 'blur' },
                     { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                   ],
                 frdbdh: [
                     { required: true, message: "Legal Representative's Phone is required", trigger: 'blur' },
-                    { pattern: /^[\d\-]+$/, message: 'number and hyphen only',trigger: 'blur' },
+                    { pattern: /^[\d\-]+$/, message: 'Number and hyphen only',trigger: 'blur' },
                     { min: 1, max: 30, message: 'less than 30 characters', trigger: 'blur' }
                   ],
                 lxr: [
                     { required: true, message: 'Contact Person is required', trigger: 'blur' },
-                    { pattern: /^[A-Za-z ]+$/, message: 'characters and blank only',trigger: 'blur' },
+                    { pattern: /^[A-Za-z ]+$/, message: 'Characters and blank only',trigger: 'blur' },
                     { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                   ],
                 lxrsj: [
@@ -223,12 +229,12 @@ var vm = new Vue({
             kpxxRules: {
                 kpgsmc: [
                   { required: true, message: 'Company Name on the Invoice is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z ]+$/, message: 'characters and blank only',trigger: 'blur' },
+                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
                   { min: 1, max: 100, message: 'less than 100 characters', trigger: 'blur' }
                 ],
                 gsdz: [
                   { required: true, message: 'Customer Contact is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z ]+$/, message: 'characters and blank only',trigger: 'blur' },
+                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
                   { min: 1, max: 300, message: 'less than 300 characters', trigger: 'blur' }
                 ],
                 dhhm: [
@@ -238,7 +244,7 @@ var vm = new Vue({
                 ],
                 yhzh: [
                   { required: true, message: 'Fax is required', trigger: 'blur' },
-                  { pattern: /^[0-9]*$/, message: 'Number only',trigger: 'blur' },
+                  { pattern: /^[0-9 ]*$/, message: 'Number and blank only',trigger: 'blur' },
                   { min: 1, max: 16, message: 'less than 16 characters', trigger: 'blur' }
                 ]
             },
@@ -250,8 +256,9 @@ var vm = new Vue({
             qyjsRules: {
                 qyjj: [
                   { required: true, message: 'Company Introduction is required', trigger: 'blur' },
+                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
                   { min: 1, max: 400, message: 'less than 400 characters', trigger: 'blur' }
-                ]
+                ],
             },
             cpjsRules: {
                 cplx: [
@@ -259,6 +266,7 @@ var vm = new Vue({
                 ],
                 cpjj: [
                   { required: true, message: 'Product Introduction is required', trigger: 'blur' },
+                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
                   { min: 1, max: 300, message: 'less than 300 characters', trigger: 'blur' }
                 ]
             },
