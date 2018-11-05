@@ -99,3 +99,13 @@
 .app-viewer-cropper-model>.moft-cropper {
 	height: 64vh !important;
 }
+
+.positionlist{
+	height: 100%;
+	padding-left: 240px;
+	overflow:auto;
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	-o-transition-duration: 0.3s;
+	-ms-transition-duration: 0.3s;
+  }
