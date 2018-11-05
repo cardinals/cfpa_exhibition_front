@@ -58,7 +58,7 @@ var vue = new Vue({
                 ],
                 username: [
                     { required: true, message: '请输入用户名', trigger: 'blur' },
-                    { pattern: /^[0-9A-Za-z]{2,16}$/, message: '用户名应为2-16位字母和数字组合', trigger: 'blur' },
+                    { pattern: /^[0-9A-Za-z]{2,16}$/, message: '用户名应为2-16位字母、数字', trigger: 'blur' },
                 ],
                 mobile: [
                     { required: false, message: '请输入手机号', trigger: 'blur' },
