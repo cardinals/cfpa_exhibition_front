@@ -8,7 +8,7 @@
 <body class="fw f14 main-index-body">
 	<div id="app">
 		<!-- <div class="main-box"> -->
-			<div ref="ploterWrap" class="app-editor-ploter-wrap" :style="ploterStyle">
+			<div ref="ploterWrap" class="app-editor-ploter-wrap positionlist" :style="ploterStyle">
 				<div class="app-editor-ploter-navigation">
 					<div class="ploter-navigation-list">
 						<el-button v-for="data in zgtableData" @click="getStage(data.uuid)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">
