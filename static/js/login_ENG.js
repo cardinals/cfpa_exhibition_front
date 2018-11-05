@@ -85,6 +85,7 @@ var vm = new Vue({
         FPDpassword2AlertFlag: false,
     },
     created: function () {
+        this.autoWide();
         var reg = new RegExp("(^|&)msg=([^&]*)(&|$)",'i');
         var r = window.location.search.substr(1).match(reg);
         var msg = "";
@@ -116,6 +117,15 @@ var vm = new Vue({
         $('#username').focus();
     },
     methods: {
+        //适配屏幕分辨率
+        autoWide: function(){
+            //判断是否宽屏
+            var winWide = window.screen.availWidth;
+            // alert(winWide);
+            var wideScreen = false;
+            var zm = winWide / 1920;
+            document.body.style.zoom = zm * 1.1;
+        },
         //通用方法
         reset: function () {
             this.username = "";
