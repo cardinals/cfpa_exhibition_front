@@ -56,9 +56,9 @@ var vue = new Vue({
             }],
             //门图标
             doors: [{
-                "name": "安全出口",
+                "name": "绘制门",
                 "id": "door_1",
-                "src": "../../static/images/plot/tools/facilities/aqck",
+                "src": "../../static/images/plot/tools/door",
                 "type": "icon",
                 "style": {
                     "mainShape": {},
@@ -69,21 +69,23 @@ var vue = new Vue({
                         "angleFixed": false
                     }
                 }
-            }, {
-                "name": "安全出口",
-                "id": "door-2",
-                "src": "../../static/images/plot/tools/facilities/sslt",
-                "type": "icon",
-                "style": {
-                    "mainShape": {},
-                    "textShape": {
-                        "text": "",
-                        "fontFamily": "simsun",
-                        "fill": "red",
-                        "angleFixed": false
-                    }
-                }
-            }],
+            }
+            // , {
+            //     "name": "安全出口",
+            //     "id": "door-2",
+            //     "src": "../../static/images/plot/tools/facilities/sslt",
+            //     "type": "icon",
+            //     "style": {
+            //         "mainShape": {},
+            //         "textShape": {
+            //             "text": "",
+            //             "fontFamily": "simsun",
+            //             "fill": "red",
+            //             "angleFixed": false
+            //         }
+            //     }
+            // }
+        ],
             //当前展位数据
             currentBusinessData: {},
             //选择企业信息
