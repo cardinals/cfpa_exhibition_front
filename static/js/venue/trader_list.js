@@ -25,6 +25,8 @@ var vue = new Vue({
             pageSize: 10,
             //总记录数
             total: 0,
+            // //表高度变量
+			// tableheight: 291,
             //序号
             indexData: 0,
             //Dialog Title
