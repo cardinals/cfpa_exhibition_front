@@ -60,9 +60,79 @@ var vue = new Vue({
             }],
             //门图标
             doors: [{
-                "name": "绘制出口",
+                "name": "光地（四面开）",
                 "id": "door_1",
-                "src": "../../static/images/plot/tools/door",
+                "src": "../../static/images/plot/door/icn_open4_l",
+                "type": "icon",
+                "style": {
+                    "mainShape": {},
+                    "textShape": {
+                        "text": "",
+                        "fontFamily": "simsun",
+                        "fill": "red",
+                        "angleFixed": false
+                    }
+                }
+            }, {
+                "name": "光地（三面开）",
+                "id": "door-2",
+                "src": "../../static/images/plot/door/icn_open3_l",
+                "type": "icon",
+                "style": {
+                    "mainShape": {},
+                    "textShape": {
+                        "text": "",
+                        "fontFamily": "simsun",
+                        "fill": "red",
+                        "angleFixed": false
+                    }
+                }
+            }, {
+                "name": "光地（两面开）",
+                "id": "door-3",
+                "src": "../../static/images/plot/door/icn_open2_l",
+                "type": "icon",
+                "style": {
+                    "mainShape": {},
+                    "textShape": {
+                        "text": "",
+                        "fontFamily": "simsun",
+                        "fill": "red",
+                        "angleFixed": false
+                    }
+                }
+            }, {
+                "name": "光地（两面开）",
+                "id": "door-4",
+                "src": "../../static/images/plot/door/icn_open2-2_l",
+                "type": "icon",
+                "style": {
+                    "mainShape": {},
+                    "textShape": {
+                        "text": "",
+                        "fontFamily": "simsun",
+                        "fill": "red",
+                        "angleFixed": false
+                    }
+                }
+            }, {
+                "name": "光地（单面开）",
+                "id": "door-5",
+                "src": "../../static/images/plot/door/icn_open1_l",
+                "type": "icon",
+                "style": {
+                    "mainShape": {},
+                    "textShape": {
+                        "text": "",
+                        "fontFamily": "simsun",
+                        "fill": "red",
+                        "angleFixed": false
+                    }
+                }
+            }, {
+                "name": "标准展位",
+                "id": "door-6",
+                "src": "../../static/images/plot/door/imagez",
                 "type": "icon",
                 "style": {
                     "mainShape": {},
@@ -74,21 +144,6 @@ var vue = new Vue({
                     }
                 }
             }
-            // , {
-            //     "name": "安全出口",
-            //     "id": "door-2",
-            //     "src": "../../static/images/plot/tools/facilities/sslt",
-            //     "type": "icon",
-            //     "style": {
-            //         "mainShape": {},
-            //         "textShape": {
-            //             "text": "",
-            //             "fontFamily": "simsun",
-            //             "fill": "red",
-            //             "angleFixed": false
-            //         }
-            //     }
-            // }
         ],
             //当前展位数据
             currentBusinessData: {},
@@ -154,7 +209,7 @@ var vue = new Vue({
                 gsmc: this.searchForm.gsmc.replace(/%/g,"\\%"),
                 // yjdz: this.searchForm.yjdz,
                 //shzt: this.searchForm.shzt,
-                approveflag: 'y',
+                shzt: '03',
                 pageSize: this.pageSize,
                 pageNum: this.currentPage,
                 orgUuid: this.shiroData.organizationVO.uuid,

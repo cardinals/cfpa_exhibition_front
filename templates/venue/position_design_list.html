@@ -26,35 +26,36 @@
 								<div slot="header" class="clearfix">
 									<span>标准展位</span>
 								</div>
-								<img class="imagez"/>
+								<img class="imagez" />
 							</el-card>
                             <el-card class="box-card">
 								<div slot="header" class="clearfix">
 									<span>光地（四面开）</span>
 								</div>
-								<img class="imagez" src="../../static/images/plot/icn_open4_l.png"/>
+								<img class="imagez" src="../../static/images/plot/icn_open4_l.png" @click="handlerDrawDoor(doors[0])"/>
 							</el-card>
 							<el-card class="box-card" width="150">
 								<div slot="header" class="clearfix">
 									<span>光地（三面开）</span>
 								</div>
-								<img class="imagez" src="../../static/images/plot/icn_open3_l.png"/>
+								<img class="imagez" src="../../static/images/plot/icn_open3_l.png"@click="handlerDrawDoor(doors[1])"/>
 							</el-card>
 							<el-card class="box-cardz" width="150">
 								<div slot="header" class="clearfix">
 									<span>光地（两面开）</span>
 								</div>
-								<img class="imagez" src="../../static/images/plot/icn_open2_l.png"/>
-								<img class="imagez" src="../../static/images/plot/icn_open2-2_l.png"/>
+								<img class="imagez" src="../../static/images/plot/icn_open2_l.png"  @click="handlerDrawDoor(doors[2])"/>
+								<img class="imagez" src="../../static/images/plot/icn_open2-2_l.png"  @click="handlerDrawDoor(doors[3])"/>
 							</el-card>
 							<el-card class="box-card" width="150">
 								<div slot="header" class="clearfix">
 									<span>光地（单面开）</span>
 								</div>
-								<img class="imagez" src="../../static/images/plot/icn_open1_l.png"/>
+								<img class="imagez" src="../../static/images/plot/icn_open1_l.png"  @click="handlerDrawDoor(doors[4])"/>
 							</el-card>
-							<el-button slot="reference" icon="el-icon-exit" class="btn" v-for="door in doors" :key="door.id" @click="handlerDrawDoor(door)" class="app-ploter-tools-graphs-menu-item">
-									{{door.name}}
+							<!-- v-for="door in doors" :key="door.id" @click="handlerDrawDoor(door)"  -->
+							<el-button slot="reference" icon="el-icon-exit" class="btn" class="app-ploter-tools-graphs-menu-item">
+									<!-- {{door.name}} --> 绘制出口
 							</el-button>
 						</el-popover>
 						<el-button icon="el-icon-save" class="btn" @click="handlerSaveBtnClick" :disabled="isDisabled" >保存</el-button>
@@ -108,20 +109,6 @@
 								<el-table-column prop="tyshxydm" label="统一社会信用代码" show-overflow-tooltip min-width="20%" align="center" :formatter="tableLongNumFormat"></el-table-column>
 								<el-table-column prop="wz" label="公司网址" show-overflow-tooltip min-width="20%" align="center">
 								</el-table-column>
-								<el-table-column prop="shztmc" label="审核状态" show-overflow-tooltip min-width="10%" align="center">
-									<template slot-scope="scope">
-										<el-popover placement="bottom" width="100" trigger="click" v-if="scope.row.reserve1!=null && scope.row.reserve1!=''">
-											<el-row>审核意见:
-												<v-text v-text="scope.row.reserve1"></v-text>
-											</el-row>
-											<a type="text" slot="reference" v-if="scope.row.shzt == '01'" v-text="scope.row.shztmc" style="color:#FF4949"></a>
-											<a type="text" slot="reference" v-else-if="scope.row.shzt == '02'" v-text="scope.row.shztmc" style="color:#f7962f"></a>
-											<a type="text" slot="reference" v-else-if="scope.row.shzt == '03'" v-text="scope.row.shztmc" style="color:#42D885"></a>
-											<a type="text" slot="reference" v-else v-text="scope.row.shztmc"></a>
-										</el-popover>
-									</template>
-								</el-table-column>
-								
 							</el-table>
 							<!--列表底部工具条和分页符-->
 							<el-row type="flex" justify="end">
