@@ -397,7 +397,9 @@ var vm = new Vue({
                             this.isYbh = true;
                         }
                         this.baseInforForm = res.data.result;
-                        this.baseInforForm.imageUrl = baseUrl + "/upload/" + this.baseInforForm.src;
+                        if(this.baseInforForm.src !== null && this.baseInforForm.src !== ''){
+                            this.baseInforForm.imageUrl = baseUrl + "/upload/" + this.baseInforForm.src;
+                        }
                         //行政区划级联下拉处理
                         var xzqhArray = [];
                         xzqhArray.push(res.data.result.yjdzsheng);
@@ -779,7 +781,15 @@ var vm = new Vue({
                             });
                             console.log('error submit!!');
                             return false;
-                        }else{
+                        }else if(this.baseInforForm.src == null || this.baseInforForm.src == ""){
+                            this.$message({
+                                message: '请上传企业营业执照',
+                                type: 'warning'
+                            });
+                            console.log('error submit!!');
+                            return false;
+                        }
+                        else{
                             this.loading = true;
                             var params = {
                                 qyid: this.baseInforForm.qyid,
