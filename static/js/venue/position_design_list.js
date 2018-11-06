@@ -5,6 +5,10 @@ var vue = new Vue({
     el: '#app',
     data: function () {
         return {
+            //激活pover
+            visible: false,
+            //激活tab
+            activeName: 'first',
             currentArea: null,
             currentAreaStage: null,  
             //展馆标题数据
@@ -129,6 +133,10 @@ var vue = new Vue({
         }
     },
     methods: {
+        // tab的按键
+        handleClick(tab, event) {
+            console.log(tab, event);
+          },
         /**
          *选择企业信息
          */
