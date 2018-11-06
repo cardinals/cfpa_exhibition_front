@@ -102,7 +102,6 @@
 
 		.positionlist{
 			height: 100%;
-			padding-left: 240px;
 			overflow:auto;
 			-webkit-transition-duration: 0.3s;
 			-moz-transition-duration: 0.3s;
@@ -116,7 +115,15 @@
 			background:#E56606;
 			color: #fff;
 			margin:5px 3px 5px 0px;
+			padding-left: 35px;
 		}  
+		.btn:hover{
+			height:30px;
+			line-height: 0px;
+			background:rgb(240, 209, 173);
+			color: #fff;
+			margin:5px 3px 5px 0px;
+		} 
 
 		.app-ploter-tools-graphs-menu-item{
 			height:30px;

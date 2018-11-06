@@ -102,7 +102,6 @@
 
 .positionlist{
 	height: 100%;
-	padding-left: 240px;
 	overflow:auto;
 	-webkit-transition-duration: 0.3s;
 	-moz-transition-duration: 0.3s;

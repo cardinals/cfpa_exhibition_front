@@ -962,3 +962,51 @@ body .el-table colgroup.gutter{
   color: red;
   padding:10px;
 }
+
+.el-icon-position{
+  height: 16px;
+  width: 16px;
+  margin-top: -8px;
+  margin-left: -15px;
+  display:inline-block;
+  position:absolute;  
+  top:150; 
+  background: url('../images/plot/icon_position.png') no-repeat;
+  background-size:100% 100%;
+}
+
+.el-icon-exit{
+  height: 16px;
+  width: 16px;
+  margin-top: -8px;
+  margin-left: -15px;
+  display:inline-block;
+  position:absolute;  
+  top:150; 
+  background: url('../images/plot/icon_exit.png') no-repeat;
+  background-size:100% 100%;
+}
+
+.el-icon-save{
+  height: 16px;
+  width: 16px;
+  margin-top: -8px;
+  margin-left: -15px;
+  display:inline-block;
+  position:absolute;  
+  top:150; 
+  background: url('../images/plot/icon_save.png') no-repeat;
+  background-size:100% 100%;
+}
+
+.el-icon-cancel{
+  height: 16px;
+  width: 16px;
+  margin-top: -8px;
+  margin-left: -15px;
+  display:inline-block;
+  position:absolute;  
+  top:150; 
+  background: url('../images/plot/icon_cancel.png') no-repeat;
+  background-size:100% 100%;
+} 
