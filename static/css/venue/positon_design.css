@@ -132,3 +132,19 @@
 			color: #fff;
 			margin:5px 3px 5px 0px;
 		  }
+
+		.imagez{
+			width:100px;
+			height:100px;
+		}
+		.box-card {
+			float: left;
+			width: 130px;
+			margin: 5px;
+		  }
+		  .text {
+			font-size: 14px;
+		  }
+		  .clearfix{
+			  font-weight:bold;
+		  }

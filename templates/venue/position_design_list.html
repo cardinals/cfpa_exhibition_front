@@ -16,15 +16,54 @@
 						</el-button>
 					</div>
 					<div class="ploter-navigation-tools">
-						<el-button icon="el-icon-position" class="btn" @click="handlerDrawArea">绘制展位</el-button>
+						
+						<el-popover
+							placement="bottom"
+							width="620"
+							trigger="hover"
+							content="绘制出口">
+							<el-card class="box-card" width="150">
+								<div slot="header" class="clearfix">
+									<span>标准展位</span>
+								</div>
+								<img class="imagez"/>
+							</el-card>
+                            <el-card class="box-card" width="150">
+								<div slot="header" class="clearfix">
+									<span>光地（四面开）</span>
+								</div>
+								<img class="imagez" src="../../static/images/plot/icn_open4_l.png"/>
+							</el-card>
+							<el-card class="box-card" width="150">
+								<div slot="header" class="clearfix">
+									<span>光地（三面开）</span>
+								</div>
+								<img class="imagez" src="../../static/images/plot/icn_open3_l.png"/>
+							</el-card>
+							<el-card class="box-card" width="150">
+								<div slot="header" class="clearfix">
+									<span>光地（两面开）</span>
+								</div>
+								<img class="imagez" src="../../static/images/plot/icn_open2_l.png"/>
+							</el-card>
+							<el-card class="box-card" width="150">
+								<div slot="header" class="clearfix">
+									<span>光地（单面开）</span>
+								</div>
+								<img class="imagez" src="../../static/images/plot/icn_open1_l.png"/>
+							</el-card>
+							
+							<el-button slot="reference" icon="el-icon-position" class="btn" @click="handlerDrawArea">绘制展位</el-button>
+						</el-popover>
 						<el-button icon="el-icon-exit" class="btn" v-for="door in doors" :key="door.id" @click="handlerDrawDoor(door)" class="app-ploter-tools-graphs-menu-item">
-							{{door.name}}
+								{{door.name}}
 						</el-button>
 						<el-button icon="el-icon-save" class="btn" @click="handlerSaveBtnClick" :disabled="isDisabled" >保存</el-button>
 						<el-button icon="el-icon-cancel" class="btn" @click="handlerCancelBtnClick">取消修改</el-button>
 					</div>
 				</div>
 			</div>
+			
 			<el-dialog title="选择企业" :visible.sync="dialogVisible"  v-if="dialogVisible"  width="50%">
 				<!-- 选择企业 -->
 				<!-- 面包屑 -->
