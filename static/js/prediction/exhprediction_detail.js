@@ -148,6 +148,7 @@ new Vue({
         getQyjsData: function (val) {
             axios.get('/xfxhapi/qyjs/doFindQyjsById/' + val).then(function (res) {
                 if (res.data.result != null) {
+                    
                     this.qyjsData = res.data.result;
                     this.qyjsData.imageUrl = baseUrl + "/upload/" + this.qyjsData.src;
                 }

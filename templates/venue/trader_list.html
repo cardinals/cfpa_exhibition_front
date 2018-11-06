@@ -48,11 +48,9 @@
 								<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
 								<el-table-column prop="zgmc" show-overflow-tooltip label="展馆名称" min-width="15%" align="center"></el-table-column>
 								<el-table-column prop="zgtpStr" show-overflow-tooltip label="展馆图片" min-width="12%" align="center">
+								<!-- 图片加载 -->
 								<template  slot-scope="scope" v-if="scope.row.zgtpStr">
-									<el-popover placement="right" title="" rigger="click">
-									<img :src="scope.row.zgtpStr" style="width:500px">
-									<img slot="reference" :src="scope.row.zgtpStr" :alt="scope.row.zgtpStr" style="max-height: 50px;max-width: 130px">
-								   </el-popover>
+									<img :src="scope.row.zgtpStr" :alt="scope.row.zgtpStr" @click="imgPreview(scope.row.zgtpStr)" style="max-height: 50px;max-width: 130px" >
 								</template> 
 								</el-table-column>
 							</el-table>
@@ -105,6 +103,12 @@
 							</Form>
 							<el-button type="success" slot="footer" size="small" @click="handlerCreateModalOK">确定</el-button>
 						</el-dialog>
+
+						<!--图片预览-->
+						<el-dialog id="previewImgDialog" :visible.sync="showPicVisible" :close-on-click-modal="false" size="tiny">
+							<img :src="previewImg" width="100%" class="mt15"></img>
+						</el-dialog>
+
 					</div>
 				</div>
 			</div>

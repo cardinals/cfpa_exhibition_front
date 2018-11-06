@@ -15,7 +15,10 @@ var vue = new Vue({
             tableData: [],
             allRoles: [],
             //显示加载中样
-            loading: false,          
+            loading: false,
+            //图片的显示  
+            showPicVisible: false, 
+            previewImg: '',       
             labelPosition: 'right',
             //多选值
             multipleSelection: [],
@@ -50,7 +53,9 @@ var vue = new Vue({
                 croppedImage: null,
                 imgWidth: 0,
                 imgHeight: 0
-            }
+            },
+            //图片
+            
         }
     },
     created: function () {
@@ -142,12 +147,15 @@ var vue = new Vue({
                         zgtpStr: _THIS.createForm.selectedImage,
                         zgzwhbStr: stageData,
                         cjrid : _THIS.shiroData.userid,
-                        cjrmc : _THIS.shiroData.realName
+                        cjrmc : _THIS.shiroData.realName,
+                        
                     }
                     debugger
                     axios.post('/xfxhapi/zgjbxx/doInsertByVO', params).then(function (res) {
+                        
                         _THIS.editFormVisible = false;
                         _THIS.searchClick('add');
+
                     }.bind(_THIS), function (error) {
                         console.log(error)
                     })
@@ -238,6 +246,11 @@ var vue = new Vue({
                 this.editFlagText = "编辑";
                 this.editForm.username = this.editFormUsername;
             }
+        },
+        //图片加载 
+        imgPreview: function (val) {
+            this.previewImg = val;
+            this.showPicVisible = true;
         },
         //创建空画布
         createEmptyStageData: function(config) {
