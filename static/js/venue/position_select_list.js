@@ -30,9 +30,9 @@ var vue = new Vue({
     methods: {
          //关闭左侧菜单
          closeleft:function(){
-            if( history.previous != history.current ){
-                window.location.reload();     
-               };
+            // if( history.previous != history.current ){
+            //     window.location.reload();     
+            //    };
             var left = $('.left-sidebar'),
                 main = $('.main-box'),
                 $this = $(this);
@@ -59,6 +59,7 @@ var vue = new Vue({
             })
         },
         getStage(uuid) {
+
             var params = {
                 uuid: uuid
             }

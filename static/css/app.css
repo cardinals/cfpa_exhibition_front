@@ -1010,3 +1010,8 @@ body .el-table colgroup.gutter{
   background: url('../images/plot/icon_cancel.png') no-repeat;
   background-size:100% 100%;
 } 
+
+#menu-toggle-btn{
+	right: -26px; 
+	transform: rotateY(180deg);
+ }

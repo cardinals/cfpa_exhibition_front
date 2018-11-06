@@ -1,4 +1,8 @@
 @charset "utf-8";
+		#menu-toggle-btn{
+			right: -26px; 
+			transform: rotateY(180deg);
+		}
 		.app-editor {
 			width: 960px;
 			margin: 16px auto;
@@ -169,7 +173,3 @@
 			text-align: center;
 		}
 
-		#menu-toggle-btn{
-			right: -26px; 
-			transform: rotateY(180deg);
-		 }
