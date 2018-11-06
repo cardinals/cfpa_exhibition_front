@@ -241,7 +241,7 @@ var vue = new Vue({
         //查看详情
         closeDialog: function (val) {
             this.editFormVisible = false;
-            this.$refs["editForm"].resetFields();
+            this.$refs["createForm"].resetFields();
         },
         //编辑页按钮显示
         editFlagChange: function(){
