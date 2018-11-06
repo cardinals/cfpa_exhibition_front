@@ -781,7 +781,15 @@ var vm = new Vue({
                             });
                             console.log('error submit!!');
                             return false;
-                        }else{
+                        }else if(this.baseInforForm.src == null || this.baseInforForm.src == ""){
+                            this.$message({
+                                message: '请上传企业营业执照',
+                                type: 'warning'
+                            });
+                            console.log('error submit!!');
+                            return false;
+                        }
+                        else{
                             this.loading = true;
                             var params = {
                                 qyid: this.baseInforForm.qyid,

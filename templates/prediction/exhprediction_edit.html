@@ -428,7 +428,7 @@
                                 <el-form-item label="企业LOGO图标" style="text-align: left">
                                     <el-upload class="avatar-uploader" ref="uploadLogo" action="/xfxhapi/qyjs/upload" :data="upLoadLogoData" :on-success="logoPicSuccess"
                                     :before-upload="LogoChange" :show-file-list="false">
-                                        <img v-if="qyjsForm.src!==''" :src="qyjsForm.imageUrl" class="avatar">
+                                        <img v-if="qyjsForm.src!==''&& qyjsForm.src!==null" :src="qyjsForm.imageUrl" class="avatar">
                                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                         <div class="el-upload__tip" slot="tip">jpg/png文件，且不超过1MB</div>
                                     </el-upload>
@@ -469,7 +469,7 @@
                                             <el-form-item label="产品图片" style="text-align: left">
                                                 <el-upload class="avatar-uploader" ref="uploadCpPics" action="/xfxhapi/qycpjs/upload" :on-success="cpjsPicSuccess" :before-upload="CpPicsChange"
                                                     :show-file-list="false" :data="CpjsUpLoadData">
-                                                    <img @click="getIndex(index,domain.src)" v-if="domain.src!==''" :src="domain.imageUrl" class="avatar">
+                                                    <img @click="getIndex(index,domain.src)" v-if="domain.src!=='' && domain.src!==null" :src="domain.imageUrl" class="avatar">
                                                     <i v-else class="el-icon-plus avatar-uploader-icon" @click="getIndex(index)"></i>
                                                     <div class="el-upload__tip" slot="tip">jpg/png文件，且不超过2MB</div>
                                                 </el-upload>
