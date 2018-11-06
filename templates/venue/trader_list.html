@@ -50,7 +50,7 @@
 								<el-table-column prop="zgtpStr" show-overflow-tooltip label="展馆图片" min-width="12%" align="center">
 								<!-- 图片加载 -->
 								<template  slot-scope="scope" v-if="scope.row.zgtpStr">
-									<img :src="scope.row.zgtpStr" :alt="scope.row.zgtpStr" @click="imgPreview(scope.row.zgtpStr)" style="max-height: 50px;max-width: 130px" >
+									<img :src="scope.row.zgtpStr" :alt="scope.row.zgtpStr" @click="imgPreview(scope.row.zgtpStr)" style="max-height: 40px;max-width: 130px" >
 								</template> 
 								</el-table-column>
 							</el-table>
@@ -72,17 +72,44 @@
 						</div>
 	
 						<!-- 新增上传-->
-						<el-dialog :title="dialogTitle" :visible.sync="editFormVisible" @close="closeDialog(editForm)" :close-on-click-modal="false">
-							
-							   <Form :model="createForm" :label-width="80">
-								
-								
-								<FormItem label="展馆名称" >
-									<!-- <Input v-model="createForm.name" placeholder="请填写场馆名称..."></Input> -->
+						<el-dialog  :title="dialogTitle" :visible.sync="editFormVisible" @close="closeDialog(createForm)" :close-on-click-modal="false">
+							<el-form :model="createForm" :label-width="80" ref="createForm">
+							   <!-- <Form :model="createForm" :label-width="80"> -->
+								<el-row>
+										<el-col :span="1">&nbsp;</el-col>
+										<el-col :span="22">
+											<el-form-item label="展馆名称" >
+												<!-- <Input v-model="createForm.name" placeholder="请填写场馆名称..."></Input> -->
+												<el-input style="width:400px;" v-model="createForm.name" placeholder="请填写场馆名称..." size="small" auto-complete="off" clearable></el-input>
+											</el-form-item>
+										</el-col>
+										<el-col :span="1">&nbsp;</el-col>
+								</el-row>
+								<!-- <FormItem label="展馆名称" >
 									<span class="name">展馆名称</span><el-input style="width:400px;" v-model="createForm.name" placeholder="请填写场馆名称..." size="small" auto-complete="off" clearable></el-input>
-								</FormItem>
-
-								<FormItem label="展馆图片">
+								</FormItem> -->
+								<el-row>
+									<el-col :span="1">&nbsp;</el-col>
+									<el-col :span="22">
+										<el-form-item label="展馆图片">
+												<el-button type="primary" size="small" @click="handlerSelectPhotoBtnClick">选择平面图</el-button>
+												<span class="allname">*选择图片为png格式</span>
+												<span class="file-name">
+													<template v-if="createForm.photoName">已选择：{{createForm.photoName}}</template>
+													<template v-else>未选择图片</template>
+												</span>
+												<input ref="localImageInput"
+													type="file"
+													name="image"
+													accept="image/*"
+													style="display:none"
+													@change="handlerSelectedPhoto"
+												/>
+										</el-form-item>
+									</el-col>
+									<el-col :span="1">&nbsp;</el-col>
+								</el-row>
+								<!-- <FormItem label="展馆图片">
 									<br/>
 									<br/>
 									<span class="name">展馆图片</span>
@@ -99,9 +126,15 @@
 										style="display:none"
 										@change="handlerSelectedPhoto"
 									/>
-								</FormItem>
-							</Form>
-							<el-button type="success" slot="footer" size="small" @click="handlerCreateModalOK">确定</el-button>
+								</FormItem> -->
+							<!-- </Form> -->
+							</el-form>
+							<el-row class="mt35 mb20">
+							<el-col :span="24" style="text-align: center">
+							<el-button type="clear"  icon="close" size="small" class="btn_submit" @click="closeDialog(createForm)">取消</el-button>
+							<el-button type="success"  size="small" @click="handlerCreateModalOK">保存</el-button>
+							</el-col>
+							</el-row>
 						</el-dialog>
 
 						<!--图片预览-->

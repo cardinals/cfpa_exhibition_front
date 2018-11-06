@@ -54,7 +54,15 @@ var vue = new Vue({
                 imgWidth: 0,
                 imgHeight: 0
             },
-            //图片
+            editForm: {
+                name: null,
+                photoName: null,
+                cropperModel: false,
+                selectedImage: null,
+                croppedImage: null,
+                imgWidth: 0,
+                imgHeight: 0
+            },
             
         }
     },
