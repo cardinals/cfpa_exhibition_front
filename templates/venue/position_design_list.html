@@ -74,7 +74,7 @@
 							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
 								<el-row>
 									<el-col :span="1">&nbsp;</el-col>
-									<el-col :span="9" class="searchInline">
+									<el-col :span="14" class="searchInline">
 										<label class="el-form-item__label searchLabel">公司名称</label>
 										<el-input size="small" v-model="searchForm.gsmc" placeholder="公司名称" clearable></el-input>
 									</el-col>
@@ -98,7 +98,7 @@
 						</el-row>
 						<div class="table_container">
 							<el-table id="table" border class="tableStyle" :height="tableheight" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-							@current-change="showRow" highlight-current-row>
+							@current-change="showRow" highlight-current-row  row-style="height:40px">
 								
 								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
 								<el-table-column prop="zwgsmc" label="公司名称" show-overflow-tooltip min-width="25%" align="center">
