@@ -168,3 +168,8 @@
 			font-weight:bold;
 			text-align: center;
 		}
+
+		#menu-toggle-btn{
+			right: -26px; 
+			transform: rotateY(180deg);
+		 }

@@ -2,14 +2,17 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
 	<title>展位设计</title>
 	<link rel="stylesheet" type="text/css" href="../../static\css\venue\positon_design.css">
 </head>
+
 <body class="fw f14 main-index-body">
 	<div id="app">
 		<div class="main-box">
 			<div ref="ploterWrap" class="app-editor-ploter-wrap positionlist" :style="ploterStyle">
 				<div class="app-editor-ploter-navigation">
+					
 					<div class="ploter-navigation-list">
 						<el-button v-for="data in zgtableData" @click="getStage(data.uuid)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">
 							{{data.zgmc}}
@@ -122,12 +125,12 @@
 						</div>
 					</div>
 			</el-dialog>
+			
 		</div>
 	</div>
 </body>
 <script src="../../static\js\zzzlib\postmate.js"></script>
 <script src="../../static\js\common\config.js"></script>
 <script src="../../static/js/venue/position_design_list.js"></script>
-
 
 </html>

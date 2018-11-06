@@ -30,6 +30,9 @@ var vue = new Vue({
     methods: {
          //关闭左侧菜单
          closeleft:function(){
+            if( history.previous != history.current ){
+                window.location.reload();     
+               };
             var left = $('.left-sidebar'),
                 main = $('.main-box'),
                 $this = $(this);
@@ -46,6 +49,7 @@ var vue = new Vue({
                     $this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
                 }, 300);
             }
+            // location.reload();
         },
         init() {
             axios.post('/xfxhapi/zgjbxx/doSearchDataListByVO').then(function (res) {

@@ -192,6 +192,9 @@ var vue = new Vue({
     methods: {
          //关闭左侧菜单
          closeleft:function(){
+            if( history.previous != history.current ){
+                window.location.reload();     
+               };
             var left = $('.left-sidebar'),
                 main = $('.main-box'),
                 $this = $(this);
@@ -208,7 +211,9 @@ var vue = new Vue({
                     $this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
                 }, 300);
             }
+
         },
+ 
         // tab的按键
         handleClick(tab, event) {
             console.log(tab, event);
