@@ -178,7 +178,9 @@ var vue = new Vue({
         this.shiroData = shiroGlobal;
     },
     mounted: function () {
-        this.init()
+        this.init();
+        //关闭左侧菜单
+		this. closeleft();
     },
     computed: {
         ploterStyle () {
@@ -188,6 +190,25 @@ var vue = new Vue({
         }
     },
     methods: {
+         //关闭左侧菜单
+         closeleft:function(){
+            var left = $('.left-sidebar'),
+                main = $('.main-box'),
+                $this = $(this);
+            if (left.hasClass('damin')) {
+                left.removeClass('damin').css('left', '0');
+                main.css('padding-left', '240px');
+                setTimeout(function () {
+                    $this.removeClass('menu-toggle-bg').css({ "right": "0", "transform": "rotateY(0)" });
+                }, 300);
+            } else {
+                left.addClass('damin').css('left', '-240px');
+                main.css('padding-left', 0);
+                setTimeout(function () {
+                    $this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
+                }, 300);
+            }
+        },
         // tab的按键
         handleClick(tab, event) {
             console.log(tab, event);

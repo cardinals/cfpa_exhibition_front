@@ -75,6 +75,7 @@ var vue = new Vue({
         this.shiroData = shiroGlobal;
         this.searchClick('click');
     },
+
     methods: {
         //表格查询事件
         searchClick: function(type) {

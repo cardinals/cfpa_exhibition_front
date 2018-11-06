@@ -53,8 +53,11 @@ var vue = new Vue({
         //登录用户
         this.shiroData = shiroGlobal;
         this.searchClick('click');
+        this.closeleft();
     },
+
     methods: {
+       
         //表格查询事件
         searchClick: function (type) {
             //按钮事件的选择
