@@ -89,7 +89,6 @@ var vue = new Vue({
             _self.loading = true;//表格重新加载
             var params = {
                 zgmc: this.searchForm.zgmc.replace(/%/g,"\\%"),
-
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
@@ -109,7 +108,6 @@ var vue = new Vue({
             this.editFormVisible=true
             this.createForm.photoName=''
             this.createForm.name=''
-
         },
         // 选择图片
         handlerSelectedPhoto (e) {
