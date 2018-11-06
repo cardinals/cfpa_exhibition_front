@@ -192,7 +192,8 @@ var vue = new Vue({
     methods: {
          //关闭左侧菜单
          closeleft:function(){
-            
+            document.getElementById("menu-toggle-btn").style.right="-26px";
+            document.getElementById("menu-toggle-btn").style.transform="rotateY(180deg)";
             // if( history.previous != history.current ){
             //     window.location.reload(); 
             //    };
