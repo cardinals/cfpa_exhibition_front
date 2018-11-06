@@ -134,17 +134,25 @@
 		  }
 
 		.imagez{
+			float:left;
 			width:100px;
 			height:100px;
+			padding: 5px;
 		}
 		.box-card {
 			float: left;
 			width: 130px;
 			margin: 5px;
 		  }
+		.box-cardz{
+			float: left;
+			width: 270px;
+			margin: 5px;
+		  }
 		  .text {
 			font-size: 14px;
 		  }
 		  .clearfix{
-			  font-weight:bold;
+			 font-weight:bold;
+			 text-align: center;
 		  }
