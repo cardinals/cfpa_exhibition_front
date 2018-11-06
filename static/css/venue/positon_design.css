@@ -149,10 +149,10 @@
 			width: 270px;
 			margin: 5px;
 		  }
-		  .text {
+		.text {
 			font-size: 14px;
-		  }
-		  .clearfix{
-			 font-weight:bold;
-			 text-align: center;
-		  }
+		}
+		.clearfix{
+			font-weight:bold;
+			text-align: center;
+		}
