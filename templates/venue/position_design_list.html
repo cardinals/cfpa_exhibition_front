@@ -26,7 +26,7 @@
 								<div slot="header" class="clearfix">
 									<span>标准展位</span>
 								</div>
-								<img class="imagez" />
+								<img class="imagez"  src="../../static/images/plot/icn_standard_l.png" @click="handlerDrawDoor(doors[5])"/>
 							</el-card>
                             <el-card class="box-card">
 								<div slot="header" class="clearfix">
@@ -60,6 +60,7 @@
 						</el-popover>
 						<el-button icon="el-icon-save" class="btn" @click="handlerSaveBtnClick" :disabled="isDisabled" >保存</el-button>
 						<el-button icon="el-icon-cancel" class="btn" @click="handlerCancelBtnClick">取消修改</el-button>
+						
 					</div>
 				</div>
 			</div>

@@ -110,6 +110,7 @@
 		  }
 
 		.btn{
+			border: 0px;
 			height:30px;
 			line-height: 0px;
 			background:#E56606;
@@ -118,11 +119,22 @@
 			padding-left: 35px;
 		}  
 		.btn:hover{
+			border: 0px;
 			height:30px;
 			line-height: 0px;
-			background:rgb(240, 209, 173);
+			background:rgb(199, 89, 5);
 			color: #fff;
-			margin:5px 3px 5px 0px;
+			margin:5px 3px 5px 3px;
+			padding-left: 35px;
+		} 
+		.btn:focus{
+			border: 0px;
+			height:30px;
+			line-height: 0px;
+			background:rgb(165, 74, 4);
+			color: #fff;
+			margin:5px 3px 5px 3px;
+			padding-left: 35px;
 		} 
 
 		.app-ploter-tools-graphs-menu-item{

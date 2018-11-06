@@ -132,7 +132,7 @@ var vue = new Vue({
             }, {
                 "name": "标准展位",
                 "id": "door-6",
-                "src": "../../static/images/plot/door/imagez",
+                "src": "../../static/images/plot/door/icn_standard_l",
                 "type": "icon",
                 "style": {
                     "mainShape": {},
