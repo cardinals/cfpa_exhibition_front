@@ -375,7 +375,14 @@ var vue = new Vue({
                         type: 'success',
                         center: true
                       });
-                      
+                    debugger
+                   
+                    if (editorHandshake) {
+                        //销毁当前画布
+                        editorHandshake.destroy()
+                        editorHandshake = null
+                        this.getStage( data.stageUuid)
+                    }
                     this.isDisabled = false
                     
                 }.bind(this), function (error) {
