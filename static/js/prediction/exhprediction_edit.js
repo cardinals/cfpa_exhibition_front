@@ -1391,7 +1391,6 @@ var vm = new Vue({
         },
         //邮箱验证表单提交
         yxformSubmit: function(){
-            debugger;
             if(this.yxform.yzm == this.mailCodeReal){
                 this.mailCheck = true;
                 this.checkedMailAddress = this.baseInforForm.dzyx1;
