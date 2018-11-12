@@ -240,7 +240,7 @@ var vm = new Vue({
                 ],
                 khyh: [
                   { required: true, message: '请输入开户银行', trigger: 'blur' },
-                  { min: 1, max: 15, message: '最多可输入15个字', trigger: 'blur' }
+                  { min: 1, max: 50, message: '最多可输入50个字', trigger: 'blur' }
                 ],
                 yhzh: [
                   { required: true, message: '请输入银行账号', trigger: 'blur' },
