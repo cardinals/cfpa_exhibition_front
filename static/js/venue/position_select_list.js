@@ -28,6 +28,22 @@ var vue = new Vue({
         }
     },
     methods: {
+        handlerExport : function(){
+            if(this.zguuid){
+                var params = {
+                    uuid: uuid
+                }
+                axios.post('/xfxhapi/zgjbxx/doExportTp',params).then(function (res) {
+                    this.$message({
+                        message: res.data.result,
+                        type: 'success',
+                        center: true
+                    });
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }
+        },
          //关闭左侧菜单
          closeleft:function(){
             document.getElementById("menu-toggle-btn").style.right="-26px";
@@ -121,13 +137,13 @@ var vue = new Vue({
             })
         },
         handlerBusinessShapeSelected(data) {
-            debugger
+            
             this.$message({
                 message: '展位选择成功',
                 type: 'success',
                 center: true
             });
-            console.log(data)
+           
         },
         back2plot(backData) {
             let plotData = []
