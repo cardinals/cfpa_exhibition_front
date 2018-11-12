@@ -194,18 +194,18 @@ var vue = new Vue({
 
         //修改：弹出Dialog
         editClick: function(val) {
-            var _self = this;
             var codeid = val.codeid;
 
+            var forEnd = this.tableData.length<this.pageSize*this.currentPage?this.tableData.length:this.pageSize*this.currentPage;
             //获取选择的行号
-            for (var k = 0; k < _self.tableData.length; k++) {
-                if (_self.tableData[k].codeid == codeid) {
-                    _self.selectIndex = k;
+            for (var k = this.pageSize*(this.currentPage-1); k < forEnd; k++) {
+                if (this.tableData[k].codeid == codeid) {
+                    this.selectIndex = k;
                 }
             }
 
             //直接从table中取值放在form表单中
-            this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
+            this.editForm = Object.assign({}, this.tableData[this.selectIndex]);
             this.editFormVisible = true;
             this.editFormFlag = false;
         },
