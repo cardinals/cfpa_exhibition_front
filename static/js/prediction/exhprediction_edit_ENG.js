@@ -210,11 +210,15 @@ var vm = new Vue({
                   ],
                 dzyx1: [
                     { required: false, message: 'Standby Email is required', trigger: 'blur' },
-                    { type: 'email', message: 'Error Email', trigger: ['blur', 'change'] }
+                    { type: 'email', message: 'Error Email', trigger: ['blur', 'change'] },
+                    { pattern: /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/ , message: 'Characters and number only',trigger: 'blur' },
+                    { min: 1, max: 30, message: 'less than 30 characters', trigger: 'blur' }
                   ],
                 email: [
                     { required: true, message: 'Email is required', trigger: 'blur' },
-                    { type: 'email', message: 'Error Email', trigger: ['blur', 'change'] }
+                    { type: 'email', message: 'Error Email', trigger: ['blur', 'change'] },
+                    { pattern: /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/ , message: 'Characters and number only',trigger: 'blur' },
+                    { min: 1, max: 30, message: 'less than 30 characters', trigger: 'blur' }
                   ],
                 reserve2: [
                     { required: false, message: 'Postal Code is required', trigger: 'blur' },
@@ -257,7 +261,7 @@ var vm = new Vue({
             qyjsRules: {
                 qyjj: [
                   { required: true, message: 'Company Introduction is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
+                  { pattern: /^[\da-zA-Z !?|<>.,;:'"@#$￥=+_—%^&*()\[\]{}\\\/~`-]*$/, message: 'Characters and number and symbol only',trigger: 'blur' },
                   { min: 1, max: 400, message: 'less than 400 characters', trigger: 'blur' }
                 ],
             },
