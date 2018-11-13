@@ -272,7 +272,7 @@
                     <el-form class="el-form demo-form-inline" ref="qyjsForm" :model="qyjsForm" label-position="right" label-width="220px" :rules="qyjsRules">
                         <el-row class="tr mb5">
                             <el-col :span="9">
-                                <el-form-item label="Company Logo" style="text-align: left">
+                                <el-form-item label="Company Logo" style="text-align: left" class="is-required">
                                     <el-upload class="avatar-uploader" ref="uploadLogo" action="/xfxhapi/qyjs/upload" :data="upLoadLogoData" :on-success="logoPicSuccess"
                                     :before-upload="LogoChange" :show-file-list="false">
                                         <img v-if="qyjsForm.src!=='' && qyjsForm.src!==null" :src="qyjsForm.imageUrl" class="avatar">
@@ -284,7 +284,7 @@
                             <!-- <el-col :span="1">&nbsp;</el-col> -->
                             <el-col :span="14" style="margin-left: -10%" id="qycpArea">
                                 <el-form-item prop="qyjj" style="text-align: left" label="Company Introduction">
-                                    <el-input type="textarea" :rows="5" placeholder="Company Introduction" v-model="qyjsForm.qyjj" maxlength="400"></el-input>
+                                    <el-input type="textarea" :rows="5" placeholder="Company Introduction" v-model="qyjsForm.qyjj" maxlength="400" onkeyup="value=value.replace(/[^\w\.\@\~\^\\\|\`\:\;\_\-\+\=\#\$\%\&\*\'\<\>\(\)\[\]\{\}\,\!\?\/ ]/ig,'')"></el-input>
                                 </el-form-item>
                                 <el-row>
                                     <div class="el-upload__tip">less than 400 characters</div>
@@ -308,12 +308,12 @@
                                 <el-card class="card_style" id="cp_card">
                                     <div slot="header" class="clearfix">
                                         <strong class="card_title_font">
-                                            <span style="color:red;">* </span>Product NO.{{index+1}}</strong>
+                                            Product NO.{{index+1}}</strong>
                                         <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 4px -15px 0px 0px">Del Product</el-button>
                                     </div>
                                     <el-row class="tr">
                                         <el-col :span="9">
-                                            <el-form-item label="Product Photo" style="text-align: left">
+                                            <el-form-item label="Product Photo" style="text-align: left" class="is-required">
                                                 <el-upload class="avatar-uploader" ref="uploadCpPics" action="/xfxhapi/qycpjs/upload" :on-success="cpjsPicSuccess" :before-upload="CpPicsChange"
                                                     :show-file-list="false" :data="CpjsUpLoadData">
                                                     <img @click="getIndex(index,domain.src)" v-if="domain.src!=='' && domain.src!==null" :src="domain.imageUrl" class="avatar">
@@ -325,15 +325,15 @@
                                         <!-- <el-col :span="1">&nbsp;</el-col> -->
                                         <el-col :span="14" style="margin-left: -10%">
                                             <el-row>
-                                                <el-form-item prop="cplx" label="Category of the Product">
+                                                <el-form-item prop="cplx" label="Category of the Product" class="is-required">
                                                     <el-cascader :options="cpssfl_data" :props="defaultProps" size="small" v-model="domain.cplx" placeholder="Category of the Product" class="searchSelect"
                                                         clearable :show-all-levels="false"></el-cascader>
                                                 </el-form-item>
                                             </el-row>
                                             <el-row>
-                                                <el-form-item prop="cpjj" label="Product Introduction">
+                                                <el-form-item prop="cpjj" label="Product Introduction" class="is-required">
                                                     <el-input type="textarea" :rows="2" placeholder="Product Introduction" 
-                                                    v-model="domain.cpjj" maxlength="300"></el-input>
+                                                    v-model="domain.cpjj" maxlength="300" onkeyup="value=value.replace(/[^\w\.\@\#\~\^\:\;\$\%\&\*\'\<\>\(\)\[\]\{\}\\\|\-\_\+\=\`\,\!\?\/ ]/ig,'')"></el-input>
                                                 </el-form-item>
                                             </el-row>
                                             <el-row>
