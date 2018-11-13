@@ -41,11 +41,11 @@ textarea{
 	padding:5px;
 }
 }
-.container{
+.containers{
   width:980px;
   margin:0 auto;
 }
-.min-container{
+.min-containers{
 	min-width:980px;
 }
 .divh10{
