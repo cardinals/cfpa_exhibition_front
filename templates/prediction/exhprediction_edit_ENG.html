@@ -456,7 +456,7 @@
                 </el-dialog>
                 <!--email验证dialog-->
                 <el-dialog title="Change Email" :visible.sync="dialogEmailFormVisible" @close="closeEmailDialog()" :close-on-click-modal="false">
-                    <el-form class="el-form demo-form-inline" ref="emailform" :model="emailform" label-width="150px" label-position="right">
+                    <el-form class="el-form demo-form-inline" ref="emailform" :model="emailform" :rules="emailRules" label-width="150px" label-position="right">
                         <el-row class="tr mb5">
                             <el-col :span="22">
                                 <el-form-item prop="email" label="New Email">
