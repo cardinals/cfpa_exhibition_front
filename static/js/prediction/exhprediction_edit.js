@@ -252,7 +252,7 @@ var vm = new Vue({
                 yhzh: [
                   { required: true, message: '请输入银行账号', trigger: 'blur' },
                   { pattern: /^[0-9 ]*$/, message: '只能输入数字',trigger: 'blur' },
-                  { min: 13, max: 31, message: '请输入正确银行账号', trigger: 'blur' }
+                  { min: 13, max: 31, message: '最多可输入25位银行账号', trigger: 'blur' }
                 ]
             },
             wjdcRules: {
