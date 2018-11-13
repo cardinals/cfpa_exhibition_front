@@ -15,6 +15,9 @@ var vue = new Vue({
             dialogVisible: false
         }
     },
+    created: function () {
+        loadBreadcrumb("展馆平面图", "-1");
+    },
     mounted: function () {
         
     },

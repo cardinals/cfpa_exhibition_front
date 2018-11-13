@@ -44,6 +44,7 @@ textarea{
 .containers{
   width:980px;
   margin:0 auto;
+	margin-top: 10px;
 }
 .min-containers{
 	min-width:980px;
@@ -901,15 +902,17 @@ padding-left:20px;
 .zgpmt .title{
 	border-bottom:1px solid #e0e0e0;
 	text-align:center;
+	
 }
 .zgpmt .title span{
 	display:inline-block;
-	padding:40px 10px 15px;
+	/* padding:40px 10px 15px; */
 	border-bottom:3px solid #dd0000;
 	margin-bottom:-1px;
-	font-size:36px;
+	font-size:10px;
 	color:#000;
 	font-weight:bold;
+	
 }
 .zgpmt .content{
 	background:url(../images/zhanwei_zong.jpg) center 20px no-repeat;
@@ -1116,13 +1119,14 @@ padding-left:20px;
 .zgzongpmt .title{
 	border-bottom:1px solid #e0e0e0;
 	text-align:center;
+	height: 40px;
 }
 .zgzongpmt .title span{
 	display:inline-block;
-	padding:40px 10px 15px;
-	border-bottom:3px solid #dd0000;
+	padding:5px;
+	/* border-bottom:3px solid #dd0000; */
 	margin-bottom:-1px;
-	font-size:36px;
+	font-size:20px;
 	color:#000;
 	font-weight:bold;
 }
@@ -1254,3 +1258,4 @@ padding-left:20px;
     font-size:24px;
     font-family:"微软雅黑";
 }
+
