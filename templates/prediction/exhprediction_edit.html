@@ -134,7 +134,7 @@
                         </el-row>
                         <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
                             <el-col :span="24">
-                                <strong style="color: #463132;">营业执照</strong>
+                                <strong style="color: #463132;"><span style="color: red">*</span>&nbsp;营业执照</strong>
                             </el-col>
                         </el-row>
                         <el-row>
@@ -438,7 +438,7 @@
                             <el-col :span="14" style="margin-left: -10%" id="qycpArea">
                                 <el-row>
                                     <el-form-item prop="qyjj" style="text-align: left" label="企业简介">
-                                        <el-input type="textarea" :rows="2" placeholder="企业简介" v-model="qyjsForm.qyjj"></el-input>
+                                        <el-input type="textarea" :rows="2" maxlength="200" placeholder="企业简介" v-model="qyjsForm.qyjj"></el-input>
                                     </el-form-item>
                                     <el-row>
                                         <div class="el-upload__tip">最多可输入200字</div>
@@ -446,7 +446,7 @@
                                 </el-row>
                                 <el-row>
                                     <el-form-item prop="reserve1" style="text-align: left" label="企业英文简介">
-                                        <el-input type="textarea" :rows="2" placeholder="企业英文简介" v-model="qyjsForm.reserve1"></el-input>
+                                        <el-input type="textarea" :rows="2" maxlength="500" placeholder="企业英文简介" v-model="qyjsForm.reserve1"></el-input>
                                     </el-form-item>
                                     <el-row>
                                         <div class="el-upload__tip">最多可输入500个字符</div>
