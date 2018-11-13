@@ -171,12 +171,12 @@ var vm = new Vue({
             baseInforRules: {
                 ywgsmc: [
                   { required: true, message: 'Company name is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
-                  { min: 1, max: 100, message: 'less than 100 characters', trigger: 'blur' }
+                  { pattern: /^[a-z\d\., ]+$/i, message: 'Characters and number and blank and ,. only',trigger: 'blur' },
+                  { min: 1, max: 200, message: 'less than 200 characters', trigger: 'blur' }
                 ],
                 yjdzxx: [
                   { required: true, message: 'Company address is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
+                  { pattern: /^[a-z\d\., ]+$/i, message: 'Characters and number and blank and ,. only',trigger: 'blur' },
                   { min: 1, max: 200, message: 'less than 200 characters', trigger: 'blur' }
                 ],
                 bgdh: [
@@ -185,7 +185,7 @@ var vm = new Vue({
                   ],
                 frdb: [
                     { required: true, message: 'Legal Representative is required', trigger: 'blur' },
-                    { pattern: /^[A-Za-z ]+$/, message: 'Characters and blank only',trigger: 'blur' },
+                    { pattern: /^[a-z\d\., ]+$/i, message: 'Characters and number and blank and ,. only',trigger: 'blur' },
                     { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                   ],
                 frdbdh: [
@@ -195,7 +195,7 @@ var vm = new Vue({
                   ],
                 lxr: [
                     { required: true, message: 'Contact Person is required', trigger: 'blur' },
-                    { pattern: /^[A-Za-z ]+$/, message: 'Characters and blank only',trigger: 'blur' },
+                    { pattern: /^[a-z\d\., ]+$/i, message: 'Characters and number and blank and ,. only',trigger: 'blur' },
                     { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                   ],
                 lxrsj: [
@@ -205,6 +205,7 @@ var vm = new Vue({
                   ],
                 wz: [
                     { required: false, message: 'Company Website is required', trigger: 'blur' },
+                    { pattern: /^[a-z\d\., ]+$/i, message: 'Characters and number and blank and ,. only',trigger: 'blur' },
                     { min: 1, max: 100, message: 'less than 100 characters', trigger: 'blur' }
                   ],
                 dzyx1: [
@@ -230,7 +231,7 @@ var vm = new Vue({
                 kpgsmc: [
                   { required: true, message: 'Company Name on the Invoice is required', trigger: 'blur' },
                   { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
-                  { min: 1, max: 100, message: 'less than 100 characters', trigger: 'blur' }
+                  { min: 1, max: 200, message: 'less than 200 characters', trigger: 'blur' }
                 ],
                 gsdz: [
                   { required: true, message: 'Customer Contact is required', trigger: 'blur' },
@@ -492,7 +493,16 @@ var vm = new Vue({
         selectCpfl:function(codeValue){
             for(var i in this.cpssfl_data){
                 if(this.cpssfl_data[i].codeValue == codeValue){
-                    this.childrenCpfl = this.cpssfl_data[i].children;
+                    if(codeValue == '9000'){
+                        this.childrenCpfl = [];
+                        this.childrenCpfl.push({
+                            codeName:'Others',
+                            codeValue:'9000',
+                            children:null
+                        });
+                    }else{
+                        this.childrenCpfl = this.cpssfl_data[i].children;
+                    }
                 }
             }
             //document.getElementById("childrenRow").innerHTML="";
@@ -566,7 +576,7 @@ var vm = new Vue({
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     if(this.jbxxStatus == 0){//新增
-                        if(this.mailCheck == false){
+                        if(this.baseInforForm.dzyx1!= '' && this.mailCheck == false){
                             this.$message({
                                 message: 'Please verify the Standby Email',
                                 type: 'warning'
@@ -616,7 +626,7 @@ var vm = new Vue({
 
                     }else{//修改
                         //邮箱修改且邮箱验证通过flag为false
-                        if(this.baseInforForm.dzyx != this.baseInforForm.dzyx1 && this.mailCheck == false){
+                        if(this.baseInforForm.dzyx1!= '' && this.baseInforForm.dzyx != this.baseInforForm.dzyx1 && this.mailCheck == false){
                             this.$message({
                                 message: 'Please verify the Standby Email',
                                 type: 'warning'

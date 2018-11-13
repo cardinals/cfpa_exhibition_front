@@ -425,7 +425,7 @@
                     <el-form class="el-form demo-form-inline" ref="qyjsForm" :model="qyjsForm" label-position="right" label-width="150px" :rules="qyjsRules">
                         <el-row class="tr mb5">
                             <el-col :span="9">
-                                <el-form-item label="企业LOGO图标" style="text-align: left">
+                                <el-form-item label="企业LOGO图标" style="text-align: left" class="is-required">
                                     <el-upload class="avatar-uploader" ref="uploadLogo" action="/xfxhapi/qyjs/upload" :data="upLoadLogoData" :on-success="logoPicSuccess"
                                     :before-upload="LogoChange" :show-file-list="false">
                                         <img v-if="qyjsForm.src!==''&& qyjsForm.src!==null" :src="qyjsForm.imageUrl" class="avatar">
@@ -436,11 +436,21 @@
                             </el-col>
                             <!-- <el-col :span="1">&nbsp;</el-col> -->
                             <el-col :span="14" style="margin-left: -10%" id="qycpArea">
-                                <el-form-item prop="qyjj" style="text-align: left" label="企业简介">
-                                    <el-input type="textarea" :rows="5" placeholder="企业简介" v-model="qyjsForm.qyjj"></el-input>
-                                </el-form-item>
                                 <el-row>
-                                    <div class="el-upload__tip">最多可输入200字</div>
+                                    <el-form-item prop="qyjj" style="text-align: left" label="企业简介">
+                                        <el-input type="textarea" :rows="2" placeholder="企业简介" v-model="qyjsForm.qyjj"></el-input>
+                                    </el-form-item>
+                                    <el-row>
+                                        <div class="el-upload__tip">最多可输入200字</div>
+                                    </el-row>
+                                </el-row>
+                                <el-row>
+                                    <el-form-item prop="reserve1" style="text-align: left" label="企业英文简介">
+                                        <el-input type="textarea" :rows="2" placeholder="企业英文简介" v-model="qyjsForm.reserve1"></el-input>
+                                    </el-form-item>
+                                    <el-row>
+                                        <div class="el-upload__tip">最多可输入500个字符</div>
+                                    </el-row>
                                 </el-row>
                             </el-col>
                             <el-col :span="1">&nbsp;</el-col>
@@ -460,13 +470,12 @@
                             <el-form-item v-for="(domain, index) in qyjsForm.qycpjsVOList" :key="domain.key" label-position="right" style="margin-left: -150px;">
                                 <el-card class="card_style" id="cp_card">
                                     <div slot="header" class="clearfix">
-                                        <strong class="card_title_font">
-                                            <span style="color:red;">* </span>产品{{index+1}}</strong>
+                                        <strong class="card_title_font">产品{{index+1}}</strong>
                                         <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 4px -15px 0px 0px">删除产品</el-button>
                                     </div>
                                     <el-row class="tr">
                                         <el-col :span="9">
-                                            <el-form-item label="产品图片" style="text-align: left">
+                                            <el-form-item label="产品图片" style="text-align: left" class="is-required">
                                                 <el-upload class="avatar-uploader" ref="uploadCpPics" action="/xfxhapi/qycpjs/upload" :on-success="cpjsPicSuccess" :before-upload="CpPicsChange"
                                                     :show-file-list="false" :data="CpjsUpLoadData">
                                                     <img @click="getIndex(index,domain.src)" v-if="domain.src!=='' && domain.src!==null" :src="domain.imageUrl" class="avatar">
@@ -478,18 +487,26 @@
                                         <!-- <el-col :span="1">&nbsp;</el-col> -->
                                         <el-col :span="14" style="margin-left: -10%">
                                             <el-row>
-                                                <el-form-item prop="cplx" label="产品所属分类">
+                                                <el-form-item prop="cplx" label="产品所属分类" class="is-required">
                                                     <el-cascader :options="cpssfl_data" :props="defaultProps" size="small" v-model="domain.cplx" placeholder="产品所属分类" class="searchSelect"
                                                         clearable show-all-levels></el-cascader>
                                                 </el-form-item>
                                             </el-row>
                                             <el-row>
-                                                <el-form-item prop="cpjj" label="产品简介">
-                                                    <el-input type="textarea" :rows="2" placeholder="企业简介" v-model="domain.cpjj"></el-input>
+                                                <el-form-item prop="cpjj" label="产品简介" class="is-required">
+                                                    <el-input type="textarea" maxlength="150" :rows="2" placeholder="产品简介" v-model="domain.cpjj"></el-input>
                                                 </el-form-item>
                                             </el-row>
                                             <el-row>
-                                                <div class="el-upload__tip">最多可输入150字</div>
+                                                <div class="el-upload__tip" style="margin-top: -10px">最多可输入150字</div>
+                                            </el-row>
+                                            <el-row>
+                                                <el-form-item prop="reserve1" label="产品英文简介">
+                                                    <el-input type="textarea" maxlength="400" :rows="2" placeholder="产品英文简介" v-model="domain.reserve1"></el-input>
+                                                </el-form-item>
+                                            </el-row>
+                                            <el-row>
+                                                <div class="el-upload__tip" style="margin-top: -10px">最多可输入400个字符</div>
                                             </el-row>
                                         </el-col>
                                     </el-row>

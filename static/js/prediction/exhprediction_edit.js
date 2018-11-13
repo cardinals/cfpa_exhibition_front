@@ -72,6 +72,7 @@ var vm = new Vue({
                 qycpjsVOList:[],
                 src:'',
                 imageUrl:'',
+                reserve1:''
             },
             
             //需求意向表单
@@ -171,7 +172,7 @@ var vm = new Vue({
             baseInforRules: {
                 zwgsmc: [
                   { required: true, message: '请输入中文公司名称', trigger: 'blur' },
-                  { min: 1, max: 50, message: '最多可输入50个字', trigger: 'blur' }
+                  { min: 1, max: 100, message: '最多可输入100个字', trigger: 'blur' }
                 ],
                 ywgsmc: [
                   { required: false, message: '请输入英文公司名称', trigger: 'blur' },
@@ -206,15 +207,19 @@ var vm = new Vue({
                     { min: 1, max: 25, message: '最多可输入25个字', trigger: 'blur' }
                   ],
                 lxrsj: [
-                    { required: true, message: '请输入联系人手机号码', trigger: 'blur' }
+                    { required: true, message: '请输入联系人手机号码', trigger: 'blur' },
+                    { pattern: /^[0-9]*$/, message: '只能输入数字',trigger: 'blur' },
+                    { min: 1, max: 30, message: '最多输入30个数字', trigger: 'blur' }
                   ],
                 wz: [
                     { required: false, message: '请输入网址', trigger: 'blur' },
-                    { min: 1, max: 50, message: '最多可输入50个字', trigger: 'blur' }
+                    { min: 1, max: 100, message: '最多可输入100个字', trigger: 'blur' }
                   ],
                 dzyx1: [
                     { required: true, message: '请输入邮箱', trigger: 'blur' },
-                    { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+                    { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] },
+                    { pattern: /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/ , message: '仅支持数字和字母组合的邮箱地址，最多可连续出现一个连接符',trigger: 'blur' },
+                    { min: 1, max: 30, message: '最多输入30个字符', trigger: 'blur' }
                   ]
               },
             kpxxRules: {
@@ -223,7 +228,7 @@ var vm = new Vue({
                   ],
                 kpgsmc: [
                   { required: true, message: '请输入开票公司名称', trigger: 'blur' },
-                  { min: 1, max: 50, message: '最多可输入50个字', trigger: 'blur' }
+                  { min: 1, max: 100, message: '最多可输入100个字', trigger: 'blur' }
                 ],
                 tyshxydm: [
                     { required: true, message: '请输入统一社会信用代码', trigger: 'blur' },
@@ -257,7 +262,7 @@ var vm = new Vue({
                 ],
                 hwdlcppp: [
                     { required: true, message: '请输入产品品牌', trigger: 'blur' },
-                    { min: 1, max: 25, message: '最多可输入25个字', trigger: 'blur' }
+                    { min: 1, max: 100, message: '最多可输入100个字', trigger: 'blur' }
                 ],
                 fmzl: [
                   { required: true, message: '请输入发明专利(项)', trigger: 'blur' },
@@ -288,6 +293,10 @@ var vm = new Vue({
                 qyjj: [
                   { required: true, message: '请输入企业简介', trigger: 'blur' },
                   { min: 1, max: 200, message: '最多可输入200个字', trigger: 'blur' }
+                ],
+                reserve1:[
+                    { pattern: /^[\da-zA-Z !?|<>.,;:'"@#$￥=+_—%^&*()\[\]{}\\\/~`-]*$/, message: '只能输入字母、数字和英文符号',trigger: 'blur' },
+                    { min: 1, max: 500, message: '最多可输入500个字符', trigger: 'blur' }
                 ]
             },
             cpjsRules: {
@@ -297,6 +306,10 @@ var vm = new Vue({
                 cpjj: [
                   { required: true, message: '请输入产品简介', trigger: 'blur' },
                   { min: 1, max: 150, message: '最多可输入150个字', trigger: 'blur' }
+                ],
+                reserve1:[
+                    { pattern: /^[\da-zA-Z !?|<>.,;:'"@#$￥=+_—%^&*()\[\]{}\\\/~`-]*$/, message: '只能输入字母、数字和英文符号',trigger: 'blur' },
+                    { min: 1, max: 400, message: '最多可输入400个字符', trigger: 'blur' }
                 ]
             },
             sjformRules:{
@@ -518,6 +531,7 @@ var vm = new Vue({
                                 uuid:result[i].uuid,
                                 qyid:result[i].qyid,
                                 cpjj:result[i].cpjj,
+                                reserve1:result[i].reserve1,
                                 cplx:cplxArray,
                                 src:result[i].src,
                                 imageUrl:baseUrl + "/upload/" + result[i].src
@@ -543,6 +557,7 @@ var vm = new Vue({
                             qyid:this.qyid,
                             cplx:[],
                             cpjj:'',
+                            reserve1:'',
                             src:'',
                             imageUrl:'',
                             key: Date.now()
@@ -586,7 +601,16 @@ var vm = new Vue({
         selectCpfl:function(codeValue){
             for(var i in this.zycp_data){
                 if(this.zycp_data[i].codeValue == codeValue){
-                    this.childrenCpfl = this.zycp_data[i].children;
+                    if(codeValue == '9000'){
+                        this.childrenCpfl = [];
+                        this.childrenCpfl.push({
+                            codeName:'其他',
+                            codeValue:'9000',
+                            children:null
+                        });
+                    }else{
+                        this.childrenCpfl = this.zycp_data[i].children;
+                    }
                 }
             }
             //document.getElementById("childrenRow").innerHTML="";
@@ -1055,7 +1079,8 @@ var vm = new Vue({
                                 qyid: this.qyid,
                                 src: this.qyjsForm.qycpjsVOList[i].src,
                                 cplx: cplx_temp,
-                                cpjj: cpjj_temp
+                                cpjj: cpjj_temp,
+                                reserve1: this.qyjsForm.qycpjsVOList[i].reserve1
                             }
                             tempList.push(obj_temp);
                         }
@@ -1063,6 +1088,7 @@ var vm = new Vue({
                             var params = {
                                 qyid: this.qyid,
                                 qyjj: this.qyjsForm.qyjj,
+                                reserve1 : this.qyjsForm.reserve1,
                                 qycpjsVOList: tempList,
                                 deleteFlag: 'N',
                                 src:this.qyjsForm.src,
@@ -1102,6 +1128,7 @@ var vm = new Vue({
                                 qyid: this.qyid,
                                 src:this.qyjsForm.src,
                                 qyjj: this.qyjsForm.qyjj,
+                                reserve1: this.qyjsForm.reserve1,
                                 qycpjsVOList: tempList,
                                 xgrid: this.shiroData.userid,
                                 xgrmc: this.shiroData.username
@@ -1300,6 +1327,7 @@ var vm = new Vue({
                         qyid:this.qyid,
                         cplx:[],
                         cpjj:'',
+                        reserve1:'',
                         src:'',
                         imageUrl:'',
                         key: Date.now()
