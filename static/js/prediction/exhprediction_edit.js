@@ -241,7 +241,9 @@ var vm = new Vue({
                   { min: 1, max: 150, message: '最多可输入150个字', trigger: 'blur' }
                 ],
                 dhhm: [
-                  { required: true, message: '请输入电话号码', trigger: 'blur' }
+                  { required: true, message: '请输入电话号码', trigger: 'blur' },
+                  { pattern: /^[0-9]*$/, message: '只能输入数字',trigger: 'blur' },
+                  { min: 1, max: 50, message: '最多输入50个数字', trigger: 'blur' }
                 ],
                 khyh: [
                   { required: true, message: '请输入开户银行', trigger: 'blur' },
@@ -250,7 +252,7 @@ var vm = new Vue({
                 yhzh: [
                   { required: true, message: '请输入银行账号', trigger: 'blur' },
                   { pattern: /^[0-9 ]*$/, message: '只能输入数字',trigger: 'blur' },
-                  { min: 13, max: 23, message: '请输入正确银行账号', trigger: 'blur' }
+                  { min: 13, max: 31, message: '请输入正确银行账号', trigger: 'blur' }
                 ]
             },
             wjdcRules: {
@@ -656,9 +658,11 @@ var vm = new Vue({
                 this.delPicList.push(this.baseInforForm.src);
                 //上次营业执照格式为pdf则删除同名pdf文件
                 if(this.baseInforForm.yyzzgs == ".pdf"){
-                    var path = this.baseInforForm.src.split(".")[0];
-                    var pdfSrc = path + ".pdf";
-                    this.delPicList.push(pdfSrc);
+                    if(this.baseInforForm.src!=null&&this.baseInforForm.src!=undefined&&this.baseInforForm.src!=''){
+                        var path = this.baseInforForm.src.split(".")[0];
+                        var pdfSrc = path + ".pdf";
+                        this.delPicList.push(pdfSrc);
+                    }
                 }
                 if(isPng || isJpg){
                     this.baseInforForm.yyzzgs = '';
