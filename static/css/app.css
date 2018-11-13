@@ -1011,6 +1011,18 @@ body .el-table colgroup.gutter{
   background-size:100% 100%;
 } 
 
+.el-icon-export{
+  height: 16px;
+  width: 16px;
+  margin-top: -8px;
+  margin-left: -15px;
+  display:inline-block;
+  position:absolute;  
+  top:150; 
+  background: url('../images/plot/icon_export.png') no-repeat;
+  background-size:100% 100%;
+}
+
 #menu-toggle-btn{
 	right: -26px; 
 	transform: rotateY(180deg);
