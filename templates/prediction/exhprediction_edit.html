@@ -502,7 +502,7 @@
                                             </el-row>
                                             <el-row>
                                                 <el-form-item prop="reserve1" label="产品英文简介">
-                                                    <el-input type="textarea" maxlength="400" :rows="2" placeholder="产品英文简介" v-model="domain.reserve1"></el-input>
+                                                    <el-input type="textarea" maxlength="400" :rows="2" placeholder="产品英文简介" v-model="domain.reserve1" onkeyup="value=value.replace(/[^\w\.\@\#\$\%\&\*\'\<\>\(\)\[\]\,\!\?\/ ]/ig,'')"></el-input>
                                                 </el-form-item>
                                             </el-row>
                                             <el-row>
