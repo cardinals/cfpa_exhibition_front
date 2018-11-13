@@ -877,10 +877,13 @@ var vm = new Vue({
         submitKpxx: function(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    debugger;
                     this.loading = true;
                     var yhzh_str = null;
                     if(this.kpxxForm.yhzh!=null&&this.kpxxForm.yhzh!=''&&this.kpxxForm.yhzh!=undefined){
                         yhzh_str = this.kpxxForm.yhzh.replace(/ /g, "");
+                    }else{
+                        yhzh_str = '';
                     }
                     if(this.kpxxStatus == 0){//新增
                         var params={
