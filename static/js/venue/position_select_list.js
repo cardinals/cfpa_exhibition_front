@@ -17,7 +17,8 @@ var vue = new Vue({
     },
     mounted: function () {
         this.init();
-       
+       //关闭左侧菜单
+		this. closeleft();
     },
     computed: {
         ploterStyle() {

@@ -84,7 +84,7 @@
 }
 
 .app-viewer-ploter-navigation>.ploter-navigation-tools {
-	padding: 4px;
+	/* padding: 4px; */
 }
 
 .app-viewer-ploter-iframe {
@@ -123,3 +123,55 @@
 	margin:5px 3px 5px 0px;
   }
 
+
+  .btn{
+	border: 0px;
+	height:30px;
+	line-height: 0px;
+	background:#E56606;
+	color: #fff;
+	margin:5px 3px 5px 3px;
+	padding-left: 35px;
+}  
+.btn:hover{
+	border: 0px;
+	height:30px;
+	line-height: 0px;
+	background:rgb(199, 89, 5);
+	color: #fff;
+	margin:5px 3px 5px 3px;
+	padding-left: 35px;
+} 
+.btn:focus{
+	border: 0px;
+	height:30px;
+	line-height: 0px;
+	background:rgb(165, 74, 4);
+	color: #fff;
+	margin:5px 3px 5px 3px;
+	padding-left: 35px;
+} 
+
+.imagez{
+	float:left;
+	width:100px;
+	height:100px;
+	padding: 5px;
+}
+.box-card {
+	float: left;
+	width: 130px;
+	margin: 5px;
+  }
+.box-cardz{
+	float: left;
+	width: 270px;
+	margin: 5px;
+  }
+.text {
+	font-size: 14px;
+}
+.clearfix{
+	font-weight:bold;
+	text-align: center;
+}
