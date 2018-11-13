@@ -275,6 +275,15 @@ var vm = new Vue({
                   { min: 1, max: 300, message: 'less than 300 characters', trigger: 'blur' }
                 ]
             },
+            emailRules:{
+                email:[
+                    { required: true, message: 'Email is required', trigger: 'blur' },
+                    { type: 'email', message: 'Error Email', trigger: ['blur', 'change'] },
+                    { pattern: /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/ , message: 'Characters and number only',trigger: 'blur' },
+                    { min: 1, max: 30, message: 'less than 30 characters', trigger: 'blur' }
+                ],
+                yzm:[{ required: true, message: 'Verification Code is required', trigger: 'blur' }],
+            },
             /*
             sjformRules:{
                 sjh:[

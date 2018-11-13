@@ -317,7 +317,8 @@ var vm = new Vue({
             sjformRules:{
                 sjh:[
                     { required: true, message: '请输入手机号', trigger: 'blur' },
-                    { pattern: /^1[34578]\d{9}$/, message: '请输入正确格式的手机号',trigger: 'blur' }
+                    { pattern: /^1[34578]\d{9}$/, message: '请输入正确格式的手机号',trigger: 'blur' },
+                    { min: 1, max: 15, message: '最多可输入15个数字', trigger: 'blur' }
                 ],
                 yzm:[{ required: true, message: '请输入验证码', trigger: 'blur' }],
             },
