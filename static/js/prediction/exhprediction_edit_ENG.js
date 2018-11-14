@@ -171,12 +171,12 @@ var vm = new Vue({
             baseInforRules: {
                 ywgsmc: [
                   { required: true, message: 'Company name is required', trigger: 'blur' },
-                  { pattern: /^[a-z\d\.\,\- ]+$/i, message: 'Characters and number and blank and ,.- only',trigger: 'blur' },
+                  { pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only',trigger: 'blur' },
                   { min: 1, max: 200, message: 'less than 200 characters', trigger: 'blur' }
                 ],
                 yjdzxx: [
                   { required: true, message: 'Company address is required', trigger: 'blur' },
-                  { pattern: /^[a-z\d\.\,\- ]+$/i, message: 'Characters and number and blank and ,.- only',trigger: 'blur' },
+                  { pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only',trigger: 'blur' },
                   { min: 1, max: 200, message: 'less than 200 characters', trigger: 'blur' }
                 ],
                 bgdh: [
@@ -185,7 +185,7 @@ var vm = new Vue({
                   ],
                 frdb: [
                     { required: true, message: 'Legal Representative is required', trigger: 'blur' },
-                    { pattern: /^[a-z\d\.\,\- ]+$/i, message: 'Characters and number and blank and ,.- only',trigger: 'blur' },
+                    { pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only',trigger: 'blur' },
                     { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                   ],
                 frdbdh: [
@@ -195,7 +195,7 @@ var vm = new Vue({
                   ],
                 lxr: [
                     { required: true, message: 'Contact Person is required', trigger: 'blur' },
-                    { pattern: /^[a-z\d\.\,\- ]+$/i, message: 'Characters and number and blank and ,.- only',trigger: 'blur' },
+                    { pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only',trigger: 'blur' },
                     { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                   ],
                 lxrsj: [
@@ -205,7 +205,7 @@ var vm = new Vue({
                   ],
                 wz: [
                     { required: false, message: 'Company Website is required', trigger: 'blur' },
-                    { pattern: /^[a-z\d\.\,\@\#\*\- ]+$/i, message: 'Characters and number and blank only',trigger: 'blur' },
+                    { pattern: /^[a-z\d\.\,\@\#\*\|\- ]+$/i, message: 'Characters and number and blank only',trigger: 'blur' },
                     { min: 1, max: 100, message: 'less than 100 characters', trigger: 'blur' }
                   ],
                 dzyx1: [
