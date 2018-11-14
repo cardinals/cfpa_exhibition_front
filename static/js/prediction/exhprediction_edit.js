@@ -176,7 +176,7 @@ var vm = new Vue({
                 ],
                 ywgsmc: [
                   { required: false, message: '请输入英文公司名称', trigger: 'blur' },
-                  { pattern: /^[A-Za-z ]+$/, message: '英文公司名称只能输入字母和空格',trigger: 'blur' },
+                  { pattern:/^[a-z\d\.\,\，\|\-\(\)\'\!\<\>\_\*\&\（\） ]+$/i, message: '英文公司名称只能输入字母、空格、括号和 .,-|',trigger: 'blur' },
                   { min: 1, max: 100, message: '最多可输入100个字符', trigger: 'blur' }
                 ],
                 xzqh: [
@@ -252,7 +252,7 @@ var vm = new Vue({
                 yhzh: [
                   { required: true, message: '请输入银行账号', trigger: 'blur' },
                   { pattern: /^[0-9 ]*$/, message: '只能输入数字',trigger: 'blur' },
-                  { min: 0, max: 31, message: '最多可输入25位银行账号', trigger: 'blur' }
+                  { min: 0, max: 37, message: '最多可输入30位银行账号', trigger: 'blur' }
                 ]
             },
             wjdcRules: {
@@ -297,7 +297,7 @@ var vm = new Vue({
                   { min: 1, max: 200, message: '最多可输入200个字', trigger: 'blur' }
                 ],
                 reserve1:[
-                    { pattern: /^[\da-zA-Z !?|<>.,;:'"@#$￥=+_—%^&*()\[\]{}\\\/~`-]*$/, message: '只能输入字母、数字和英文符号',trigger: 'blur' },
+                    { pattern: /^[\da-zA-Z \!\?\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-]*$/, message: '只能输入字母、数字和英文符号',trigger: 'blur' },
                     { min: 1, max: 500, message: '最多可输入500个字符', trigger: 'blur' }
                 ]
             },
@@ -310,7 +310,7 @@ var vm = new Vue({
                   { min: 1, max: 150, message: '最多可输入150个字', trigger: 'blur' }
                 ],
                 reserve1:[
-                    { pattern: /^[\da-zA-Z !?|<>.,;:'"@#$￥=+_—%^&*()\[\]{}\\\/~`-]*$/, message: '只能输入字母、数字和英文符号',trigger: 'blur' },
+                    { pattern: /^[\da-zA-Z \!\?\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-]*$/, message: '只能输入字母、数字和英文符号',trigger: 'blur' },
                     { min: 1, max: 400, message: '最多可输入400个字符', trigger: 'blur' }
                 ]
             },
@@ -721,7 +721,7 @@ var vm = new Vue({
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     if(this.jbxxStatus == 0){//新增
-                        if(this.mailCheck == false){
+                        if(this.baseInforForm.dzyx1!=null&&this.baseInforForm.dzyx1!=''&&this.baseInforForm.dzyx1!=undefined&&this.mailCheck == false){
                             this.$message({
                                 message: '请对修改后的邮箱进行验证',
                                 type: 'warning'
@@ -803,7 +803,7 @@ var vm = new Vue({
 
                     }else{//修改
                         //邮箱修改且邮箱验证通过flag为false
-                        if(this.baseInforForm.dzyx != this.baseInforForm.dzyx1 && this.mailCheck == false){
+                        if(this.baseInforForm.dzyx1 != null&&this.baseInforForm.dzyx1 != ''&&this.baseInforForm.dzyx1 != undefined&&this.baseInforForm.dzyx != this.baseInforForm.dzyx1 && this.mailCheck == false){
                             this.$message({
                                 message: '请对修改后的邮箱进行验证',
                                 type: 'warning'
@@ -1051,7 +1051,6 @@ var vm = new Vue({
         },
         //产品介绍提交（下一步）
         submitCpjs: function(formName){
-            this.loading = true;
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     //判断最后一个card产品信息是否填全
@@ -1061,7 +1060,6 @@ var vm = new Vue({
                             message: '请完整填写产品信息',
                             type: 'warning'
                         });
-                        this.loading = false;
                         return false;
                     }else if(this.qyjsForm.imageUrl == null || this.qyjsForm.imageUrl == ""){//判断企业logo是否上传
                         this.$message({
@@ -1069,7 +1067,6 @@ var vm = new Vue({
                             type: 'warning'
                         });
                         console.log('error submit!!');
-                        this.loading = false;
                         return false;
                     }
                     else{//信息填写完整
@@ -1109,7 +1106,6 @@ var vm = new Vue({
                                     message: '企业产品介绍暂存成功',
                                     type: 'success'
                                 });
-                                this.loading = false;
                                 this.active = 4;
                                 this.isCpjsShow = false;
                                 this.isXqyxShow = true;
@@ -1147,7 +1143,6 @@ var vm = new Vue({
                                     message: '企业产品介绍暂存成功',
                                     type: 'success'
                                 });
-                                this.loading = false;
                                 this.active = 4;
                                 this.isCpjsShow = false;
                                 this.isXqyxShow = true;
@@ -1170,7 +1165,6 @@ var vm = new Vue({
                     }
                 } else {
                   console.log('error submit!!');
-                  this.loading = false;
                   return false;
                 }
             });
