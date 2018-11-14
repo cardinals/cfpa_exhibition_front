@@ -83,11 +83,12 @@ new Vue({
                         this.editPage = true;
                     }
                     this.qyid = this.jbxxData.qyid;
+                    this.getZwyxData(this.qyid);
                     this.getKpxxData(this.qyid);
                     this.getWjdcData(this.qyid);
                     this.getQyjsData(this.qyid);
                     this.getCpjsData(this.qyid);
-                    this.getZwyxData(this.qyid);
+                    
                     pageShzt = this.jbxxData.shzt;
                 }
                 this.loading = false;
