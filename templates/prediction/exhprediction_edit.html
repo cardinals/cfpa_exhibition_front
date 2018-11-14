@@ -124,7 +124,7 @@
                                 <el-checkbox id="tagCheckbox" v-model="noWebsit" style="margin-left: 10px;line-height: 40px;font-size: 14px;position: relative;">无网站</el-checkbox>
                              </el-col>
                             <el-col :span="11">
-                                <el-form-item prop="dzyx1" label="邮箱">
+                                <el-form-item prop="dzyx1" label="邮箱" v-show="true">
                                     <el-input size="small" v-model="baseInforForm.dzyx1" placeholder="邮箱" @change="dzyxChange()">
                                         <el-button id="mail-btn" slot="append" @click="openYxYz" v-text=mailCodeText></el-button>
                                     </el-input>
@@ -449,7 +449,7 @@
                                         <el-input type="textarea" :rows="2" maxlength="500" placeholder="企业英文简介" v-model="qyjsForm.reserve1"></el-input>
                                     </el-form-item>
                                     <el-row>
-                                        <div class="el-upload__tip">最多可输入500个字符</div>
+                                        <div class="el-upload__tip">最多可输入500个英文字符</div>
                                     </el-row>
                                 </el-row>
                             </el-col>
@@ -502,11 +502,11 @@
                                             </el-row>
                                             <el-row>
                                                 <el-form-item prop="reserve1" label="产品英文简介">
-                                                    <el-input type="textarea" maxlength="400" :rows="2" placeholder="产品英文简介" v-model="domain.reserve1" onkeyup="value=value.replace(/[^\w\.\@\#\$\%\&\*\'\<\>\(\)\[\]\,\!\?\/ ]/ig,'')"></el-input>
+                                                    <el-input type="textarea" maxlength="400" :rows="2" placeholder="产品英文简介" v-model="domain.reserve1" onkeyup="value=value.replace(/[^\w\.\@\#\$\%\&\*\'\<\>\(\)\（\）\[\]\,\，\!\?\/ ]/ig,'')"></el-input>
                                                 </el-form-item>
                                             </el-row>
                                             <el-row>
-                                                <div class="el-upload__tip" style="margin-top: -10px">最多可输入400个字符</div>
+                                                <div class="el-upload__tip" style="margin-top: -10px">最多可输入400个英文字符（符号需要为英文输入法下的符号）</div>
                                             </el-row>
                                         </el-col>
                                     </el-row>
