@@ -252,7 +252,7 @@ var vm = new Vue({
                 yhzh: [
                   { required: true, message: '请输入银行账号', trigger: 'blur' },
                   { pattern: /^[0-9 ]*$/, message: '只能输入数字',trigger: 'blur' },
-                  { min: 13, max: 31, message: '最多可输入25位银行账号', trigger: 'blur' }
+                  { min: 0, max: 31, message: '最多可输入25位银行账号', trigger: 'blur' }
                 ]
             },
             wjdcRules: {
@@ -1515,6 +1515,14 @@ var vm = new Vue({
                 this.kpxxForm.tyshxydm =this.kpxxForm.tyshxydm.replace(/\s/g,'').replace(/(\w{4})(?=\w)/g,"$1 ");
             }
         },
+        //剩余多少个字
+        /*
+        keypress:function(text,name,maxlength){
+            var length = text.length;
+            var curr = maxlength - length;
+            document.getElementById(name).innerHTML=curr.toString();
+        },
+        */
     },
 
 })
