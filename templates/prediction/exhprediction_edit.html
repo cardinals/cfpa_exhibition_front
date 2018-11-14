@@ -203,7 +203,7 @@
                         <el-row class="tr mb5">
                             <el-col :span="5">&nbsp;</el-col>
                             <el-col :span="12">
-                                <el-form-item prop="gsdz" label="公司地址" :rules="this.isZyfp?kpxxRules.gsdz:[{ required: false, message: '请输入公司地址', trigger: 'blur' }]">
+                                <el-form-item prop="gsdz" label="公司地址" :rules="this.isZyfp?kpxxRules.gsdz:[{ required: false, message: '请输入公司地址', trigger: 'blur' },{ min: 1, max: 150, message: '最多可输入150个字', trigger: 'blur' }]">
                                     <el-input size="small" v-model="kpxxForm.gsdz" placeholder="公司地址"></el-input>
                                 </el-form-item>
                             </el-col>
@@ -380,7 +380,7 @@
                         </el-row>
                         <el-row class="tr mb5">
                             <el-col :span="22" style="text-align:left">
-                                <el-form-item prop="sfhyxydj" label="是否在2018年参与中国消防协会消防行业信用等级评价">
+                                <el-form-item prop="sfhyxydj" label="是否在2016或2017或2018年参与中国消防协会消防行业信用等级初评">
                                     <el-radio-group v-model="wjdcForm.sfhyxydj" size="small" auto-complete="off" @change="sfhyxydjChange()">
                                         <el-radio class="radio" :label="'1'">是</el-radio>
                                         <el-radio class="radio" :label="'0'">否</el-radio>

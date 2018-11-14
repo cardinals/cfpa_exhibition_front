@@ -11,8 +11,8 @@
 <body class="fw f14 main-index-body">
 	<div id="app">
 		
-		<div class="main-box">	
-			
+		<div class="main-box">
+
 			<div ref="ploterWrap" class="app-viewer-ploter-wrap positionlist" :style="ploterStyle">
 				<div class="app-viewer-ploter-navigation">
 					<div class="ploter-navigation-list">
@@ -20,14 +20,13 @@
 							{{data.zgmc}}
 						</el-button>
 					</div>
+					<div class="ploter-navigation-tools">
+						<el-button icon="el-icon-export" class="btn" @click="handlerExport">导出</el-button>
+					</div>
 				</div>
 			</div>
-			<div class="ploter-navigation-tools">
-				<el-button icon="el-icon-position" class="btn" @click="handlerExport">导出</el-button>
-			</div>
-			<!-- <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
 
-				
+			<!-- <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
 			</el-dialog> -->
 		</div>
 
