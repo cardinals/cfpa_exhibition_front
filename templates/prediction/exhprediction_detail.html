@@ -42,6 +42,11 @@
                                         <dt class="dib inform-small-title detail_margin">企业简介：</dt>
                                         <dd class="dtdlStyle" v-if="qyjsData!==null" v-text="qyjsData.qyjj||'无'"></dd>
                                         <dd class="dtdlStyle" v-else>无</dd>
+                                        <br>
+                                        <img src="../../static/images/detail_summary3.png">
+                                        <dt class="dib inform-small-title detail_margin">企业英文简介：</dt>
+                                        <dd class="dtdlStyle" v-if="qyjsData!==null" v-text="qyjsData.reserve1||'无'"></dd>
+                                        <dd class="dtdlStyle" v-else>无</dd>
                                     </dl>
                                 </div>
                             </el-col>
@@ -246,7 +251,7 @@
                                     </el-row>
                                     <el-row v-if="!isENG" class="mb10">
                                         <el-col :span="12">
-                                            <strong>是否获得行业信用等级：</strong>
+                                            <strong>是否获得行业信用等级初评：</strong>
                                             <v-text v-text="wjdcData.sfhyxydj==1?'是':wjdcData.sfhyxydj==0?'否':'无'"></v-text>
                                         </el-col>
                                         <el-col :span="12">
@@ -286,8 +291,11 @@
                                                         <v-text v-if="jbxxData.usertype === 'CHN'" v-text="cpjs.cplxmc||'无'"></v-text>
                                                         <v-text v-if="jbxxData.usertype === 'ENG'" v-text="cpjs.cplxmc_ENG||'无'"></v-text>
                                                         <br>
-                                                        <strong>产品介绍：</strong>
+                                                        <strong>产品简介：</strong>
                                                         <v-text v-text="cpjs.cpjj||'无'"></v-text>
+                                                        <br>
+                                                        <strong>产品英文简介：</strong>
+                                                        <v-text v-text="cpjs.reserve1||'无'"></v-text>
                                                     </el-col>
                                                 </el-row>
                                             </el-card>
