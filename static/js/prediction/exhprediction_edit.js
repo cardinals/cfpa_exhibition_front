@@ -649,8 +649,8 @@ var vm = new Vue({
             const isJpg = fileFormat.toLowerCase() == "jpg";
             this.isPdf = fileFormat.toLowerCase() == "pdf";
             const isLt2M = file.size / 1024 /1024< 2;
-            //if(!isPng && !isJpg && !this.isPdf){
-            if(!isPng && !isJpg){
+            if(!isPng && !isJpg && !this.isPdf){
+            //if(!isPng && !isJpg){
                 this.$message.error('只能上传jpg、png格式的图片');
                 fileList.splice(-1, 1);
             }else if(!isLt2M){
