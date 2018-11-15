@@ -19,8 +19,7 @@
                         <el-row>
                             <el-col :span="3" class="tc">
                                 <!-- <div class="l tc"> -->
-                                <img v-if="qyjsData.src!==''" :src="qyjsData.imageUrl" @click="imgPreview(qyjsData.imageUrl)"
-                                    class="detail_picture_top poi">
+                                <img v-if="qyjsData.src!==''" :src="qyjsData.imageUrl" @click="imgPreview(qyjsData.imageUrl)" class="detail_picture_top poi">
                                 <img v-else src="../../static/images/noPic.png" style="width:100px;" class="poi">
                                 <br>企业Logo
                                 <!-- </div> -->
@@ -51,8 +50,7 @@
                                 </div>
                             </el-col>
                             <el-col :span="3" v-if="!isENG" class="tc">
-                                <img v-if="jbxxData.src!==''" :src="jbxxData.imageUrl" @click="imgPreview(jbxxData.imageUrl)"
-                                    class="detail_picture_top poi">
+                                <img v-if="jbxxData.src!==''" :src="jbxxData.imageUrl" @click="imgPreview(jbxxData.imageUrl)" class="detail_picture_top poi">
                                 <img v-else src="../../static/images/noPic.png" style="width:100px;">
                                 <br>营业执照
                             </el-col>
@@ -177,6 +175,10 @@
                                             <strong>审核时间：</strong>
                                             <v-text v-text="jbxxData.shsj||'无'"></v-text>
                                         </el-col>
+                                    </el-row>
+                                    <el-row class="mb10">
+                                        <strong>审核意见：</strong>
+                                        <v-text v-text="jbxxData.reserve1||'无'"></v-textdiv>
                                     </el-row>
                                 </el-tab-pane>
                                 <el-tab-pane label="企业开票信息" name="second">
