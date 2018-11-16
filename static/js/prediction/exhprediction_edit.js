@@ -1447,7 +1447,17 @@ var vm = new Vue({
             } else {
                 //查询邮箱是否注册
                 axios.get('/xfxhapi/qyjbxx/getMailNum/' + this.baseInforForm.dzyx1.replace(".", "_")).then(function (res) {
-                    if (res.data.result == 0) {
+                    //session失效
+                    if(res.data.result == undefined){
+                        this.$confirm('用户登陆超时，请重新登陆。', '提示', {
+                            confirmButtonText: '是',
+                            cancelButtonText: '否',
+                            type: 'warning'
+                          }).then(() => {
+                            window.location.href = "/templates/login.html"
+                          }).catch(() => {       
+                        });
+                    }else if (res.data.result == 0) {
                         this.mailCodeText = "发送中...";
                         $('#mail-btn').attr('disabled', 'disabled');
                         axios.get('/xfxhapi/signin/sendMail?mail=' + this.baseInforForm.dzyx1).then(function (res) {
@@ -1475,8 +1485,7 @@ var vm = new Vue({
                             type: 'success'
                         });
                         return false;
-                    }
-                    else{
+                    }else{
                         this.$message({
                             message: '此邮箱已被注册,请更换邮箱',
                             type: 'warning'
@@ -1488,6 +1497,7 @@ var vm = new Vue({
                 });
             }
         },
+        
         //关闭邮箱验证对话
         closeYxDialog:function(){
             this.dialogYxFormVisible = false;
