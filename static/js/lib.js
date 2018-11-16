@@ -281,3 +281,25 @@ window.tableLongNumFormat =  function (row, column) {
         return longNumFormat(rowNum);
     }
 }
+
+//校验当前用户Session是否失效
+window.validateSession = function(){ 
+    axios.get('/xfxhapi/shiro').then(function (res) {
+        debugger;
+        if(res.data != null && res.data != ""){
+            return true;
+        }else{
+            vm.$confirm('用户登陆超时，请重新登陆。', '提示', {
+                confirmButtonText: '是',
+                cancelButtonText: '否',
+                type: 'warning'
+              }).then(() => {
+                window.location.href = "/templates/login.html"
+              }).catch(() => {       
+            });
+            return false;   
+        }
+    }.bind(this), function (error) {
+        console.log(error)
+    });
+}
