@@ -648,13 +648,13 @@ var vm = new Vue({
             const isPng = fileFormat.toLowerCase() == "png";
             const isJpg = fileFormat.toLowerCase() == "jpg";
             this.isPdf = fileFormat.toLowerCase() == "pdf";
-            const isLt2M = file.size / 1024 /1024< 2;
+            const isLt2M = file.size / 1024 /1024<= 2;
             if(!isPng && !isJpg && !this.isPdf){
             //if(!isPng && !isJpg){
                 this.$message.error('只能上传jpg、png格式的图片');
                 fileList.splice(-1, 1);
             }else if(!isLt2M){
-                this.$message.error('上传图片大小不能超过2MB!');
+                this.$message.error('上传图片大小须小于2MB!');
                 fileList.splice(-1, 1);
             }else{
                 this.delPicList.push(this.baseInforForm.src);
@@ -680,12 +680,12 @@ var vm = new Vue({
             var fileFormat = file.name.substring(fileName + 1, fileNameLength);
             const isPng = fileFormat.toLowerCase() == "png";
             const isJpg = fileFormat.toLowerCase() == "jpg";
-            const isLt1M = file.size / 1024 /1024 < 1;
+            const isLt1M = file.size / 1024 /1024 <= 1;
             if(!isPng && !isJpg){
                 this.$message.error('只能上传jpg、png格式的图片');
                 fileList.splice(-1, 1);
             }else if(!isLt1M){
-                this.$message.error('上传图片大小不能超过1MB!');
+                this.$message.error('上传图片大小须小于1MB!');
                 fileList.splice(-1, 1);
             }else{
                 this.delPicList.push(this.qyjsForm.src);
@@ -698,12 +698,12 @@ var vm = new Vue({
             var fileFormat = file.name.substring(fileName + 1, fileNameLength);
             const isPng = fileFormat.toLowerCase() == "png";
             const isJpg = fileFormat.toLowerCase() == "jpg";
-            const isLt2M = file.size / 1024 /1024 < 2; 
+            const isLt2M = file.size / 1024 /1024 <= 2; 
             if(!isPng && !isJpg){
                 this.$message.error('只能上传jpg、png格式的图片');
                 fileList.splice(-1, 1);
             }else if(!isLt2M){
-                this.$message.error('上传图片大小不能超过2MB!');
+                this.$message.error('上传图片大小须小于2MB!');
                 fileList.splice(-1, 1);
             }else{
                 this.delPicList.push(this.delPicSrc);
