@@ -156,12 +156,13 @@ var vue = new Vue({
         },
         //表格修改事件
         editClick: function(val, index) {
+            this.editFlag = true;
+            this.editFlagText = "编辑";
             this.editIndex = index;
             this.dialogTitle = "展商编辑";
             this.editPasswordShow = false;
             this.editSearch(val);
             this.editFormVisible = true;
-            this.editFlag = true;
         },
 
         //重置密码
@@ -288,7 +289,7 @@ var vue = new Vue({
                     }
                 }
                 if(this.dialogTitle == "展商新增"){
-                    axios.get('/xfxhapi/account/getNum/' + this.editForm.username).then(function(res){
+                    axios.get('/xfxhapi/account/getNum/' + this.editForm.username + "/static").then(function(res){
                         if(res.data.result != 0){
                             this.$message({
                                 message: "用户名已存在!",
@@ -327,7 +328,7 @@ var vue = new Vue({
                         params.password = val.password;
                     }
                     if(!this.editFlag){
-                        axios.get('/xfxhapi/account/getNum/' + this.editForm.username).then(function(res){
+                        axios.get('/xfxhapi/account/getNum/' + this.editForm.username + "/static").then(function(res){
                             if(res.data.result != 0){
                                 this.$message({
                                     message: "用户名已存在!",

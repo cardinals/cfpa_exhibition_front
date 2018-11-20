@@ -422,7 +422,7 @@ var vue = new Vue({
                     }
                 }
                 if(this.dialogTitle == "用户新增"){
-                    axios.get('/xfxhapi/account/getNum/' + this.editForm.username).then(function(res){
+                    axios.get('/xfxhapi/account/getNum/' + this.editForm.username + "/static").then(function(res){
                         if(res.data.result != 0){
                             this.$message({
                                 message: "用户名已存在!",
