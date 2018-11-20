@@ -1446,7 +1446,7 @@ var vm = new Vue({
                 return false;
             } else {
                 //查询邮箱是否注册
-                axios.get('/xfxhapi/qyjbxx/getMailNum/' + this.baseInforForm.dzyx1).then(function (res) {
+                axios.get('/xfxhapi/qyjbxx/getMailNum/' + this.baseInforForm.dzyx1.replace(".", "_")).then(function (res) {
                     //session失效
                     if(res.data.result == undefined){
                         this.$confirm('用户登陆超时，请重新登陆。', '提示', {
