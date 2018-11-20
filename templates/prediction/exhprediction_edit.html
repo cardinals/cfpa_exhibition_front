@@ -144,7 +144,7 @@
                                     :before-upload="PicChange" :show-file-list="false">
                                     <img v-if="baseInforForm.src!=='' && baseInforForm.src!==null" :src="baseInforForm.imageUrl" class="avatar">
                                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                                    <div class="el-upload__tip" slot="tip">jpg/png、单页pdf文件，且不超过2MB</div>
+                                    <div class="el-upload__tip" slot="tip">jpg/png、单页pdf文件，且小于2MB</div>
                                 </el-upload>
                             </el-col>
                             <el-col :span="1">&nbsp;</el-col>
@@ -431,7 +431,7 @@
                                     :before-upload="LogoChange" :show-file-list="false">
                                         <img v-if="qyjsForm.src!==''&& qyjsForm.src!==null" :src="qyjsForm.imageUrl" class="avatar">
                                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                                        <div class="el-upload__tip" slot="tip">jpg/png文件，且不超过1MB</div>
+                                        <div class="el-upload__tip" slot="tip">jpg/png文件，且小于1MB</div>
                                     </el-upload>
                                 </el-form-item>
                             </el-col>
@@ -481,7 +481,7 @@
                                                     :show-file-list="false" :data="CpjsUpLoadData">
                                                     <img @click="getIndex(index,domain.src)" v-if="domain.src!=='' && domain.src!==null" :src="domain.imageUrl" class="avatar">
                                                     <i v-else class="el-icon-plus avatar-uploader-icon" @click="getIndex(index)"></i>
-                                                    <div class="el-upload__tip" slot="tip">jpg/png文件，且不超过2MB</div>
+                                                    <div class="el-upload__tip" slot="tip">jpg/png文件，且小于2MB</div>
                                                 </el-upload>
                                             </el-form-item>
                                         </el-col>

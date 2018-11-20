@@ -295,7 +295,7 @@
                                 <strong>室外展位：</strong>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.swgdzw" :min="0" :max="2000" placeholder="室外光地展位" :precision="0"></el-input-number>
                                 <v-text v-else v-text="(zwyxForm.swgdzw==''||zwyxForm.swgdzw==null)?'无':zwyxForm.swgdzw+' m²'"></v-text>
-                                &nbsp;&nbsp;(室外光地展位：仅限消防车类)
+                                &nbsp;&nbsp;(室外光地展位：仅限消防<span style="color:red;">举高</span>车类)
                             </el-row>
                         </el-col>
                     </el-row>
