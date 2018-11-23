@@ -197,24 +197,6 @@ var vue = new Vue({
                 console.log(error)
             })
         },
-
-        //保存前校验
-        validateSave: function(){
-            if(this.editForm.rolename=="" || this.editForm.rolename==null) {
-                this.$message.warning({
-                    message: '请输入角色名！',
-                    showClose: true
-                });
-                return false;
-            }else if(this.editForm.roleinfo=="" || this.editForm.roleinfo==null){
-                this.$message.warning({
-                    message: '请输入角色描述！',
-                    showClose: true
-                });
-                return false;
-            }
-            return true;
-        },
         
         //修改：保存按钮
         editSubmit: function (val) {
