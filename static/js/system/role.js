@@ -32,30 +32,8 @@ var vue = new Vue({
             pageSize: 10,
             //总记录数
             total: 0,
-            //序号
-            indexData: 0,
             //资源列表是否显示
             resourceVisible: false,
-            //删除的弹出框
-            deleteVisible: false,
-            //新建页面是否显示
-            addFormVisible: false,
-            addLoading: false,
-            addFormRules: {
-                rolename: [
-                    { required: true, message: "请输入角色名称", trigger: "blur" },
-                    { pattern: /^[0-9A-Za-z]{2,16}$/, message: '角色名应为2-16位字母和数字组合', trigger: 'blur' },
-                ],
-                roleinfo: [{ required: true, message: "请输入角色描述", trigger: "blur" }]
-            },
-            //新建数据
-            addForm: {
-                rolename: "",
-                roleinfo: "",
-                resource: []
-            },
-            //选中的序号
-            selectIndex: -1,
             //修改界面是否显示
             editFormVisible: false,
             editLoading: false,
@@ -89,8 +67,14 @@ var vue = new Vue({
                 label: 'name',
                 children: 'zones'
             },
-            count: 1,
-
+            //登陆用户名-旧
+            rolenameOld: "",
+            //Dialog Title
+            dialogTitle: "用户编辑",
+            //选中的序号
+            editIndex: -1,
+            //当前登陆用户
+            shiroData: "",
         }
     },
     created: function () {
@@ -98,6 +82,7 @@ var vue = new Vue({
         loadBreadcrumb("角色管理", "-1");
         //table高度
         tableheight = tableheight10;
+        this.shiroData = shiroGlobal;
         this.getAllRoles();
         this.searchClick('click');
     },
@@ -133,11 +118,10 @@ var vue = new Vue({
             }else{
                 this.currentPage = 1;
             }
-            var _self = this;
-            _self.loading = true;//表格重新加载
+            this.loading = true;//表格重新加载
             var params = {
-                rolename: this.searchForm.rolename,
-                roleinfo: this.searchForm.roleinfo,
+                rolename: this.searchForm.rolename.replace(/%/g,"\\%"),
+                roleinfo: this.searchForm.roleinfo.replace(/%/g,"\\%"),
                 createTimeBegin: this.searchForm.createTime[0],
                 createTimeEnd: this.searchForm.createTime[1],
                 pageSize: this.pageSize,
@@ -146,7 +130,7 @@ var vue = new Vue({
             axios.post('/xfxhapi/role/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
-                _self.loading = false;
+                this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -181,10 +165,39 @@ var vue = new Vue({
 
         //新建：弹出Dialog
         addClick: function () {
-            var _self = this;
-            _self.addFormVisible = true;
+            this.dialogTitle = "角色新增";
             this.getAllResources();
+            //清空edit表单
+            this.defaultCheckKeys = [];
+            if (this.$refs["editForm"] !== undefined) {
+                this.$refs["editForm"].resetFields();
+            }
+            this.editFormVisible = true;
         },
+
+        //修改：弹出Dialog
+        editClick: function (val, index) {
+            this.editIndex = index;
+            this.dialogTitle = "角色编辑";
+            var roleid = val.roleid;
+            axios.get('/xfxhapi/resource/getChildren/' + roleid).then(function (res) {
+                this.defaultCheckKeys = res.data.result;
+                this.getAllResources();
+                var forEnd = this.tableData.length<this.pageSize*this.currentPage?this.tableData.length:this.pageSize*this.currentPage;
+                //获取选择的行号
+                for (var k = this.pageSize*(this.currentPage-1); k < forEnd; k++) {
+                    if (this.tableData[k].roleid == roleid) {
+                        this.selectIndex = k;
+                    }
+                }
+                //直接从table中取值放在form表单中
+                this.editForm = Object.assign({}, this.tableData[this.selectIndex]);
+                this.editFormVisible = true;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+
         //保存前校验
         validateSave: function(){
             if(this.editForm.rolename=="" || this.editForm.rolename==null) {
@@ -202,157 +215,117 @@ var vue = new Vue({
             }
             return true;
         },
-        //新建：提交
-        addSubmit: function (val) {
-            if(this.addForm.rolename=="" || this.addForm.rolename==null) {
-                this.$message.warning({
-                    message: '请输入角色名称！',
-                    showClose: true
-                });
-                return false;
-            }else if(this.addForm.roleinfo=="" || this.addForm.roleinfo==null){
-                this.$message.warning({
-                    message: '请输入角色描述！',
-                    showClose: true
-                });
-                return false;
-            }else{
-                var _self = this;
-                axios.get('/xfxhapi/role/getNum/' + this.addForm.rolename).then(function (res) {
-                    if (res.data.result != 0) {
-                        _self.$message({
-                            message: "角色名已存在!",
-                            type: "error"
-                        });
-                    } else {
-                        val.resource = this.$refs.tree.getCheckedNodes();
-                        var params = {
-                            rolename: val.rolename,
-                            roleinfo: val.roleinfo,
-                            resources: val.resource
-                        }
-                        axios.post('/xfxhapi/role/insertByVO', params).then(function (res) {
-                            var addData = res.data.result;
-                            addData.createTime = new Date();
-                            _self.tableData.unshift(addData);
-                            _self.total = _self.tableData.length;
-                            this.$message({
-                                message: "角色新增成功！",
-                                type: "success"
-                            });
-                        }.bind(this), function (error) {
+        
+        //修改：保存按钮
+        editSubmit: function (val) {
+            this.$refs["editForm"].validate((valid) => {
+                if (valid) {
+                    val.resource = this.$refs.tree.getCheckedNodes();
+                    var params = {
+                        rolename: val.rolename,
+                        roleinfo: val.roleinfo,
+                        resources: val.resource
+                    };
+                    if(this.dialogTitle == "角色新增"){
+                        axios.get('/xfxhapi/role/getNum/' + this.editForm.rolename).then(function(res){
+                            if(res.data.result != 0){
+                                this.$message({
+                                    message: "角色名已存在",
+                                    type: "error"
+                                });
+                            }else{
+                                axios.post('/xfxhapi/role/insertByVO', params).then(function (res) {
+                                    res.data.result.createTime = new Date();
+                                    this.tableData.unshift(res.data.result);
+                                    this.total = this.tableData.length;
+                                }.bind(this), function (error) {
+                                    console.log(error)
+                                })
+                                this.editFormVisible = false;
+                            }
+                        }.bind(this),function(error){
                             console.log(error)
                         })
-                        this.addFormVisible = false;
-                        loadingData();//重新加载数据
+                    }else if(this.dialogTitle == "角色编辑"){
+                        params.roleid = val.roleid;
+                        params.alterId = this.shiroData.userid;
+                        params.alterName = this.shiroData.realName;
+                        if(this.editForm.rolename == this.rolenameOld){
+                            this.editSubmitUpdateDB(params);
+                        }else{
+                            axios.get('/xfxhapi/role/getNum/' + this.editForm.rolename).then(function(res){
+                                if(res.data.result != 0){
+                                    this.$message({
+                                        message: "角色名已存在",
+                                        type: "error"
+                                    });
+                                }else{
+                                   this.editSubmitUpdateDB(params);
+                                }
+                            }.bind(this),function(error){
+                                console.log(error)
+                            })
+                        }
                     }
-                }.bind(this), function (error) {
-                    console.log(error)
-                })
-            }
+                } else {
+                    console.log('error save!!');
+                    return false;
+                }
+            });
+        },
+
+        //修改方法-update数据库  by li.xue 2018/11/23 9:39
+        editSubmitUpdateDB: function(params){
+            axios.post('/xfxhapi/role/updateByVO', params).then(function (res) {
+                var result = res.data.result;
+                this.tableData[this.editIndex].rolename = result.rolename;
+                this.tableData[this.editIndex].roleinfo = result.roleinfo;
+                this.tableData[this.editIndex].alterName = result.alterName;
+                this.tableData[this.editIndex].alterTime = new Date();
+                this.tableData[this.editIndex].resources = result.resource;
+                this.editFormVisible = false;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
         },
 
         //删除：批量删除
         removeSelection: function () {
-            var _self = this;
-            var multipleSelection = this.multipleSelection;
-            if (multipleSelection.length < 1) {
-                _self.$message({
+            if (this.multipleSelection.length < 1) {
+                this.$message({
                     message: "请至少选中一条记录",
-                    type: "error"
+                    type: "warning"
                 });
                 return;
             }
-            var ids = [];
-            for (var i = 0; i < multipleSelection.length; i++) {
-                var row = multipleSelection[i];
-                ids.push(row.roleid);
-            }
-            this.$confirm("确认删除吗？", "提示", { type: "warning" })
-                .then(function () {
-                    var params = {
-                        ids: ids
-                    }
-                    axios.post('/xfxhapi/role/deleteByIds', params).then(function (res) {
-                        for (var d = 0; d < ids.length; d++) {
-                            for (var k = 0; k < _self.tableData.length; k++) {
-                                if (_self.tableData[k].roleid == ids[d]) {
-                                    _self.tableData.splice(k, 1);
-                                }
-                            }
-                        }
-                        _self.$message({
-                            message: "删除成功",
-                            type: "success"
-                        });
-                        _self.total = _self.tableData.length;
-                        loadingData(); //重新加载数据
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-
-                })
-                .catch(function (e) {
-                    if (e != "cancel") console.log("出现错误：" + e);
-                });
-        },
-
-        //修改：弹出Dialog
-        editClick: function (val) {
-            var roleid = val.roleid;
-            axios.get('/xfxhapi/resource/getChildren/' + roleid).then(function (res) {
-                this.defaultCheckKeys = res.data.result;
-                var forEnd = this.tableData.length<this.pageSize*this.currentPage?this.tableData.length:this.pageSize*this.currentPage;
-                //获取选择的行号
-                for (var k = this.pageSize*(this.currentPage-1); k < forEnd; k++) {
-                    if (this.tableData[k].roleid == roleid) {
-                        this.selectIndex = k;
-                    }
-                }
-            
-                //直接从table中取值放在form表单中
-                this.editForm = Object.assign({}, this.tableData[this.selectIndex]);
-                this.getAllResources();
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-            this.editFormVisible = true;
-        },
-
-        //修改：保存按钮
-        editSubmit: function (val) {
-            if(this.validateSave()){
-                val.resource = this.$refs.tree.getCheckedNodes();
-                var params = {
-                    roleid: val.roleid,
-                    rolename: val.rolename,
-                    roleinfo: val.roleinfo,
-                    resources: val.resource
-                };
-                axios.post('/xfxhapi/role/updateByVO', params).then(function (res) {
-                    this.tableData[this.selectIndex].rolename = val.rolename;
-                    this.tableData[this.selectIndex].roleinfo = val.roleinfo;
-                    this.tableData[this.selectIndex].alterName = res.data.result.alterName;
-                    this.tableData[this.selectIndex].alterTime = new Date();
-                    this.tableData[this.selectIndex].resources = val.resource;
+            this.$confirm('确认删除选中信息?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                axios.post('/xfxhapi/role/deleteByIds', this.multipleSelection).then(function (res) {
                     this.$message({
-                        message: "角色编辑成功！",
-                        type: "success"
+                        message: "成功删除" + res.data.result + "条用户信息",
+                        showClose: true,
+                        onClose: this.searchClick('delete')
                     });
                 }.bind(this), function (error) {
                     console.log(error)
                 })
-                this.editFormVisible = false;
-            }
-            
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
         },
 
         closeDialog: function (val) {
-            this.addFormVisible = false;
-            val.rolename = "";
-            val.roleinfo = "";
+            this.editFormVisible = false;
             this.defaultCheckKeys = [];
-            this.$refs["addForm"].resetFields();
+            if (this.$refs["editForm"] !== undefined) {
+                this.$refs["editForm"].resetFields();
+            }
         },
         closeresourceDialog: function () {
             this.resourceVisible = false;
