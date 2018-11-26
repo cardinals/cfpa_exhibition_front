@@ -252,7 +252,7 @@ var vue = new Vue({
         },
     
         closeDialog: function () {
-            this.addFormVisible = false;
+            this.editFormVisible = false;
             this.$refs["editForm"].resetFields();
         },
         //清空查询条件
