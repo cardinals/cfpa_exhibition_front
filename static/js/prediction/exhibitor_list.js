@@ -88,6 +88,7 @@ var vue = new Vue({
     methods: {
         //表格查询事件
         searchClick: function(type) {
+            debugger;
             //按钮事件的选择
             if(type == 'page'){
                 this.tableData = [];
@@ -107,8 +108,6 @@ var vue = new Vue({
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
-                // this.tableData = res.data.result;
-                // this.total = res.data.result.length;
                 _self.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -377,7 +376,7 @@ var vue = new Vue({
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                axios.post('/xfxhapi/user/deleteByIds', this.multipleSelection).then(function (res) {
+                axios.post('/xfxhapi/user/deleteByList', this.multipleSelection).then(function (res) {
                     this.$message({
                         message: "成功删除" + res.data.result + "条用户信息",
                         showClose: true,

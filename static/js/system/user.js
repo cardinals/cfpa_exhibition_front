@@ -437,7 +437,7 @@ var vue = new Vue({
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                axios.post('/xfxhapi/user/deleteByIds', this.multipleSelection).then(function (res) {
+                axios.post('/xfxhapi/user/deleteByList', this.multipleSelection).then(function (res) {
                     this.$message({
                         message: "成功删除" + res.data.result + "条用户信息",
                         showClose: true,
