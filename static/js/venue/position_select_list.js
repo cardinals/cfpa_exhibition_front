@@ -12,7 +12,8 @@ var vue = new Vue({
             ploter: {
                 show: true
             },
-            dialogVisible: false
+            dialogVisible: false,
+            currentUuid: ''
         }
     },
     mounted: function () {
@@ -25,6 +26,12 @@ var vue = new Vue({
             return {
                 display: this.ploter.show ? 'flex' : 'none'
             }
+        }
+    },
+    created: function () {
+        this.currentUuid = getQueryString("uuid");
+        if(this.currentUuid){
+            this.getStage(this.currentUuid)
         }
     },
     methods: {

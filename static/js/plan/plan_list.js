@@ -29,6 +29,13 @@ var vue = new Vue({
         }
     },
     methods: {
-
+        planClick(uuid) {
+            var params = {
+                uuid: uuid
+            }
+            debugger
+            //loadDivParam("all.html?url=/venue/position_select", params);
+            loadDivParam("venue/position_select_list", params);
+        }
     }
 })
