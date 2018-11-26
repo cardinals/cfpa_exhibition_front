@@ -27,7 +27,7 @@ var vue = new Vue({
             editFormRules: {
                 codeValue: [
                     { required: true, message: "请输入代码值", trigger: "blur" },
-                    { pattern: /^[a-zA-Z0-9_-]{2,30}$/, message: '长度为2-30个字母、数字、_-符号',trigger: 'blur'},
+                    { pattern: /^[a-zA-Z0-9_-]{1,30}$/, message: '长度为1-30个字母、数字、_-符号',trigger: 'blur'},
                 ],
                 codeName: [{ required: true, message: "请输入代码名称", trigger: "blur" }]
             },
@@ -36,7 +36,7 @@ var vue = new Vue({
                 codetype: "",
                 codetypeName: ""
             },
-            //代码集名称-旧
+            //代码值名称-旧
             codeValueOld: "",
             //Dialog Title
             dialogTitle: "代码集详情编辑",
@@ -93,8 +93,8 @@ var vue = new Vue({
             this.loading = true;
             var params = {
                 codeid: this.codeid,
-                codeValue: this.searchForm.codeValue.trim(),
-                codeName: this.searchForm.codeName.trim(),
+                codeValue: this.searchForm.codeValue.replace(/%/g,"\\%"),
+                codeName: this.searchForm.codeName.replace(/%/g,"\\%"),
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             };
