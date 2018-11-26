@@ -22,28 +22,12 @@ var vue = new Vue({
             pageSize: 10,
             //总记录数
             total: 10,
-            //新建页面是否显示
-            addFormVisible: false,
-            addFormRules: {
-                codeValue: [
-                    { required: true, message: "请输入代码值", trigger: "blur" },
-                    { pattern: /^[0-9A-Za-z]{2,50}$/, message: '代码值应为2-50位字母、数字', trigger: 'blur' },
-                ],
-                codeName: [{ required: true, message: "请输入代码名称", trigger: "blur" }]
-            },
-            //新建数据
-            addForm: {
-                permissionname: "",
-                permissioninfo: ""
-            },
-            //选中的序号
-            selectIndex: -1,
             //修改界面是否显示
             editFormVisible: false,
             editFormRules: {
                 codeValue: [
                     { required: true, message: "请输入代码值", trigger: "blur" },
-                    { pattern: /^[0-9A-Za-z]{2,50}$/, message: '代码值应为2-50位字母、数字', trigger: 'blur' },
+                    { pattern: /^[a-zA-Z0-9_-]{2,30}$/, message: '长度为2-30个字母、数字、_-符号',trigger: 'blur'},
                 ],
                 codeName: [{ required: true, message: "请输入代码名称", trigger: "blur" }]
             },
@@ -51,7 +35,15 @@ var vue = new Vue({
             editForm: {
                 codetype: "",
                 codetypeName: ""
-            }
+            },
+            //代码集名称-旧
+            codeValueOld: "",
+            //Dialog Title
+            dialogTitle: "代码集详情编辑",
+            //选中的序号
+            editIndex: -1,
+            //当前登陆用户
+            shiroData: "",
         }
     },
     created: function () {
@@ -59,6 +51,8 @@ var vue = new Vue({
         loadBreadcrumb("代码集管理", "代码集详情");
         //table高度
         tableheight = tableheight10;
+        //当前登陆用户
+        this.shiroData = shiroGlobal;
 
         this.loading = true; //重新加载数据
         this.codeid = getQueryString("codeid");
@@ -77,9 +71,6 @@ var vue = new Vue({
         })
     },
     methods: {
-        handleNodeClick(data) {
-        },
-
         //日期控件格式化
         begindateChange(val) {
             this.searchForm.createTimeBegin = val;
@@ -123,138 +114,127 @@ var vue = new Vue({
             this.multipleSelection = val;
         },
 
-        //表格重新加载数据
-        loadingData: function () {
-            var _self = this;
-            _self.loading = true;
-            setTimeout(function () {
-                console.info("加载数据成功");
-                _self.loading = false;
-            }, 300);
-        },
-
         //新建：弹出Dialog
         addClick: function () {
-            var _self = this;
-            _self.addFormVisible = true;
-
-        },
-
-        //新建：保存
-        addSubmit: function (val) {
-            if(this.addForm.codeValue=="" || this.addForm.codeValue==null) {
-                this.$message.warning({
-                    message: '请输入代码值！',
-                    showClose: true
-                });
-                return false;
-            }else if(this.addForm.codeName=="" || this.addForm.codeName==null){
-                this.$message.warning({
-                    message: '请输入代码名称！',
-                    showClose: true
-                });
-                return false;
-            }else{
-                var _self = this;
-                axios.get('/xfxhapi/codelist/detail/getNum/' + this.codeid + '/' + this.addForm.codeValue).then(function (res) {
-                    if (res.data.result != 0) {
-                        _self.$message({
-                            message: "代码值已存在!",
-                            type: "error"
-                        });
-                    } else {
-                        var params = {
-                            codeid: this.codeid,
-                            codeValue: val.codeValue.trim(),
-                            codeName: val.codeName.trim(),
-                            remark: val.remark
-                        }
-                        axios.post('/xfxhapi/codelist/detail/insertByVO', params).then(function (res) {
-                            var addData = res.data.result;
-                            addData.createTime = new Date();
-                            _self.tableData.unshift(addData);
-                            _self.total = _self.tableData.length;
-                            this.$message({
-                                message: "代码集详情新增成功！",
-                                type: "success"
-                            });
-                        }.bind(this), function (error) {
-                            console.log(error)
-                        })
-                        this.addFormVisible = false;
-                        _self.loadingData();//重新加载数据
-                    }
-                }.bind(this), function (error) {
-                    console.log(error)
-                })
+            this.dialogTitle = "代码集详情新增";
+            //清空edit表单
+            if (this.$refs["editForm"] !== undefined) {
+                this.$refs["editForm"].resetFields();
             }
+            this.editFormVisible = true;
         },
 
         //修改：弹出Dialog
-        editClick: function(val) {
-            var pkid = val.pkid;
-            //循环终点
-            var forEnd = this.tableData.length<this.pageSize*this.currentPage?this.tableData.length:this.pageSize*this.currentPage;
-            //获取选择的行号
-            for (var k = this.pageSize*(this.currentPage-1); k < forEnd; k++) {
-                if (this.tableData[k].pkid == pkid) {
-                    this.selectIndex = k;
-                }
-            }
-
-            //直接从table中取值放在form表单中
-            this.editForm = Object.assign({}, this.tableData[this.selectIndex]);
+        editClick: function(val, index) {
+            this.editIndex = index;
+            this.dialogTitle = "代码集详情编辑";
+            var params = {
+                codeid: this.codeid,
+                pkid: val.pkid
+            };
+            axios.post('/xfxhapi/codelist/detail/findByVO', params).then(function (res) {
+                this.editForm = res.data.result.list[0];
+                //保存当前用户名codevalue
+                this.codeValueOld = this.editForm.codeValue;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
             this.editFormVisible = true;
         },
 
         //修改：保存
         editSubmit: function (val) {
-            if(this.editForm.codeValue=="" || this.editForm.codeValue==null) {
-                this.$message.warning({
-                    message: '请输入代码值！',
-                    showClose: true
-                });
-                return false;
-            }else if(this.editForm.codeName=="" || this.editForm.codeName==null){
-                this.$message.warning({
-                    message: '请输入代码名称！',
-                    showClose: true
-                });
-                return false;
-            }else{
-                var _self = this;
-                var params = {
-                    pkid: val.pkid,
-                    codeValue: val.codeValue.trim(),
-                    codeName: val.codeName.trim(),
-                    remark: val.remark
-                };
-                axios.post('/xfxhapi/codelist/detail/updateByVO', params).then(function (res) {
-                    this.tableData[this.selectIndex].codeValue = res.data.result.codeValue;
-                    this.tableData[this.selectIndex].codeName = res.data.result.codeName;
-                    this.tableData[this.selectIndex].remark = res.data.result.remark;
-                    this.tableData[this.selectIndex].alterName = res.data.result.alterName;
-                    this.tableData[this.selectIndex].alterTime = new Date();
-                    this.$message({
-                        message: "代码集详情编辑成功！",
-                        type: "success"
-                    });
-                }.bind(this), function (error) {
-                    console.log(error)
-                })
+            this.$refs["editForm"].validate((valid) => {
+                if (valid) {
+                    var params = {
+                        codeid: this.codeid,
+                        codeValue: val.codeValue,
+                        codeName: val.codeName,
+                        remark: val.remark
+                    };
+                    if(this.dialogTitle == "代码集详情新增"){
+                        axios.get('/xfxhapi/codelist/detail/getNum/' + this.codeid + '/' + this.editForm.codeValue).then(function(res){
+                            if(res.data.result != 0){
+                                this.$message({
+                                    message: "代码值已存在",
+                                    type: "error"
+                                });
+                            }else{
+                                axios.post('/xfxhapi/codelist/detail/insertByVO', params).then(function (res) {
+                                    var addData = res.data.result;
+                                    addData.createTime = new Date();
+                                    this.tableData.unshift(addData);
+                                    this.total = this.tableData.length;
+                                    this.$message({
+                                        message: "代码集详情新增成功",
+                                        type: "success"
+                                    });
+                                }.bind(this), function (error) {
+                                    console.log(error)
+                                })
+                                this.editFormVisible = false;
+                            }
+                        }.bind(this),function(error){
+                            console.log(error)
+                        })
+                    }else if(this.dialogTitle == "代码集详情编辑"){
+                        params.pkid = val.pkid;
+                        params.alterId = this.shiroData.userid;
+                        params.alterName = this.shiroData.realName;
+                        if(this.editForm.codeValue == this.codeValueOld){
+                            this.editSubmitUpdateDB(params);
+                        }else{
+                            axios.get('/xfxhapi/codelist/detail/getNum/' + this.codeid + '/' + this.editForm.codeValue).then(function(res){
+                                if(res.data.result != 0){
+                                    this.$message({
+                                        message: "代码值已存在",
+                                        type: "error"
+                                    });
+                                }else{
+                                   this.editSubmitUpdateDB(params);
+                                }
+                            }.bind(this),function(error){
+                                console.log(error)
+                            })
+                        }
+                    }
+                } else {
+                    console.log('error save!!');
+                    return false;
+                }
+            });
+        },
+
+        //修改方法-update数据库  by li.xue 2018/11/23 9:39
+        editSubmitUpdateDB: function(params){
+            axios.post('/xfxhapi/codelist/detail/updateByVO', params).then(function (res) {
+                var result = res.data.result;
+                this.tableData[this.editIndex].codeValue = result.codeValue;
+                this.tableData[this.editIndex].codeName = result.codeName;
+                this.tableData[this.editIndex].remark = result.remark;
+                this.tableData[this.editIndex].alterName = result.alterName;
+                this.tableData[this.editIndex].alterTime = new Date();
                 this.editFormVisible = false;
-            }
-            
+            }.bind(this), function (error) {
+                console.log(error)
+            })
         },
 
         //删除:批量删除
         removeSelection: function () {
+            if (this.multipleSelection.length < 1) {
+                this.$message({
+                    message: "请至少选中一条记录",
+                    type: "warning"
+                });
+                return;
+            }
             this.$confirm('确认删除选中信息?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                axios.post('/xfxhapi/codelist/detail/deleteByIds', this.multipleSelection).then(function (res) {
+                axios.post('/xfxhapi/codelist/detail/deleteByList', this.multipleSelection).then(function (res) {
                     this.$message({
                         message: "成功删除" + res.data.result + "条代码集信息",
                         showClose: true,
@@ -271,11 +251,9 @@ var vue = new Vue({
             });
         },
     
-        closeDialog: function (val) {
+        closeDialog: function () {
             this.addFormVisible = false;
-            val.permissionname = "";
-            val.permissioninfo = "";
-            this.$refs["addForm"].resetFields();
+            this.$refs["editForm"].resetFields();
         },
         //清空查询条件
         clearClick: function () {
