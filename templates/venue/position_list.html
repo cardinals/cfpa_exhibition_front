@@ -16,15 +16,19 @@
 					<el-row>
 						<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
 							<el-row>
-								<el-col :span="8" class="searchInline">
+								<el-col :span="6" class="searchInline">
 									<label class="el-form-item__label searchLabel">展位编号</label>
 									<el-input size="small" v-model="searchForm.zwh" placeholder="展位编号" clearable></el-input>
 								</el-col>
-								<el-col :span="8" class="searchInline">
+								<el-col :span="6" class="searchInline">
 									<label class="el-form-item__label searchLabel">展位名称</label>
 									<el-input size="small" v-model="searchForm.zwmc" placeholder="展位名称" clearable></el-input>
 								</el-col>
-								<el-col :span="8" class="searchInline">
+								<el-col :span="6" class="searchInline">
+									<label class="el-form-item__label searchLabel">公司名称</label>
+									<el-input size="small" v-model="searchForm.qymc" placeholder="公司名称" clearable></el-input>
+								</el-col>
+								<el-col :span="6" class="searchInline">
 									<label class="el-form-item__label searchLabel">展位状态</label>
 									<el-select size="small" v-model="searchForm.zwzt" placeholder="全部" class="searchSelect" clearable>
 										<el-option v-for="item in dataStatus" :key="item.value" :label="item.name" :value="item.value"></el-option>
@@ -65,7 +69,12 @@
 									</div>
 								</template>
 							</el-table-column>
-							<el-table-column prop="qymc" show-overflow-tooltip label="公司名称" min-width="15%" align="center"></el-table-column>
+							<el-table-column prop="qymc" show-overflow-tooltip label="公司名称" min-width="15%" align="center">
+								<template slot-scope="scope">
+									<a v-if="scope.row.usertype == 'ENG'" v-text="scope.row.qymc" @click="qyDetails(scope.row)"></a>
+									<a v-else v-text="scope.row.qymc" @click="qyDetails(scope.row)"></a>
+								</template> 
+							</el-table-column>
 						</el-table>
 						<!--列表底部工具条和分页符-->
 						<el-row type="flex" justify="end">
