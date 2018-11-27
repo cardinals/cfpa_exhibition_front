@@ -8,7 +8,8 @@ var vue = new Vue({
             searchForm: {
                 zwmc: "",
                 zwh: "",
-                zwzt: ""
+                zwzt: "",
+                qymc: ""
             },
             //表数据
             tableData: [],
@@ -57,7 +58,13 @@ var vue = new Vue({
     },
 
     methods: {
-       
+        //企业详情跳转
+        qyDetails: function (val) {
+            var params = {
+                id: val.qyid
+            }
+            loadDivParam("prediction/exhprediction_detail", params);
+        },
         //表格查询事件
         searchClick: function (type) {
             //按钮事件的选择
@@ -70,6 +77,7 @@ var vue = new Vue({
             _self.loading = true;//表格重新加载
             var params = {
                 zwmc: this.searchForm.zwmc.replace(/%/g, "\\%"),
+                qymc: this.searchForm.qymc.replace(/%/g, "\\%"),
                 zwh: this.searchForm.zwh.replace(/%/g, "\\%"),
                 zwzt: this.searchForm.zwzt.replace(/%/g, "\\%"),
                 pageSize: this.pageSize,
