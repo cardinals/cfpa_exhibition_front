@@ -83,8 +83,7 @@ var vue = new Vue({
                 console.log(error)
             })
         },
-        getStage(uuid) {
-
+        getStage(uuid,e) {
             var params = {
                 uuid: uuid
             }
@@ -131,7 +130,6 @@ var vue = new Vue({
             })
         },
         getBusinessData(stageUuid) {
-
             var params = {
                 zgid: this.zguuid
             }
@@ -144,13 +142,29 @@ var vue = new Vue({
             })
         },
         handlerBusinessShapeSelected(data) {
-            
-            this.$message({
-                message: '展位选择成功',
-                type: 'success',
-                center: true
-            });
-           
+            var params = {
+                zwid: data.uuid
+            }
+            axios.post('/xfxhapi/zwjbxx/doUpdateByVO', params).then(function (res) {
+                let businessData = this.back2plot(res.data.result)
+                //需要新增
+                viewerHandshake.call('updateBusinessRecord', businessData)
+                if(res.data.msg=='success'){
+                    this.$message({
+                        message: '展位选择成功',
+                        type: 'success',
+                        center: true
+                    });
+                }else{
+                    this.$message({
+                        message: res.data.msg,
+                        type: 'error',
+                        center: true
+                    });
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
         },
         back2plot(backData) {
             let plotData = []
