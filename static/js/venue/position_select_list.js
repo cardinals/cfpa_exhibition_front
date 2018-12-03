@@ -89,7 +89,6 @@ var vue = new Vue({
             }
             this.zguuid = uuid
             axios.post('/xfxhapi/zgjbxx/doSearchHbListByVO', params).then(function (res) {
-                debugger
                 this.currentAreaStage = res.data.result[0].zgzwhbStr
                 this.initPlotArea()
             }.bind(this), function (error) {
@@ -180,14 +179,19 @@ var vue = new Vue({
                 pd.nameFontSize = bd.mczh
                 pd.nameFontStyle = bd.mczc
                 pd.nameFontFamily = bd.mczt
-                pd.type = bd.zwlb
-                pd.length = bd.zwcd
-                pd.width = bd.zwkd
+                //展位类型
+                pd.boothType = bd.zwlb
+                //出口类型
+                pd.entryType = bd.cklx
+                //企业名称
+                pd.tenantName = bd.qymc
+                pd.lateralLength = bd.zwcd
+                pd.verticalLength = bd.zwkd
                 pd.area = bd.zwmj
                 pd.status = bd.zwzt
                 pd.stageUuid = bd.zgid
                 pd.shapeUuid = bd.reserve1
-                pd.qyid = bd.qyid
+                pd.tenantId = bd.qyid
                 plotData.push(pd)
             }
             return plotData
@@ -206,14 +210,19 @@ var vue = new Vue({
                 bd.mczh = pd.nameFontSize
                 bd.mczc = pd.nameFontStyle
                 bd.mczt = pd.nameFontFamily
-                bd.zwlb = pd.type
-                bd.zwcd = pd.length
-                bd.zwkd = pd.width
+                //展位类型
+                bd.zwlb = pd.boothType
+                //出口类型
+                bd.cklx = pd.entryType
+                //企业名称
+                bd.qymc = pd.tenantName
+                bd.zwcd = pd.lateralLength
+                bd.zwkd = pd.verticalLength
                 bd.zwmj = pd.area
                 bd.zwzt = pd.status
                 bd.zgid = pd.stageUuid
                 bd.reserve1 = pd.shapeUuid
-                bd.qyid = pd.qyid
+                bd.qyid = pd.tenantId
                 backData.push(bd)
             }
             return backData

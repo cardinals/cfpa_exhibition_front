@@ -295,7 +295,6 @@ var vue = new Vue({
             axios.post('/xfxhapi/zgjbxx/doSearchHbListByVO', params).then(function (res) {
                 this.currentAreaStage =  res.data.result[0].zgzwhbStr
                 this.initPlotArea()
-                debugger
                 this.isDisabled = false
             }.bind(this), function (error) {
                 console.log(error)
@@ -342,7 +341,7 @@ var vue = new Vue({
                 zgid: this.zguuid
             }
             axios.post('/xfxhapi/zwjbxx/doSearchListByVO', params).then(function (res) {
-                
+                debugger
                 let businessData = this.back2plot(res.data.result)
                 // 外到里call 里到外emit
                 editorHandshake.call('updateBusinessData', businessData)
@@ -375,8 +374,6 @@ var vue = new Vue({
                         type: 'success',
                         center: true
                       });
-                    debugger
-                   
                     if (editorHandshake) {
                         //销毁当前画布
                         editorHandshake.destroy()
@@ -419,17 +416,6 @@ var vue = new Vue({
             this.ploter.show = false
             this.ploter.show = true
         },
-        // 列表
-        // handlerCreateBtnClick () {
-        //     this.createModel.show = true
-        // },
-        // handlerEditBtnClick (area) {
-        //     if (area && !this.ploter.show) {
-        //         this.currentArea = area
-        //         this.getStage()
-        //         this.ploter.show = true
-        //     }
-        // },
         //展会后台数据转绘图工具数据
         back2plot (backData) {
             let plotData = []
@@ -445,15 +431,20 @@ var vue = new Vue({
                 pd.nameFontSize = bd.mczh
                 pd.nameFontStyle = bd.mczc
                 pd.nameFontFamily = bd.mczt
-                pd.type = bd.zwlb
-                pd.length = bd.zwcd
-                pd.width = bd.zwkd
+                //展位类型
+                pd.boothType = bd.zwlb
+                //出口类型
+                pd.entryType = bd.cklx
+                //企业名称
+                pd.tenantName = bd.qymc
+                pd.lateralLength = bd.zwcd
+                pd.verticalLength = bd.zwkd
                 pd.area = bd.zwmj
                 pd.status = bd.zwzt
                 pd.stageUuid = bd.zgid
                 //绘图工具展位ID
                 pd.shapeUuid = bd.reserve1
-                pd.qyid= bd.qyid
+                pd.tenantId= bd.qyid
                 plotData.push(pd)
             }
             return plotData
@@ -474,14 +465,19 @@ var vue = new Vue({
                 bd.mczh = pd.nameFontSize
                 bd.mczc = pd.nameFontStyle
                 bd.mczt = pd.nameFontFamily
-                bd.zwlb = pd.type
-                bd.zwcd = pd.length
-                bd.zwkd = pd.width
+                //展位类型
+                bd.zwlb = pd.boothType
+                //出口类型
+                bd.cklx = pd.entryType
+                //企业名称
+                bd.qymc = pd.tenantName
+                bd.zwcd = pd.lateralLength
+                bd.zwkd = pd.verticalLength
                 bd.zwmj = pd.area
                 bd.zwzt = pd.status
                 bd.zgid = pd.stageUuid
                 bd.reserve1 = pd.shapeUuid
-                bd.qyid = pd.qyid
+                bd.qyid = pd.tenantId
                 backData.push(bd)
             }
             return backData

@@ -23,7 +23,7 @@
 
 					<div class="ploter-navigation-tools">
 						<el-button icon="el-icon-position" class="btn" @click="handlerDrawArea">绘制展位</el-button>
-						<el-popover
+						<!-- <el-popover
 							placement="bottom"
 							width="470"
 							trigger="hover"
@@ -59,11 +59,11 @@
 								</div>
 								<img class="imagez" src="../../static/images/plot/icn_open1_l.png"  @click="handlerDrawDoor(doors[4])"/>
 							</el-card>
-							<!-- v-for="door in doors" :key="door.id" @click="handlerDrawDoor(door)"  -->
+							
 							<el-button slot="reference" icon="el-icon-exit" class="btn" class="app-ploter-tools-graphs-menu-item">
-									<!-- {{door.name}} --> 绘制出口
+									绘制出口
 							</el-button>
-						</el-popover>
+						</el-popover> -->
 						<el-button icon="el-icon-save" class="btn" @click="handlerSaveBtnClick" :disabled="isDisabled" >保存</el-button>
 						<el-button icon="el-icon-cancel" class="btn" @click="handlerCancelBtnClick">取消修改</el-button>
 					</div>
