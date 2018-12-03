@@ -21,7 +21,7 @@
 						</el-button>
 					</div>
 					<div class="ploter-navigation-tools">
-						<el-button icon="el-icon-export" class="btn" @click="handlerExport">导出</el-button>
+						<el-button icon="el-icon-export"  :disabled="isExportDisabled" class="btn" @click="handlerExport">导出</el-button>
 					</div>
 				</div>
 			</div>

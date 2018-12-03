@@ -13,7 +13,8 @@ var vue = new Vue({
                 show: true
             },
             dialogVisible: false,
-            currentUuid: ''
+            currentUuid: '',
+            isExportDisabled: true
         }
     },
     mounted: function () {
@@ -38,14 +39,17 @@ var vue = new Vue({
         handlerExport : function(){
             if(this.zguuid){
                 var params = {
-                    uuid: uuid
+                    uuid: this.zguuid
                 }
                 axios.post('/xfxhapi/zgjbxx/doExportTp',params).then(function (res) {
-                    this.$message({
-                        message: res.data.result,
-                        type: 'success',
-                        center: true
-                    });
+                    if(res.status==200){
+                        this.$message({
+                            message: '已将展馆图片发送到您邮箱，请查收！',
+                            type: 'success',
+                            center: true
+                        });
+                        this.isExportDisabled = true
+                    }
                 }.bind(this), function (error) {
                     console.log(error)
                 })
@@ -91,6 +95,7 @@ var vue = new Vue({
             axios.post('/xfxhapi/zgjbxx/doSearchHbListByVO', params).then(function (res) {
                 this.currentAreaStage = res.data.result[0].zgzwhbStr
                 this.initPlotArea()
+                this.isExportDisabled = false
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -133,7 +138,6 @@ var vue = new Vue({
                 zgid: this.zguuid
             }
             axios.post('/xfxhapi/zwjbxx/doSearchListByVO', params).then(function (res) {
-                debugger
                 let businessData = this.back2plot(res.data.result)
                 viewerHandshake.call('updateBusinessData', businessData)
             }.bind(this), function (error) {
@@ -142,21 +146,27 @@ var vue = new Vue({
         },
         handlerBusinessShapeSelected(data) {
             var params = {
-                zwid: data.uuid
+                uuid: data.uuid
             }
             axios.post('/xfxhapi/zwjbxx/doUpdateByVO', params).then(function (res) {
-                let businessData = this.back2plot(res.data.result)
-                //需要新增
-                viewerHandshake.call('updateBusinessRecord', businessData)
                 if(res.data.msg=='success'){
+                    let bp = []
+                    bp.push(res.data.result)
+                    let businessData = this.back2plot(bp)[0]
+                    //需要新增
+                    viewerHandshake.call('updateBusinessRecord', businessData)
                     this.$message({
                         message: '展位选择成功',
                         type: 'success',
                         center: true
                     });
                 }else{
+                    let msg=res.data.msg;
+                    if(!msg){
+                        msg="选择展位失败！"
+                    }
                     this.$message({
-                        message: res.data.msg,
+                        message: msg,
                         type: 'error',
                         center: true
                     });

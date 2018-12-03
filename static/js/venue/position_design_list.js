@@ -341,7 +341,6 @@ var vue = new Vue({
                 zgid: this.zguuid
             }
             axios.post('/xfxhapi/zwjbxx/doSearchListByVO', params).then(function (res) {
-                debugger
                 let businessData = this.back2plot(res.data.result)
                 // 外到里call 里到外emit
                 editorHandshake.call('updateBusinessData', businessData)
