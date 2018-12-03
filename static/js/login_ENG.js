@@ -57,7 +57,7 @@ var vm = new Vue({
         FUmailCodeReal: "",
         FUmailCodeText: "Get Verification Code",
         FUtimer: null,
-        FUusername: "18904047625",
+        FUusername: "",
         FUmessageCode: "",
         FUmessageCodeReal: "",
         FUmessageCodeText: "Get Verification Code",
@@ -114,7 +114,7 @@ var vm = new Vue({
         });
     },
     mounted: function () {
-        $('#username').focus();
+        this.$refs.username.focus();
     },
     methods: {
         //适配屏幕分辨率
@@ -130,6 +130,9 @@ var vm = new Vue({
         reset: function () {
             this.username = "";
             this.password = "";
+        },
+        changeLanguage: function () {
+            window.location.href=baseUrl+'/templates/login.html';
         },
         // showForm: function (flag) {
         //     if (flag == 'loginFlag') {
@@ -187,11 +190,11 @@ var vm = new Vue({
                 //验证码不能为空！ 
                 alert("The verification code can not be empty!")
             } else {
-                $('#login-form').submit();
+                this.$refs.loginForm.submit();
             }
         },
         reloadCode: function () {
-            $('#checkCode').attr('src', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
+            this.src='/xfxhapi/imageCode?' + (new Date()).valueOf();
         },
         //注册
         mailCheck: function () {

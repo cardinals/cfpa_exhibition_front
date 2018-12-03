@@ -51,7 +51,7 @@ var vm = new Vue({
         FUmailCodeReal: "",
         FUmailCodeText: "获取验证码",
         FUtimer: null,
-        FUusername: "18904047625",
+        FUusername: "",
         FUmessageCode: "",
         FUmessageCodeReal: "",
         FUmessageCodeText: "获取验证码",
@@ -133,7 +133,7 @@ var vm = new Vue({
         });
     },
     mounted: function () {
-        $('#username').focus();
+        this.$refs.username.focus();
     },
     methods: {
         //适配屏幕分辨率
@@ -149,6 +149,9 @@ var vm = new Vue({
         reset: function () {
             this.username = "";
             this.password = "";
+        },
+        changeLanguage: function () {
+            window.location.href=baseUrl+'/templates/login_ENG.html';
         },
         // showForm: function (flag) {
         //     if (flag == 'loginFlag') {
@@ -225,7 +228,7 @@ var vm = new Vue({
             } else if (this.validateCode == null || this.validateCode == '') {
                 alert("验证码不能为空！")
             } else {
-                $('#login-form').submit();
+                this.$refs.loginForm.submit();
             }
         },
         nlogin: function () {
@@ -257,11 +260,11 @@ var vm = new Vue({
             }
         },
         reloadCode: function () {
-            $('#checkCode').attr('src', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
+            this.src='/xfxhapi/imageCode?' + (new Date()).valueOf();
         },
         //管理员登录
         reloadGLYCode: function () {
-            $('#GLYcheckCode').attr('src', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
+            this.GLYsrc='/xfxhapi/imageCode?' + (new Date()).valueOf();
         },
         //注册
         mobileCheck: function () {
