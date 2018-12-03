@@ -183,15 +183,16 @@ var vue = new Vue({
             axios.get('/xfxhapi/resource/getChildren/' + roleid).then(function (res) {
                 this.defaultCheckKeys = res.data.result;
                 this.getAllResources();
-                var forEnd = this.tableData.length<this.pageSize*this.currentPage?this.tableData.length:this.pageSize*this.currentPage;
-                //获取选择的行号
-                for (var k = this.pageSize*(this.currentPage-1); k < forEnd; k++) {
-                    if (this.tableData[k].roleid == roleid) {
-                        this.selectIndex = k;
-                    }
-                }
-                //直接从table中取值放在form表单中
-                this.editForm = Object.assign({}, this.tableData[this.selectIndex]);
+                var params = {
+                    roleid: roleid
+                };
+                axios.post('/xfxhapi/role/findByVO', params).then(function (res) {
+                    this.editForm = res.data.result[0];
+                    //保存当前用户名rolename
+                    this.rolenameOld = this.editForm.rolename;
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
                 this.editFormVisible = true;
             }.bind(this), function (error) {
                 console.log(error)
