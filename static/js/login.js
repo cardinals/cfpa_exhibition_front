@@ -627,7 +627,6 @@ var vm = new Vue({
                         this.changeForm('FPDFlag');
                         this.FPDregisterData = res.data.result;
                         this.FPDusername = this.FPDregisterData[0].username;
-                        $(FPDusername).attr('disabled', 'disabled');
                         // alert("请输入新密码！");
                     }.bind(this), function (error) {
                         console.log(error);

@@ -145,7 +145,6 @@ var vm = new Vue({
         //         this.FUFlag = true;
         //         this.loginFlag = false;
         //         this.regFlag = false;
-        //         $('#FUusername').attr('disabled', 'disabled');
         //     }
         // },
         changeForm: function (flag) {
@@ -155,7 +154,6 @@ var vm = new Vue({
                 this.FUmail = "";
                 this.FUmailCode = "";
             } else if (flag == 'FUBFlag') {
-                $('#FUusername').attr('disabled', 'disabled');
                 this.FUmessageCode = "";
                 this.FUpassword = "";
                 this.FUvalidateCode = "";
