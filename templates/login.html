@@ -159,7 +159,7 @@
                                 <li>
                                     <i class="icon-call"></i>
                                     <input type="text" class="inputstyle" v-model="mobile" name="mobile" id="mobile" placeholder="请输入手机号" @blur="mobileCheck">
-                                    <button type="button" id="mobile-btn" class="verficode phonebtn" @click="getMessageCode()" v-text=messageCodeText></button>
+                                    <button type="button" id="mobile-btn" class="verficode phonebtn" @click="getMessageCode()" v-text=messageCodeText :disabled="mobileBtnDisabled"></button>
                                     <p class="alert" v-show="mobileAlertFlag">*请填写正确的手机号码</p>
                                 </li>
                                 <li>
@@ -198,7 +198,7 @@
                                 <li>
                                     <i class="icon-email"></i>
                                     <input type="text" class="inputstyle" v-model="FUmail" name="FUmail" id="FUmail" placeholder="邮箱">
-                                    <button type="button" id="FUmail-btn" class="verficode phonebtn" @click="getFUMailCode()" v-text=FUmailCodeText></button>
+                                    <button type="button" id="FUmail-btn" class="verficode phonebtn" @click="getFUMailCode()" v-text=FUmailCodeText :disabled="FUmailBtnDisabled"></button>
                                 </li>
                                 <li>
                                     <i class="icon-message"></i>
@@ -216,7 +216,7 @@
                                 <li>
                                     <i class="icon-user"></i>
                                     <input type="text" class="inputstyle" v-model="FUusername" name="FUusername" id="FUusername" placeholder="用户名" disabled>
-                                    <button type="button" id="FUmobile-btn" class="verficode" @click="getFUMessageCode()" v-text=FUmessageCodeText></button>
+                                    <button type="button" id="FUmobile-btn" class="verficode" @click="getFUMessageCode()" v-text=FUmessageCodeText :disabled="FUmobileBtnDisabled"></button>
                                 </li>
                                 <li>
                                     <i class="icon-code"></i>
@@ -269,7 +269,7 @@
                                 <li>
                                     <i class="icon-email"></i>
                                     <input type="text" class="inputstyle" v-model="FPBmail" name="FPBmail" id="FPBmail" placeholder="邮箱">
-                                    <button type="button" id="FPBmail-btn" class="verficode phonebtn" @click="getFPBMailCode()" v-text=FPBmailCodeText></button>
+                                    <button type="button" id="FPBmail-btn" class="verficode phonebtn" @click="getFPBMailCode()" v-text=FPBmailCodeText :disabled="FPBmailBtnDisabled"></button>
                                 </li>
                                 <li>
                                     <i class="icon-message"></i>
@@ -289,7 +289,7 @@
                                 <li>
                                     <i class="icon-call"></i>
                                     <input type="text" class="inputstyle" v-model="FPCmobile" name="FPCmobile" id="FPCmobile" placeholder="手机号">
-                                    <button type="button" id="FPCmobile-btn" class="verficode phonebtn" @click="getFPCMessageCode()" v-text=FPCmessageCodeText></button>
+                                    <button type="button" id="FPCmobile-btn" class="verficode phonebtn" @click="getFPCMessageCode()" v-text=FPCmessageCodeText :disabled="FPCmobileBtnDisabled"></button>
                                 </li>
                                 <li>
                                     <i class="icon-code"></i>
@@ -355,7 +355,7 @@
                                 <li>
                                     <i class="icon-call"></i>
                                     <input type="text" class="inputstyle" v-model="REAmobile" name="REAmobile" id="REAmobile" placeholder="请输入手机号" @blur="REAmobileCheck">
-                                    <button type="button" id="REAmobile-btn" class="verficode" @click="getREAMessageCode()" v-text=REAmessageCodeText></button>
+                                    <button type="button" id="REAmobile-btn" class="verficode" @click="getREAMessageCode()" v-text=REAmessageCodeText :disabled="REAmobileBtnDisabled"></button>
                                     <p class="alert" v-show="REAmobileAlertFlag">*请填写正确的手机号码</p>
                                 </li>
                                 <li>

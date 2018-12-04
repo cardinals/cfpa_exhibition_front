@@ -39,6 +39,7 @@ var vm = new Vue({
         messageCodeText: "获取验证码",
         password1: "",
         password2: "",
+        mobileBtnDisabled: false,
         //注册校验标识
         mobileAlertFlag: false,
         messageCodeAlertFlag: false,
@@ -58,6 +59,8 @@ var vm = new Vue({
         FUpassword: "",
         FUsrc: "/xfxhapi/imageCode",
         FUvalidateCode: "",
+        FUmailBtnDisabled: false,
+        FUmobileBtnDisabled: false,
         //忘记密码
         FPBmail: "",
         FPBmailCode: "",
@@ -73,6 +76,8 @@ var vm = new Vue({
         FPDpassword1: "",
         FPDpassword2: "",
         FPDregisterData: "",
+        FPBmailBtnDisabled: false,
+        FPCmobileBtnDisabled: false,
         //提交校验标识
         FPDpassword1TipFlag: false,
         FPDpassword1AlertFlag: false,
@@ -88,6 +93,7 @@ var vm = new Vue({
         REApassword1: "",
         REApassword2: "",
         REAregisterData: "",
+        REAmobileBtnDisabled: false,
         //重置校验标识
         REAmobileAlertFlag: false,
         REAmessageCodeAlertFlag: false,
@@ -278,12 +284,12 @@ var vm = new Vue({
             this.messageCode = "";
             if (this.mobileCheck()) {
                 this.messageCodeText = "发送中...";
-                $('#mobile-btn').attr('disabled', 'disabled');
+                this.mobileBtnDisabled = true;
                 axios.get('/xfxhapi/signin/getUsernameNum/' + this.mobile).then(function (res) {
                     if (res.data.result != 0) {
                         alert("用户名已存在！");
                         this.messageCodeText = "获取验证码";
-                        $('#mobile-btn').removeAttr("disabled");
+                        this.mobileBtnDisabled = false;
                     } else {
                         axios.get('/xfxhapi/signin/sendMessage?phone=' + this.mobile).then(function (res) {
                             this.messageCodeReal = res.data.msg;
@@ -293,11 +299,11 @@ var vm = new Vue({
                                     clearInterval(this.timer);
                                     this.timer = null;
                                     this.messageCodeText = "获取验证码";
-                                    $('#mobile-btn').removeAttr("disabled");
+                                    this.mobileBtnDisabled = false;
                                 } else {
                                     this.messageCodeText = count + "秒后获取"
                                     count--;
-                                    $('#mobile-btn').attr('disabled', 'disabled');
+                                    this.mobileBtnDisabled = true;
                                 }
                             }, 1000)
                         }.bind(this), function (error) {
@@ -379,12 +385,12 @@ var vm = new Vue({
             this.FUmailCode = "";
             if (this.FUmailCheck()) {
                 this.FUmailCodeText = "发送中...";
-                $('#FUmail-btn').attr('disabled', 'disabled');
+                this.FUmailBtnDisabled = true;
                 axios.get('/xfxhapi/signin/getMailNum/' + this.FUmail.replace(".", "_")).then(function (res) {
                     if (res.data.result == 0) {
                         alert("该邮箱未注册！");
                         this.FUmailCodeText = "获取验证码";
-                        $('#FUmail-btn').removeAttr("disabled");
+                        this.FUmailBtnDisabled = false;
                     } else if (res.data.result == 1) {
                         axios.get('/xfxhapi/signin/sendMail?mail=' + this.FUmail).then(function (res) {
                             this.FUmailCodeReal = res.data.msg;
@@ -394,11 +400,11 @@ var vm = new Vue({
                                     clearInterval(this.timer);
                                     this.timer = null;
                                     this.FUmailCodeText = "获取验证码";
-                                    $('#FUmail-btn').removeAttr("disabled");
+                                    this.FUmailBtnDisabled = false;
                                 } else {
                                     this.FUmailCodeText = count + "秒后获取"
                                     count--;
-                                    $('#FUmail-btn').attr('disabled', 'disabled');
+                                    this.FUmailBtnDisabled = true;
                                 }
                             }, 1000)
                         }.bind(this), function (error) {
@@ -448,11 +454,11 @@ var vm = new Vue({
                         clearInterval(this.FUtimer);
                         this.FUtimer = null;
                         this.FUmessageCodeText = "获取验证码";
-                        $('#FUmobile-btn').removeAttr("disabled");
+                        this.FUmobileBtnDisabled = false;
                     } else {
                         this.FUmessageCodeText = count + "秒后获取"
                         count--;
-                        $('#FUmobile-btn').attr('disabled', 'disabled');
+                        this.FUmobileBtnDisabled = true;
                     }
                 }, 1000)
             }.bind(this), function (error) {
@@ -518,12 +524,12 @@ var vm = new Vue({
             this.FPBmailCode = "";
             if (this.FPBmailCheck()) {
                 this.FPBmailCodeText = "发送中...";
-                $('#FPBmail-btn').attr('disabled', 'disabled');
+                this.FPBmailBtnDisabled = true;
                 axios.get('/xfxhapi/signin/getMailNum/' + this.FPBmail.replace(".", "_")).then(function (res) {
                     if (res.data.result == 0) {
                         alert("该邮箱未注册！");
                         this.FPBmailCodeText = "获取验证码";
-                        $('#FPBmail-btn').removeAttr("disabled");
+                        this.FPBmailBtnDisabled = false;
                     } else if (res.data.result == 1) {
                         axios.get('/xfxhapi/signin/sendMail?mail=' + this.FPBmail).then(function (res) {
                             this.FPBmailCodeReal = res.data.msg;
@@ -533,11 +539,11 @@ var vm = new Vue({
                                     clearInterval(this.FPBtimer);
                                     this.FPBtimer = null;
                                     this.FPBmailCodeText = "获取验证码";
-                                    $('#FPBmail-btn').removeAttr("disabled");
+                                    this.FPBmailBtnDisabled = false;
                                 } else {
                                     this.FPBmailCodeText = count + "秒后获取"
                                     count--;
-                                    $('#FPBmail-btn').attr('disabled', 'disabled');
+                                    this.FPBmailBtnDisabled = true;
                                 }
                             }, 1000)
                         }.bind(this), function (error) {
@@ -585,12 +591,12 @@ var vm = new Vue({
             this.FPCmessageCode = "";
             if (this.FPCmobileCheck()) {
                 this.FPCmessageCodeText = "发送中...";
-                $('#FPCmobile-btn').attr('disabled', 'disabled');
+                this.FPCmobileBtnDisabled = true;
                 axios.get('/xfxhapi/signin/getUsernameNum/' + this.FPCmobile).then(function (res) {
                     if (res.data.result == 0) {
                         alert("用户名不存在！");
                         this.FPCmessageCodeText = "获取验证码";
-                        $('#FPCmobile-btn').removeAttr("disabled");
+                        this.FPCmobileBtnDisabled = false;
                     } else {
                         axios.get('/xfxhapi/signin/sendMessage?phone=' + this.FPCmobile).then(function (res) {
                             this.FPCmessageCodeReal = res.data.msg;
@@ -600,11 +606,11 @@ var vm = new Vue({
                                     clearInterval(this.FPCtimer);
                                     this.FPCtimer = null;
                                     this.FPCmessageCodeText = "获取验证码";
-                                    $('#FPCmobile-btn').removeAttr("disabled");
+                                    this.FPCmobileBtnDisabled = false;
                                 } else {
                                     this.FPCmessageCodeText = count + "秒后获取"
                                     count--;
-                                    $('#FPCmobile-btn').attr('disabled', 'disabled');
+                                    this.FPCmobileBtnDisabled = true;
                                 }
                             }, 1000)
                         }.bind(this), function (error) {
@@ -697,7 +703,7 @@ var vm = new Vue({
             this.REAmessageCode = "";
             if (this.REAmobileCheck()) {
                 this.REAmessageCodeText = "发送中...";
-                $('#REAmobile-btn').attr('disabled', 'disabled');
+                this.REAmobileBtnDisabled = true;
                 axios.get('/xfxhapi/signin/sendMessage?phone=' + this.REAmobile).then(function (res) {
                     this.REAmessageCodeReal = res.data.msg;
                     var count = this.time;
@@ -706,11 +712,11 @@ var vm = new Vue({
                             clearInterval(this.REAtimer);
                             this.REAtimer = null;
                             this.REAmessageCodeText = "获取验证码";
-                            $('#REAmobile-btn').removeAttr("disabled");
+                            this.REAmobileBtnDisabled = false;
                         } else {
                             this.REAmessageCodeText = count + "秒后获取"
                             count--;
-                            $('#REAmobile-btn').attr('disabled', 'disabled');
+                            this.REAmobileBtnDisabled = true;
                         }
                     }, 1000)
                 }.bind(this), function (error) {

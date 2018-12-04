@@ -5,7 +5,6 @@ var vm = new Vue({
         loginFlag: true,
         regFlag: false,
         FUAFlag: false,
-        FUBFlag: false,
         FPAFlag: false,
         FPBFlag: false,
         FPCFlag: false,
@@ -31,16 +30,11 @@ var vm = new Vue({
         //注册
         time: 60,
         timer: null,
-        mobile: "",
-        messageCode: "",
-        messageCodeReal: "",
-
         mail: "",
         mailCode: "",
         mailCodeReal: "",
         mailCodeText: "Get Verification Code",
-        //获取验证码 
-        // messageCodeText: "Get Verification Code",
+        mailBtnDisabled: false,
         password1: "",
         password2: "",
         //注册校验标识
@@ -57,28 +51,18 @@ var vm = new Vue({
         FUmailCodeReal: "",
         FUmailCodeText: "Get Verification Code",
         FUtimer: null,
-        FUusername: "",
-        FUmessageCode: "",
-        FUmessageCodeReal: "",
-        FUmessageCodeText: "Get Verification Code",
-        FUpassword: "",
-        FUsrc: "/xfxhapi/imageCode",
-        FUvalidateCode: "",
+        FUmailBtnDisabled: false,
         //忘记密码
         FPBmail: "",
         FPBmailCode: "",
         FPBmailCodeReal: "",
         FPBmailCodeText: "Get Verification Code",
         FPBtimer: null,
-        FPCmobile: "",
-        FPCmessageCode: "",
-        FPCmessageCodeReal: "",
-        FPCmessageCodeText: "Get Verification Code",
-        FPCtimer: null,
         FPDusername: "",
         FPDpassword1: "",
         FPDpassword2: "",
         FPDregisterData: "",
+        FPBmailBtnDisabled: false,
         //提交校验标识
         FPDpassword1TipFlag: false,
         FPDpassword1AlertFlag: false,
@@ -153,10 +137,6 @@ var vm = new Vue({
             } else if (flag == 'FUAFlag') {
                 this.FUmail = "";
                 this.FUmailCode = "";
-            } else if (flag == 'FUBFlag') {
-                this.FUmessageCode = "";
-                this.FUpassword = "";
-                this.FUvalidateCode = "";
             } else if (flag == 'FPBFlag') {
                 this.FPBmail = "";
                 this.FPBmailCode = "";
@@ -209,13 +189,13 @@ var vm = new Vue({
             this.mailCode = "";
             if (this.mailCheck()) {
                 this.mailCodeText = "Sending...";
-                $('#mail-btn').attr('disabled', 'disabled');
+                this.mailBtnDisabled = true;
                 axios.get('/xfxhapi/signin/getMailNumENG/' + this.mail.replace(".", "_")).then(function (res) {
-                    if (res.data.result != 0) {
+                    if (res.data.result !== 0) {
                         // 该邮箱已注册！
                         alert("The email is registered!");
                         this.mailCodeText = "Get Verification Code";
-                        $('#mail-btn').removeAttr("disabled");
+                        this.mailBtnDisabled = false;
                     } else {
                         axios.get('/xfxhapi/signin/sendMailEng?mail=' + this.mail).then(function (res) {
                             this.mailCodeReal = res.data.msg;
@@ -225,11 +205,11 @@ var vm = new Vue({
                                     clearInterval(this.timer);
                                     this.timer = null;
                                     this.mailCodeText = "Get Verification Code";
-                                    $('#mail-btn').removeAttr("disabled");
+                                    this.mailBtnDisabled = false;
                                 } else {
                                     this.mailCodeText = count + "seconds later"
                                     count--;
-                                    $('#mail-btn').attr('disabled', 'disabled');
+                                    this.mailBtnDisabled = true;
                                 }
                             }, 1000)
                         }.bind(this), function (error) {
@@ -279,7 +259,7 @@ var vm = new Vue({
             this.mailCodeCheck();
             this.password1Check();
             this.password2Check();
-            if (this.mailCheck() && this.mailCodeCheck() && this.password1Check() && this.password2Check() && this.messageCode == this.messageCodeReal) {
+            if (this.mailCheck() && this.mailCodeCheck() && this.password1Check() && this.password2Check() && this.mailCode == this.mailCodeReal) {
 
                 var params = {
                     username: this.mail,
@@ -312,13 +292,13 @@ var vm = new Vue({
             this.FUmailCode = "";
             if (this.FUmailCheck()) {
                 this.FUmailCodeText = "Sending...";
-                $('#FUmail-btn').attr('disabled', 'disabled');
-                axios.get('/xfxhapi/signin/getMailNum/' + this.FUmail.replace(".", "_")).then(function (res) {
+                this.FUmailBtnDisabled = true;
+                axios.get('/xfxhapi/signin/getMailNumENG/' + this.FUmail.replace(".", "_")).then(function (res) {
                     if (res.data.result == 0) {
                         // 该邮箱未注册！
                         alert("The email is not registered!");
                         this.FUmailCodeText = "Get Verification Code";
-                        $('#FUmail-btn').removeAttr("disabled");
+                        this.FUmailBtnDisabled = false;
                     } else if (res.data.result == 1) {
                         axios.get('/xfxhapi/signin/sendMailEng?mail=' + this.FUmail).then(function (res) {
                             this.FUmailCodeReal = res.data.msg;
@@ -328,11 +308,11 @@ var vm = new Vue({
                                     clearInterval(this.timer);
                                     this.timer = null;
                                     this.FUmailCodeText = "Get Verification Code";
-                                    $('#FUmail-btn').removeAttr("disabled");
+                                    this.FUmailBtnDisabled = false;
                                 } else {
                                     this.FUmailCodeText = count + "seconds later"
                                     count--;
-                                    $('#FUmail-btn').attr('disabled', 'disabled');
+                                    this.FUmailBtnDisabled = true;
                                 }
                             }, 1000)
                         }.bind(this), function (error) {
@@ -351,7 +331,7 @@ var vm = new Vue({
                 alert("The verification code can not be empty!")
             } else {
                 if (this.FUmailCode == this.FUmailCodeReal) {
-                    axios.get('/xfxhapi/signin/getMailNum/' + this.FUmail.replace(".", "_")).then(function (res) {
+                    axios.get('/xfxhapi/signin/getMailNumENG/' + this.FUmail.replace(".", "_")).then(function (res) {
                         if (res.data.result == 0) {
                             alert("The email is not registered!");
                         } else if (res.data.result == 1) {
@@ -373,47 +353,6 @@ var vm = new Vue({
                 }
             }
         },
-        //作废
-        getFUMessageCode: function () {
-            axios.get('/xfxhapi/signin/sendMessage?phone=' + this.FUusername).then(function (res) {
-                this.FUmessageCodeReal = res.data.msg;
-                var count = this.time;
-                this.FUtimer = setInterval(() => {
-                    if (count == 0) {
-                        clearInterval(this.FUtimer);
-                        this.FUtimer = null;
-                        this.FUmessageCodeText = "Get Verification Code";
-                        $('#FUmobile-btn').removeAttr("disabled");
-                    } else {
-                        this.FUmessageCodeText = count + "seconds later"
-                        count--;
-                        $('#FUmobile-btn').attr('disabled', 'disabled');
-                    }
-                }, 1000)
-            }.bind(this), function (error) {
-                console.log(error);
-            });
-        },
-        reloadFUCode: function () {
-            this.FUsrc = '/xfxhapi/imageCode?' + ((new Date()).valueOf());
-        },
-        FUlogin: function () {
-            if (this.FUusername == null || this.FUusername == '') {
-                alert("User name can not be empty!")
-            } else if (this.FUmessageCode == null || this.FUmessageCode == '') {
-                alert("短信验证码不能为空！")
-            } else if (this.FUpassword == null || this.FUpassword == '') {
-                alert("The password can not be empty!")
-            } else if (this.FUvalidateCode == null || this.FUvalidateCode == '') {
-                alert("The verification code can not be empty!")
-            } else {
-                this.username = this.FUusername;
-                this.password = this.FUpassword;
-                this.validateCode = this.FUvalidateCode;
-                this.$refs.loginForm.submit();
-            }
-        },
-        //
         //忘记密码
         //B
         FPBmailCheck: function () {
@@ -429,13 +368,13 @@ var vm = new Vue({
             this.FPBmailCode = "";
             if (this.FPBmailCheck()) {
                 this.FPBmailCodeText = "Sending...";
-                $('#FPBmail-btn').attr('disabled', 'disabled');
+                this.FPBmailBtnDisabled = true;
                 axios.get('/xfxhapi/signin/getUsernameNum/' + this.FPBmail.replace(".", "_")).then(function (res) {
                     if (res.data.result == 0) {
                         //该邮箱未注册！
                         alert("The email is not registered!");
                         this.FPBmailCodeText = "Get Verification Code";
-                        $('#FPBmail-btn').removeAttr("disabled");
+                        this.FPBmailBtnDisabled = false;
                     } else if (res.data.result == 1) {
                         axios.get('/xfxhapi/signin/sendMailEng?mail=' + this.FPBmail).then(function (res) {
                             this.FPBmailCodeReal = res.data.msg;
@@ -445,11 +384,11 @@ var vm = new Vue({
                                     clearInterval(this.FPBtimer);
                                     this.FPBtimer = null;
                                     this.FPBmailCodeText = "Get Verification Code";
-                                    $('#FPBmail-btn').removeAttr("disabled");
+                                    this.FPBmailBtnDisabled = false;
                                 } else {
                                     this.FPBmailCodeText = count + "seconds later"
                                     count--;
-                                    $('#FPBmail-btn').attr('disabled', 'disabled');
+                                    this.FPBmailBtnDisabled = true;
                                 }
                             }, 1000)
                         }.bind(this), function (error) {

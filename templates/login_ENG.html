@@ -111,7 +111,7 @@
                                 <li>
                                     <i class="icon-email"></i>
                                     <input type="text" class="inputstyle" v-model="mail" name="mail" id="mail" placeholder="Email" @blur="mailCheck">
-                                    <button type="button" id="mail-btn" class="verficode phonebtn" @click="getMailCode()" v-text=mailCodeText></button>
+                                    <button type="button" id="mail-btn" class="verficode phonebtn" @click="getMailCode()" v-text=mailCodeText :disabled="mailBtnDisabled"></button>
                                     <p class="alert" v-show="mailAlertFlag">*Please fill in the correct E-mail number</p>
                                 </li>
                                 <li>
@@ -152,7 +152,7 @@
                                 <li>
                                     <i class="icon-email"></i>
                                     <input type="text" class="inputstyle" v-model="FUmail" name="FUmail" id="FUmail" placeholder="Association Email">
-                                    <button type="button" id="FUmail-btn" class="verficode phonebtn" @click="getFUMailCode()" v-text=FUmailCodeText></button>
+                                    <button type="button" id="FUmail-btn" class="verficode phonebtn" @click="getFUMailCode()" v-text=FUmailCodeText :disabled="FUmailBtnDisabled"></button>
                                 </li>
                                 <li>
                                     <i class="icon-message"></i>
@@ -161,36 +161,6 @@
                             </ul>
                             <div class="LoginBtn" id="btn_mt">
                                 <a @click="FUIdentify()">Confirm</a>
-                            </div>
-                            <input type="hidden" class="loginType" name="loginType" />
-                        </form>
-                        <form id="FUBform" v-show="formFlag=='FUBFlag'" autocomplete="off">
-                            <ul style="display:block;">
-                                <li>
-                                    <i class="icon-user"></i>
-                                    <input type="text" class="inputstyle" v-model="FUusername" name="FUusername" id="FUusername" placeholder="Username" disabled>
-                                    <button type="button" id="FUmobile-btn" class="verficode" @click="getFUMessageCode()" v-text=FUmessageCodeText></button>
-                                </li>
-                                <li>
-                                    <i class="icon-code"></i>
-                                    <input type="text" class="inputstyle" v-model="FUmessageCode" name="FUmessageCode" id="FUmessageCode" placeholder="短信验证码">
-                                </li>
-                                <li>
-                                    <i class="icon-password"></i>
-                                    <input type="password" class="inputstyle" v-model="FUpassword" name="FUpassword" id="FUpassword" placeholder="Password">
-                                </li>
-                                <li>
-                                    <i class="icon-verficode"></i>
-                                    <input type="text" class="inputstyle" v-model="FUvalidateCode" name="FUvalidateCode" id="FUvalidateCode" placeholder="Verification Code"
-                                        @keyup.enter="login()">
-                                    <a href="javascript:;" @click="reloadFUCode()">
-                                        <img v-bind:src="FUsrc" id="FUcheckCode" class="verficode" onerror="javascript:this.FUsrc='../static/images/img-error.png';"
-                                            style="vertical-align: bottom" width="50" height="20">
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="LoginBtn">
-                                <a @click="FUlogin()">Login</a>
                             </div>
                             <input type="hidden" class="loginType" name="loginType" />
                         </form>
@@ -210,7 +180,7 @@
                                     <i class="icon-email"></i>
                                     <input type="text" class="inputstyle" v-model="FPBmail" name="FPBmail" id="FPBmail" placeholder="Email">
                                     <!-- 邮箱 -->
-                                    <button type="button" id="FPBmail-btn" class="verficode phonebtn" @click="getFPBMailCode()" v-text=FPBmailCodeText></button>
+                                    <button type="button" id="FPBmail-btn" class="verficode phonebtn" @click="getFPBMailCode()" v-text=FPBmailCodeText :disabled="FPBmailBtnDisabled"></button>
                                 </li>
                                 <li>
                                     <i class="icon-message"></i>
