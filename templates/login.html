@@ -115,7 +115,7 @@
                                     onMouseOut="this.src='../static/images/login/icon-changeuser_hover.png'" draggable="false"></a>
                             <span class="yhdl_span current">管理员登录</span>
                         </div>
-                        <form id="GLYloginform" autocomplete="off" name="loginform" action="/xfxhapi/login" method="post">
+                        <form ref="GLYloginForm" id="GLYloginForm" autocomplete="off" name="loginform" action="/xfxhapi/login" method="post">
                             <ul style="display:block;">
                                 <li>
                                     <input type="text" class="kong">
@@ -211,11 +211,11 @@
                             </div>
                             <input type="hidden" class="loginType" name="loginType" />
                         </form>
-                        <form id="FUBform" v-show="formFlag=='FUBFlag'" autocomplete="off">
+                        <form ref="FUBform" id="FUBform" v-show="formFlag=='FUBFlag'" autocomplete="off">
                             <ul style="display:block;">
                                 <li>
                                     <i class="icon-user"></i>
-                                    <input type="text" class="inputstyle" v-model="FUusername" name="FUusername" ref="FUusername" id="FUusername" placeholder="用户名">
+                                    <input type="text" class="inputstyle" v-model="FUusername" name="FUusername" id="FUusername" placeholder="用户名" disabled>
                                     <button type="button" id="FUmobile-btn" class="verficode" @click="getFUMessageCode()" v-text=FUmessageCodeText></button>
                                 </li>
                                 <li>
@@ -305,7 +305,7 @@
                             <ul>
                                 <li>
                                     <i class="icon-user"></i>
-                                    <input type="text" class="inputstyle" v-model="FPDusername" name="FPDusername" id="FPDusername" placeholder="用户名">
+                                    <input type="text" class="inputstyle" v-model="FPDusername" name="FPDusername" id="FPDusername" placeholder="用户名" disabled>
                                 </li>
                                 <li>
                                     <i class="icon-password"></i>

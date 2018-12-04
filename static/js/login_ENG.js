@@ -397,7 +397,7 @@ var vm = new Vue({
             });
         },
         reloadFUCode: function () {
-            $('#FUcheckCode').attr('src', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
+            this.FUsrc = '/xfxhapi/imageCode?' + ((new Date()).valueOf());
         },
         FUlogin: function () {
             if (this.FUusername == null || this.FUusername == '') {
@@ -412,7 +412,7 @@ var vm = new Vue({
                 this.username = this.FUusername;
                 this.password = this.FUpassword;
                 this.validateCode = this.FUvalidateCode;
-                $('#login-form').submit();
+                this.$refs.loginForm.submit();
             }
         },
         //
@@ -476,7 +476,6 @@ var vm = new Vue({
                         this.changeForm('FPDFlag');
                         this.FPDregisterData = res.data.result;
                         this.FPDusername = this.FPDregisterData[0].username;
-                        $(FPDusername).attr('disabled', 'disabled');
                         // alert("请输入新密码！");
                     }.bind(this), function (error) {
                         console.log(error);

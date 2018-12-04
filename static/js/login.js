@@ -164,7 +164,6 @@ var vm = new Vue({
         //         this.FUFlag = true;
         //         this.loginFlag = false;
         //         this.regFlag = false;
-        //         $('#FUusername').attr('disabled', 'disabled');
         //     }
         // },
         changeForm: function (flag) {
@@ -174,7 +173,6 @@ var vm = new Vue({
                 this.FUmail = "";
                 this.FUmailCode = "";
             } else if (flag == 'FUBFlag') {
-                $('#FUusername').attr('disabled', 'disabled');
                 this.FUmessageCode = "";
                 this.FUpassword = "";
                 this.FUvalidateCode = "";
@@ -240,7 +238,7 @@ var vm = new Vue({
             //     alert("统一社会信用代码为18位字母或数字！")
             // }
             else {
-                $('#login-form').submit();
+                this.$refs.loginForm.submit();
                 // window.location.href = "jxcsplan/jxcsplan_all.html?unscid=" + this.unscid;
             }
 
@@ -256,7 +254,7 @@ var vm = new Vue({
                 alert("验证码不能为空！")
             }  */
             else {
-                $('#GLYlogin-form').submit();
+                this.$refs.GLYloginForm.submit();
             }
         },
         reloadCode: function () {
@@ -462,7 +460,7 @@ var vm = new Vue({
             });
         },
         reloadFUCode: function () {
-            $('#FUcheckCode').attr('src', '/xfxhapi/imageCode?' + ((new Date()).valueOf()));
+            this.FUsrc = '/xfxhapi/imageCode?' + ((new Date()).valueOf());
         },
         FUlogin: function () {
             if (this.FUusername == null || this.FUusername == '') {
@@ -477,7 +475,7 @@ var vm = new Vue({
                 this.username = this.FUusername;
                 this.password = this.FUpassword;
                 this.validateCode = this.FUvalidateCode;
-                $('#login-form').submit();
+                this.$refs.loginForm.submit();
             }
         },
         //
@@ -562,7 +560,6 @@ var vm = new Vue({
                         this.changeForm('FPDFlag');
                         this.FPDregisterData = res.data.result;
                         this.FPDusername = this.FPDregisterData[0].username;
-                        $(FPDusername).attr('disabled', 'disabled');
                         // alert("请输入新密码！");
                     }.bind(this), function (error) {
                         console.log(error);
