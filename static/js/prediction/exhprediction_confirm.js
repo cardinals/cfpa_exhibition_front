@@ -86,7 +86,9 @@ new Vue({
                     this.getWjdcData(this.qyid);
                     this.getQyjsData(this.qyid);
                     this.getCpjsData(this.qyid);
-                    
+                    if(this.jbxxData.shzt == '03'){
+                        $('#imgDiv').show()
+                    }
                     pageShzt = this.jbxxData.shzt;
                 }
                 this.loading = false;

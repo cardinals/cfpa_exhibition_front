@@ -12,6 +12,7 @@
         left: 50px;
         top: 60px;
         animation: change 1s  ease-in  infinite ;
+        display: none;
     }
 
     .adClose {
@@ -437,9 +438,8 @@
         })
         $(function() {
             $("#action").click(function() {
-                alert("展位选择");
+                window.open(baseUrl+"/templates/all.html?url=/plan/plan"); 
             })
         })
-
         </script>    
 </html>
