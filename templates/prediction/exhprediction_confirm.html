@@ -11,7 +11,7 @@
         position: absolute;
         left: 50px;
         top: 60px;
-        
+        animation: change 1s  ease-in  infinite ;
     }
 
     .adClose {
@@ -39,7 +39,7 @@
         width: 180px;
         height: 180px;
         border-radius: 5px;
-        border: 2px solid salmon;
+        border: 2px solid #b70b0b;
         position: absolute;
         z-index: 999;
         cursor: pointer;
@@ -49,10 +49,18 @@
         font-weight: bolder;
         text-align: center;
         position: absolute;
-        top:-35px;
-        left: 47px;
+        top:-55px;
+        left:30px;
         z-index: 999;
+        color:#b70b0b;
+        
     }
+
+     /* @keyframes change {
+            0%{ text-shadow: 0 0 4px #f00}
+            50%{ text-shadow: 0 0 40px #f00}
+            100%{ text-shadow: 0 0 4px #f00}
+        } */
 </style>
 
 <body class="fw f14 main-index-body">
@@ -368,7 +376,7 @@
     <div id="imgDiv" class="adDiv">
         <div id="a" class="adClose">×</div>
         <div class="adImgDiv">
-            <h4 class="adTitle">展馆展位选择</h4>
+            <h3 class="adTitle">展馆展位选择</h3>
             <img id="action" class="adImg" src="/static/images/plan/zgpmt.png" alt="展馆平面图选择" />
         </div>
     </div>
@@ -381,7 +389,7 @@
         var xin = true,
             yin = true;
         var step = 1;
-        var delay = 10;
+        var delay = 30;
         var $obj;
         $(function() {
             $obj = $("#imgDiv");
@@ -398,7 +406,7 @@
             var left = $obj.offset().left;
             var top = $obj.offset().top;
             var L =  0; //左边界
-            var T = 80;//顶部边界
+            var T = 85;//顶部边界
             var R = $(window).width() - $obj.width(); // 右边界
             var B = $(window).height() - $obj.height(); //下边界
             if (left < L) {
