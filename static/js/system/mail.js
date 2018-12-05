@@ -8,7 +8,6 @@ var vue = new Vue({
             searchForm: {
                 id: "",
                 username: "",
-                realname: "",
             },
             //表数据
             tableData: [],
@@ -43,10 +42,7 @@ var vue = new Vue({
             editFormVisible: false,
             editLoading: false,
             editFormRules: {
-                realname: [
-                    { required: true, message: '请输入真实姓名', trigger: 'blur' },
-                    { min: 2, max: 10, message: '长度在 2 到 10 个汉字', trigger: 'blur' }
-                ],
+                
                 username: [
                     { required: true, message: '请输入用户名', trigger: 'blur' },
                     { pattern: /^[0-9A-Za-z]{2,16}$/, message: '用户名应为2-16位字母、数字', trigger: 'blur' },
@@ -85,7 +81,6 @@ var vue = new Vue({
                 password: "",
                 organizationId: "", 
                 checkPass: "",
-                realname: "",
                 birth: "",
                 sex: 0,
                 mobile: "",
@@ -127,43 +122,27 @@ var vue = new Vue({
             }
             this.loading = true;//表格重新加载
             var params = {
-                deptid: "GLYH",
+
                 username: this.searchForm.username.replace(/%/g,"\\%"),
-                realname: this.searchForm.realname.replace(/%/g,"\\%"),
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
-            axios.post('/xfxhapi/user/findByVO', params).then(function (res) {
+            //邮箱管理-表格
+            axios.post('/xfxhapi/mail/findByVO', params).then(function (res) {
+            
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 this.loading = false;
+
             }.bind(this), function (error) {
                 console.log(error)
             })
         },
 
-        //制作机构级联选择
-        getZzjgData: function(val) {
-            var organization = this.shiroData.organizationVO;
-            var param = {
-                dzid: organization.uuid,
-                dzjc: organization.jgjc,
-                dzbm: organization.jgid
-            }
-            axios.post('/dpapi/xfdz/findSjdzByUserAll', param).then(function (res) {
-                this.zzjgData = res.data.result;
-                if(this.dialogTitle == "用户编辑"){
-                    this.editSearch(val);
-                }
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
         //清空查询条件
         clearClick: function () {
             this.searchForm.id = "",
             this.searchForm.username = "",
-            this.searchForm.realname = "",
             this.searchClick('reset');
         },
         //表格勾选事件
@@ -174,20 +153,7 @@ var vue = new Vue({
             this.multipleSelection = val;
             console.info(val);
         },
-        //性别格式化
-        sexFormat: function (row, column) {
-            switch (row[column.property]) {
-                case '1':
-                    return '男';
-                    break;
-                case '2':
-                    return '女';
-                    break;
-                default:
-                    return ""
-            }
-        },
-        
+      
         //增加、修改时“生日”表单赋值
         dateChangebirthday(val) {
             this.editForm.birth = val;
@@ -269,44 +235,7 @@ var vue = new Vue({
                     roles.push(this.editForm.roles[i].rolename);
                 }
                 this.editForm.roles = roles;
-                //组织机构联动下拉框赋值
-                /**组织机构隐藏 */
-                /**
-                var zzjgArray = [];
-                var temp = this.editForm.organizationId;
-                if(temp!=null && temp!=""){
-                    for(var i in this.zzjgData){
-                        if(temp == this.zzjgData[i].dzid){
-                            zzjgArray.push(this.zzjgData[i].dzid);
-                        }else{
-                            for(var j in this.zzjgData[i].children){
-                                if(temp == this.zzjgData[i].children[j].dzid){
-                                    zzjgArray.push(this.zzjgData[i].dzid, this.zzjgData[i].children[j].dzid);
-                                }else{
-                                    for(var k in this.zzjgData[i].children[j].children){
-                                        if(temp == this.zzjgData[i].children[j].children[k].dzid){
-                                            zzjgArray.push(this.zzjgData[i].dzid, this.zzjgData[i].children[j].dzid, this.zzjgData[i].children[j].children[k].dzid);
-                                        }else{
-                                            for(var n in this.zzjgData[i].children[j].children[k].children){
-                                                if(temp == this.zzjgData[i].children[j].children[k].children[n].dzid){
-                                                    zzjgArray.push(this.zzjgData[i].dzid, this.zzjgData[i].children[j].dzid, this.zzjgData[i].children[j].children[k].dzid, this.zzjgData[i].children[j].children[k].children[n].dzid);
-                                                }else{
-                                                    for(var m in this.zzjgData[i].children[j].children[k].children[n].children){
-                                                        if(temp == this.zzjgData[i].children[j].children[k].children[n].children[m].dzid){
-                                                            zzjgArray.push(this.zzjgData[i].dzid, this.zzjgData[i].children[j].dzid, this.zzjgData[i].children[j].children[k].dzid, this.zzjgData[i].children[j].children[k].children[n].dzid, this.zzjgData[i].children[j].children[k].children[n].children[m].dzid);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }  
-                }
-                this.editForm.organizationId = zzjgArray;
-                */
+                
             }.bind(this), function (error) {
                 console.log(error)
             }) 
@@ -317,13 +246,7 @@ var vue = new Vue({
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     var val = this.editForm;
-                    //组织机构
-                    /**
-                    var organizationIdString = "";
-                    if(val.organizationId.length>0){
-                        organizationIdString = val.organizationId[val.organizationId.length-1];
-                    }
-                    */
+                    
                     //角色
                     var roleList = [];
                     for(var i=0;i<val.roles.length;i++){
@@ -342,7 +265,6 @@ var vue = new Vue({
                     var params = {
                         username: val.username,
                         password: val.password,
-                        realname: val.realname,
                         // organizationId: organizationIdString,
                         birth: val.birth,
                         sex: val.sex,
@@ -375,7 +297,6 @@ var vue = new Vue({
                         params.pkid = val.pkid;
                         params.userid = val.userid;
                         params.alterId = this.shiroData.userid;
-                        params.alterName = this.shiroData.realName;
                         if(this.editForm.username == this.usernameOld){
                             this.editSubmitUpdateDB(params);
                         }else{
@@ -405,7 +326,6 @@ var vue = new Vue({
             axios.post('/xfxhapi/user/updateByVO', params).then(function (res){
                 var result = res.data.result;
                 this.tableData[this.editIndex].username = result.username;
-                this.tableData[this.editIndex].realname = result.realname;
                 this.tableData[this.editIndex].organizationName = result.organizationName;
                 this.tableData[this.editIndex].birth = result.birth;
                 this.tableData[this.editIndex].sex = result.sex;
@@ -457,14 +377,7 @@ var vue = new Vue({
         //查看详情
         closeDialog: function (val) {
             this.editFormVisible = false;
-            // val.username ='';
-            // val.realname = '';
-            // val.password = '';
-            // val.checkPass = '';
-            // val.birth = '';
-            // val.sex = '';
-            // val.mobile = '';
-            // val.email ='';
+            
             this.$refs["editForm"].resetFields();
         },
         //展开 收起
