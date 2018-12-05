@@ -28,14 +28,7 @@ var vue = new Vue({
             //详情页是否显示
             itemFormVisible: false,
             //Dialog Title
-            dialogTitle: "用户编辑",
-            //组织机构
-            zzjgData: [],
-            jgidprops: {
-                value: 'dzid',
-                label: 'dzjc',
-                children: 'children'
-            },
+            dialogTitle: "邮箱编辑",
             //选中的序号
             editIndex: -1,
             //修改界面是否显示
@@ -44,48 +37,27 @@ var vue = new Vue({
             editFormRules: {
                 
                 username: [
-                    { required: true, message: '请输入用户名', trigger: 'blur' },
-                    { pattern: /^[0-9A-Za-z]{2,16}$/, message: '用户名应为2-16位字母、数字', trigger: 'blur' },
-                ],
-                mobile: [
-                    { required: false, message: '请输入手机号', trigger: 'blur' },
-                    { pattern: /^[1][3,4,5,7,8][0-9]{9}/, message: '手机号格式不正确',trigger: 'blur' },
-                    { min: 11, max: 11, message: '手机号格式不正确', trigger: 'blur' }
-                ],
-                email: [
                     { required: false, message: '请输入邮箱地址', trigger: 'blur' },
                     { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
                 ],
                 password: [
                     { required: true, message: '请输入密码', trigger: 'blur' },
                     { pattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/, message: '密码应为6-16位字母和数字组合', trigger: 'blur' }
-                ],
-                checkPass: [
-                    { required: true, message: '请输入密码', trigger: 'blur' },
-                    { validator: (rule,value,callback)=>{
-                        if(value != this.editForm.password){
-                            callback(new Error("两次密码不一致"));
-                        }else{
-                            callback();
-                        }
-                    }, trigger: 'blur' }
-                ],
-                organizationId: [
-                    { required: true, message: '请选择组织机构', trigger: 'select' }
                 ]
+
             },
             //修改界面数据
             editForm: {
-                userid: "",
+
                 username: "",
                 password: "",
-                organizationId: "", 
-                checkPass: "",
-                birth: "",
-                sex: 0,
-                mobile: "",
-                email: "",
+                encoding: "",
+                host: "",
+                port: "",
+                protocol: "",
+                term: "",
                 roles: []
+
             },
             editFormSelect: [],
             editRoles: [],
@@ -268,7 +240,7 @@ var vue = new Vue({
                         roles: roleList,
                         deptid: 'GLYH'
                     }
-                    if(this.dialogTitle == "用户新增"){
+                    if(this.dialogTitle == "邮箱新增"){
                         axios.get('/xfxhapi/account/getNum/' + this.editForm.username + "/static").then(function(res){
                             if(res.data.result != 0){
                                 this.$message({
@@ -288,7 +260,7 @@ var vue = new Vue({
                         }.bind(this),function(error){
                             console.log(error)
                         })
-                    }else if(this.dialogTitle == "用户编辑"){
+                    }else if(this.dialogTitle == "邮箱编辑"){
                         params.pkid = val.pkid;
                         params.userid = val.userid;
                         params.alterId = this.shiroData.userid;
