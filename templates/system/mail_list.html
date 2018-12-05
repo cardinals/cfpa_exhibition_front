@@ -20,21 +20,8 @@
                             <el-row>
                                 <el-col :span="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">邮箱名称</label>
-                                    <el-input size="small" v-model="searchForm.rolename" placeholder="邮箱名称" clearable></el-input>
+                                    <el-input size="small" v-model="searchForm.username" placeholder="邮箱名称" clearable></el-input>
                                 </el-col>
-                                <!-- <el-col :span="8" class="searchInline">
-                                    <label class="el-form-item__label searchLabel">角色描述</label>
-                                    <el-select size="small" v-model="searchForm.roleinfo" placeholder="全部" class="searchSelect" clearable>
-                                        <el-option v-for="role in allRoles" :label="role.roleinfo" :value="role.roleinfo" :key="role.rolename"></el-option>
-                                    </el-select>
-                                </el-col>
-                                <el-col :span="8" class="searchInline">
-                                    <label class="el-form-item__label searchLabel">创建时间</label>
-                                    <el-date-picker type="daterange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.createTime"
-                                        range-separator="~" placeholder="创建时间" start-placeholder="开始日期" end-placeholder="结束日期"
-                                        class="searchDatePicker">
-                                    </el-date-picker>
-                                </el-col> -->
                             </el-row>
                             <div>
                                 <el-form>

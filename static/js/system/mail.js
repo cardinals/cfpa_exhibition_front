@@ -141,9 +141,11 @@ var vue = new Vue({
 
         //清空查询条件
         clearClick: function () {
+
             this.searchForm.id = "",
             this.searchForm.username = "",
             this.searchClick('reset');
+            
         },
         //表格勾选事件
         selectionChange: function (val) {
