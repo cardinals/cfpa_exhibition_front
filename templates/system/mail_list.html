@@ -16,7 +16,7 @@
                 <div id="breadcrumb_box"></div>
                 <div id="tableView">
                     <el-row>
-                        <el-form label-width="75px" :inline="true" class="el-form demo-form-inline" v-model="searchForm">
+                        <el-form label-width="75px" :inline="true" class="el-form demo-form-inline" v-model="searchForm" @submit.native.prevent>
                             <el-row>
                                 <el-col :span="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">邮箱名称</label>
