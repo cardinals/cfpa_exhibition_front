@@ -15,7 +15,9 @@ new Vue({
             previewImg: '',
             qyid: "",//企业id
             userid: "",
-
+            zwxzzt: '00',//展位选择状态
+            yxzwxx: '',
+            sfkqzw: true,//是否开启选展位浮动提示框
             //企业基本信息
             jbxxData: {
                 zwgsmc: '',
@@ -64,6 +66,25 @@ new Vue({
     },
 
     methods: {
+         //已选展位
+         getYxzwData: function () {
+            axios.post('/xfxhapi/zwjbxx/getSelectedPos').then(function (res) {
+                if (res.data.result != null) {
+                    debugger
+                    var datas = res.data.result;
+                    for(let i=0;i<datas.length;i++){
+                        if(i==0){
+                            this.yxzwxx+=datas[i].zwh
+                        }else{
+                            this.yxzwxx+=","+datas[i].zwh
+                        }
+                    }
+                    this.zwxzzt='01'
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
         //企业基本信息
         getJbxxData: function (val) {
             this.loading = true;
@@ -88,7 +109,7 @@ new Vue({
                     this.getWjdcData(this.qyid);
                     this.getQyjsData(this.qyid);
                     this.getCpjsData(this.qyid);
-                    if(this.jbxxData.shzt == '03'){
+                    if(this.jbxxData.shzt == '03'&& this.sfkqzw){
                         $('#imgDiv').show()
                     }
                     pageShzt = this.jbxxData.shzt;

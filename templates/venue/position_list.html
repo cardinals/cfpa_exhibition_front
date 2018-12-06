@@ -16,19 +16,25 @@
 					<el-row>
 						<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
 							<el-row>
-								<el-col :span="6" class="searchInline">
+								<el-col :span="1" >&nbsp;</el-col>
+								<el-col :span="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">展位编号</label>
 									<el-input size="small" v-model="searchForm.zwh" placeholder="展位编号" clearable></el-input>
 								</el-col>
-								<el-col :span="6" class="searchInline">
+								<el-col :span="2" >&nbsp;</el-col>
+								<el-col :span="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">展位名称</label>
 									<el-input size="small" v-model="searchForm.zwmc" placeholder="展位名称" clearable></el-input>
 								</el-col>
-								<el-col :span="6" class="searchInline">
+							</el-row>
+							<el-row>
+								<el-col :span="1" >&nbsp;</el-col>
+								<el-col :span="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">公司名称</label>
 									<el-input size="small" v-model="searchForm.qymc" placeholder="公司名称" clearable></el-input>
 								</el-col>
-								<el-col :span="6" class="searchInline">
+								<el-col :span="2" >&nbsp;</el-col>
+								<el-col :span="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">展位状态</label>
 									<el-select size="small" v-model="searchForm.zwzt" placeholder="全部" class="searchSelect" clearable>
 										<el-option v-for="item in dataStatus" :key="item.value" :label="item.name" :value="item.value"></el-option>

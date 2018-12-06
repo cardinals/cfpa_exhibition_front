@@ -97,6 +97,7 @@ var vue = new Vue({
         clearClick: function () {
             this.searchForm.zwh = "";
             this.searchForm.zwzt = "";
+            this.searchForm.qymc = "";
             this.searchForm.zwmc = "";
             this.searchClick('reset');
         },
