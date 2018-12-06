@@ -27,8 +27,10 @@
                                 <el-form>
                                     <el-col :span="12" class="btnEditDelete">
                                         <el-form-item align="left">
-                                            <el-button v-if="hasPermission('system/role:add')" type="success" icon="el-icon-plus" size="small" @click="addClick">新增</el-button>
-                                            <el-button v-if="hasPermission('system/role:delete')" type="danger" icon="el-icon-delete" size="small" @click="removeSelection">删除</el-button>
+                                            <el-button v-if="hasPermission('system/role:add')" type="success" icon="el-icon-plus"
+                                                size="small" @click="addClick">新增</el-button>
+                                            <el-button v-if="hasPermission('system/role:delete')" type="danger" icon="el-icon-delete"
+                                                size="small" @click="removeSelection">删除</el-button>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="12"></el-col>
@@ -45,17 +47,19 @@
 
 
                     <div class="table_container">
-                        <el-table class="tableStyle" border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
-                            :height="tableheight">
+                        <el-table class="tableStyle" border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                            @selection-change="selectionChange" :height="tableheight">
 
                             <el-table-column type="selection" width="35"></el-table-column>
                             <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
                             <el-table-column prop="username" show-overflow-tooltip label="邮箱名称" min-width="14%" align="center"></el-table-column>
                             <el-table-column prop="password" show-overflow-tooltip label="邮箱密码" min-width="12%" align="center"></el-table-column>
                             <el-table-column prop="encoding" show-overflow-tooltip label="编码" min-width="11%" align="center"></el-table-column>
-                            <el-table-column prop="host" show-overflow-tooltip label="SMTP" min-width="13%" align="center" :formatter="tableDateFormat"></el-table-column>
+                            <el-table-column prop="host" show-overflow-tooltip label="SMTP" min-width="13%" align="center"
+                                :formatter="tableDateFormat"></el-table-column>
                             <el-table-column prop="port" show-overflow-tooltip label="端口" min-width="11%" align="center"></el-table-column>
-                            <el-table-column prop="protocol" show-overflow-tooltip label="授权码" min-width="13%" align="center" :formatter="tableDateFormat"></el-table-column>
+                            <el-table-column prop="protocol" show-overflow-tooltip label="授权码" min-width="13%" align="center"
+                                :formatter="tableDateFormat"></el-table-column>
                             <el-table-column prop="term" show-overflow-tooltip label="期限" min-width="10%" align="center"></el-table-column>
                             <el-table-column label="操作" width="65" align="center" v-if="hasPermission('system/role:edit')">
                                 <template slot-scope="scope">
@@ -67,31 +71,30 @@
                         <!--列表底部工具条和分页符-->
                         <el-row type="flex" justify="end">
                             <el-col :span="18">
-                                <el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
-                                    :page-size="pageSize" layout="total, prev, pager, next, jumper" :total=parseInt(total)>
+                                <el-pagination @size-change="pageSizeChange" @current-change="currentPageChange"
+                                    :current-page="currentPage" :page-sizes="[10, 20, 30, 50]" :page-size="pageSize"
+                                    layout="total, prev, pager, next, jumper" :total=parseInt(total)>
                                 </el-pagination>
                             </el-col>
                         </el-row>
                     </div>
-                    <!--详情界面-->
-                    <!-- <el-dialog title="角色资源列表" :visible.sync="resourceVisible" @close="closeresourceDialog()" :close-on-click-modal="false">
-                        <el-tree :data="resourceList" node-key="resourceid" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-                    </el-dialog> -->
 
                     <!--修改界面-->
-                    <el-dialog :title="dialogTitle" :visible.sync="editFormVisible" :close-on-click-modal="false">
-                        <el-form :model="editForm" label-width="100px" :rules="editFormRules" ref="editForm">
-                            <div v-show="false" v-once ></div>
+                    <el-dialog :title="dialogTitle" :visible.sync="editFormVisible" @close="closeDialog(editForm)" :close-on-click-modal="false">
+                        <el-form :model="editForm" label-width="100px"  ref="editForm">
+                            <div v-show="false" v-once></div>
                             <el-row>
                                 <el-col :span="11">
                                     <el-form-item label="邮箱名称" prop="username">
-                                        <el-input v-model="editForm.username" auto-complete="off" placeholder="邮箱名称" size="small" maxlength="20" clearable></el-input>
+                                        <el-input v-model="editForm.username" auto-complete="off" placeholder="邮箱名称"
+                                            size="small" maxlength="60" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="11">
                                     <el-form-item label="邮箱密码" prop="password">
-                                        <el-input v-model="editForm.password" auto-complete="off" placeholder="邮箱密码" size="small" maxlength="100" clearable></el-input>
+                                        <el-input v-model="editForm.password" auto-complete="off" placeholder="邮箱密码"
+                                            size="small" maxlength="60" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
@@ -99,13 +102,15 @@
                             <el-row>
                                 <el-col :span="11">
                                     <el-form-item label="编码" prop="encoding">
-                                        <el-input v-model="editForm.encoding" auto-complete="off" placeholder="编码" size="small" maxlength="20" clearable></el-input>
+                                        <el-input v-model="editForm.encoding" auto-complete="off" placeholder="编码" size="small"
+                                            maxlength="20" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="11">
                                     <el-form-item label="SMTP" prop="host">
-                                        <el-input v-model="editForm.host" auto-complete="off" placeholder="SMTP" size="small" maxlength="100" clearable></el-input>
+                                        <el-input v-model="editForm.host" auto-complete="off" placeholder="SMTP" size="small"
+                                            maxlength="32" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
@@ -113,13 +118,15 @@
                             <el-row>
                                 <el-col :span="11">
                                     <el-form-item label="端口" prop="port">
-                                        <el-input v-model="editForm.port" auto-complete="off" placeholder="端口" size="small" maxlength="20" clearable></el-input>
+                                        <el-input v-model="editForm.port" auto-complete="off" placeholder="端口" size="small"
+                                            maxlength="8" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="11">
                                     <el-form-item label="授权码" prop="protocol">
-                                        <el-input v-model="editForm.protocol" auto-complete="off" placeholder="授权码" size="small" maxlength="100" clearable></el-input>
+                                        <el-input v-model="editForm.protocol" auto-complete="off" placeholder="授权码"
+                                            size="small" maxlength="10" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
@@ -127,14 +134,16 @@
                             <el-row>
                                 <el-col :span="11">
                                     <el-form-item label="期限" prop="term">
-                                        <el-input v-model="editForm.term" auto-complete="off" placeholder="期限" size="small" maxlength="20" clearable></el-input>
+                                        <el-date-picker v-model="editForm.term" type="date" placeholder="期限" size="small">
+                                        </el-date-picker>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
                             </el-row>
-                            
+
                             <el-row class="mt35 mb20 editform-button">
-                                <el-button type="clear" icon="close" size="small" class="btn_submit" @click="closeDialog(editForm)"> 取消</el-button>
+                                <el-button type="clear" icon="close" size="small" class="btn_submit" @click="closeDialog(editForm)">
+                                    取消</el-button>
                                 <el-button type="success" icon="check" size="small" class="btn_save" @click="editSubmit(editForm)">保存</el-button>
                             </el-row>
                         </el-form>
@@ -148,16 +157,3 @@
 <script src="../../static/js/system/mail.js"></script>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
