@@ -47,6 +47,14 @@ var vue = new Vue({
                 term: "",
                 roles: []
             },
+            //表单验证
+            editFormRules: {
+
+                port: [
+                    // { required: true, message: "请输入端口号(仅为数字类型)", trigger: "blur" },
+                    { pattern: /^\d{2,8}$/, message: '长度为2-8个数字',trigger: 'blur'},]
+            },
+
             editFormSelect: [],
             editRoles: [],
             roleDetailVisible: false,
@@ -131,6 +139,7 @@ var vue = new Vue({
             this.dialogTitle = "邮箱新增";
             this.editPasswordShow = true;
             this.editFormVisible = true;
+            this.editForm={}
         },
         //表格修改事件
         editClick: function (val, index) {

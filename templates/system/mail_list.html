@@ -85,14 +85,14 @@
                             <div v-show="false" v-once></div>
                             <el-row>
                                 <el-col :span="11">
-                                    <el-form-item label="邮箱名称" prop="username">
+                                    <el-form-item label="邮箱名称" >
                                         <el-input v-model="editForm.username" auto-complete="off" placeholder="邮箱名称"
                                             size="small" maxlength="60" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="11">
-                                    <el-form-item label="邮箱密码" prop="password">
+                                    <el-form-item label="邮箱密码" >
                                         <el-input v-model="editForm.password" auto-complete="off" placeholder="邮箱密码"
                                             size="small" maxlength="60" clearable></el-input>
                                     </el-form-item>
@@ -101,14 +101,14 @@
                             </el-row>
                             <el-row>
                                 <el-col :span="11">
-                                    <el-form-item label="编码" prop="encoding">
+                                    <el-form-item label="编码" >
                                         <el-input v-model="editForm.encoding" auto-complete="off" placeholder="编码" size="small"
                                             maxlength="20" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="11">
-                                    <el-form-item label="SMTP" prop="host">
+                                    <el-form-item label="SMTP" >
                                         <el-input v-model="editForm.host" auto-complete="off" placeholder="SMTP" size="small"
                                             maxlength="32" clearable></el-input>
                                     </el-form-item>
@@ -117,14 +117,14 @@
                             </el-row>
                             <el-row>
                                 <el-col :span="11">
-                                    <el-form-item label="端口" >
+                                    <el-form-item label="端口" prop="port">
                                         <el-input v-model="editForm.port" auto-complete="off" placeholder="端口" size="small"
                                             maxlength="8" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="11">
-                                    <el-form-item label="授权码" prop="protocol">
+                                    <el-form-item label="授权码" >
                                         <el-input v-model="editForm.protocol" auto-complete="off" placeholder="授权码"
                                             size="small" maxlength="10" clearable></el-input>
                                     </el-form-item>
