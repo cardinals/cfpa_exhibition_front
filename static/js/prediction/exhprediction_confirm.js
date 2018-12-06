@@ -16,6 +16,7 @@ new Vue({
             qyid: "",//企业id
             userid: "",
             zwxzzt: '00',//展位选择状态
+            sfkqzw: true,//是否开启选展位浮动提示框
             yxzwxx: '',
             //企业基本信息
             jbxxData: {
@@ -107,7 +108,7 @@ new Vue({
                     this.getWjdcData(this.qyid);
                     this.getQyjsData(this.qyid);
                     this.getCpjsData(this.qyid);
-                    if(this.jbxxData.shzt == '03'){
+                    if(this.jbxxData.shzt == '03'&& this.sfkqzw){
                         $('#imgDiv').show()
                     }
                     pageShzt = this.jbxxData.shzt;
