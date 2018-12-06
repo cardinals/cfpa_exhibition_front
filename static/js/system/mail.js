@@ -35,7 +35,6 @@ var vue = new Vue({
             editFormVisible: false,
             editLoading: false,
             editFormRules: {
-                
                 username: [
                     { required: false, message: '请输入邮箱地址', trigger: 'blur' },
                     { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
@@ -48,7 +47,6 @@ var vue = new Vue({
             },
             //修改界面数据
             editForm: {
-
                 username: "",
                 password: "",
                 encoding: "",
@@ -57,7 +55,6 @@ var vue = new Vue({
                 protocol: "",
                 term: "",
                 roles: []
-
             },
             editFormSelect: [],
             editRoles: [],
@@ -94,18 +91,15 @@ var vue = new Vue({
             }
             this.loading = true;//表格重新加载
             var params = {
-
                 username: this.searchForm.username.replace(/%/g,"\\%"),
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
             //邮箱管理-表格
             axios.post('/xfxhapi/mail/findByVO', params).then(function (res) {
-            
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 this.loading = false;
-
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -113,11 +107,9 @@ var vue = new Vue({
 
         //清空查询条件
         clearClick: function () {
-
             this.searchForm.id = "",
             this.searchForm.username = "",
             this.searchClick('reset');
-
         },
         //表格勾选事件
         selectionChange: function (val) {
@@ -141,33 +133,34 @@ var vue = new Vue({
                 _self.loading = false;
             }, 300);
         },
+
         //查看角色详情
-        roleDetails: function(id){
-            var _self = this;
-            _self.roleDetailVisible = true;
-            axios.get('/xfxhapi/role/getRole/' + id).then(function(res){
-                this.roleDetailList = res.data.result;
-                for(var i=0;i<this.roleDetailList.length;i++){
-                    this.roleDetailSelect.push(this.roleDetailList[i].rolename);
-                }
-            }.bind(this),function(error){
-                console.log(error)
-            })
-        },
+        // roleDetails: function(id){
+        //     var _self = this;
+        //     _self.roleDetailVisible = true;
+        //     axios.get('/xfxhapi/role/getRole/' + id).then(function(res){
+        //         this.roleDetailList = res.data.result;
+        //         for(var i=0;i<this.roleDetailList.length;i++){
+        //             this.roleDetailSelect.push(this.roleDetailList[i].rolename);
+        //         }
+        //     }.bind(this),function(error){
+        //         console.log(error)
+        //     })
+        // },
         //获取所有的角色
-        getAllRoles: function () {
-            axios.get('/xfxhapi/role/getAll').then(function (res) {
-                this.allRoles = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-        },
+        // getAllRoles: function () {
+        //     axios.get('/xfxhapi/role/getAll').then(function (res) {
+        //         this.allRoles = res.data.result;
+        //     }.bind(this), function (error) {
+        //         console.log(error)
+        //     })
+        // },
 
         //新增事件
         addClick: function () {
             this.dialogTitle = "邮箱新增";
             this.editPasswordShow = true;
-            this.getAllRoles();
+            // this.getAllRoles();
             this.editFormVisible = true;
         },
         //表格修改事件
@@ -175,8 +168,7 @@ var vue = new Vue({
             this.editIndex = index;
             this.dialogTitle = "邮箱编辑";
             this.editPasswordShow = false;
-            this.getAllRoles();
-            
+            // this.getAllRoles();
             this.editSearch(val);
             this.editFormVisible = true;
         },
@@ -194,14 +186,7 @@ var vue = new Vue({
                 uuid: val.uuid
             };
             axios.post('/xfxhapi/mail/findByVO', params).then(function(res) {
-                this.editForm = res.data.result[0];
-                // this.usernameOld = this.editForm.username;
-                // //角色复选框赋值
-                // var roles = [];
-                // for (var i = 0; i < this.editForm.roles.length; i++) {
-                //     roles.push(this.editForm.roles[i].rolename);
-                // }
-                // this.editForm.roles = roles;       
+                this.editForm = res.data.result[0];       
             }.bind(this), function (error) {
                 console.log(error)
             }) 
@@ -209,100 +194,56 @@ var vue = new Vue({
         },
 
         //编辑提交点击事件
-        editSubmit: function(formName) {
-            debugger;
-            
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
+        editSubmit: function(val) {
+            // this.$refs[formName].validate((valid) => {
+            //     if (valid) {
+                    // var val = this.editForm;
                     
-                    var val = this.editForm;
-                    
-                    //角色
-                    var roleList = [];
-                    for(var i=0;i<val.roles.length;i++){
-                        for(var j=0;j<this.allRoles.length;j++){
-                            if(val.roles[i] == this.allRoles[j].rolename){
-                                var temp = {
-                                    roleid : this.allRoles[j].roleid,
-                                    rolename: this.allRoles[j].rolename,
-                                    roleinfo: this.allRoles[j].roleinfo
-                                }
-                                roleList.push(temp);
-                                break;
-                            }
-                        }
-                    }
                     var params = {
                         username: val.username,
                         password: val.password,
-                        // organizationId: organizationIdString,
-                        birth: val.birth,
-                        sex: val.sex,
-                        mobile: val.mobile,
-                        email: val.email,
-                        roles: roleList,
-                        deptid: 'GLYH'
+                        encoding: val.encoding,
+                        host: val.host,
+                        port: val.port,
+                        protocol: val.protocol,
+                        term: val.term,
                     }
                     if(this.dialogTitle == "邮箱新增"){
-                        axios.get('/xfxhapi/account/getNum/' + this.editForm.username + "/static").then(function(res){
-                            if(res.data.result != 0){
-                                this.$message({
-                                    message: "用户名已存在!",
-                                    type: "error"
-                                });
-                            }else{
-                                axios.post('/xfxhapi/user/insertByVO', params).then(function(res){
-                                    var addData = res.data.result;
-                                    this.tableData.unshift(addData);
-                                    this.total = this.tableData.length;
-                                }.bind(this),function(error){
-                                    console.log(error)
-                                })
-                                this.editFormVisible = false;
-                            }
-                        }.bind(this),function(error){
+                        debugger;
+                        axios.post('/xfxhapi/mail/insertByVO', params).then(function (res) {
+                            
+                            this.tableData.unshift(res.data.result);
+                            this.total = this.tableData.length;
+                        }.bind(this), function (error) {
                             console.log(error)
                         })
+                        this.editFormVisible = false;
+
                     }else if(this.dialogTitle == "邮箱编辑"){
-                        params.pkid = val.pkid;
-                        params.userid = val.userid;
-                        params.alterId = this.shiroData.userid;
-                        if(this.editForm.username == this.usernameOld){
-                            this.editSubmitUpdateDB(params);
-                        }else{
-                            axios.get('/xfxhapi/account/getNum/' + this.editForm.username + "/static").then(function(res){
-                                if(res.data.result != 0){
-                                    this.$message({
-                                        message: "用户名已存在",
-                                        type: "error"
-                                    });
-                                }else{
-                                   this.editSubmitUpdateDB(params);
-                                }
-                            }.bind(this),function(error){
-                                console.log(error)
-                            })
-                        }
+                       
+                        this.editSubmitUpdateDB(params);                       
                     }
-                } else {
-                    console.log('error save!!');
-                    return false;
-                }
-            });
+            //     } else {
+            //         console.log('error save!!');
+            //         return false;
+            //     }
+            // });
         },
 
-        //修改方法-update数据库  by li.xue 2018/11/22 15:46
+        //修改方法
         editSubmitUpdateDB: function(params){
-            axios.post('/xfxhapi/user/updateByVO', params).then(function (res){
+            axios.post('/xfxhapi/mail/updateByVO', params).then(function (res){
+           
                 var result = res.data.result;
                 this.tableData[this.editIndex].username = result.username;
-                this.tableData[this.editIndex].organizationName = result.organizationName;
-                this.tableData[this.editIndex].birth = result.birth;
-                this.tableData[this.editIndex].sex = result.sex;
-                this.tableData[this.editIndex].mobile = result.mobile;
-                this.tableData[this.editIndex].email = result.email;
-                this.tableData[this.editIndex].roles = result.roles;
+                this.tableData[this.editIndex].password = result.password;
+                this.tableData[this.editIndex].encoding = result.encoding;
+                this.tableData[this.editIndex].host = result.host;
+                this.tableData[this.editIndex].port = result.port;
+                this.tableData[this.editIndex].protocol = result.protocol;
+                this.tableData[this.editIndex].term = result.term;
                 this.editFormVisible = false;
+
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -350,21 +291,20 @@ var vue = new Vue({
         //查看详情
         closeDialog: function (val) {
             this.editFormVisible = false;
-            
             this.$refs["editForm"].resetFields();
         },
         //展开 收起
-        spread: function(){
-            var a = document.getElementById("roleSpread").innerText;  
-            if(a == "展开"){
-                document.getElementById('roleDiv').style.height='auto';
-                document.getElementById("roleSpread").innerText="收起";
-            }else if(a == "收起"){
-                document.getElementById('roleDiv').style.height='34px';
-                document.getElementById("roleSpread").innerText="展开";
-            }
+        // spread: function(){
+        //     var a = document.getElementById("roleSpread").innerText;  
+        //     if(a == "展开"){
+        //         document.getElementById('roleDiv').style.height='auto';
+        //         document.getElementById("roleSpread").innerText="收起";
+        //     }else if(a == "收起"){
+        //         document.getElementById('roleDiv').style.height='34px';
+        //         document.getElementById("roleSpread").innerText="展开";
+        //     }
         
-        },
+        // },
     },
     
 })
