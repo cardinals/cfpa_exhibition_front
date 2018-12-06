@@ -285,7 +285,6 @@ window.tableLongNumFormat =  function (row, column) {
 //校验当前用户Session是否失效
 window.validateSession = function(){ 
     axios.get('/xfxhapi/shiro').then(function (res) {
-        debugger;
         if(res.data != null && res.data != ""){
             return true;
         }else{
