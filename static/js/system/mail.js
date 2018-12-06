@@ -210,8 +210,11 @@ var vue = new Vue({
 
         //编辑提交点击事件
         editSubmit: function(formName) {
+            debugger;
+            
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    
                     var val = this.editForm;
                     
                     //角色
