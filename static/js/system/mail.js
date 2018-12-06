@@ -8,6 +8,7 @@ var vue = new Vue({
             searchForm: {
                 id: "",
                 username: "",
+                term: new Array()
             },
             //表数据
             tableData: [],
@@ -62,7 +63,7 @@ var vue = new Vue({
         }
     },
     created: function () {
-        /**面包屑 by li.xue 20180628*/
+        /**面包屑 */
         loadBreadcrumb("邮箱管理", "-1");
         //table高度
         tableheight = tableheight10;
@@ -82,6 +83,7 @@ var vue = new Vue({
             this.loading = true;//表格重新加载
             var params = {
                 username: this.searchForm.username.replace(/%/g, "\\%"),
+                term: this.searchForm.term[0],
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
@@ -110,7 +112,7 @@ var vue = new Vue({
             console.info(val);
         },
 
-        //增加、修改时“生日”表单赋值
+        //增加、修改
         dateChangebirthday(val) {
             this.editForm.birth = val;
         },
@@ -173,7 +175,7 @@ var vue = new Vue({
             if (this.dialogTitle == "邮箱新增") {
 
                 axios.post('/xfxhapi/mail/insertByVO', params).then(function (res) {
-
+                    res.data.result.term = new Date();
                     this.tableData.unshift(res.data.result);
                     this.total = this.tableData.length;
                 }.bind(this), function (error) {
@@ -183,12 +185,24 @@ var vue = new Vue({
 
             } else if (this.dialogTitle == "邮箱编辑") {
 
+                params.uuid = val.uuid;
+                params.username = val.username;
+                params.password = val.password;
+                params.encoding = val.encoding;
+                params.host = val.host;
+                params.port = val.port;
+                params.protocol = val.protocol;
+                params.term = val.term;
+                params.alterId = this.shiroData.userid;
+                params.alterName = this.shiroData.realName;
                 this.editSubmitUpdateDB(params);
             }
         },
 
         //修改方法
         editSubmitUpdateDB: function (params) {
+
+
             axios.post('/xfxhapi/mail/updateByVO', params).then(function (res) {
 
                 var result = res.data.result;
@@ -198,7 +212,7 @@ var vue = new Vue({
                 this.tableData[this.editIndex].host = result.host;
                 this.tableData[this.editIndex].port = result.port;
                 this.tableData[this.editIndex].protocol = result.protocol;
-                this.tableData[this.editIndex].term = result.term;
+                this.tableData[this.editIndex].term = new Date();
                 this.editFormVisible = false;
 
             }.bind(this), function (error) {
