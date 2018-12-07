@@ -7,8 +7,8 @@ var vue = new Vue({
             //搜索表单
             searchForm: {
                 id: "",
-                username: "",
-                term: new Array()
+                username: ""
+                // term: new Array()
             },
             //表数据
             tableData: [],
@@ -47,15 +47,33 @@ var vue = new Vue({
             },
             //表单验证
             editFormRules: {
+
                 username: [
-                    { required: true, message: '请输入邮箱名称', trigger: 'blur' }
+                    { required: true, message: '请输入邮箱名称', trigger: 'blur' },
+                    { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] },
+                    { pattern: /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/ , message: '仅支持数字和字母组合的邮箱地址',trigger: 'blur' },
+                    { min: 1, max: 30, message: '最多输入30个字符', trigger: 'blur' }
                 ],
                 password: [
-                    { required: true, message: '请输入邮箱密码', trigger: 'blur' }
+                    { required: true, message: '请输入邮箱密码', trigger: 'blur' },
+                    { pattern: /^[0-9A-Za-z]{1,30}$/, message: '邮箱密码应为1-30位字母、数字', trigger: 'blur' },
                 ],
                 port: [
                     // { required: true, message: "请输入端口号(仅为数字类型)", trigger: "blur" },
-                    { pattern: /^\d{2,8}$/, message: '请输入数字类型，长度为2-8个数字',trigger: 'blur'},]
+                    { pattern: /^\d{2,4}$/, message: '端口号应为2-4位数字',trigger: 'blur'},],
+
+                encoding:[
+                    { pattern: /^[0-9A-Za-z]{1,10}$/, message: '编码应为1-10位字母、数字', trigger: 'blur' }
+                ],
+
+                host:[
+                    { pattern: /^[0-9A-Za-z]{1,16}$/, message: 'SMTP应为1-16位字母、数字', trigger: 'blur' }
+                ],
+
+                protocol:[
+                    { pattern: /^[0-9A-Za-z]{1,5}$/, message: '授权码应为1-5位字母、数字', trigger: 'blur' }
+                ]   
+
             },
 
             editFormSelect: [],
@@ -94,7 +112,7 @@ var vue = new Vue({
             this.loading = true;//表格重新加载
             var params = {
                 username: this.searchForm.username.replace(/%/g, "\\%"),
-                term: this.searchForm.term[0],
+                // term: this.searchForm.term[0],
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
@@ -186,13 +204,13 @@ var vue = new Vue({
                         encoding: val.encoding,
                         host: val.host,
                         port: val.port,
-                        protocol: val.protocol,
-                        term: val.term,
+                        protocol: val.protocol
+                        // term: val.term,
                     }
                     if (this.dialogTitle == "邮箱新增") {
 
                         axios.post('/xfxhapi/mail/insertByVO', params).then(function (res) {
-                            res.data.result.term = new Date();
+                            // res.data.result.term = new Date();
                             this.tableData.unshift(res.data.result);
                             this.total = this.tableData.length;
                         }.bind(this), function (error) {
@@ -209,7 +227,7 @@ var vue = new Vue({
                         params.host = val.host;
                         params.port = val.port;
                         params.protocol = val.protocol;
-                        params.term = val.term;
+                        // params.term = val.term;
                         params.alterId = this.shiroData.userid;
                         params.alterName = this.shiroData.realName;
                         this.editSubmitUpdateDB(params);
@@ -235,7 +253,7 @@ var vue = new Vue({
                 this.tableData[this.editIndex].host = result.host;
                 this.tableData[this.editIndex].port = result.port;
                 this.tableData[this.editIndex].protocol = result.protocol;
-                this.tableData[this.editIndex].term = new Date();
+                // this.tableData[this.editIndex].term = new Date();
                 this.editFormVisible = false;
 
             }.bind(this), function (error) {
