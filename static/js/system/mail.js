@@ -63,11 +63,11 @@ var vue = new Vue({
                     { pattern: /^\d{2,4}$/, message: '端口号应为2-4位数字',trigger: 'blur'},],
 
                 encoding:[
-                    { pattern: /^[0-9A-Za-z]{1,10}$/, message: '编码应为1-10位字母、数字', trigger: 'blur' },
+                    { pattern: /^[^\u4e00-\u9fa5]{1,10}$/, message: '编码应为1-10位字母、数字、下划线', trigger: 'blur' },
                 ],
 
                 host:[
-                    { pattern: /^[0-9A-Za-z]{1,16}$/, message: 'SMTP应为1-16位字母、数字', trigger: 'blur' },
+                    { pattern: /^[^\u4e00-\u9fa5]{1,16}$/, message: 'SMTP应为1-16位字母、数字、点', trigger: 'blur' },
                 ],
 
                 protocol:[
@@ -221,12 +221,12 @@ var vue = new Vue({
                     } else if (this.dialogTitle == "邮箱编辑") {
 
                         params.uuid = val.uuid;
-                        params.username = val.username;
-                        params.password = val.password;
-                        params.encoding = val.encoding;
-                        params.host = val.host;
-                        params.port = val.port;
-                        params.protocol = val.protocol;
+                        // params.username = val.username;
+                        // params.password = val.password;
+                        // params.encoding = val.encoding;
+                        // params.host = val.host;
+                        // params.port = val.port;
+                        // params.protocol = val.protocol;
                         // params.term = val.term;
                         params.alterId = this.shiroData.userid;
                         params.alterName = this.shiroData.realName;
