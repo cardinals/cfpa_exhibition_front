@@ -101,14 +101,14 @@
                             </el-row>
                             <el-row>
                                 <el-col :span="11">
-                                    <el-form-item label="编码" >
+                                    <el-form-item label="编码" prop="encoding">
                                         <el-input v-model="editForm.encoding" auto-complete="off" placeholder="编码" size="small"
                                             maxlength="10" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="11">
-                                    <el-form-item label="SMTP" >
+                                    <el-form-item label="SMTP" prop="host">
                                         <el-input v-model="editForm.host" auto-complete="off" placeholder="SMTP" size="small"
                                             maxlength="16" clearable></el-input>
                                     </el-form-item>
@@ -124,7 +124,7 @@
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="11">
-                                    <el-form-item label="授权码" >
+                                    <el-form-item label="授权码" prop="protocol">
                                         <el-input v-model="editForm.protocol" auto-complete="off" placeholder="授权码"
                                             size="small" maxlength="5" clearable></el-input>
                                     </el-form-item>

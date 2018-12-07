@@ -63,15 +63,15 @@ var vue = new Vue({
                     { pattern: /^\d{2,4}$/, message: '端口号应为2-4位数字',trigger: 'blur'},],
 
                 encoding:[
-                    { pattern: /^[0-9A-Za-z]{1,10}$/, message: '编码应为1-10位字母、数字', trigger: 'blur' }
+                    { pattern: /^[0-9A-Za-z]{1,10}$/, message: '编码应为1-10位字母、数字', trigger: 'blur' },
                 ],
 
                 host:[
-                    { pattern: /^[0-9A-Za-z]{1,16}$/, message: 'SMTP应为1-16位字母、数字', trigger: 'blur' }
+                    { pattern: /^[0-9A-Za-z]{1,16}$/, message: 'SMTP应为1-16位字母、数字', trigger: 'blur' },
                 ],
 
                 protocol:[
-                    { pattern: /^[0-9A-Za-z]{1,5}$/, message: '授权码应为1-5位字母、数字', trigger: 'blur' }
+                    { pattern: /^[0-9A-Za-z]{1,5}$/, message: '授权码应为1-5位字母、数字', trigger: 'blur' },
                 ]   
 
             },
