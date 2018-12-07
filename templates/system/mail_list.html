@@ -82,17 +82,17 @@
                     <el-dialog :title="dialogTitle" :visible.sync="editFormVisible" @close="closeDialog(editForm)"
                         :close-on-click-modal="false">
                         <el-form :model="editForm" label-width="100px" ref="editForm" :rules="editFormRules">
-                            <div v-show="false" v-once></div>
+                           
                             <el-row>
                                 <el-col :span="11">
-                                    <el-form-item label="邮箱名称" >
+                                    <el-form-item label="邮箱名称" prop="username">
                                         <el-input v-model="editForm.username" auto-complete="off" placeholder="邮箱名称"
                                             size="small" maxlength="60" clearable></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="1">&nbsp;</el-col>
                                 <el-col :span="11">
-                                    <el-form-item label="邮箱密码" >
+                                    <el-form-item label="邮箱密码" prop="password">
                                         <el-input v-model="editForm.password" auto-complete="off" placeholder="邮箱密码"
                                             size="small" maxlength="60" clearable></el-input>
                                     </el-form-item>

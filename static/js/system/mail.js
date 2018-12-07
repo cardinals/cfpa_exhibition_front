@@ -43,16 +43,19 @@ var vue = new Vue({
                 encoding: "",
                 host: "",
                 port: "",
-                protocol: "",
-                term: "",
-                roles: []
+                protocol: ""
             },
             //表单验证
             editFormRules: {
-
+                username: [
+                    { required: true, message: '请输入邮箱名称', trigger: 'blur' }
+                ],
+                password: [
+                    { required: true, message: '请输入邮箱密码', trigger: 'blur' }
+                ],
                 port: [
                     // { required: true, message: "请输入端口号(仅为数字类型)", trigger: "blur" },
-                    { pattern: /^\d{2,8}$/, message: '长度为2-8个数字',trigger: 'blur'},]
+                    { pattern: /^\d{2,8}$/, message: '请输入数字类型，长度为2-8个数字',trigger: 'blur'},]
             },
 
             editFormSelect: [],
@@ -173,40 +176,50 @@ var vue = new Vue({
 
         //编辑提交点击事件
         editSubmit: function (val) {
-            var params = {
-                username: val.username,
-                password: val.password,
-                encoding: val.encoding,
-                host: val.host,
-                port: val.port,
-                protocol: val.protocol,
-                term: val.term,
-            }
-            if (this.dialogTitle == "邮箱新增") {
+            this.$refs["editForm"].validate((valid) => {
+             
+                if (valid) {
 
-                axios.post('/xfxhapi/mail/insertByVO', params).then(function (res) {
-                    res.data.result.term = new Date();
-                    this.tableData.unshift(res.data.result);
-                    this.total = this.tableData.length;
-                }.bind(this), function (error) {
-                    console.log(error)
-                })
-                this.editFormVisible = false;
+                    var params = {
+                        username: val.username,
+                        password: val.password,
+                        encoding: val.encoding,
+                        host: val.host,
+                        port: val.port,
+                        protocol: val.protocol,
+                        term: val.term,
+                    }
+                    if (this.dialogTitle == "邮箱新增") {
 
-            } else if (this.dialogTitle == "邮箱编辑") {
+                        axios.post('/xfxhapi/mail/insertByVO', params).then(function (res) {
+                            res.data.result.term = new Date();
+                            this.tableData.unshift(res.data.result);
+                            this.total = this.tableData.length;
+                        }.bind(this), function (error) {
+                            console.log(error)
+                        })
+                        this.editFormVisible = false;
 
-                params.uuid = val.uuid;
-                params.username = val.username;
-                params.password = val.password;
-                params.encoding = val.encoding;
-                params.host = val.host;
-                params.port = val.port;
-                params.protocol = val.protocol;
-                params.term = val.term;
-                params.alterId = this.shiroData.userid;
-                params.alterName = this.shiroData.realName;
-                this.editSubmitUpdateDB(params);
-            }
+                    } else if (this.dialogTitle == "邮箱编辑") {
+
+                        params.uuid = val.uuid;
+                        params.username = val.username;
+                        params.password = val.password;
+                        params.encoding = val.encoding;
+                        params.host = val.host;
+                        params.port = val.port;
+                        params.protocol = val.protocol;
+                        params.term = val.term;
+                        params.alterId = this.shiroData.userid;
+                        params.alterName = this.shiroData.realName;
+                        this.editSubmitUpdateDB(params);
+                    }
+
+                } else {
+                    console.log('error save!!');
+                    return false;
+                }
+            });
         },
 
         //修改方法
