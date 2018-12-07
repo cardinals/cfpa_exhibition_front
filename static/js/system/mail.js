@@ -156,6 +156,7 @@ var vue = new Vue({
             this.editPasswordShow = !flag;
         },
 
+        
         //修改时查询方法
         editSearch: function (val) {
             //获取选择行主键
