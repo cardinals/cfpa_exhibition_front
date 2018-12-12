@@ -171,6 +171,51 @@
                         </el-col>
                     </el-row>
                 </div>
+                <!-- 企业已选展位 -->
+                <div id="qyyxzw" v-if="sfkqYxzwzs" class="mb20">
+                        <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
+                                <strong style="color: #463132;">企业已选展位</strong>
+                            </el-row>
+                            <el-row v-for="data in yxzwData">
+                                <el-col :span="1">&nbsp;</el-col>
+                                <el-col :span="22">
+                           
+                    <el-row>
+                        <el-col :span="12">
+                            <strong>展位编号：</strong>
+                            <v-text v-text="data.zwh||'无'"></v-text>
+                        </el-col>
+                        <el-col :span="12">
+                            <strong>展位面积：</strong>
+                            <v-text v-text="data.zwmj||'无'"></v-text>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="12">
+                            <strong>横向长度：</strong>
+                            <v-text v-text="data.zwcd||'无'"></v-text>
+                        </el-col>
+                        <el-col :span="12">
+                            <strong>纵向长度：</strong>
+                            <v-text v-text="data.zwkd||'无'"></v-text>
+                        </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="12">
+                                <strong>展位类型：</strong>
+                                <v-text v-text="data.zwlb||'无'"></v-text>
+                            </el-col>
+                            <el-col :span="12">
+                                <strong>出口类型：</strong>
+                                <v-text v-text="data.cklx||'无'"></v-text>
+                            </el-col>
+                        </el-row>
+                        <el-row><el-col :span="12">
+                        </el-col>&nbsp;&nbsp;&nbsp;&nbsp;</el-row>
+                    </el-col>
+                </el-row>
+                </div>
+
                 <div id="qykpxx" class="mb5">
                     <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;">企业开票信息</strong>

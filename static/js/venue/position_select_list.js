@@ -8,14 +8,14 @@ var vue = new Vue({
             currentArea: null,
             currentAreaStage: null,
             tableData: [],
-            overData: [],
             zguuid: '',
             ploter: {
                 show: true
             },
             dialogVisible: false,
             currentUuid: '',
-            isExportDisabled: true
+            isExportDisabled: true,
+            yxzwData:[]
         }
     },
     mounted: function () {
@@ -35,8 +35,67 @@ var vue = new Vue({
         if(this.currentUuid){
             this.getStage(this.currentUuid)
         }
+        this.getYxzwData()
     },
     methods: {
+        //已选展位
+        getYxzwData: function () {
+            axios.post('/xfxhapi/zwjbxx/getSelectedPos').then(function (res) {
+                debugger
+                if (res.data.result.length > 0) {
+                    this.yxzwData= res.data.result;
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        handlerDel : function(event,uuid){
+            var el = event.currentTarget;
+            this.$confirm('此操作将删除该展位选择, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(() => {
+                if(uuid){
+                    var params = {
+                        uuid: uuid
+                    }
+                    axios.post('/xfxhapi/zwjbxx/doCancelByVO', params).then(function (res) {
+                        if(res.data.msg=='success'){
+                            let bp = []
+                            bp.push(res.data.result)
+                            let businessData = this.back2plot(bp)[0]
+                            //需要新增
+                            viewerHandshake.call('updateBusinessRecord', businessData)
+                            this.$message({
+                                message: '展位取消成功',
+                                type: 'success',
+                                center: true
+                            });
+                            debugger
+                            el.style.display="none";
+                        }else{
+                            let msg=res.data.msg;
+                            if(!msg){
+                                msg="展位取消失败！"
+                            }
+                            this.$message({
+                                message: msg,
+                                type: 'error',
+                                center: true
+                            });
+                        }
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
+                }
+              }).catch(() => {
+                this.$message({
+                  type: 'info',
+                  message: '已取消删除'
+                });          
+              });
+        },
         handlerExport : function(){
             if(this.zguuid){
                 var params = {
@@ -45,7 +104,7 @@ var vue = new Vue({
                 axios.post('/xfxhapi/zgjbxx/doExportTp',params).then(function (res) {
                     if(res.status==200){
                         this.$message({
-                            message: '已将展馆图片发送到您邮箱，请查收！',
+                            message: '已将展馆图片发送到您当前账户绑定邮箱，请查收！',
                             type: 'success',
                             center: true
                         });
@@ -104,9 +163,7 @@ var vue = new Vue({
 
         },
 
-        goclosebtn(){
-            document.getElementById("closebtn").style.display="none";
-        },
+
         
         // 标绘工具
         initPlotArea() {
@@ -167,6 +224,7 @@ var vue = new Vue({
                         type: 'success',
                         center: true
                     });
+                    this.yxzwData.push(businessData)
                 }else{
                     let msg=res.data.msg;
                     if(!msg){

@@ -54,7 +54,11 @@ new Vue({
             cpjsData: [],
             //展位需求意向
             zwyxData: [],
-            zwyxForm: []
+            zwyxForm: [],
+            yxzwData:[],
+            qqW:'11111',
+            qqE:'22222',
+            sfkqYxzwzs: false
         }
     },
     created: function () {
@@ -71,14 +75,36 @@ new Vue({
             axios.post('/xfxhapi/zwjbxx/getSelectedPos').then(function (res) {
                 if (res.data.result.length > 0) {
                     var datas = res.data.result;
+                    var qq=''
                     for(let i=0;i<datas.length;i++){
                         if(i==0){
                             this.yxzwxx+=datas[i].zwh
+                            if(datas[i].zwh.indexOf('W')!= -1
+                            &&qq.indexOf(this.qqW)== -1){
+                                qq+=this.qqW
+                            }
+                            if(datas[i].zwh.indexOf('E')!= -1
+                            &&qq.indexOf(this.qqE)== -1){
+                                qq+=this.qqE
+                            }
                         }else{
-                            this.yxzwxx+=","+datas[i].zwh
+                            this.yxzwxx+="，"+datas[i].zwh
+                            if(datas[i].zwh.indexOf('W')!= -1
+                            &&qq.indexOf(this.qqW)== -1){
+                                qq+="和"+this.qqW
+                            }
+                            if(datas[i].zwh.indexOf('E')!= -1
+                            &&qq.indexOf(this.qqE)== -1){
+                                qq+="和"+this.qqE
+                            }
                         }
                     }
+                    if(qq!=''){
+                        this.yxzwxx+='，请尽快添加QQ群：'+qq
+                    }
                     this.zwxzzt='01'
+                    this.sfkqYxzwzs=true
+                    this.yxzwData=datas
                 }
             }.bind(this), function (error) {
                 console.log(error)
