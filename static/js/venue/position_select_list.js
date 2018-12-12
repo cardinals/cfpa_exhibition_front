@@ -8,6 +8,7 @@ var vue = new Vue({
             currentArea: null,
             currentAreaStage: null,
             tableData: [],
+            overData: [],
             zguuid: '',
             ploter: {
                 show: true
@@ -88,7 +89,6 @@ var vue = new Vue({
             })
         },
         getStage(uuid,e) {
-            // document.getElementById("closebtn").style.display="block";
             var params = {
                 uuid: uuid
             }
@@ -96,11 +96,16 @@ var vue = new Vue({
             axios.post('/xfxhapi/zgjbxx/doSearchHbListByVO', params).then(function (res) {
                 this.currentAreaStage = res.data.result[0].zgzwhbStr
                 this.initPlotArea()
+                this.overData = res.data.result;
                 this.isExportDisabled = false
             }.bind(this), function (error) {
                 console.log(error)
             })
 
+        },
+
+        goclosebtn(){
+            document.getElementById("closebtn").style.display="none";
         },
         
         // 标绘工具

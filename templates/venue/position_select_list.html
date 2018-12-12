@@ -9,18 +9,7 @@
 </head>
 <style>
 	
-	.el-icon-closebtn{
-		height: 16px;
-		width: 16px;
-		display:inline-block;
-		position:absolute;  
-		margin-top: -15px;
-		background:url('/static/images/plot/cls.png') no-repeat;
-		border: 0px;
-		margin-left: 10px;
-	}
 </style>
-
 <body class="fw f14 main-index-body">
 	<div id="app">
 		
@@ -31,11 +20,10 @@
 					<div class="ploter-navigation-list">
 						<el-button id="n" v-for="data in tableData" @click="getStage(data.uuid)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">
 							{{data.zgmc}}
-							<el-button id="closebtn" class="el-icon-closebtn"  @click="getStage(data.uuid)">
-							</el-button>
 						</el-button>
 					</div>
 					<div class="ploter-navigation-tools">
+						<el-button class="cancelbtn" icon="el-icon-cancel" id="closebtn" v-for="data in overData" @click="goclosebtn()" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">{{data.zgmc}}</el-button>
 						<el-button icon="el-icon-export"  :disabled="isExportDisabled" class="btn" @click="handlerExport">导出</el-button>
 					</div>
 				</div>

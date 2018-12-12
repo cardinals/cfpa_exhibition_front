@@ -124,7 +124,7 @@
   }
 
 
-  .btn{
+.btn{
 	border: 0px;
 	height:30px;
 	line-height: 0px;
@@ -132,7 +132,27 @@
 	color: #fff;
 	margin:5px 3px 5px 3px;
 	padding-left: 35px;
-}  
+} 
+/* 展位选择右侧按钮样式 */
+.cancelbtn{
+	border: 0px;
+	height:30px;
+	line-height: 0px;
+	background:rgb(243, 26, 55);
+	color: #fff;
+	margin:5px 3px 5px 3px;
+	padding-left: 35px;
+} 
+.cancelbtn:hover{
+	border: 0px;
+	height:30px;
+	line-height: 0px;
+	background:rgb(201, 4, 31);
+	color: #fff;
+	margin:5px 3px 5px 3px;
+	padding-left: 35px;
+} 
+
 .btn:hover{
 	border: 0px;
 	height:30px;
