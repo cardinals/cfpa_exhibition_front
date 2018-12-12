@@ -273,7 +273,9 @@ var vue = new Vue({
         },
         //确认功能
         confirm() {
-            this.currentBusinessData.qyid=this.currentRow.qyid
+            debugger
+            this.currentBusinessData.tenantId=this.currentRow.qyid
+            this.currentBusinessData.tenantName=this.currentRow.zwgsmc
             this.currentBusinessData.status='bespoke';
             editorHandshake.call('updateBusinessRecord', this.currentBusinessData)
             this.currentBusinessData.qyid={}
@@ -342,6 +344,7 @@ var vue = new Vue({
             }
             axios.post('/xfxhapi/zwjbxx/doSearchListByVO', params).then(function (res) {
                 let businessData = this.back2plot(res.data.result)
+               
                 // 外到里call 里到外emit
                 editorHandshake.call('updateBusinessData', businessData)
             }.bind(this), function (error) {
@@ -357,6 +360,7 @@ var vue = new Vue({
         },
         //保存展馆展位数据
         savePlotData (data) {
+            debugger
             this.isDisabled = true
             axios.post('/xfxhapi/zwjbxx/doInsertByVO', this.plot2back(data.businessData)).then(function (res) {
                 var params = {
