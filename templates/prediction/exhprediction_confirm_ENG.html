@@ -7,12 +7,13 @@
     <title>报名信息确认</title>
 </head>
 <style>
-       .adDiv {
-        position: absolute;
-        left: 50px;
-        top: 60px;
-        animation: change 1s  ease-in  infinite ;
+     .adDiv {
+        position:fixed;
+        right: 10%;
+        top: 160px;
+        /* animation: change 1s  ease-in  infinite ; */
         display: none;
+        z-index: 10000;
     }
 
     .adClose {
@@ -314,11 +315,11 @@
     </div>
 
     <!-- 漂浮广告 -->
-    <div id="imgDiv" class="adDiv">
-            <div id="a" class="adClose">×</div>
-            <div class="adImgDiv">
-                <img id="action" class="adImg" src="/static/images/plan/pic_01_eng.png" alt="Floor Plan Select" />
-            </div>
+    <div class="adDiv">
+        <!-- <div id="a" class="adClose">×</div> -->
+        <div class="adImgDiv">
+            <img id="action" class="adImg" src="/static/images/plan/pic_01_eng.png" alt="Floor Plan Select" />
+        </div>
     </div>
 
 </body>
@@ -326,49 +327,49 @@
 <script src="../../static/js/prediction/exhprediction_confirm_ENG.js"></script>
 <script>
         // 漂浮广告JS
-        var xin = true,
-            yin = true;
-        var step = 1;
-        var delay = 30;
-        var $obj;
-        $(function() {
-            $obj = $("#imgDiv");
-            var time = window.setInterval("move()", delay);
-            $obj.mouseover(function() {
-                clearInterval(time)
-            });
-            $obj.mouseout(function() {
-                time = window.setInterval("move()", delay)
-            });
-        });
+        // var xin = true,
+        //     yin = true;
+        // var step = 1;
+        // var delay = 30;
+        // var $obj;
+        // $(function() {
+        //     $obj = $("#imgDiv");
+        //     var time = window.setInterval("move()", delay);
+        //     $obj.mouseover(function() {
+        //         clearInterval(time)
+        //     });
+        //     $obj.mouseout(function() {
+        //         time = window.setInterval("move()", delay)
+        //     });
+        // });
         
-        function move() {
-            var left = $obj.offset().left;
-            var top = $obj.offset().top;
-            var L =  0; //左边界
-            var T = 85;//顶部边界
-            var R = $(window).width() - $obj.width(); // 右边界
-            var B = $(window).height() - $obj.height(); //下边界
-            if (left < L) {
-                xin = true; // 水平向右移动
-            }
-            if (left > R) {
-                xin = false;
-            }
-            if (top < T) {
-                yin = true;
-            }
-            if (top > B) {
-                yin = false;
-            }
-            left = left + step * (xin == true ? 1 : -1);
-            top = top + step * (yin == true ? 1 : -1);
-            // 给div 元素重新定位
-            $obj.offset({
-                top: top,
-                left: left
-            })
-        }
+        // function move() {
+        //     var left = $obj.offset().left;
+        //     var top = $obj.offset().top;
+        //     var L =  0; //左边界
+        //     var T = 85;//顶部边界
+        //     var R = $(window).width() - $obj.width(); // 右边界
+        //     var B = $(window).height() - $obj.height(); //下边界
+        //     if (left < L) {
+        //         xin = true; // 水平向右移动
+        //     }
+        //     if (left > R) {
+        //         xin = false;
+        //     }
+        //     if (top < T) {
+        //         yin = true;
+        //     }
+        //     if (top > B) {
+        //         yin = false;
+        //     }
+        //     left = left + step * (xin == true ? 1 : -1);
+        //     top = top + step * (yin == true ? 1 : -1);
+        //     // 给div 元素重新定位
+        //     $obj.offset({
+        //         top: top,
+        //         left: left
+        //     })
+        // }
         $(function() {
             $("#a").click(function() {
                 var b = $("#a").parent();
