@@ -69,8 +69,7 @@ new Vue({
         //已选展位
         getYxzwData: function () {
             axios.post('/xfxhapi/zwjbxx/getSelectedPos').then(function (res) {
-                if (res.data.result != null) {
-                    debugger
+                if (res.data.result.length > 0) {
                     var datas = res.data.result;
                     for(let i=0;i<datas.length;i++){
                         if(i==0){
