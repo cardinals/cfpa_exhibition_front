@@ -88,6 +88,7 @@ var vue = new Vue({
             })
         },
         getStage(uuid,e) {
+            // document.getElementById("closebtn").style.display="block";
             var params = {
                 uuid: uuid
             }
@@ -101,6 +102,7 @@ var vue = new Vue({
             })
 
         },
+        
         // 标绘工具
         initPlotArea() {
             if (viewerHandshake) {

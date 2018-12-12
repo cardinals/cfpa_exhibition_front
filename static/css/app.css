@@ -1023,6 +1023,7 @@ body .el-table colgroup.gutter{
   background-size:100% 100%;
 }
 
+
 #menu-toggle-btn{
 	right: -26px; 
 	transform: rotateY(180deg);

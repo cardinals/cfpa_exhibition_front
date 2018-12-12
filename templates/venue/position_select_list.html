@@ -7,6 +7,19 @@
 	<link rel="stylesheet" type="text/css" href="../../static\css\venue\positon_select.css">
 	<script src="../../static\js\common\config.js"></script>
 </head>
+<style>
+	
+	.el-icon-closebtn{
+		height: 16px;
+		width: 16px;
+		display:inline-block;
+		position:absolute;  
+		margin-top: -15px;
+		background:url('/static/images/plot/cls.png') no-repeat;
+		border: 0px;
+		margin-left: 10px;
+	}
+</style>
 
 <body class="fw f14 main-index-body">
 	<div id="app">
@@ -16,8 +29,10 @@
 			<div ref="ploterWrap" class="app-viewer-ploter-wrap positionlist" :style="ploterStyle">
 				<div class="app-viewer-ploter-navigation">
 					<div class="ploter-navigation-list">
-						<el-button v-for="data in tableData" @click="getStage(data.uuid)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">
+						<el-button id="n" v-for="data in tableData" @click="getStage(data.uuid)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">
 							{{data.zgmc}}
+							<el-button id="closebtn" class="el-icon-closebtn"  @click="getStage(data.uuid)">
+							</el-button>
 						</el-button>
 					</div>
 					<div class="ploter-navigation-tools">
@@ -29,11 +44,19 @@
 			<!-- <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
 			</el-dialog> -->
 		</div>
-
 	</div>
 </body>
 <script src="../../static\js\zzzlib\postmate.js"></script>
 <script src="../../static\js\common\config.js"></script>
 <script src="../../static/js/venue/position_select_list.js"></script>
+<script>
+ $(function() {
+            $("#closebtn").click(function() {
+                var b = $("#closebtn").parent();
+                $(b).remove();
+            })
+        })
+</script>
+
 
 </html>
