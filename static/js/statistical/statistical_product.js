@@ -18,7 +18,7 @@ var vue = new Vue({
 			tabledata: [],
 			total: 0,
 			//表高度变量
-			tableheight: 291,
+			tableheight: 331,
 			//显示加载中样
 			loading: false,
 			labelPosition: 'right',
