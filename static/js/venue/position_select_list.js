@@ -209,6 +209,7 @@ var vue = new Vue({
             })
         },
         handlerBusinessShapeSelected(data) {
+
             var params = {
                 uuid: data.uuid
             }
@@ -217,6 +218,7 @@ var vue = new Vue({
                     let bp = []
                     bp.push(res.data.result)
                     let businessData = this.back2plot(bp)[0]
+                   
                     //需要新增
                     viewerHandshake.call('updateBusinessRecord', businessData)
                     this.$message({
@@ -267,6 +269,10 @@ var vue = new Vue({
                 pd.stageUuid = bd.zgid
                 pd.shapeUuid = bd.reserve1
                 pd.tenantId = bd.qyid
+                debugger
+                if(!pd.name&&pd.tenantName){
+                    pd.name=pd.tenantName
+                }
                 plotData.push(pd)
             }
             return plotData
