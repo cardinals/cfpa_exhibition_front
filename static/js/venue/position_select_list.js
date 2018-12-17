@@ -72,7 +72,8 @@ var vue = new Vue({
                                 type: 'success',
                                 center: true
                             });
-                            debugger
+                            this.yxzwData=[]
+                            this.getYxzwData()
                             el.style.display="none";
                         }else{
                             let msg=res.data.msg;
@@ -209,38 +210,73 @@ var vue = new Vue({
             })
         },
         handlerBusinessShapeSelected(data) {
-
-            var params = {
-                uuid: data.uuid
-            }
-            axios.post('/xfxhapi/zwjbxx/doUpdateByVO', params).then(function (res) {
-                if(res.data.msg=='success'){
-                    let bp = []
-                    bp.push(res.data.result)
-                    let businessData = this.back2plot(bp)[0]
-                   
-                    //需要新增
-                    viewerHandshake.call('updateBusinessRecord', businessData)
-                    this.$message({
-                        message: '展位选择成功',
-                        type: 'success',
-                        center: true
-                    });
-                    this.yxzwData.push(bp[0])
-                }else{
-                    let msg=res.data.msg;
-                    if(!msg){
-                        msg="选择展位失败！"
+            var msg=''
+            
+            if(this.yxzwData.length>0){
+                var yxzwxx=''
+                for(let i=0;i<this.yxzwData.length;i++){
+                    if(i==0){
+                        yxzwxx+=this.yxzwData[i].zwh
+                    }else{
+                        yxzwxx+="，"+this.yxzwData[i].zwh
                     }
-                    this.$message({
-                        message: msg,
-                        type: 'error',
-                        center: true
-                    });
                 }
-            }.bind(this), function (error) {
-                console.log(error)
-            })
+                msg='您已选择展位'+yxzwxx+' 是否继续选择此展位？'
+            }else{
+                msg='是否确定选择此展位?'
+            }    
+            this.$confirm(msg, '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(() => {
+
+                var params = {
+                    uuid: data.uuid
+                }
+                axios.post('/xfxhapi/zwjbxx/doUpdateByVO', params).then(function (res) {
+                    if(res.data.msg=='success'){
+                        let bp = []
+                        bp.push(res.data.result)
+                        let businessData = this.back2plot(bp)[0]
+                       
+                        //需要新增
+                        viewerHandshake.call('updateBusinessRecord', businessData)
+                        this.$message({
+                            message: '展位选择成功',
+                            type: 'success',
+                            center: true
+                        });
+                        this.yxzwData.push(bp[0])
+                    }else{
+                        let msg=res.data.msg;
+                        if(!msg){
+                            msg="选择展位失败！"
+                        }
+                        this.$message({
+                            message: msg,
+                            type: 'error',
+                            center: true
+                        });
+                    }
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+
+
+
+
+
+
+
+              }).catch(() => {
+                this.$message({
+                  type: 'info',
+                  message: '已取消删除'
+                });          
+              });
+
+            
         },
         back2plot(backData) {
             let plotData = []
@@ -269,7 +305,6 @@ var vue = new Vue({
                 pd.stageUuid = bd.zgid
                 pd.shapeUuid = bd.reserve1
                 pd.tenantId = bd.qyid
-                debugger
                 if(!pd.name&&pd.tenantName){
                     pd.name=pd.tenantName
                 }
