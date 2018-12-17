@@ -224,7 +224,7 @@ var vue = new Vue({
                         type: 'success',
                         center: true
                     });
-                    this.yxzwData.push(businessData)
+                    this.yxzwData.push(bp[0])
                 }else{
                     let msg=res.data.msg;
                     if(!msg){
