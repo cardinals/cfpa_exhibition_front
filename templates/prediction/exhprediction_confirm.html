@@ -85,15 +85,15 @@
                         <el-step title="确认并提交"></el-step>
                     </el-steps>
                 </div>
-                <el-button id="remark" type="success" class="topScroll remark greenFont tc mt5" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='00'">
+                <el-button id="remark" type="success" class="topScroll remark tc mt5" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='00'">
                     经审核您的信息已经通过，请进行展位选择。
                     <i class="el-icon-warning"></i>
                 </el-button>
-                <el-button id="remark" type="warning" icon="el-icon-warning" class="topScroll remark yellowFont tc mt5" v-if="editPage&&jbxxData.shzt==='01'">
+                <el-button id="remark" type="warning" icon="el-icon-warning" class="topScroll remark tc mt5" v-if="editPage&&jbxxData.shzt==='01'">
                     展会报名信息已经提交，请等待审核，审核时间大概需要5个工作日！
                     <i class="el-icon-warning"></i>
                 </el-button>
-                <el-button id="remark" type="danger" icon="el-icon-warning" class="topScroll remark redFont tc mt5" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='01'">
+                <el-button id="remark" type="danger" icon="el-icon-warning" class="topScroll remark tc mt5" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='01'">
                     已选展位:
                     <v-text v-text="yxzwxx"></v-text>
                     <i class="el-icon-warning"></i>
