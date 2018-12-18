@@ -15,7 +15,8 @@ var vue = new Vue({
             dialogVisible: false,
             currentUuid: '',
             isExportDisabled: true,
-            yxzwData:[]
+            yxzwData:[],
+            lastEl:''
         }
     },
     mounted: function () {
@@ -148,7 +149,15 @@ var vue = new Vue({
                 console.log(error)
             })
         },
-        getStage(uuid,e) {
+        getStage(uuid,event) {
+            if(event){
+                if(this.lastEl){
+                    this.lastEl.style.background="#0684E5";
+                }
+                var el = event.currentTarget;
+                this.lastEl=el
+                el.style.background="red";
+            }
             var params = {
                 uuid: uuid
             }

@@ -92,11 +92,19 @@ new Vue({
                             this.yxzwxx+="，"+datas[i].zwh
                             if(datas[i].zwh.indexOf('W')!= -1
                             &&qq.indexOf(this.qqW)== -1){
-                                qq+="和"+this.qqW
+                                if(qq){
+                                    qq+="和"+this.qqW
+                                }else{
+                                    qq=this.qqW
+                                }
                             }
                             if(datas[i].zwh.indexOf('E')!= -1
                             &&qq.indexOf(this.qqE)== -1){
-                                qq+="和"+this.qqE
+                                if(qq){
+                                    qq+="和"+this.qqE
+                                }else{
+                                    qq=this.qqE
+                                }
                             }
                         }
                     }

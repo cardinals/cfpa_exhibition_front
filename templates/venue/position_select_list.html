@@ -18,13 +18,13 @@
 			<div ref="ploterWrap" class="app-viewer-ploter-wrap positionlist" :style="ploterStyle">
 				<div class="app-viewer-ploter-navigation">
 					<div class="ploter-navigation-list">
-						<el-button id="n" v-for="data in tableData" @click="getStage(data.uuid)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">
+						<el-button id="n" v-for="data in tableData" @click="getStage(data.uuid,$event)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">
 							{{data.zgmc}}
 						</el-button>
 					</div>
 					<div class="ploter-navigation-tools">
 						<el-button class="cancelbtn" v-for='data1 in yxzwData' icon="el-icon-cancel" id="closebtn"  @click="handlerDel($event,data1.uuid)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">{{data1.zwh}}</el-button>
-						<el-button icon="el-icon-export"  :disabled="isExportDisabled" class="btn" @click="handlerExport">导出</el-button>
+						<el-button icon="el-icon-export"  :disabled="isExportDisabled" class="btn" @click="handlerExport">展馆导出</el-button>
 					</div>
 				</div>
 			</div>
