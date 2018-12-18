@@ -170,7 +170,8 @@ var vue = new Vue({
             //分页大小
             pageSize: 10,
             //总记录数
-            total: 0
+            total: 0,
+            lastEl:''
         }
     },
     created: function () {
@@ -288,7 +289,15 @@ var vue = new Vue({
                 console.log(error)
             })
         },
-        getStage(uuid) {
+        getStage(uuid,event) {
+            if(event){
+                if(this.lastEl){
+                    this.lastEl.style.background="#0684E5";
+                }
+                var el = event.currentTarget;
+                this.lastEl=el
+                el.style.background="red";
+            }
             var params = {
                 uuid: uuid
             }
