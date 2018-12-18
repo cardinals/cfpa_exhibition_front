@@ -29,7 +29,7 @@ var vue = new Vue({
 			loading: false,
 			labelPosition: 'right',
 			//表高度变量
-            tableheight: 251,
+            tableheight: 291,
 		}
 	},
 	mounted: function () {
@@ -134,7 +134,7 @@ var vue = new Vue({
 								color: function(params) {
 									// build a color map as your need.
 									var colorList = [
-									  '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B'
+									  '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B','#FE8463'
 									];
 									return colorList[params.dataIndex]
 								},
@@ -202,7 +202,7 @@ var vue = new Vue({
 						
 					}
 				],
-				color: ['#C1232B','#B5C334','#FCCE10','#E87C25','#27727B']
+				color: ['#C1232B','#B5C334','#FCCE10','#E87C25','#27727B','#FE8463']
 			};
 		
 			myChart.setOption(option);
