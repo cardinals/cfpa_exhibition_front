@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	
+
 	<title>展位设计</title>
 	<link rel="stylesheet" type="text/css" href="../../static\css\venue\positon_design.css">
 </head>
 
 <body class="fw f14 main-index-body" onload="location.replace()">
 	<div id="app">
-		
+
 		<div class="main-box">
-			
+
 			<div ref="ploterWrap" class="app-editor-ploter-wrap positionlist" :style="ploterStyle">
 				<div class="app-editor-ploter-navigation">
-					
+
 					<div class="ploter-navigation-list">
 						<el-button v-for="data in zgtableData" @click="getStage(data.uuid)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">
 							{{data.zgmc}}
@@ -64,70 +65,53 @@
 									绘制出口
 							</el-button>
 						</el-popover> -->
-						<el-button icon="el-icon-save" class="btn" @click="handlerSaveBtnClick" :disabled="isDisabled" >保存</el-button>
+						<el-button icon="el-icon-save" class="btn" @click="handlerSaveBtnClick" :disabled="isDisabled">保存</el-button>
 						<el-button icon="el-icon-cancel" class="btn" @click="handlerCancelBtnClick">取消修改</el-button>
 					</div>
 				</div>
 			</div>
-			
-			<el-dialog title="选择企业" :visible.sync="dialogVisible"  v-if="dialogVisible"  width="50%">
+
+			<el-dialog title="选择企业" :visible.sync="dialogVisible" v-if="dialogVisible" :close-on-click-modal="false">
 				<!-- 选择企业 -->
-				<!-- 面包屑 -->
-				<div id="breadcrumb_box"></div>
 				<div id="tableView">
-						<el-row>
-							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-								<el-row>
-									<el-col :span="1">&nbsp;</el-col>
-									<el-col :span="14" class="searchInline">
-										<label class="el-form-item__label searchLabel">公司名称</label>
-										<el-input size="small" v-model="searchForm.gsmc" placeholder="公司名称" clearable></el-input>
-									</el-col>
-								</el-row>
-								<div>
-									<el-form>
-										<el-col :span="12" class="btnEditDelete">
-											<el-form-item align="left">
-											</el-form-item>
-										</el-col>
-										<el-col :span="12" class="btnSearchPlus">
-											<el-form-item>
-												<el-button type="success" icon="el-icon-search" size="small" @click="confirm">确定</el-button>
-												<el-button type="primary" icon="el-icon-search" size="small" @click="searchClick">查询</el-button>
-												<el-button type="clear" icon="el-icon-refresh" size="small" @click="clearClick">重置</el-button>
-											</el-form-item>
-										</el-col>
-									</el-form>
-								</div>
-							</el-form>
-						</el-row>
-						<div class="table_container">
-							<el-table id="table" border class="tableStyle" :height="tableheight" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-							@current-change="showRow" highlight-current-row  row-style="height:40px">
-								
-								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
-								<el-table-column prop="zwgsmc" label="公司名称" show-overflow-tooltip min-width="25%" align="center">
-									<!-- <template slot-scope="scope">
+					<el-row>
+						<el-col :span="17" class="searchInline">
+							<label class="el-form-item__label" style="width:95px;" class="tr vbm">公司名称</label>
+							<el-input size="small" v-model="searchForm.gsmc" placeholder="公司名称" clearable></el-input>
+						</el-col>
+						<el-col :span="7" class="btnSearchPlus">
+							<!-- <el-button type="success" icon="el-icon-search" size="small" @click="confirm">确定</el-button> -->
+							<el-button type="primary" icon="el-icon-search" size="small" @click="searchClick">查询</el-button>
+							<el-button type="clear" icon="el-icon-refresh" size="small" @click="clearClick">重置</el-button>
+						</el-col>
+					</el-row>
+					<div class="table_container">
+						<el-table id="table" border class="tableStyle poi" :height="tableheight" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+						 highlight-current-row row-style="height:40px" @row-click="confirm">
+
+							<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
+							<el-table-column prop="zwgsmc" label="公司名称" show-overflow-tooltip min-width="25%" align="center">
+								<!-- <template slot-scope="scope">
 										<a v-if="scope.row.usertype == 'ENG'" v-text="scope.row.zwgsmc" @click="qyDetails(scope.row)"></a>
 										<a v-else v-text="scope.row.zwgsmc" @click="qyDetails(scope.row)"></a>
 									</template>  -->
-								</el-table-column>
-								<el-table-column prop="tyshxydm" label="统一社会信用代码" show-overflow-tooltip min-width="20%" align="center" :formatter="tableLongNumFormat"></el-table-column>
-								<el-table-column prop="wz" label="公司网址" show-overflow-tooltip min-width="20%" align="center">
-								</el-table-column>
-							</el-table>
-							<!--列表底部工具条和分页符-->
-							<el-row type="flex" justify="end">
-								<el-col :span="18">
-									<el-pagination @current-change="currentPageChange" @size-change="pageSizeChange" :current-page="currentPage" :page-sizes="[10, 20, 30]" :page-size="pageSize"
-										layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
-									</el-pagination>
-								</el-col>
-							</el-row>
-						</div>
+							</el-table-column>
+							<el-table-column prop="tyshxydm" label="统一社会信用代码" show-overflow-tooltip min-width="20%" align="center" :formatter="tableLongNumFormat"></el-table-column>
+							<el-table-column prop="wz" label="公司网址" show-overflow-tooltip min-width="20%" align="center">
+							</el-table-column>
+						</el-table>
+						<!--列表底部工具条和分页符-->
+						<el-row type="flex" justify="end">
+							<el-col :span="18">
+								<el-pagination @current-change="currentPageChange" @size-change="pageSizeChange" :current-page="currentPage" :page-sizes="[10, 20, 30]"
+								 :page-size="pageSize" layout="total, prev, pager, next, jumper" :total=parseInt(total)>
+								</el-pagination>
+							</el-col>
+						</el-row>
 					</div>
+				</div>
 			</el-dialog>
-			
+
 		</div>
 	</div>
 </body>

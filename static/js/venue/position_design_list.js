@@ -10,10 +10,10 @@ var vue = new Vue({
             //激活tab
             activeName: 'first',
             currentArea: null,
-            currentAreaStage: null,  
+            currentAreaStage: null,
             //展馆标题数据
-            zgtableData: [],  
-            zguuid: '',  
+            zgtableData: [],
+            zguuid: '',
             ploter: {
                 show: true
             },
@@ -38,8 +38,8 @@ var vue = new Vue({
                         "fill": "#666",
                         "fontSize": 10,
                         "padding": 4,
-                        "align":"left",
-                        "verticalAlign":"top"
+                        "align": "left",
+                        "verticalAlign": "top"
                     }, {
                         "alias": "name",
                         "text": "名称",
@@ -47,8 +47,8 @@ var vue = new Vue({
                         "fill": "#666",
                         "fontSize": 14,
                         "fontStyle": "bold",
-                        "align":"center",
-                        "verticalAlign":"middle"
+                        "align": "center",
+                        "verticalAlign": "middle"
                     }],
                     "mainShape": {
                         "stroke": "#666",
@@ -144,7 +144,7 @@ var vue = new Vue({
                     }
                 }
             }
-        ],
+            ],
             //当前展位数据
             currentBusinessData: {},
             //选择企业信息
@@ -180,20 +180,20 @@ var vue = new Vue({
     mounted: function () {
         this.init();
         //关闭左侧菜单
-		this. closeleft();
+        this.closeleft();
     },
     computed: {
-        ploterStyle () {
+        ploterStyle() {
             return {
                 display: this.ploter.show ? 'flex' : 'none'
             }
         }
     },
     methods: {
-         //关闭左侧菜单
-         closeleft:function(){
-            document.getElementById("menu-toggle-btn").style.right="-26px";
-            document.getElementById("menu-toggle-btn").style.transform="rotateY(180deg)";
+        //关闭左侧菜单
+        closeleft: function () {
+            document.getElementById("menu-toggle-btn").style.right = "-26px";
+            document.getElementById("menu-toggle-btn").style.transform = "rotateY(180deg)";
             // if( history.previous != history.current ){
             //     window.location.reload(); 
             //    };
@@ -215,16 +215,16 @@ var vue = new Vue({
             }
 
         },
- 
+
         // tab的按键
         handleClick(tab, event) {
             console.log(tab, event);
-          },
+        },
         /**
          *选择企业信息
          */
-         //表格查询事件
-         searchClick: function (type) {
+        //表格查询事件
+        searchClick: function (type) {
             //按钮事件的选择
             if (type == 'page') {
                 this.tableData = [];
@@ -234,7 +234,7 @@ var vue = new Vue({
             }
             this.loading = true;//表格重新加载
             var params = {
-                gsmc: this.searchForm.gsmc.replace(/%/g,"\\%"),
+                gsmc: this.searchForm.gsmc.replace(/%/g, "\\%"),
                 // yjdz: this.searchForm.yjdz,
                 //shzt: this.searchForm.shzt,
                 shzt: '03',
@@ -272,30 +272,29 @@ var vue = new Vue({
             this.currentBusinessData
         },
         //确认功能
-        confirm() {
-            debugger
-            this.currentBusinessData.tenantId=this.currentRow.qyid
-            this.currentBusinessData.tenantName=this.currentRow.zwgsmc
-            this.currentBusinessData.status='bespoke';
+        confirm(val) {
+            this.currentBusinessData.tenantId = val.qyid
+            this.currentBusinessData.tenantName = val.zwgsmc
+            this.currentBusinessData.status = 'bespoke';
             editorHandshake.call('updateBusinessRecord', this.currentBusinessData)
-            this.currentBusinessData.qyid={}
+            this.currentBusinessData.qyid = {}
             this.dialogVisible = false
         },
         //初始化当前页面
-        init () {
+        init() {
             axios.post('/xfxhapi/zgjbxx/doSearchDataListByVO').then(function (res) {
-                this.zgtableData=res.data.result;
+                this.zgtableData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
             })
         },
-        getStage (uuid) {
-            var params={
+        getStage(uuid) {
+            var params = {
                 uuid: uuid
             }
-            this.zguuid=uuid
+            this.zguuid = uuid
             axios.post('/xfxhapi/zgjbxx/doSearchHbListByVO', params).then(function (res) {
-                this.currentAreaStage =  res.data.result[0].zgzwhbStr
+                this.currentAreaStage = res.data.result[0].zgzwhbStr
                 this.initPlotArea()
                 this.isDisabled = false
             }.bind(this), function (error) {
@@ -303,7 +302,7 @@ var vue = new Vue({
             })
         },
         // 初始化标绘工具
-        initPlotArea () {
+        initPlotArea() {
             if (editorHandshake) {
                 editorHandshake.destroy()
                 editorHandshake = null
@@ -338,13 +337,13 @@ var vue = new Vue({
             })
         },
         //初始化展位数据
-        getBusinessData (stageUuid) {
-            var params={
+        getBusinessData(stageUuid) {
+            var params = {
                 zgid: this.zguuid
             }
             axios.post('/xfxhapi/zwjbxx/doSearchListByVO', params).then(function (res) {
                 let businessData = this.back2plot(res.data.result)
-               
+
                 // 外到里call 里到外emit
                 editorHandshake.call('updateBusinessData', businessData)
             }.bind(this), function (error) {
@@ -352,14 +351,14 @@ var vue = new Vue({
             })
         },
         //指定展位
-        allotBusinessData (businessData) {
+        allotBusinessData(businessData) {
             this.dialogVisible = true
             this.searchClick('page')
-            this.currentBusinessData=businessData
-            
+            this.currentBusinessData = businessData
+
         },
         //保存展馆展位数据
-        savePlotData (data) {
+        savePlotData(data) {
             debugger
             this.isDisabled = true
             axios.post('/xfxhapi/zwjbxx/doInsertByVO', this.plot2back(data.businessData)).then(function (res) {
@@ -370,21 +369,21 @@ var vue = new Vue({
                     xgrid: this.shiroData.userid,
                     xgrmc: this.shiroData.realName,
                 }
-                
+
                 axios.post('/xfxhapi/zgjbxx/doUpdateByVO', params).then(function (res) {
                     this.$message({
                         message: '保存展位成功',
                         type: 'success',
                         center: true
-                      });
+                    });
                     if (editorHandshake) {
                         //销毁当前画布
                         editorHandshake.destroy()
                         editorHandshake = null
-                        this.getStage( data.stageUuid)
+                        this.getStage(data.stageUuid)
                     }
                     this.isDisabled = false
-                    
+
                 }.bind(this), function (error) {
                     console.log(error)
                 })
@@ -394,24 +393,24 @@ var vue = new Vue({
             })
         },
         //画展位
-        handlerDrawArea () { 
+        handlerDrawArea() {
             if (editorHandshake) {
                 editorHandshake.call('selectToolHandler', this.area[0])
             }
         },
         //画门
-        handlerDrawDoor (tool) {
+        handlerDrawDoor(tool) {
             if (editorHandshake) {
                 editorHandshake.call('selectToolHandler', tool)
             }
         },
-        handlerSaveBtnClick () {
+        handlerSaveBtnClick() {
             if (editorHandshake) {
                 editorHandshake.call('saveHandler')
             }
         },
-        handlerCancelBtnClick () {
-            
+        handlerCancelBtnClick() {
+
             if (editorHandshake) {
                 editorHandshake.destroy()
                 editorHandshake = null
@@ -420,7 +419,7 @@ var vue = new Vue({
             this.ploter.show = true
         },
         //展会后台数据转绘图工具数据
-        back2plot (backData) {
+        back2plot(backData) {
             let plotData = []
             for (let i = 0; i < backData.length; i++) {
                 let bd = backData[i]
@@ -447,13 +446,13 @@ var vue = new Vue({
                 pd.stageUuid = bd.zgid
                 //绘图工具展位ID
                 pd.shapeUuid = bd.reserve1
-                pd.tenantId= bd.qyid
+                pd.tenantId = bd.qyid
                 plotData.push(pd)
             }
             return plotData
         },
         //绘图工具数据转展会后台数据
-        plot2back (plotData) {
+        plot2back(plotData) {
             let backData = []
 
             for (let i = 0; i < plotData.length; i++) {
