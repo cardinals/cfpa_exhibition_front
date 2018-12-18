@@ -155,7 +155,7 @@ var vue = new Vue({
                 }
                 var el = event.currentTarget;
                 this.lastEl=el
-                el.style.background="red";
+                el.style.background="#666666";
             }
             var params = {
                 uuid: uuid
