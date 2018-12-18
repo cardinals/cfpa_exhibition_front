@@ -15,9 +15,7 @@ new Vue({
             previewImg: '',
             qyid: "",//企业id
             userid: "",
-            zwxzzt: '00',//展位选择状态
-            sfkqzw: true,//是否开启选展位浮动提示框
-            yxzwxx: '',
+            
             //企业基本信息
             jbxxData: {
                 zwgsmc: '',
@@ -58,7 +56,10 @@ new Vue({
             yxzwData:[],
             qqW:'11111',
             qqE:'22222',
-            sfkqYxzwzs: false
+            zwxzzt: '00',//展位选择状态
+            sfkqzw: true,//是否开启选展位浮动提示框，（开始选展位开启此变量）
+            yxzwxx: '',
+            sfkqYxzwzs: false //是否开启已选展位列表
         }
     },
     created: function () {

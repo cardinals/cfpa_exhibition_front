@@ -15,9 +15,7 @@ new Vue({
             previewImg: '',
             qyid: "",//企业id
             userid: "",
-            zwxzzt: '00',//展位选择状态
-            yxzwxx: '',
-            sfkqzw: true,//是否开启选展位浮动提示框
+            
             //企业基本信息
             jbxxData: {
                 zwgsmc: '',
@@ -54,7 +52,12 @@ new Vue({
             cpjsData: [],
             //展位需求意向
             zwyxData: {},
-            zwyxForm: {}
+            zwyxForm: {},
+            zwxzzt: '00',//展位选择状态
+            yxzwxx: '',
+            sfkqzw: true,//是否开启选展位浮动提示框（开始选展位开启此变量）
+            yxzwData:[],
+            sfkqYxzwzs: false //是否开启已选展位列表
         }
     },
     created: function () {
@@ -62,15 +65,14 @@ new Vue({
         this.shiroData = shiroGlobal;
         this.loading = true;
         this.userid = getQueryString("userid");
+        this.getYxzwData()
         this.getJbxxData(this.userid);
     },
-
     methods: {
          //已选展位
          getYxzwData: function () {
             axios.post('/xfxhapi/zwjbxx/getSelectedPos').then(function (res) {
-                if (res.data.result  > 0) {
-                    debugger
+                if (res.data.result.length  > 0) {
                     var datas = res.data.result;
                     for(let i=0;i<datas.length;i++){
                         if(i==0){
@@ -78,8 +80,27 @@ new Vue({
                         }else{
                             this.yxzwxx+=","+datas[i].zwh
                         }
+                        //展位类别，出口类型翻译
+                        if(datas[i].zwlb=='标准展位'){
+                            datas[i].zwlb='Standard booth'
+                        }
+                        if(datas[i].zwlb=='室外光地展位'){
+                            datas[i].zwlb='Raw space'
+                        }
+                        if(datas[i].cklx=='一面开'){
+                            datas[i].cklx='1 Sides open'
+                        }
+                        if(datas[i].cklx=='两面开'){
+                            datas[i].cklx='2 Sides open'
+                        }if(datas[i].cklx=='三面开'){
+                            datas[i].cklx='3 Sides open'
+                        }if(datas[i].cklx=='全开'){
+                            datas[i].cklx='4 Sides open'
+                        }
                     }
                     this.zwxzzt='01'
+                    this.sfkqYxzwzs=true
+                    this.yxzwData=datas
                 }
             }.bind(this), function (error) {
                 console.log(error)

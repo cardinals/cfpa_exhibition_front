@@ -23,27 +23,15 @@
 						</el-button>
 					</div>
 					<div class="ploter-navigation-tools">
-						<el-button class="cancelbtn" v-for='data in yxzwData' icon="el-icon-cancel" id="closebtn"  @click="handlerDel($event,data.uuid)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">{{data.zwh}}</el-button>
+						<el-button class="cancelbtn" v-for='data1 in yxzwData' icon="el-icon-cancel" id="closebtn"  @click="handlerDel($event,data1.uuid)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">{{data1.zwh}}</el-button>
 						<el-button icon="el-icon-export"  :disabled="isExportDisabled" class="btn" @click="handlerExport">导出</el-button>
 					</div>
 				</div>
 			</div>
-
-			<!-- <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
-			</el-dialog> -->
 		</div>
 	</div>
 </body>
 <script src="../../static\js\zzzlib\postmate.js"></script>
 <script src="../../static\js\common\config.js"></script>
 <script src="../../static/js/venue/position_select_list.js"></script>
-<script>
- $(function() {
-            // $("#closebtn").click(function(uuid) {
-                
-            // })
-        })
-</script>
-
-
 </html>

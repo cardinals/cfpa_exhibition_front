@@ -100,7 +100,9 @@
                     <i class="el-icon-warning"></i>
                 </el-button>
                 <el-button id="remark" type="danger" icon="el-icon-warning" class="topScroll remark redFont tc mt5" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='01'">
-                    Selected Booth:<v-text v-text="yxzwxx"></v-text>
+                    You have selected Booths of <v-text v-text="yxzwxx"></v-text>. Please wait for the committee to send you booth contract through fireexpo@cfpa.cn. 
+                </br>
+                    If you have any concerns, pleasd feel free to contact us at this email.
                     <i class="el-icon-warning"></i>
                 </el-button>
                 <div id="qyjbxx" class="mb5">
@@ -180,6 +182,51 @@
                         </el-col>
                     </el-row>
                 </div>
+                 <!-- 企业已选展位 -->
+                 <div id="qyyxzw" v-if="sfkqYxzwzs" class="mb20">
+                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
+                            <strong style="color: #463132;">Booths you have selected</strong>
+                        </el-row>
+                        <el-row v-for="data in yxzwData">
+                            <el-col :span="1">&nbsp;</el-col>
+                            <el-col :span="22">
+                       
+                <el-row>
+                    <el-col :span="12">
+                        <strong>Booth No：</strong>
+                        <v-text v-text="data.zwh||'no'"></v-text>
+                    </el-col>
+                    <el-col :span="12">
+                        <strong>Booth Area(m2)：</strong>
+                        <v-text v-text="data.zwmj||'no'"></v-text>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="12">
+                        <strong>Horizontal Length(m)：</strong>
+                        <v-text v-text="data.zwcd||'no'"></v-text>
+                    </el-col>
+                    <el-col :span="12">
+                        <strong>Vertical Length(m)：</strong>
+                        <v-text v-text="data.zwkd||'no'"></v-text>
+                    </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="12">
+                            <strong>Booth type：</strong>
+                            <v-text v-text="data.zwlb||'no'"></v-text>
+                        </el-col>
+                        <el-col :span="12">
+                            <strong>Export type：</strong>
+                            <v-text v-text="data.cklx||'no'"></v-text>
+                        </el-col>
+                    </el-row>
+                    <el-row><el-col :span="12">
+                    </el-col>&nbsp;&nbsp;&nbsp;&nbsp;</el-row>
+                </el-col>
+            </el-row>
+            </div>
+
                 <div id="qykpxx" class="mb5">
                     <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;" class="f15">Invoice Information</strong>
