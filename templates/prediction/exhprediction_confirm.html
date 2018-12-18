@@ -8,7 +8,7 @@
 </head>
 <style>
     .adDiv {
-        position:fixed;
+        position: fixed;
         right: 10%;
         top: 160px;
         /* animation: change 1s  ease-in  infinite ; */
@@ -27,13 +27,13 @@
         background: salmon;
         text-align: center;
         z-index: 999;
-        cursor:pointer;
+        cursor: pointer;
     }
 
     .adImgDiv {
         width: 190px;
         height: 190px;
-      
+
     }
 
     .adImg {
@@ -57,7 +57,7 @@
         
     } */
 
-     /* @keyframes change {
+    /* @keyframes change {
             0%{ text-shadow: 0 0 4px #f00}
             50%{ text-shadow: 0 0 40px #f00}
             100%{ text-shadow: 0 0 4px #f00}
@@ -94,10 +94,11 @@
                     <i class="el-icon-warning"></i>
                 </el-button>
                 <el-button id="remark" type="danger" icon="el-icon-warning" class="topScroll remark redFont tc mt5" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='01'">
-                    已选展位:<v-text v-text="yxzwxx"></v-text>
+                    已选展位:
+                    <v-text v-text="yxzwxx"></v-text>
                     <i class="el-icon-warning"></i>
                 </el-button>
-                
+
                 <div id="qyjbxx" class="mb5">
                     <el-row class="mb10" v-if="editPage==false" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;">企业基本信息</strong>
@@ -111,8 +112,8 @@
                             <el-row>
                                 <el-col :span="12">
                                     <strong class="vt">营业执照：</strong>
-                                    <img v-if="jbxxData.src!==''" :src="jbxxData.imageUrl" @click="imgPreview(jbxxData.imageUrl)"
-                                        style="max-width:100%;max-height:140px;" class="poi">
+                                    <img v-if="jbxxData.src!==''" :src="jbxxData.imageUrl" @click="imgPreview(jbxxData.imageUrl)" style="max-width:100%;max-height:140px;"
+                                        class="poi">
                                     <img v-else src="../../static/images/noPic.png" style="width:100px;">
                                 </el-col>
                                 <el-col :span="12">
@@ -172,48 +173,45 @@
                     </el-row>
                 </div>
                 <!-- 企业已选展位 -->
-                <div id="qyyxzw" v-if="sfkqYxzwzs" class="mb20">
-                        <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
-                                <strong style="color: #463132;">企业已选展位</strong>
+                <div id="qyyxzw" v-if="sfkqYxzwzs">
+                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
+                        <strong style="color: #463132;">企业已选展位</strong>
+                    </el-row>
+                    <el-row v-for="data in yxzwData">
+                        <el-col :span="1">&nbsp;</el-col>
+                        <el-col :span="22">
+                            <el-row class="mb10">
+                                <el-col :span="12">
+                                    <strong>展位编号：</strong>
+                                    <v-text v-text="data.zwh||'无'"></v-text>
+                                </el-col>
+                                <el-col :span="12">
+                                    <strong>展位面积：</strong>
+                                    <v-text v-text="data.zwmj||'无'"></v-text>
+                                </el-col>
                             </el-row>
-                            <el-row v-for="data in yxzwData">
-                                <el-col :span="1">&nbsp;</el-col>
-                                <el-col :span="22">
-                           
-                    <el-row>
-                        <el-col :span="12">
-                            <strong>展位编号：</strong>
-                            <v-text v-text="data.zwh||'无'"></v-text>
-                        </el-col>
-                        <el-col :span="12">
-                            <strong>展位面积：</strong>
-                            <v-text v-text="data.zwmj||'无'"></v-text>
+                            <el-row class="mb10">
+                                <el-col :span="12">
+                                    <strong>横向长度：</strong>
+                                    <v-text v-text="data.zwcd||'无'"></v-text>
+                                </el-col>
+                                <el-col :span="12">
+                                    <strong>纵向长度：</strong>
+                                    <v-text v-text="data.zwkd||'无'"></v-text>
+                                </el-col>
+                            </el-row>
+                            <el-row class="mb20">
+                                <el-col :span="12">
+                                    <strong>展位类型：</strong>
+                                    <v-text v-text="data.zwlb||'无'"></v-text>
+                                </el-col>
+                                <el-col :span="12">
+                                    <strong>出口类型：</strong>
+                                    <v-text v-text="data.cklx||'无'"></v-text>
+                                </el-col>
+                            </el-row>
                         </el-col>
                     </el-row>
-                    <el-row>
-                        <el-col :span="12">
-                            <strong>横向长度：</strong>
-                            <v-text v-text="data.zwcd||'无'"></v-text>
-                        </el-col>
-                        <el-col :span="12">
-                            <strong>纵向长度：</strong>
-                            <v-text v-text="data.zwkd||'无'"></v-text>
-                        </el-col>
-                        </el-row>
-                        <el-row>
-                            <el-col :span="12">
-                                <strong>展位类型：</strong>
-                                <v-text v-text="data.zwlb||'无'"></v-text>
-                            </el-col>
-                            <el-col :span="12">
-                                <strong>出口类型：</strong>
-                                <v-text v-text="data.cklx||'无'"></v-text>
-                            </el-col>
-                        </el-row>
-                        <el-row><el-col :span="12">
-                        </el-col>&nbsp;&nbsp;&nbsp;&nbsp;</el-row>
-                    </el-col>
-                </el-row>
                 </div>
 
                 <div id="qykpxx" class="mb5">
@@ -332,8 +330,8 @@
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="11">
                             <strong class="vt">企业Logo：</strong>
-                            <img v-if="qyjsData.src!==''" :src="qyjsData.imageUrl" @click="imgPreview(qyjsData.imageUrl)"
-                                style="max-width:100%;max-height:140px;" class="poi">
+                            <img v-if="qyjsData.src!==''" :src="qyjsData.imageUrl" @click="imgPreview(qyjsData.imageUrl)" style="max-width:100%;max-height:140px;"
+                                class="poi">
                             <img v-else src="../../static/images/noPic.png" style="width:100px;">
                         </el-col>
                         <el-col :span="11">
@@ -355,8 +353,7 @@
                                     <el-card class="mb10 card_style" id="cpjsImg">
                                         <el-row class="h100">
                                             <el-col :span="5" class="h100 tc">
-                                                <img v-if="cpjs.src!==''" :src="cpjs.imageUrl" @click="imgPreview(cpjs.imageUrl)"
-                                                    class="poi">
+                                                <img v-if="cpjs.src!==''" :src="cpjs.imageUrl" @click="imgPreview(cpjs.imageUrl)" class="poi">
                                                 <img v-else src="../../static/images/noPic.png">
                                             </el-col>
                                             <el-col :span="19" style="line-height: 24px;" class="pl15">
@@ -402,7 +399,8 @@
                                 <strong>室外展位：</strong>
                                 <el-input-number v-if="editZwyx" size="small" v-model="zwyxForm.swgdzw" :min="0" :max="2000" placeholder="室外光地展位" :precision="0"></el-input-number>
                                 <v-text v-else v-text="(zwyxForm.swgdzw==''||zwyxForm.swgdzw==null)?'无':zwyxForm.swgdzw+' m²'"></v-text>
-                                &nbsp;&nbsp;(室外光地展位：仅限消防<span style="color:red;">举高</span>车类)
+                                &nbsp;&nbsp;(室外光地展位：仅限消防
+                                <span style="color:red;">举高</span>车类)
                             </el-row>
                         </el-col>
                     </el-row>
@@ -423,7 +421,7 @@
         <!-- main-container -->
     </div>
     </div>
-     <!-- 漂浮广告 -->
+    <!-- 漂浮广告 -->
     <div id="imgDiv" class="adDiv">
         <div class="adImgDiv">
             <img id="action" class="adImg" src="/static/images/plan/pic_01_chn.png" alt="展馆平面图选择" />
@@ -434,61 +432,62 @@
 <script src="../../static/js/common/config.js"></script>
 <script src="../../static/js/prediction/exhprediction_confirm.js"></script>
 <script>
-        // 漂浮广告JS
-        // var xin = true,
-        //     yin = true;
-        // var step = 1;
-        // var delay = 30;
-        // var $obj;
-        // $(function() {
-        //     $obj = $("#imgDiv");
-        //     var time = window.setInterval("move()", delay);
-        //     $obj.mouseover(function() {
-        //         clearInterval(time)
-        //     });
-        //     $obj.mouseout(function() {
-        //         time = window.setInterval("move()", delay)
-        //     });
-        // });
-        
-        // function move() {
-        //     var left = $obj.offset().left;
-        //     var top = $obj.offset().top;
-        //     var L =  0; //左边界
-        //     var T = 85;//顶部边界
-        //     var R = $(window).width() - $obj.width(); // 右边界
-        //     var B = $(window).height() - $obj.height(); //下边界
-        //     if (left < L) {
-        //         xin = true; // 水平向右移动
-        //     }
-        //     if (left > R) {
-        //         xin = false;
-        //     }
-        //     if (top < T) {
-        //         yin = true;
-        //     }
-        //     if (top > B) {
-        //         yin = false;
-        //     }
-        //     left = left + step * (xin == true ? 1 : -1);
-        //     top = top + step * (yin == true ? 1 : -1);
-        //     // 给div 元素重新定位
-        //     $obj.offset({
-        //         top: top,
-        //         left: left
-        //     })
-        // }
-        $(function() {
-            $("#a").click(function() {
-                var b = $("#a").parent();
-                $(b).remove();
-            })
+    // 漂浮广告JS
+    // var xin = true,
+    //     yin = true;
+    // var step = 1;
+    // var delay = 30;
+    // var $obj;
+    // $(function() {
+    //     $obj = $("#imgDiv");
+    //     var time = window.setInterval("move()", delay);
+    //     $obj.mouseover(function() {
+    //         clearInterval(time)
+    //     });
+    //     $obj.mouseout(function() {
+    //         time = window.setInterval("move()", delay)
+    //     });
+    // });
+
+    // function move() {
+    //     var left = $obj.offset().left;
+    //     var top = $obj.offset().top;
+    //     var L =  0; //左边界
+    //     var T = 85;//顶部边界
+    //     var R = $(window).width() - $obj.width(); // 右边界
+    //     var B = $(window).height() - $obj.height(); //下边界
+    //     if (left < L) {
+    //         xin = true; // 水平向右移动
+    //     }
+    //     if (left > R) {
+    //         xin = false;
+    //     }
+    //     if (top < T) {
+    //         yin = true;
+    //     }
+    //     if (top > B) {
+    //         yin = false;
+    //     }
+    //     left = left + step * (xin == true ? 1 : -1);
+    //     top = top + step * (yin == true ? 1 : -1);
+    //     // 给div 元素重新定位
+    //     $obj.offset({
+    //         top: top,
+    //         left: left
+    //     })
+    // }
+    $(function () {
+        $("#a").click(function () {
+            var b = $("#a").parent();
+            $(b).remove();
         })
-        $(function() {
-            $("#action").click(function() {
-               window.open(baseUrl+"/templates/prediction/exhprediction_all.html?1=1&userid=0A4527DBE21D4C0685D27D1CF31E714D&type=BJ&flag=plan/plan_list"); 
-               //location.href=baseUrl+"/templates/prediction/exhprediction_all.html?1=1&userid=0A4527DBE21D4C0685D27D1CF31E714D&type=BJ&flag=plan/plan_list"
-            })
+    })
+    $(function () {
+        $("#action").click(function () {
+            window.open(baseUrl + "/templates/prediction/exhprediction_all.html?1=1&userid=0A4527DBE21D4C0685D27D1CF31E714D&type=BJ&flag=plan/plan_list");
+            //location.href=baseUrl+"/templates/prediction/exhprediction_all.html?1=1&userid=0A4527DBE21D4C0685D27D1CF31E714D&type=BJ&flag=plan/plan_list"
         })
-</script>    
+    })
+</script>
+
 </html>

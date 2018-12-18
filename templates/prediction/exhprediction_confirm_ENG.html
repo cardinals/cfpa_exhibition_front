@@ -7,8 +7,8 @@
     <title>报名信息确认</title>
 </head>
 <style>
-     .adDiv {
-        position:fixed;
+    .adDiv {
+        position: fixed;
         right: 10%;
         top: 160px;
         /* animation: change 1s  ease-in  infinite ; */
@@ -27,13 +27,13 @@
         background: salmon;
         text-align: center;
         z-index: 999;
-        cursor:pointer;
+        cursor: pointer;
     }
 
     .adImgDiv {
         width: 190px;
         height: 190px;
-      
+
     }
 
     .adImg {
@@ -46,18 +46,18 @@
         cursor: pointer;
     }
 
-    .adTitle{
+    .adTitle {
         font-weight: bolder;
         text-align: center;
         position: absolute;
-        top:-55px;
-        left:30px;
+        top: -55px;
+        left: 30px;
         z-index: 999;
-        color:#b70b0b;
-        
+        color: #b70b0b;
+
     }
-    
-         /* @keyframes change {
+
+    /* @keyframes change {
                 0%{ text-shadow: 0 0 4px #f00}
                 50%{ text-shadow: 0 0 40px #f00}
                 100%{ text-shadow: 0 0 4px #f00}
@@ -100,8 +100,9 @@
                     <i class="el-icon-warning"></i>
                 </el-button>
                 <el-button id="remark" type="danger" icon="el-icon-warning" class="topScroll remark redFont tc mt5" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='01'">
-                    You have selected Booths of <v-text v-text="yxzwxx"></v-text>. Please wait for the committee to send you booth contract through fireexpo@cfpa.cn. 
-                </br>
+                    You have selected Booths of
+                    <v-text v-text="yxzwxx"></v-text>. Please wait for the committee to send you booth contract through fireexpo@cfpa.cn.
+                    </br>
                     If you have any concerns, pleasd feel free to contact us at this email.
                     <i class="el-icon-warning"></i>
                 </el-button>
@@ -182,50 +183,47 @@
                         </el-col>
                     </el-row>
                 </div>
-                 <!-- 企业已选展位 -->
-                 <div id="qyyxzw" v-if="sfkqYxzwzs" class="mb20">
+                <!-- 企业已选展位 -->
+                <div id="qyyxzw" v-if="sfkqYxzwzs">
                     <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
-                            <strong style="color: #463132;">Booths you have selected</strong>
-                        </el-row>
-                        <el-row v-for="data in yxzwData">
-                            <el-col :span="1">&nbsp;</el-col>
-                            <el-col :span="22">
-                       
-                <el-row>
-                    <el-col :span="12">
-                        <strong>Booth No：</strong>
-                        <v-text v-text="data.zwh||'no'"></v-text>
-                    </el-col>
-                    <el-col :span="12">
-                        <strong>Booth Area(m2)：</strong>
-                        <v-text v-text="data.zwmj||'no'"></v-text>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="12">
-                        <strong>Horizontal Length(m)：</strong>
-                        <v-text v-text="data.zwcd||'no'"></v-text>
-                    </el-col>
-                    <el-col :span="12">
-                        <strong>Vertical Length(m)：</strong>
-                        <v-text v-text="data.zwkd||'no'"></v-text>
-                    </el-col>
+                        <strong style="color: #463132;">Booths you have selected</strong>
                     </el-row>
-                    <el-row>
-                        <el-col :span="12">
-                            <strong>Booth type：</strong>
-                            <v-text v-text="data.zwlb||'no'"></v-text>
-                        </el-col>
-                        <el-col :span="12">
-                            <strong>Export type：</strong>
-                            <v-text v-text="data.cklx||'no'"></v-text>
+                    <el-row v-for="data in yxzwData">
+                        <el-col :span="1">&nbsp;</el-col>
+                        <el-col :span="22">
+                            <el-row class="mb10">
+                                <el-col :span="12">
+                                    <strong>Booth No：</strong>
+                                    <v-text v-text="data.zwh||'no'"></v-text>
+                                </el-col>
+                                <el-col :span="12">
+                                    <strong>Booth Area(m2)：</strong>
+                                    <v-text v-text="data.zwmj||'no'"></v-text>
+                                </el-col>
+                            </el-row>
+                            <el-row class="mb10">
+                                <el-col :span="12">
+                                    <strong>Horizontal Length(m)：</strong>
+                                    <v-text v-text="data.zwcd||'no'"></v-text>
+                                </el-col>
+                                <el-col :span="12">
+                                    <strong>Vertical Length(m)：</strong>
+                                    <v-text v-text="data.zwkd||'no'"></v-text>
+                                </el-col>
+                            </el-row>
+                            <el-row class="mb20">
+                                <el-col :span="12">
+                                    <strong>Booth type：</strong>
+                                    <v-text v-text="data.zwlb||'no'"></v-text>
+                                </el-col>
+                                <el-col :span="12">
+                                    <strong>Export type：</strong>
+                                    <v-text v-text="data.cklx||'no'"></v-text>
+                                </el-col>
+                            </el-row>
                         </el-col>
                     </el-row>
-                    <el-row><el-col :span="12">
-                    </el-col>&nbsp;&nbsp;&nbsp;&nbsp;</el-row>
-                </el-col>
-            </el-row>
-            </div>
+                </div>
 
                 <div id="qykpxx" class="mb5">
                     <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
@@ -275,8 +273,8 @@
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="11">
                             <strong class="vt">Company Logo：</strong>
-                            <img v-if="qyjsData.src!==''" :src="qyjsData.imageUrl" @click="imgPreview(qyjsData.imageUrl)"
-                                style="max-width:100%;max-height:140px;" class="poi">
+                            <img v-if="qyjsData.src!==''" :src="qyjsData.imageUrl" @click="imgPreview(qyjsData.imageUrl)" style="max-width:100%;max-height:140px;"
+                                class="poi">
                             <img v-else src="../../static/images/noPic.png" style="width:100px;">
                         </el-col>
                         <el-col :span="11">
@@ -373,62 +371,62 @@
 <script src="../../static/js/common/config.js"></script>
 <script src="../../static/js/prediction/exhprediction_confirm_ENG.js"></script>
 <script>
-        // 漂浮广告JS
-        // var xin = true,
-        //     yin = true;
-        // var step = 1;
-        // var delay = 30;
-        // var $obj;
-        // $(function() {
-        //     $obj = $("#imgDiv");
-        //     var time = window.setInterval("move()", delay);
-        //     $obj.mouseover(function() {
-        //         clearInterval(time)
-        //     });
-        //     $obj.mouseout(function() {
-        //         time = window.setInterval("move()", delay)
-        //     });
-        // });
-        
-        // function move() {
-        //     var left = $obj.offset().left;
-        //     var top = $obj.offset().top;
-        //     var L =  0; //左边界
-        //     var T = 85;//顶部边界
-        //     var R = $(window).width() - $obj.width(); // 右边界
-        //     var B = $(window).height() - $obj.height(); //下边界
-        //     if (left < L) {
-        //         xin = true; // 水平向右移动
-        //     }
-        //     if (left > R) {
-        //         xin = false;
-        //     }
-        //     if (top < T) {
-        //         yin = true;
-        //     }
-        //     if (top > B) {
-        //         yin = false;
-        //     }
-        //     left = left + step * (xin == true ? 1 : -1);
-        //     top = top + step * (yin == true ? 1 : -1);
-        //     // 给div 元素重新定位
-        //     $obj.offset({
-        //         top: top,
-        //         left: left
-        //     })
-        // }
-        $(function() {
-            $("#a").click(function() {
-                var b = $("#a").parent();
-                $(b).remove();
-            })
+    // 漂浮广告JS
+    // var xin = true,
+    //     yin = true;
+    // var step = 1;
+    // var delay = 30;
+    // var $obj;
+    // $(function() {
+    //     $obj = $("#imgDiv");
+    //     var time = window.setInterval("move()", delay);
+    //     $obj.mouseover(function() {
+    //         clearInterval(time)
+    //     });
+    //     $obj.mouseout(function() {
+    //         time = window.setInterval("move()", delay)
+    //     });
+    // });
+
+    // function move() {
+    //     var left = $obj.offset().left;
+    //     var top = $obj.offset().top;
+    //     var L =  0; //左边界
+    //     var T = 85;//顶部边界
+    //     var R = $(window).width() - $obj.width(); // 右边界
+    //     var B = $(window).height() - $obj.height(); //下边界
+    //     if (left < L) {
+    //         xin = true; // 水平向右移动
+    //     }
+    //     if (left > R) {
+    //         xin = false;
+    //     }
+    //     if (top < T) {
+    //         yin = true;
+    //     }
+    //     if (top > B) {
+    //         yin = false;
+    //     }
+    //     left = left + step * (xin == true ? 1 : -1);
+    //     top = top + step * (yin == true ? 1 : -1);
+    //     // 给div 元素重新定位
+    //     $obj.offset({
+    //         top: top,
+    //         left: left
+    //     })
+    // }
+    $(function () {
+        $("#a").click(function () {
+            var b = $("#a").parent();
+            $(b).remove();
         })
-        $(function() {
-            $("#action").click(function() {
-               window.open(baseUrl+"/templates/prediction/exhprediction_all.html?1=1&userid=0A4527DBE21D4C0685D27D1CF31E714D&type=BJ&flag=plan/plan_list_EN"); 
-               //location.href=baseUrl+"/templates/prediction/exhprediction_all.html?1=1&userid=0A4527DBE21D4C0685D27D1CF31E714D&type=BJ&flag=plan/plan_list_EN"
-            })
+    })
+    $(function () {
+        $("#action").click(function () {
+            window.open(baseUrl + "/templates/prediction/exhprediction_all.html?1=1&userid=0A4527DBE21D4C0685D27D1CF31E714D&type=BJ&flag=plan/plan_list_EN");
+            //location.href=baseUrl+"/templates/prediction/exhprediction_all.html?1=1&userid=0A4527DBE21D4C0685D27D1CF31E714D&type=BJ&flag=plan/plan_list_EN"
         })
-</script>  
+    })
+</script>
 
 </html>
