@@ -447,6 +447,9 @@ var vue = new Vue({
                 //绘图工具展位ID
                 pd.shapeUuid = bd.reserve1
                 pd.tenantId = bd.qyid
+                if(!pd.name&&pd.tenantName){
+                    pd.name=pd.tenantName
+                }
                 plotData.push(pd)
             }
             return plotData
