@@ -17,7 +17,7 @@
 				<div class="app-editor-ploter-navigation">
 
 					<div class="ploter-navigation-list">
-						<el-button v-for="data in zgtableData" @click="getStage(data.uuid,,$event)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">
+						<el-button v-for="data in zgtableData" @click="getStage(data.uuid,$event)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">
 							{{data.zgmc}}
 						</el-button>
 					</div>
