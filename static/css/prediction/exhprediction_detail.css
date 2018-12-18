@@ -28,7 +28,7 @@
     position: fixed;
     top: 51px;
     z-index:2;
-    background:#fff;
+    /* background:#fff; */
     width: calc(100% - 216px);
 }
 .redFont{
