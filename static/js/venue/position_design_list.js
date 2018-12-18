@@ -368,7 +368,6 @@ var vue = new Vue({
         },
         //保存展馆展位数据
         savePlotData(data) {
-            debugger
             this.isDisabled = true
             axios.post('/xfxhapi/zwjbxx/doInsertByVO', this.plot2back(data.businessData)).then(function (res) {
                 var params = {

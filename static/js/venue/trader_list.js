@@ -148,7 +148,6 @@ var vue = new Vue({
                         height: _THIS.createForm.imgHeight,
                         backgroundImage: _THIS.createForm.selectedImage
                     }))
-                    debugger
                     var params = {
                         zgmc: _THIS.createForm.name.replace(/%/g,"\\%"),
                         zgtpStr: _THIS.createForm.selectedImage,
@@ -157,7 +156,6 @@ var vue = new Vue({
                         cjrmc : _THIS.shiroData.realName,
                         
                     }
-                    debugger
                     axios.post('/xfxhapi/zgjbxx/doInsertByVO', params).then(function (res) {
                         
                         _THIS.editFormVisible = false;
@@ -203,25 +201,28 @@ var vue = new Vue({
         getCheckValue(val){
             this.editFormSelect = val;
         },
-        
         //删除所选，批量删除
         removeSelection: function () {
+            var params=[]
+            for (var i in this.multipleSelection) {
+                param={}
+                param.xgrid = this.shiroData.userid;
+                param.xgrmc = this.shiroData.realName;
+                param.uuid= this.multipleSelection[i].uuid
+                params.push(param);
+            }
+            if(params.length<=0){
+                this.$message({
+                    type: 'info',
+                    message: '请勾选信息！'
+                });
+                return 
+            }
             this.$confirm('确定删除已选中展馆信息?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                debugger
-
-                var params=[]
-                for (var i in this.multipleSelection) {
-                    param={}
-                    param.xgrid = this.shiroData.userid;
-                    param.xgrmc = this.shiroData.realName;
-                    param.uuid= this.multipleSelection[i].uuid
-                    params.push(param);
-                }
-                
                 axios.post('/xfxhapi/zgjbxx/doDeleteJbxx',params).then(function (res) {
                     this.$message({
                         message: "成功删除" + res.data.result + "条展馆信息",
