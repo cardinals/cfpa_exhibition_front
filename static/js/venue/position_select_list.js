@@ -52,8 +52,8 @@ var vue = new Vue({
         handlerDel : function(event,uuid){
             var el = event.currentTarget;
             this.$confirm('此操作将删除该展位选择, 是否继续?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
+                confirmButtonText: '是',
+                cancelButtonText: '否',
                 type: 'warning'
               }).then(() => {
                 if(uuid){
@@ -93,7 +93,7 @@ var vue = new Vue({
               }).catch(() => {
                 this.$message({
                   type: 'info',
-                  message: '已取消删除'
+                  message: '展位取消成功'
                 });          
               });
         },
@@ -226,8 +226,8 @@ var vue = new Vue({
                 msg='是否确定选择此展位?'
             }    
             this.$confirm(msg, '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
+                confirmButtonText: '是',
+                cancelButtonText: '否',
                 type: 'warning'
               }).then(() => {
 
