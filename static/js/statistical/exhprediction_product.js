@@ -30,7 +30,7 @@ var vue = new Vue({
     },
     created: function () {
         /**面包屑 by li.xue 20180628*/
-        loadBreadcrumb("展会报名管理", "-1");
+        loadBreadcrumb("按产品类型统计", "企业展位意向");
         //table高度
         tableheight = tableheight10;
         //登录用户
@@ -87,6 +87,9 @@ var vue = new Vue({
         },
         exportExs: function () {
             window.open("/xfxhapi/qyzwyx/doExportQyzwyxByCplx/" + this.checkList);
+        },
+        closeDialog: function () {
+            this.checkList = [];
         }
     }
 })
