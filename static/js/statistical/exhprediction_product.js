@@ -86,7 +86,7 @@ var vue = new Vue({
             this.chooseCplxVisible = true;
         },
         exportExs: function () {
-
+            window.open("/xfxhapi/qyzwyx/doExportQyzwyxByCplx/" + this.checkList);
         }
     }
 })
