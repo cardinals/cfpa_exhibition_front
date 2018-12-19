@@ -15,6 +15,14 @@ var vue = new Vue({
                 cklx: "",
                 zwzt: ""
             },
+            //导出条件
+            exportForm:{
+                zwh: "",
+                qymc: "",
+                zwlb: "",
+                cklx: "",
+                zwzt: ""
+            },
             //表数据
             tableData: [],
             allRoles: [],
@@ -102,13 +110,18 @@ var vue = new Vue({
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
-            debugger;
             axios.post('/xfxhapi/zwjbxx/doSearchListQyByVO', params).then(function (res) {
                 
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
                 _self.loading = false;
+                //add by yushch 20181219 查询成功后保存查询条件到变量用作导出条件
+                this.exportForm.zwh = this.searchForm.zwh.replace(/%/g, "\\%");
+                this.exportForm.qymc = this.searchForm.qymc.replace(/%/g, "\\%");
+                this.exportForm.zwlb = this.searchForm.zwlb.replace(/%/g, "\\%");
+                this.exportForm.cklx = this.searchForm.cklx.replace(/%/g, "\\%");
+                this.exportForm.zwzt = this.searchForm.zwzt.replace(/%/g, "\\%");
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -130,7 +143,12 @@ var vue = new Vue({
                 console.info("加载数据成功");
                 _self.loading = false;
             }, 300);
-        }
+        },
+        //展位管理导出功能 add by yushch 20181219
+        exportClick:function(){
+            var param = "zwh="+this.exportForm.zwh+"&zwzt="+this.exportForm.zwzt+"&qymc="+this.exportForm.qymc+"&zwlb="+this.exportForm.zwlb+"&cklx="+this.exportForm.cklx;
+            window.open("/xfxhapi/zwjbxx/doExport/"+param);
+		}
     }
 
 })
