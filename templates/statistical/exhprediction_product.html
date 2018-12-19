@@ -43,11 +43,12 @@
                             <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
                             <el-table-column prop="zwgsmc" label="中文公司名称" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
                             <el-table-column prop="ywgsmc" label="英文公司名称" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-                            <el-table-column prop="lxr" label="联系人" show-overflow-tooltip min-width="12%" align="center"></el-table-column>
-                            <el-table-column prop="lxrsj" label="联系人手机" show-overflow-tooltip min-width="12%" align="center"></el-table-column>
-                            <el-table-column prop="bzzwgs" label="标准展位(个)" show-overflow-tooltip min-width="12%" align="center"></el-table-column>
-                            <el-table-column prop="sngdzw" label="室内光地展位(m²)" show-overflow-tooltip min-width="12%" align="center"></el-table-column>
-                            <el-table-column prop="swgdzw" label="室外光地展位(m²)" show-overflow-tooltip min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="lxr" label="联系人" show-overflow-tooltip min-width="8%" align="center"></el-table-column>
+                            <el-table-column prop="lxrsj" label="联系人手机" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
+                            <el-table-column prop="codeName" label="产品类型" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
+                            <el-table-column prop="bzzwgs" label="标准展位(个)" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
+                            <el-table-column prop="sngdzw" label="室内光地展位(m²)" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
+                            <el-table-column prop="swgdzw" label="室外光地展位(m²)" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
                         </el-table>
 
                         <!--列表底部工具条和分页符-->
@@ -61,21 +62,21 @@
                     </div>
                 </div>
                 <!--导出界面-->
-                <!-- <el-dialog title="选择产品类型" :visible.sync="chooseCplxVisible" width="40%" :close-on-click-modal="false">
+                <el-dialog title="选择产品类型" :visible.sync="chooseCplxVisible" width="40%" :close-on-click-modal="false">
                     <div id="tableView">
                         <el-row>
                             <el-col :span="5">&nbsp;</el-col>
                             <el-col :span="14">
-                                <el-checkbox-group v-model="checkList" size="large">
-                                    <el-checkbox v-for="item in cplxData" :label="item.codeName" :key="item.codeValue" class="l">
+                                <el-checkbox-group v-model="checkList">
+                                    <el-checkbox v-for="item in cplxData" :label="item.codeValue" class="l">{{item.codeName}}</el-checkbox>
                                 </el-checkbox-group>
                             </el-col>
                         </el-row>
-                        <el-row>
-                            <el-button type="success" icon="el-icon-download" size="small" @click="exportExs">导出Excel至本地</el-button>
+                        <el-row class="tc mt20">
+                            <el-button type="success" icon="el-icon-download" size="middle" @click="exportExs">导出Excel至本地</el-button>
                         </el-row>
                     </div>
-                </el-dialog> -->
+                </el-dialog>
             </div>
             <!-- main-container -->
         </div>
