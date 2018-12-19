@@ -14,6 +14,10 @@
         line-height: 30px;
         font-size: 18px;
     }
+
+    #singleRow .el-table th, #singleRow .el-table tr {
+        height: 42.2px;
+    }
 </style>
 
 <body class="fw f14 main-index-body">
@@ -47,7 +51,7 @@
                             </div>
                         </el-form>
                     </el-row>
-                    <div class="table_container">
+                    <div class="table_container" id="singleRow">
                         <el-table id="table" border class="tableStyle" :height="tableheight" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)">
                             <!-- <el-table-column type="selection" width="35"></el-table-column> -->
                             <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
