@@ -9,7 +9,8 @@ var vue = new Vue({
                 id: "",
                 zgmc: "",
                 zgtp: "",
-                zghb: ""
+                zghb: "",
+                zgtpStr:""
             },
             //表数据
             tableData: [],
