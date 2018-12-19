@@ -1438,7 +1438,7 @@ var vm = new Vue({
         },
         //邮箱修改验证
         openYxYz: function(){
-            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.baseInforForm.dzyx1))) {
+            if (!(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/.test(this.baseInforForm.dzyx1))) {
                 this.$message({
                     message: '邮箱格式不正确',
                     type: 'warning'
