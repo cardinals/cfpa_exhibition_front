@@ -125,7 +125,7 @@ var vue = new Vue({
 						data: this.tjfxname,//this.getList('name'),
 						axisLabel: {
 							interval: 0,
-							rotate:15,
+							rotate: 15,
 						},
 					}
 				],
@@ -195,7 +195,7 @@ var vue = new Vue({
 								opacity: 0.85
 							}
 						},
-				
+
 
 					},
 					{
@@ -307,7 +307,12 @@ var vue = new Vue({
 		},
 		exportClick: function () {
 			window.open("/xfxhapi/qyzwyx/doExportTjfx/cplx");
+		},
+		toCompanyList: function (val) {
+			var params = {
+				cplx: val.cplx
+			}
+			loadDivParam("statistical/exhprediction_product", params);
 		}
-
 	}
 })
