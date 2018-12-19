@@ -5,6 +5,20 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>产品类型下企业信息</title>
 </head>
+<style>
+    #selectCplx .el-checkbox+.el-checkbox {
+        margin-left: 0;
+    }
+
+    #selectCplx .el-checkbox__label {
+        line-height: 30px;
+        font-size: 18px;
+    }
+
+    #singleRow .el-table th, #singleRow .el-table tr {
+        height: 42.2px;
+    }
+</style>
 
 <body class="fw f14 main-index-body">
     <div id="app">
@@ -37,7 +51,7 @@
                             </div>
                         </el-form>
                     </el-row>
-                    <div class="table_container">
+                    <div class="table_container" id="singleRow">
                         <el-table id="table" border class="tableStyle" :height="tableheight" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)">
                             <!-- <el-table-column type="selection" width="35"></el-table-column> -->
                             <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
@@ -63,17 +77,17 @@
                 </div>
                 <!--导出界面-->
                 <el-dialog title="选择产品类型" :visible.sync="chooseCplxVisible" @close="closeDialog" width="40%" :close-on-click-modal="false">
-                    <div id="tableView">
+                    <div id="selectCplx">
                         <el-row>
-                            <el-col :span="5">&nbsp;</el-col>
-                            <el-col :span="14">
+                            <el-col :span="6">&nbsp;</el-col>
+                            <el-col :span="10">
                                 <el-checkbox-group v-model="checkList">
-                                    <el-checkbox v-for="item in cplxData" :label="item.codeValue" class="l">{{item.codeName}}</el-checkbox>
+                                    <el-checkbox v-for="item in cplxData" :label="item.codeValue">{{item.codeName}}</el-checkbox>
                                 </el-checkbox-group>
                             </el-col>
                         </el-row>
                         <el-row class="tc mt20">
-                            <el-button type="success" icon="el-icon-download" size="middle" @click="exportExs">导出Excel至本地</el-button>
+                            <el-button type="success" icon="el-icon-download" size="large" @click="exportExs">导出Excel至本地</el-button>
                         </el-row>
                     </div>
                 </el-dialog>
