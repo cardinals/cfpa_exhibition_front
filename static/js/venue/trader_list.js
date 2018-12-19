@@ -145,8 +145,7 @@ var vue = new Vue({
                     return;
 
             } else {
-                
-                
+             
                 let imageObj = new Image()
                 let _THIS=this
                 imageObj.onload = function () {
@@ -170,6 +169,7 @@ var vue = new Vue({
                         _THIS.editFormVisible = false;
                         _THIS.searchClick('add');
 
+                       
                     }.bind(_THIS), function (error) {
                         console.log(error)
                     })
@@ -177,7 +177,13 @@ var vue = new Vue({
                 //图片先创建之后才可以获取长宽
                 imageObj.src = this.createForm.selectedImage
 
-               
+                if(this.createForm.selectedImage==null){
+                    _THIS.$message({
+                        message: "请确认是否选择了展馆平面图",
+                        type: "error"
+                        });
+                    return;
+                   }
                 
             }
         },
