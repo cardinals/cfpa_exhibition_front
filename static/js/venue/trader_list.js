@@ -136,8 +136,16 @@ var vue = new Vue({
          handlerCreateModalOK () {
             
             if (!this.createForm.name ) {
-                alert('请确认信息是否填写完整')
+                // 判断选择图片
+                // alert('请确认信息是否填写完整')
+                this.$message({
+                    message: "请确认信息是否填写完整",
+                    type: "error"
+                    });
+                    return;
+
             } else {
+                
                 
                 let imageObj = new Image()
                 let _THIS=this
@@ -168,6 +176,9 @@ var vue = new Vue({
                 }
                 //图片先创建之后才可以获取长宽
                 imageObj.src = this.createForm.selectedImage
+
+               
+                
             }
         },
         handlerSelectPhotoBtnClick () {
