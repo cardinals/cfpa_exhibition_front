@@ -6,10 +6,14 @@ var vue = new Vue({
         return {
             //搜索表单
             searchForm: {
-                zwmc: "",
+                //zwmc: "",
+                //zwzt: "",
+                //qymc: ""
                 zwh: "",
-                zwzt: "",
-                qymc: ""
+                qymc: "",
+                zwlb: "",
+                cklx: "",
+                zwzt: ""
             },
             //表数据
             tableData: [],
@@ -43,6 +47,19 @@ var vue = new Vue({
             }, {
                 name: '已确定展位',
                 value: 'completed'
+            }],
+            cklxStatus: [{
+                name: '一面开',
+                value: '1'
+            }, {
+                name: '两面开',
+                value: '2'
+            }, {
+                name: '三面开',
+                value: '3'
+            }, {
+                name: '全开',
+                value: '4'
             }]
         }
     },
@@ -54,7 +71,8 @@ var vue = new Vue({
         //登录用户
         this.shiroData = shiroGlobal;
         this.searchClick('click');
-        this.closeleft();
+        /**delete by yushch 20181218 前台报错暂时注掉 */
+        //this.closeleft();
     },
 
     methods: {
@@ -76,15 +94,17 @@ var vue = new Vue({
             var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
-                zwmc: this.searchForm.zwmc.replace(/%/g, "\\%"),
-                qymc: this.searchForm.qymc.replace(/%/g, "\\%"),
                 zwh: this.searchForm.zwh.replace(/%/g, "\\%"),
+                qymc: this.searchForm.qymc.replace(/%/g, "\\%"),
+                zwlb: this.searchForm.zwlb.replace(/%/g, "\\%"),
+                cklx: this.searchForm.cklx.replace(/%/g, "\\%"),
                 zwzt: this.searchForm.zwzt.replace(/%/g, "\\%"),
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
+            debugger;
             axios.post('/xfxhapi/zwjbxx/doSearchListQyByVO', params).then(function (res) {
-
+                
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
@@ -98,7 +118,8 @@ var vue = new Vue({
             this.searchForm.zwh = "";
             this.searchForm.zwzt = "";
             this.searchForm.qymc = "";
-            this.searchForm.zwmc = "";
+            this.searchForm.zwlb = "";
+            this.searchForm.cklx = "";
             this.searchClick('reset');
         },
         //表格重新加载数据
