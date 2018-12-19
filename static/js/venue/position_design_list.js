@@ -293,10 +293,12 @@ var vue = new Vue({
             if(event){
                 if(this.lastEl){
                     this.lastEl.style.background="#0684E5";
+                    this.lastEl.disabled=false;
                 }
                 var el = event.currentTarget;
                 this.lastEl=el
                 el.style.background="#666666";
+                el.disabled=true;
             }
             var params = {
                 uuid: uuid
