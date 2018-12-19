@@ -151,28 +151,45 @@ var vue = new Vue({
                 imageObj.onload = function () {
                     _THIS.createForm.imgWidth = imageObj.width
                     _THIS.createForm.imgHeight = imageObj.height
-                    const stageData = JSON.stringify(_THIS.createEmptyStageData({
-                        width: _THIS.createForm.imgWidth,
-                        height: _THIS.createForm.imgHeight,
-                        backgroundImage: _THIS.createForm.selectedImage
-                    }))
-                    var params = {
-                        zgmc: _THIS.createForm.name.replace(/%/g,"\\%"),
-                        zgtpStr: _THIS.createForm.selectedImage,
-                        zgzwhbStr: stageData,
-                        cjrid : _THIS.shiroData.userid,
-                        cjrmc : _THIS.shiroData.realName,
-                        
-                    }
-                    axios.post('/xfxhapi/zgjbxx/doInsertByVO', params).then(function (res) {
-                        
-                        _THIS.editFormVisible = false;
-                        _THIS.searchClick('add');
+               
+                    if (_THIS.createForm.imgWidth < 1024 || _THIS.createForm.imgHeight < 1024){ 
 
-                       
-                    }.bind(_THIS), function (error) {
-                        console.log(error)
-                    })
+                        // _THIS.$alert('图片大小必须在1M以内', '提示', {confirmButtonText: '确定'}); 
+
+                        const stageData = JSON.stringify(_THIS.createEmptyStageData({
+                            width: _THIS.createForm.imgWidth,
+                            height: _THIS.createForm.imgHeight,
+                            backgroundImage: _THIS.createForm.selectedImage
+                        }))
+                        var params = {
+                            zgmc: _THIS.createForm.name.replace(/%/g,"\\%"),
+                            zgtpStr: _THIS.createForm.selectedImage,
+                            zgzwhbStr: stageData,
+                            cjrid : _THIS.shiroData.userid,
+                            cjrmc : _THIS.shiroData.realName,
+                            
+                        }
+    
+                        axios.post('/xfxhapi/zgjbxx/doInsertByVO', params).then(function (res) {
+                            
+                            _THIS.editFormVisible = false;
+                            _THIS.searchClick('add');
+    
+                           
+                        }.bind(_THIS), function (error) {
+                            console.log(error)
+                        })
+
+                    } else{
+
+                    _THIS.$message({
+                        message: "图片大小必须在1M以内",
+                        type: "error"
+                        });
+                    return;
+
+                    }
+                   
                 }
                 //图片先创建之后才可以获取长宽
                 imageObj.src = this.createForm.selectedImage
