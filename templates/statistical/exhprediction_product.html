@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>产品类型下企业信息</title>
+</head>
+
+<body class="fw f14 main-index-body">
+    <div id="app">
+        <div class="main-box">
+            <div class="main-container" v-loading="loading" element-loading-text="加载中">
+                <!-- 面包屑 -->
+                <div id="breadcrumb_box"></div>
+                <div id="tableView">
+                    <el-row>
+                        <el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+                            <el-row>
+                                <el-col :span="8" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">产品类型</label>
+                                    <el-select size="small" v-model="searchForm.cplx" placeholder="全部" class="searchSelect" clearable>
+                                        <el-option v-for="item in cplxData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+                                    </el-select>
+                                </el-col>
+                            </el-row>
+                            <div>
+                                <el-form>
+                                    <el-col :span="12" class="btnEditDelete">&nbsp;</el-col>
+                                    <el-col :span="12" class="btnSearchPlus">
+                                        <el-form-item>
+                                            <el-button type="primary" icon="el-icon-search" size="small" @click="searchClick">查询</el-button>
+                                            <el-button type="success" icon="el-icon-download" size="small" @click="exportClick">导出</el-button>
+                                            <!-- <el-button type="clear" icon="el-icon-refresh" size="small" @click="clearClick">重置</el-button> -->
+                                        </el-form-item>
+                                    </el-col>
+                                </el-form>
+                            </div>
+                        </el-form>
+                    </el-row>
+                    <div class="table_container">
+                        <el-table id="table" border class="tableStyle" :height="tableheight" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)">
+                            <!-- <el-table-column type="selection" width="35"></el-table-column> -->
+                            <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
+                            <el-table-column prop="zwgsmc" label="中文公司名称" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+                            <el-table-column prop="ywgsmc" label="英文公司名称" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+                            <el-table-column prop="lxr" label="联系人" show-overflow-tooltip min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="lxrsj" label="联系人手机" show-overflow-tooltip min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="bzzwgs" label="标准展位(个)" show-overflow-tooltip min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="sngdzw" label="室内光地展位(m²)" show-overflow-tooltip min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="swgdzw" label="室外光地展位(m²)" show-overflow-tooltip min-width="12%" align="center"></el-table-column>
+                        </el-table>
+
+                        <!--列表底部工具条和分页符-->
+                        <el-row type="flex" justify="end">
+                            <el-col :span="18">
+                                <el-pagination @current-change="currentPageChange" @size-change="pageSizeChange" :current-page="currentPage" :page-sizes="[10, 20, 30]"
+                                    :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
+                                </el-pagination>
+                            </el-col>
+                        </el-row>
+                    </div>
+                </div>
+                <!--导出界面-->
+                <!-- <el-dialog title="选择产品类型" :visible.sync="chooseCplxVisible" width="40%" :close-on-click-modal="false">
+                    <div id="tableView">
+                        <el-row>
+                            <el-col :span="5">&nbsp;</el-col>
+                            <el-col :span="14">
+                                <el-checkbox-group v-model="checkList" size="large">
+                                    <el-checkbox v-for="item in cplxData" :label="item.codeName" :key="item.codeValue" class="l">
+                                </el-checkbox-group>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-button type="success" icon="el-icon-download" size="small" @click="exportExs">导出Excel至本地</el-button>
+                        </el-row>
+                    </div>
+                </el-dialog> -->
+            </div>
+            <!-- main-container -->
+        </div>
+    </div>
+</body>
+<script src="../../static/js/statistical/exhprediction_product.js"></script>
+
+</html>
