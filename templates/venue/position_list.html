@@ -16,25 +16,27 @@
 					<el-row>
 						<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
 							<el-row>
-								<el-col :span="1" >&nbsp;</el-col>
-								<el-col :span="9" class="searchInline">
+								<el-col :span="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">展位编号</label>
 									<el-input size="small" v-model="searchForm.zwh" placeholder="展位编号" clearable></el-input>
 								</el-col>
-								<el-col :span="2" >&nbsp;</el-col>
-								<el-col :span="9" class="searchInline">
-									<label class="el-form-item__label searchLabel">展位名称</label>
-									<el-input size="small" v-model="searchForm.zwmc" placeholder="展位名称" clearable></el-input>
-								</el-col>
-							</el-row>
-							<el-row>
-								<el-col :span="1" >&nbsp;</el-col>
-								<el-col :span="9" class="searchInline">
+								<el-col :span="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">公司名称</label>
 									<el-input size="small" v-model="searchForm.qymc" placeholder="公司名称" clearable></el-input>
 								</el-col>
-								<el-col :span="2" >&nbsp;</el-col>
-								<el-col :span="9" class="searchInline">
+								<el-col :span="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">展位类型</label>
+									<el-input size="small" v-model="searchForm.zwlb" placeholder="展位类型" clearable></el-input>
+								</el-col>
+							</el-row>
+							<el-row>
+								<el-col :span="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">出口类型</label>
+									<el-select size="small" v-model="searchForm.cklx" placeholder="全部" class="searchSelect" clearable>
+										<el-option v-for="item in cklxStatus" :key="item.value" :label="item.name" :value="item.name"></el-option>
+									</el-select>
+								</el-col>
+								<el-col :span="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">展位状态</label>
 									<el-select size="small" v-model="searchForm.zwzt" placeholder="全部" class="searchSelect" clearable>
 										<el-option v-for="item in dataStatus" :key="item.value" :label="item.name" :value="item.value"></el-option>
@@ -60,6 +62,7 @@
 					<div class="table_container">
 						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" class="tableStyle"
 						 :height="tableheight" row-style="height:40px">
+						 <!-- modify by yushch 20181218
 							<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
 							<el-table-column prop="zwh" show-overflow-tooltip label="展位编号" min-width="15%" align="center"></el-table-column>
 							<el-table-column prop="zwmc" show-overflow-tooltip label="展位名称" min-width="15%" align="center"></el-table-column>
@@ -81,6 +84,21 @@
 									<a v-else v-text="scope.row.qymc" @click="qyDetails(scope.row)"></a>
 								</template> 
 							</el-table-column>
+						-->
+							<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
+							<el-table-column prop="zwh" show-overflow-tooltip label="展位编号" min-width="10%" align="center"></el-table-column>
+							<el-table-column prop="qymc" show-overflow-tooltip label="公司名称" min-width="13%" align="center">
+								<template slot-scope="scope">
+									<a v-if="scope.row.usertype == 'ENG'" v-text="scope.row.qymc" @click="qyDetails(scope.row)"></a>
+									<a v-else v-text="scope.row.qymc" @click="qyDetails(scope.row)"></a>
+								</template> 
+							</el-table-column>
+							<el-table-column prop="zwmj" show-overflow-tooltip label="展位面积" min-width="10%" align="center"></el-table-column>
+							<el-table-column prop="zwlb" show-overflow-tooltip label="展位类型" min-width="10%" align="center"></el-table-column>
+							<el-table-column prop="cklx" show-overflow-tooltip label="出口类型" min-width="10%" align="center"></el-table-column>
+							<el-table-column prop="lxr" show-overflow-tooltip label="联系人名称" min-width="13%" align="center"></el-table-column>
+							<el-table-column prop="lxrsj" show-overflow-tooltip label="联系人电话" min-width="13%" align="center"></el-table-column>
+							<el-table-column prop="yjdzxx" show-overflow-tooltip label="联系地址" min-width="13%" align="center"></el-table-column>
 						</el-table>
 						<!--列表底部工具条和分页符-->
 						<el-row type="flex" justify="end">
