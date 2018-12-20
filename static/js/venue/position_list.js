@@ -146,7 +146,7 @@ var vue = new Vue({
         },
         //展位管理导出功能 add by yushch 20181219
         exportClick:function(){
-            var param = "zwh="+this.exportForm.zwh+"&zwzt="+this.exportForm.zwzt+"&qymc="+this.exportForm.qymc+"&zwlb="+this.exportForm.zwlb+"&cklx="+this.exportForm.cklx;
+            var param = this.exportForm.zwh+","+this.exportForm.zwzt+","+this.exportForm.qymc+","+this.exportForm.zwlb+","+this.exportForm.cklx;
             window.open("/xfxhapi/zwjbxx/doExport/"+param);
 		}
     }
