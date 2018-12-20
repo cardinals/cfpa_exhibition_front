@@ -8,12 +8,11 @@
 	<link rel="stylesheet" type="text/css" href="../../static\css\venue\positon_design.css">
 </head>
 
-<body class="fw f14 main-index-body" onload="location.replace()">
-	<div id="app">
+<body class="fw f14 main-index-body" onload="location.replace()" >
+	<div id="app" >
 
-		<div class="main-box">
-
-			<div ref="ploterWrap" class="app-editor-ploter-wrap positionlist" :style="ploterStyle">
+		<div class="main-box" >
+			<div ref="ploterWrap"  v-loading="loading" element-loading-text="加载中" class="app-editor-ploter-wrap positionlist" :style="ploterStyle">
 				<div class="app-editor-ploter-navigation">
 
 					<div class="ploter-navigation-list">

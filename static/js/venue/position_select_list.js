@@ -16,7 +16,10 @@ var vue = new Vue({
             currentUuid: '',
             isExportDisabled: true,
             yxzwData:[],
+            //显示加载中样
+            loading: false,
             lastEl:''
+            
         }
     },
     mounted: function () {
@@ -163,6 +166,7 @@ var vue = new Vue({
             var params = {
                 uuid: uuid
             }
+            this.loading = true;
             this.zguuid = uuid
             axios.post('/xfxhapi/zgjbxx/doSearchHbListByVO', params).then(function (res) {
                 this.currentAreaStage = res.data.result[0].zgzwhbStr
@@ -208,6 +212,7 @@ var vue = new Vue({
                 handshake.on('evtNeedBusinessData', me.getBusinessData.bind(me))
                 handshake.on('evtBusinessShapeSelected', me.handlerBusinessShapeSelected.bind(me))
             })
+            this.loading = false;
         },
         getBusinessData(stageUuid) {
             var params = {
