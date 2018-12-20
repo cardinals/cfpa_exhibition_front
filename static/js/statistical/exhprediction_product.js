@@ -32,7 +32,7 @@ var vue = new Vue({
     },
     created: function () {
         /**面包屑 by li.xue 20180628*/
-        loadBreadcrumb("按产品类型统计", "详情");
+        loadBreadcrumb("按产品类型统计", "按产品类型统计详情");
         //table高度
         tableheight = tableheight10;
         //登录用户
