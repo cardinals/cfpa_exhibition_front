@@ -15,7 +15,6 @@ new Vue({
             previewImg: '',
             qyid: "",//企业id
             userid: "",
-            
             //企业基本信息
             jbxxData: {
                 zwgsmc: '',
@@ -59,10 +58,13 @@ new Vue({
             zwxzzt: '00',//展位选择状态
             sfkqzw: true,//是否开启选展位浮动提示框，（开始选展位开启此变量）
             yxzwxx: '',
-            sfkqYxzwzs: false //是否开启已选展位列表
+            sfkqYxzwzs: true, //是否开启已选展位列表,
+            kssj:'2018/12/21 13:05:34',  //展位选择开始时间
+            now:''
         }
     },
     created: function () {
+        this.getNow()
         var type = getQueryString("type");
         this.shiroData = shiroGlobal;
         this.loading = true;
@@ -71,6 +73,30 @@ new Vue({
         this.getJbxxData(this.userid);
     },
     methods: {
+        getNow: function(){
+            axios.post('/xfxhapi/zwjbxx/getNow').then(function (res) {
+                this.now=res.data
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        // 内部特权是打开，否则注释掉
+        isInternal: function(){
+            axios.post('/xfxhapi/zwjbxx/isInternal').then(function (res) {
+                if(res.data){
+                    this.sfkqzw = true
+                    this.sfkqYxzwzs = true
+                    if(this.jbxxData.shzt == '03'&& this.sfkqzw){
+                        $('#imgDiv').show()
+                    }
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        compareDate (d1,d2){
+            return ((new Date(d1.replace(/-/g,"\/"))) > (new Date(d2.replace(/-/g,"\/"))));
+        },
         //已选展位
         getYxzwData: function () {
             axios.post('/xfxhapi/zwjbxx/getSelectedPos').then(function (res) {
@@ -142,8 +168,13 @@ new Vue({
                     this.getWjdcData(this.qyid);
                     this.getQyjsData(this.qyid);
                     this.getCpjsData(this.qyid);
-                    if(this.jbxxData.shzt == '03'&& this.sfkqzw){
-                        $('#imgDiv').show()
+                    // 内部特权是打开，否则注释掉
+                    this.isInternal()
+                    // 开启展位选择
+                    if(this.compareDate (this.now,this.kssj)){
+                        if(this.jbxxData.shzt == '03'&& this.sfkqzw){
+                            $('#imgDiv').show()
+                        }
                     }
                     pageShzt = this.jbxxData.shzt;
                 }

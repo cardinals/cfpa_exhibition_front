@@ -18,14 +18,16 @@ var vue = new Vue({
             yxzwData:[],
             //显示加载中样
             loading: false,
-            lastEl:''
-            
+            lastEl:'',
+            lastEvent:'',
+            blnbzwsj:'2018-12-22 12:05:34', //显示内部展位时间
+            now:''
         }
     },
     mounted: function () {
         this.init();
        //关闭左侧菜单
-		this. closeleft();
+        this. closeleft();
     },
     computed: {
         ploterStyle() {
@@ -35,13 +37,27 @@ var vue = new Vue({
         }
     },
     created: function () {
+        this.getNow()
         this.currentUuid = getQueryString("uuid");
         if(this.currentUuid){
             this.getStage(this.currentUuid)
         }
         this.getYxzwData()
+        setInterval(() => {
+            this.refresh()
+        }, 30000)
     },
     methods: {
+        getNow: function(){
+            axios.post('/xfxhapi/zwjbxx/getNow').then(function (res) {
+                this.now=res.data
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        refresh: function () {
+            this.getStage(this.zguuid,this.lastEvent)
+        },
         //已选展位
         getYxzwData: function () {
             axios.post('/xfxhapi/zwjbxx/getSelectedPos').then(function (res) {
@@ -153,7 +169,7 @@ var vue = new Vue({
         },
         getStage(uuid,event) {
             if(event){
-                debugger
+                this.lastEvent=event
                 if(this.lastEl){
                     this.lastEl.style.background="#0684E5";
                     this.lastEl.disabled=false;
@@ -248,14 +264,15 @@ var vue = new Vue({
               }).then(() => {
 
                 var params = {
-                    uuid: data.uuid
+                    uuid: data.uuid,
+                    reserve2:1
                 }
                 axios.post('/xfxhapi/zwjbxx/doUpdateByVO', params).then(function (res) {
                     if(res.data.msg=='success'){
                         let bp = []
                         bp.push(res.data.result)
+                        this.yxzwData.push(bp[0])
                         let businessData = this.back2plot(bp)[0]
-                       
                         //需要新增
                         viewerHandshake.call('updateBusinessRecord', businessData)
                         this.$message({
@@ -263,24 +280,25 @@ var vue = new Vue({
                             type: 'success',
                             center: true
                         });
-                        this.yxzwData.push(bp[0])
                     }else{
                         let msg=res.data.msg;
                         if(!msg){
                             msg="选择展位失败！"
                         }
-                        this.$message({
-                            message: msg,
-                            type: 'error',
-                            center: true
-                        });
+                        let bp = []
+                        bp.push(res.data.result)
+                        let businessData = this.back2plot(bp)[0]
+                        //需要新增
+                        viewerHandshake.call('updateBusinessRecord', businessData)
+                        this.$alert('<span style="color:red"><h3>'+msg+'</h3></span>', '注意', {
+                            confirmButtonText: '确定',
+                            type:'error',
+                            dangerouslyUseHTMLString:true
+                          });
                     }
                 }.bind(this), function (error) {
                     console.log(error)
                 })
-
-
-
 
               }).catch(() => {
                 this.$message({
@@ -288,8 +306,6 @@ var vue = new Vue({
                   message: '已取消选择'
                 });          
               });
-
-            
         },
         back2plot(backData) {
             let plotData = []
@@ -318,12 +334,36 @@ var vue = new Vue({
                 pd.stageUuid = bd.zgid
                 pd.shapeUuid = bd.reserve1
                 pd.tenantId = bd.qyid
-                if(!pd.name&&pd.tenantName){
+                if(pd.tenantName){
                     pd.name=pd.tenantName
+                }
+                // blnbzwsj 显示内部展位时间
+                debugger
+                if(this.compareDate(this.blnbzwsj,this.now)){
+                    //如果展位状态为内部预留则展位显示初始状态
+                    if(bd.reserve2){
+                        if(backData.length>0){
+                            pd.status='bespoke'
+                        }
+                        pd.name=''
+                        pd.tenantName=''
+                    }
+                }
+                //当前企业查看本公司展位为红色
+                for(var j in this.yxzwData){
+                    if(this.yxzwData[j].zwh==bd.zwh){
+                        pd.status='allotted'
+                        if(bd.qymc){
+                            pd.name=bd.qymc
+                        }
+                    }
                 }
                 plotData.push(pd)
             }
             return plotData
+        },
+        compareDate (d1,d2){
+            return ((new Date(d1.replace(/-/g,"\/"))) > (new Date(d2.replace(/-/g,"\/"))));
         },
         plot2back(plotData) {
             let backData = []
