@@ -15,6 +15,14 @@ var vue = new Vue({
                 cklx: "",
                 zwzt: ""
             },
+            //导出条件
+            exportForm:{
+                zwh: "",
+                qymc: "",
+                zwlb: "",
+                cklx: "",
+                zwzt: ""
+            },
             //表数据
             tableData: [],
             allRoles: [],
@@ -48,19 +56,10 @@ var vue = new Vue({
                 name: '已确定展位',
                 value: 'completed'
             }],
-            cklxStatus: [{
-                name: '一面开',
-                value: '1'
-            }, {
-                name: '两面开',
-                value: '2'
-            }, {
-                name: '三面开',
-                value: '3'
-            }, {
-                name: '全开',
-                value: '4'
-            }]
+            //出口类型下拉框
+            cklxData: [],
+            //展位类型下拉框
+            zwlbData:[],
         }
     },
     created: function () {
@@ -70,12 +69,32 @@ var vue = new Vue({
         tableheight = tableheight10;
         //登录用户
         this.shiroData = shiroGlobal;
+        //展位类型
+        this.getZwlb();
+        //出口类型
+        this.getCklx();
         this.searchClick('click');
         /**delete by yushch 20181218 前台报错暂时注掉 */
         //this.closeleft();
     },
 
     methods: {
+        //展位类别下拉框
+        getZwlb: function(){
+            axios.get('/xfxhapi/codelist/getCodetype/ZWLX').then(function (res) {
+                this.zwlbData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //出口类型下拉框
+        getCklx: function(){
+            axios.get('/xfxhapi/codelist/getCodetype/CKLX').then(function (res) {
+                this.cklxData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
         //企业详情跳转
         qyDetails: function (val) {
             var params = {
@@ -102,13 +121,18 @@ var vue = new Vue({
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
-            debugger;
             axios.post('/xfxhapi/zwjbxx/doSearchListQyByVO', params).then(function (res) {
                 
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
                 _self.loading = false;
+                //add by yushch 20181219 查询成功后保存查询条件到变量用作导出条件
+                this.exportForm.zwh = this.searchForm.zwh.replace(/%/g, "\\%");
+                this.exportForm.qymc = this.searchForm.qymc.replace(/%/g, "\\%");
+                this.exportForm.zwlb = this.searchForm.zwlb.replace(/%/g, "\\%");
+                this.exportForm.cklx = this.searchForm.cklx.replace(/%/g, "\\%");
+                this.exportForm.zwzt = this.searchForm.zwzt.replace(/%/g, "\\%");
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -130,7 +154,12 @@ var vue = new Vue({
                 console.info("加载数据成功");
                 _self.loading = false;
             }, 300);
-        }
+        },
+        //展位管理导出功能 add by yushch 20181219
+        exportClick:function(){
+            var param = this.exportForm.zwh+","+this.exportForm.zwzt+","+this.exportForm.qymc+","+this.exportForm.zwlb+","+this.exportForm.cklx;
+            window.open("/xfxhapi/zwjbxx/doExport/"+param);
+		}
     }
 
 })

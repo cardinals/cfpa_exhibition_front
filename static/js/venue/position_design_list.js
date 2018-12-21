@@ -304,6 +304,7 @@ var vue = new Vue({
                 uuid: uuid
             }
             this.zguuid = uuid
+            this.loading = true;
             axios.post('/xfxhapi/zgjbxx/doSearchHbListByVO', params).then(function (res) {
                 this.currentAreaStage = res.data.result[0].zgzwhbStr
                 this.initPlotArea()
@@ -346,6 +347,7 @@ var vue = new Vue({
                 handshake.on('evtSaveDataReady', me.savePlotData.bind(me))
                 handshake.on('evtBusinessDataAllot', me.allotBusinessData.bind(me))
             })
+            this.loading = false;
         },
         //初始化展位数据
         getBusinessData(stageUuid) {

@@ -15,7 +15,7 @@
 		
 		<div class="main-box">
 
-			<div ref="ploterWrap" class="app-viewer-ploter-wrap positionlist" :style="ploterStyle">
+			<div ref="ploterWrap"  v-loading="loading" element-loading-text="加载中" class="app-viewer-ploter-wrap positionlist" :style="ploterStyle">
 				<div class="app-viewer-ploter-navigation">
 					<div class="ploter-navigation-list">
 						<el-button id="n" v-for="data in tableData" @click="getStage(data.uuid,$event)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">
