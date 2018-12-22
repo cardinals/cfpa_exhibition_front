@@ -228,7 +228,7 @@ var vue = new Vue({
                 handshake.on('evtNeedBusinessData', me.getBusinessData.bind(me))
                 handshake.on('evtBusinessShapeSelected', me.handlerBusinessShapeSelected.bind(me))
             })
-            this.loading = false;
+            
         },
         getBusinessData(stageUuid) {
             var params = {
@@ -237,6 +237,7 @@ var vue = new Vue({
             axios.post('/xfxhapi/zwjbxx/doSearchListByVO', params).then(function (res) {
                 let businessData = this.back2plot(res.data.result)
                 viewerHandshake.call('updateBusinessData', businessData)
+                this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -338,7 +339,6 @@ var vue = new Vue({
                     pd.name=pd.tenantName
                 }
                 // blnbzwsj 显示内部展位时间
-                debugger
                 if(this.compareDate(this.blnbzwsj,this.now)){
                     //如果展位状态为内部预留则展位显示初始状态
                     if(bd.reserve2){
