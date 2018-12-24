@@ -341,7 +341,6 @@ var vue = new Vue({
                     pd.name=pd.tenantName
                 }
                 // blnbzwsj 显示内部展位时间
-                debugger
                 if(this.compareDate(this.blnbzwsj,this.now)){
                     //如果展位状态为内部预留则展位显示初始状态
                     if(bd.reserve2&&bd.reserve2!='0'){
