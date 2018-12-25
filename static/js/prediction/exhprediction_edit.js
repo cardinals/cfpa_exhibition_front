@@ -482,6 +482,7 @@ var vm = new Vue({
             }
             axios.post('/xfxhapi/qywjdc/list', params).then(function (res) {
                 if(res.data.result.length>0){
+                    this.wjdcStatus = 1;//修改
                     this.wjdcForm = res.data.result[0];
                     this.wjdcForm.zycpList = [];
                     if(this.wjdcForm.sfhwdlcp == '1'){//海外产品代理
@@ -498,7 +499,7 @@ var vm = new Vue({
                     for(var i in tempList){
                         this.wjdcForm.zycpList.push(tempList[i]);
                     }
-                    this.wjdcStatus = 1;//修改
+                    
                     this.wjUuid = res.data.result[0].uuid;
                 }else{
                     this.wjdcStatus = 0;//新增
@@ -517,6 +518,7 @@ var vm = new Vue({
             }
             axios.post('/xfxhapi/qyjs/list', params).then(function (res) {
                 if(res.data.result.length>0){
+                    this.cpjsStatus = 1;//修改
                     var resultForm = res.data.result[0];
                     var params = {
                         qyid: qyid,
@@ -547,7 +549,7 @@ var vm = new Vue({
                     }.bind(this), function (error) {
                         console.log(error)
                     })
-                    this.cpjsStatus = 1;//修改
+                    
                     this.qyUuid = res.data.result[0].uuid;
                     this.CpjsUpLoadData.qyid = this.qyid;
                     this.upLoadLogoData.qyid = this.qyid;
@@ -582,6 +584,7 @@ var vm = new Vue({
             }
             axios.post('/xfxhapi/qyzwyx/list', params).then(function (res) {
                 if(res.data.result.length>0){
+                    this.xqyxStatus = 1;//修改
                     //this.xqyxForm = res.data.result[0];
                     //返回null时不自动带入min值
                     if(res.data.result[0].bzzwgs != null)
@@ -590,7 +593,7 @@ var vm = new Vue({
                         this.xqyxForm.sngdzw = res.data.result[0].sngdzw;
                     if(res.data.result[0].swgdzw != null)
                         this.xqyxForm.swgdzw = res.data.result[0].swgdzw;
-                    this.xqyxStatus = 1;//修改
+                   
                     this.xqUuid = res.data.result[0].uuid;
                 }else{
                     this.xqyxStatus = 0;//新增

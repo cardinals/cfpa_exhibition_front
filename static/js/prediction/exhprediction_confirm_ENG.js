@@ -58,7 +58,7 @@ new Vue({
             sfkqzw: true,//是否开启选展位浮动提示框（开始选展位开启此变量）
             yxzwData:[],
             sfkqYxzwzs: false, //是否开启已选展位列表
-            kssj:'2018/12/21 12:05:34',  //展位选择开始时间
+            kssj:'2019/12/21 12:05:34',  //展位选择开始时间
             now:''
         }
     },
@@ -85,7 +85,7 @@ new Vue({
                 if(res.data){
                     this.sfkqzw = true
                     this.sfkqYxzwzs = true
-                    if(this.jbxxData.shzt == '03'&& this.sfkqzw){
+                    if(this.jbxxData.shzt == '03'&& this.sfkqzw&&this.yxzwData.length<=0){
                         $('#imgDiv').show()
                     }
                 }

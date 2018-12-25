@@ -377,7 +377,7 @@ var vue = new Vue({
                 var params = {
                     zgzwhbStr: data.jsonData,
                     uuid: data.stageUuid,
-                    zgzwhbtpStr: data.picData,
+                    //zgzwhbtpStr: data.picData,
                     xgrid: this.shiroData.userid,
                     xgrmc: this.shiroData.realName,
                 }

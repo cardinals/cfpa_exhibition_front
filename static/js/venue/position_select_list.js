@@ -20,7 +20,7 @@ var vue = new Vue({
             loading: false,
             lastEl:'',
             lastEvent:'',
-            blnbzwsj:'2018-12-22 12:05:34', //显示内部展位时间
+            blnbzwsj:'2019-12-24 15:22:34', //显示内部展位时间
             now:''
         }
     },
@@ -77,10 +77,13 @@ var vue = new Vue({
               }).then(() => {
                 if(uuid){
                     var params = {
-                        uuid: uuid
+                        uuid: uuid,
+                        reserve2:0
                     }
                     axios.post('/xfxhapi/zwjbxx/doCancelByVO', params).then(function (res) {
                         if(res.data.msg=='success'){
+                            this.yxzwData=[]
+                            this.getYxzwData()
                             let bp = []
                             bp.push(res.data.result)
                             let businessData = this.back2plot(bp)[0]
@@ -91,8 +94,6 @@ var vue = new Vue({
                                 type: 'success',
                                 center: true
                             });
-                            this.yxzwData=[]
-                            this.getYxzwData()
                             el.style.display="none";
                         }else{
                             let msg=res.data.msg;
@@ -168,6 +169,7 @@ var vue = new Vue({
             })
         },
         getStage(uuid,event) {
+            this.getNow()
             if(event){
                 this.lastEvent=event
                 if(this.lastEl){
@@ -266,7 +268,7 @@ var vue = new Vue({
 
                 var params = {
                     uuid: data.uuid,
-                    reserve2:1
+                    reserve2:2
                 }
                 axios.post('/xfxhapi/zwjbxx/doUpdateByVO', params).then(function (res) {
                     if(res.data.msg=='success'){
@@ -341,9 +343,9 @@ var vue = new Vue({
                 // blnbzwsj 显示内部展位时间
                 if(this.compareDate(this.blnbzwsj,this.now)){
                     //如果展位状态为内部预留则展位显示初始状态
-                    if(bd.reserve2){
-                        if(backData.length>0){
-                            pd.status='bespoke'
+                    if(bd.reserve2&&bd.reserve2!='0'){
+                        if(backData.length>1){
+                            pd.status='normal'
                         }
                         pd.name=''
                         pd.tenantName=''
