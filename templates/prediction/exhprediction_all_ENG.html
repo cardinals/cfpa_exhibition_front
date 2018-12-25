@@ -6,10 +6,10 @@
     <title>Exhibition registration</title>
     <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
     <style>
-        .main-box {
+        /* .main-box {
             padding-left: 80px;
             padding-right: 80px;
-        }
+        } */
 
         #hidden_btn {
             visibility: hidden;
@@ -130,9 +130,18 @@
         </el-dialog>
         <div id="component" style="overflow:auto;"></div>
     </div>
+    <div class="left-sidebar">
+        <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+        <input type="hidden" id="activeIndex"/>
+        <div id="menu-box">
+            <big-tree default-active="" unique-opened="true"></big-tree>
+        </div>
+    </div>
 </body>
 
 <script src="../../static/js/common/config.js"></script>
 <script src="../../static/js/lib.js"></script>
+<script src="../../static/js/menu.js"></script>
 <script src="../../static/js/prediction/exhprediction_all_ENG.js"></script>
+<script src="../../static/js/common/store.js"></script>
 </html>
