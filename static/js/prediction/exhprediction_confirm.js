@@ -53,13 +53,13 @@ new Vue({
             zwyxData: [],
             zwyxForm: [],
             yxzwData:[],
-            qqW:'11111',
-            qqE:'22222',
+            qqW:'576021001', //火灾预防   576021001
+            qqE:'931270355', //灭火救援   931270355
             zwxzzt: '00',//展位选择状态
             sfkqzw: true,//是否开启选展位浮动提示框，（开始选展位开启此变量）
             yxzwxx: '',
-            sfkqYxzwzs: true, //是否开启已选展位列表,
-            kssj:'2018/12/21 13:05:34',  //展位选择开始时间
+            sfkqYxzwzs: false, //是否开启已选展位列表,
+            kssj:'2019/12/24 15:15:34',  //展位选择开始时间
             now:''
         }
     },
@@ -70,7 +70,7 @@ new Vue({
         this.loading = true;
         this.userid = getQueryString("userid");
         this.getYxzwData()
-        this.getJbxxData(this.userid);
+        
     },
     methods: {
         getNow: function(){
@@ -86,7 +86,7 @@ new Vue({
                 if(res.data){
                     this.sfkqzw = true
                     this.sfkqYxzwzs = true
-                    if(this.jbxxData.shzt == '03'&& this.sfkqzw){
+                    if(this.jbxxData.shzt == '03'&& this.sfkqzw&&this.yxzwData.length<=0){
                         $('#imgDiv').show()
                     }
                 }
@@ -102,34 +102,40 @@ new Vue({
             axios.post('/xfxhapi/zwjbxx/getSelectedPos').then(function (res) {
                 if (res.data.result.length > 0) {
                     var datas = res.data.result;
+                    this.yxzwData=datas
                     var qq=''
+                    debugger
                     for(let i=0;i<datas.length;i++){
                         if(i==0){
                             this.yxzwxx+=datas[i].zwh
-                            if(datas[i].zwh.indexOf('W')!= -1
+                            if((datas[i].zwh.indexOf('W1')!= -1
+                            ||datas[i].zwh.indexOf('W2')!= -1
+                            ||datas[i].zwh.indexOf('W3-A')!= -1)
                             &&qq.indexOf(this.qqW)== -1){
                                 qq+=this.qqW
-                            }
-                            if(datas[i].zwh.indexOf('E')!= -1
-                            &&qq.indexOf(this.qqE)== -1){
-                                qq+=this.qqE
+                            }else{
+                                if(qq.indexOf(this.qqE)== -1){
+                                    qq+=this.qqE
+                                }
                             }
                         }else{
                             this.yxzwxx+="，"+datas[i].zwh
-                            if(datas[i].zwh.indexOf('W')!= -1
+                            if((datas[i].zwh.indexOf('W1')!= -1
+                            ||datas[i].zwh.indexOf('W2')!= -1
+                            ||datas[i].zwh.indexOf('W3-A')!= -1)
                             &&qq.indexOf(this.qqW)== -1){
                                 if(qq){
                                     qq+="和"+this.qqW
                                 }else{
                                     qq=this.qqW
                                 }
-                            }
-                            if(datas[i].zwh.indexOf('E')!= -1
-                            &&qq.indexOf(this.qqE)== -1){
-                                if(qq){
-                                    qq+="和"+this.qqE
-                                }else{
-                                    qq=this.qqE
+                            }else{
+                                if(qq.indexOf(this.qqE)== -1){
+                                    if(qq){
+                                        qq+="和"+this.qqE
+                                    }else{
+                                        qq=this.qqE
+                                    }
                                 }
                             }
                         }
@@ -139,8 +145,8 @@ new Vue({
                     }
                     this.zwxzzt='01'
                     this.sfkqYxzwzs=true
-                    this.yxzwData=datas
                 }
+                this.getJbxxData(this.userid);
             }.bind(this), function (error) {
                 console.log(error)
             })
