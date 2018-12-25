@@ -58,7 +58,7 @@ new Vue({
             zwxzzt: '00',//展位选择状态
             sfkqzw: true,//是否开启选展位浮动提示框，（开始选展位开启此变量）
             yxzwxx: '',
-            sfkqYxzwzs: true, //是否开启已选展位列表,
+            sfkqYxzwzs: false, //是否开启已选展位列表,
             kssj:'2019/12/24 15:15:34',  //展位选择开始时间
             now:''
         }
