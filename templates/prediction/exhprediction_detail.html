@@ -319,6 +319,39 @@
                                         <v-text v-text="zwyxData.swgdzw==null?'无':zwyxData.swgdzw+' m²'"></v-text>
                                     </el-row>
                                 </el-tab-pane>
+                                <el-tab-pane label="邮寄地址" name="sixth">
+                                        <el-card  class="card_style" style="width: 30%;">
+                                            <div  class="bottom clearfix">
+                                                <el-row class="mb10">
+                                                    <el-col :span="24">
+                                                        <strong>
+                                                            <v-text v-if="jbxxData.usertype === 'CHN'" v-text="jbxxData.zwgsmc||'无'"></v-text>
+                                                            <v-text v-else-if="jbxxData.usertype === 'ENG'" v-text="jbxxData.ywgsmc||'无'"></v-text>
+                                                        </strong>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="mb10" >
+                                                    <el-col :span="12">
+                                                        <strong>
+                                                            <v-text v-text="jbxxData.lxr||'无'"></v-text>
+                                                        </strong>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <strong>
+                                                            <v-text v-text="jbxxData.lxrsj||'无'"></v-text>
+                                                        </strong>    
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="mb10">
+                                                    <el-col :span="24">
+                                                        <strong>
+                                                            <v-text v-text="jbxxData.yjdz||'无'"></v-text>
+                                                        </strong>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-card>     
+                                </el-tab-pane>
                             </el-tabs>
                         </template>
                     </div>

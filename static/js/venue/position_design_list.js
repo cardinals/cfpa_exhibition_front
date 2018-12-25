@@ -478,7 +478,9 @@ var vue = new Vue({
                 bd.bhzh = pd.codeFontSize
                 bd.bhzc = pd.codeFontStyle
                 bd.bhzt = pd.codeFontFamily
-                bd.zwmc = pd.name
+                if(pd.name!=pd.tenantName){
+                    bd.zwmc = pd.name
+                }
                 bd.mczh = pd.nameFontSize
                 bd.mczc = pd.nameFontStyle
                 bd.mczt = pd.nameFontFamily
