@@ -70,8 +70,27 @@ new Vue({
         this.userid = getQueryString("userid");
         this.getYxzwData()
         this.getJbxxData(this.userid);
+        this.tishi();
     },
     methods: {
+        tishi: function(){
+            var i=1;
+            $(document).ready(function () {
+              
+               $('#menu-toggle-btn').click(function (e) {
+                   
+                   var e = document.getElementsByClassName("topScroll"); 
+                   if((i%2)==1){
+                       e[0].style.width= "calc(100% - 60px)"; 
+                       i++;
+                   }else{
+                       e[0].style.width= "calc(100% - 300px)"; 
+                       i++;
+                   }
+       
+               })
+           })
+        },
         getNow: function(){
             axios.post('/xfxhapi/zwjbxx/getNow').then(function (res) {
                 this.now=res.data
