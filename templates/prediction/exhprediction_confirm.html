@@ -67,39 +67,32 @@
 <body class="fw f14 main-index-body">
     <div id="app">
         <div class="main-box">
-
+            
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
                 <div id="lib :: main_container_header('报名信息确认','报名信息确认')"></div>
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
-
-
-                <!-- <div class="row"> -->
-
-                <!-- <div class="topScroll remark"> -->
-                <el-button type="danger" v-if="editPage==false" class="redFont topScroll remark">
-                    (1) 贵公司此次填写的展位需求仅为参展意向调查。实际展位选择结果需以贵公司在展位选择阶段的最终自主选择结果为准。
-                    <br>(2) 贵公司所提供的营业执照、法人代表及企业联系人相关信息仅用于贵公司申请参加第十八届国际消防展的审核工作；贵公司自主填写的公司信息及产品信息则将显示在网站的产品及展商名录内容里。
-                </el-button>
-                <el-button type="success" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='00'" class="topScroll remark">
-                    经审核您的信息已经通过
-                    <!-- ，请进行展位选择。 -->
-                    <i class="el-icon-warning"></i>
-                </el-button>
-                <el-button type="warning" icon="el-icon-warning" v-if="editPage&&jbxxData.shzt==='01'" class="topScroll remark">
-                    展会报名信息已经提交，请等待审核，审核时间大概需要5个工作日！
-                    <i class="el-icon-warning"></i>
-                </el-button>
-                <el-button type="danger" icon="el-icon-warning" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='01'"
-                    class="topScroll remark">
-                    已选展位:
-                    <v-text v-text="yxzwxx"></v-text>
-                    <i class="el-icon-warning"></i>
-                </el-button>
-                <!-- </div> -->
-
-                <!-- </div> -->
-
+                <el-row id="btnB">
+                        <el-button  type="danger" v-if="editPage==false" class="redFont topScroll remark">
+                            (1) 贵公司此次填写的展位需求仅为参展意向调查。实际展位选择结果需以贵公司在展位选择阶段的最终自主选择结果为准。
+                            <br>(2) 贵公司所提供的营业执照、法人代表及企业联系人相关信息仅用于贵公司申请参加第十八届国际消防展的审核工作；贵公司自主填写的公司信息及产品信息则将显示在网站的产品及展商名录内容里。
+                        </el-button>
+                        <el-button type="success" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='00'" class="topScroll remark">
+                            经审核您的信息已经通过
+                            <!-- ，请进行展位选择。 -->
+                            <i class="el-icon-warning"></i>
+                        </el-button>
+                        <el-button type="warning" icon="el-icon-warning" v-if="editPage&&jbxxData.shzt==='01'" class="topScroll remark">
+                            展会报名信息已经提交，请等待审核，审核时间大概需要5个工作日！
+                            <i class="el-icon-warning"></i>
+                        </el-button>
+                        <el-button type="danger" icon="el-icon-warning" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='01'"
+                            class="topScroll remark">
+                            已选展位:
+                            <v-text v-text="yxzwxx"></v-text>
+                            <i class="el-icon-warning"></i>
+                        </el-button>
+                </el-row>
                 <div id="steps" v-if="editPage==false" style="margin-top:65px;">
                     <el-steps :active="5" align-center finish-status="success" class="pt10">
                         <el-step title="企业基本信息"></el-step>
@@ -273,7 +266,7 @@
                     <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;">企业问卷调查</strong>
                     </el-row>
-                    <el-row>
+                    <el-row >
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="22">
                             <el-row class="mb10">
@@ -446,8 +439,26 @@
     </div>
 
 </body>
+
 <script src="../../static/js/common/config.js"></script>
 <script src="../../static/js/prediction/exhprediction_confirm.js"></script>
+<script>
+     var i=1;
+     $(document).ready(function () {
+       
+        $('#menu-toggle-btn').click(function (e) {
+            var e = document.getElementsByClassName("topScroll"); 
+            if((i%2)==1){
+                e[0].style.width= "calc(100% - 60px)"; 
+                i++;
+            }else{
+                e[0].style.width= "calc(100% - 300px)"; 
+                i++;
+            }
+
+        })
+    })
+</script>
 <script>
     // 漂浮广告JS
     // var xin = true,

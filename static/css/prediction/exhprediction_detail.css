@@ -40,7 +40,15 @@
     top:51px;
     /* right:calc(50% - 216px); */
     /* background:#fff; */
-    width: calc(100% - 60px);
+    /* width: calc(100% - 60px); */
+    width: calc(100% - 300px);
+}
+
+.topScroll2{
+    position: fixed;
+    top:51px;
+    width: calc(100% - 300px);
+    color:#333;
 }
 
 .redFont{
