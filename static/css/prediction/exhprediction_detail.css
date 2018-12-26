@@ -18,29 +18,29 @@
     width: 300px;
 }
 
-/* .remark{
+.remark{
     line-height: 24px;
     border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
     width: 80%;
-} */
+}
 
-.remarka{
+/* .remarka{
     width: 100%;
 }
 
 .row{
     display: flex;
-    /* wrap:no-wrap; */
-}
+    wrap:no-wrap;
+} */
 
 .topScroll{
     position: fixed;
     top:51px;
-    right:calc(10% - 153px);
+    /* right:calc(50% - 216px); */
     /* background:#fff; */
-    /* width: calc(100% - 216px); */
+    width: calc(100% - 60px);
 }
 
 .redFont{
