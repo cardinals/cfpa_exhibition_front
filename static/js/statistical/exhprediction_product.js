@@ -8,11 +8,13 @@ var vue = new Vue({
             activeIndex: '',
             //搜索表单
             searchForm: {
-                cplx: ''
+                cplx: '',
+                zwmjfw: ''
             },
             tableData: [],//列表信息
             shiroData: [],//当前用户信息
             cplxData: [],//产品类型大类
+            zwmjfwData: [],
             allCplxCode: [],
             //显示加载中样
             loading: false,
@@ -38,7 +40,9 @@ var vue = new Vue({
         //登录用户
         this.shiroData = shiroGlobal;
         this.searchForm.cplx = getQueryString("cplx");
+        this.searchForm.zwmjfw = getQueryString("zwmjfw");
         this.getCplxData();//产品类型下拉框
+        this.getZwmjfwData();
         this.searchClick();
     },
     mounted: function () {
@@ -57,6 +61,14 @@ var vue = new Vue({
                 console.log(error);
             })
         },
+        //展位面积范围下拉框
+        getZwmjfwData: function () {
+            axios.get('/xfxhapi/codelist/getCodetype/ZWMJFW').then(function (res) {
+                this.zwmjfwData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
         //表格查询事件
         searchClick: function (type) {
             //按钮事件的选择
@@ -68,6 +80,7 @@ var vue = new Vue({
             this.loading = true;//表格重新加载
             var params = {
                 cplx: this.searchForm.cplx,
+                zwmjfw:this.searchForm.zwmjfw,
                 pageSize: this.pageSize,
                 pageNum: this.currentPage,
                 orgUuid: this.shiroData.organizationVO.uuid,
@@ -85,6 +98,7 @@ var vue = new Vue({
         //清空查询条件
         clearClick: function () {
             this.searchForm.cplx = getQueryString("cplx");
+            this.searchForm.zwmjfw = getQueryString("zwmjfw");
             this.searchClick('reset');
         },
         //点击导出按钮，显示弹出页

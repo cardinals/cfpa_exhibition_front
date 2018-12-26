@@ -230,6 +230,12 @@ var vue = new Vue({
 		},
 		exportClick:function(){
 			window.open("/xfxhapi/qyzwyx/doExportTjfx/gdzwmj");
+		},
+		toCompanyList: function (val) {
+			var params = {
+				zwmjfw: val.zwmjfw
+			}
+			loadDivParam("statistical/exhprediction_product", params);
 		}
 	}
 })

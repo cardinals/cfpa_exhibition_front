@@ -16,7 +16,8 @@
         font-size: 15px;
     }
 
-    #singleRow .el-table th, #singleRow .el-table tr {
+    #singleRow .el-table th,
+    #singleRow .el-table tr {
         height: 42.2px;
     }
 </style>
@@ -31,10 +32,18 @@
                     <el-row>
                         <el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
                             <el-row>
-                                <el-col :span="8" class="searchInline">
+                                <el-col :span="1">&nbsp;</el-col>
+                                <el-col :span="9" class="searchInline">
                                     <label class="el-form-item__label searchLabel">产品类型</label>
-                                    <el-select size="small" v-model="searchForm.cplx" placeholder="全部" class="searchSelect">
+                                    <el-select size="small" v-model="searchForm.cplx" placeholder="全部" class="searchSelect" clearable>
                                         <el-option v-for="item in cplxData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+                                    </el-select>
+                                </el-col>
+                                <el-col :span="2">&nbsp;</el-col>
+                                <el-col :span="9" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">展位面积法范围</label>
+                                    <el-select size="small" v-model="searchForm.zwmjfw" placeholder="全部" class="searchSelect" clearable>
+                                        <el-option v-for="item in zwmjfwData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                     </el-select>
                                 </el-col>
                             </el-row>
