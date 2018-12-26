@@ -302,6 +302,11 @@ var vue = new Vue({
                             }
                             axios.post('/xfxhapi/user/insertByVO', params).then(function(res){
                                 var addData = res.data.result;
+                                if(addData.usertype == 'ENG'){
+                                    addData.usertypeName = "国外";
+                                }else if(addData.usertype == 'CHN'){
+                                    addData.usertype = "国内";
+                                }
                                 this.tableData.unshift(addData);
                                 this.total = this.tableData.length;
                             }.bind(this),function(error){
