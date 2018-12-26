@@ -17,30 +17,32 @@
 #qyzwyx .el-input-number--small {
     width: 300px;
 }
-.remark{
+
+/* .remark{
     line-height: 24px;
-    /* padding: 5px 15px; */
     border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
+    width: 80%;
+} */
+
+.remarka{
+    width: 100%;
 }
+
+.row{
+    display: flex;
+    /* wrap:no-wrap; */
+}
+
 .topScroll{
     position: fixed;
-    top: 51px;
-    z-index:2;
+    top:51px;
+    right:calc(10% - 156px);
     /* background:#fff; */
     /* width: calc(100% - 216px); */
 }
-/* .redFont{
-    position: fixed;
-    top: 51px;
-    left: 18px;
-    right: 18px;
-    z-index:2;
-    color: #e40613;
-    border: 1px solid #e40613;
-    background-color: #faeef6;
-} */
+
 .redFont{
     text-align: left;
     font-size: 16px;
