@@ -14,9 +14,10 @@ new Vue({
         }
     },
     created: function () {
+        loadBreadcrumb("产品介绍", "-1");
         this.shiroData = shiroGlobal;
         this.loading = true;
-        this.userid = getQueryString("userid");
+        this.userid = this.shiroData.userid;
         this.getJbxxData(this.userid);
     },
     methods: {

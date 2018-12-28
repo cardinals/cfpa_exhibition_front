@@ -14,15 +14,12 @@
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
                
-                <div id="qycpjs" class="mb5">
-                    <el-row class="mb10" style="border-bottom:1px solid #463132;line-height: 29px;">
-                        <strong style="color: #463132;">产品介绍</strong>
-                    </el-row>
+                <div id="qycpjs" class="mb5" style="margin-top: 10px">
                     <el-row class="mb10">
                         <el-col :span="1">&nbsp;</el-col>
                         <el-col :span="22">
                             <el-form id="cpjs" v-if="cpjsData.length>0" :inline="true" style="width: 100%;" class="demo-form-inline">
-                                <el-form-item v-for="(cpjs,index) in cpjsData">
+                                <el-form-item v-for="(cpjs,index) in cpjsData" style="width: 100%;">
                                     <el-card class="mb10 card_style" id="cpjsImg">
                                         <div slot="header" class="clearfix" style="height: 20px;">
                                             <el-button style="float: right;color:red;padding: 5px 0" type="text">删除</el-button>                                            

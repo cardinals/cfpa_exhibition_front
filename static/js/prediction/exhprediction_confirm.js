@@ -123,7 +123,6 @@ new Vue({
                     var datas = res.data.result;
                     this.yxzwData=datas
                     var qq=''
-                    debugger
                     for(let i=0;i<datas.length;i++){
                         if(i==0){
                             this.yxzwxx+=datas[i].zwh
