@@ -180,9 +180,11 @@ var vue = new Vue({
                     this.lastEl.disabled=false;
                 }
                 var el = event.currentTarget;
-                this.lastEl=el
-                el.style.background="#666666";
-                el.disabled=true;
+                if(el){
+                    this.lastEl=el
+                    el.style.background="#666666";
+                    el.disabled=true;
+                }
             }
             var params = {
                 uuid: uuid
