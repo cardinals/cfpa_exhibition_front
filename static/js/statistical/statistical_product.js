@@ -306,7 +306,7 @@ var vue = new Vue({
 			if (r != null) return unescape(r[2]); return null;
 		},
 		exportClick: function () {
-			window.open("/xfxhapi/qyzwyx/doExportTjfx/cplx");
+			window.open("/xfxhapi/qyzwyx/doExportTjfxByCplx");
 		},
 		toCompanyList: function (val) {
 			var params = {
