@@ -14,6 +14,7 @@ new Vue({
         }
     },
     created: function () {
+        loadBreadcrumb("产品介绍", "-1");
         this.shiroData = shiroGlobal;
         this.loading = true;
         this.userid = this.shiroData.userid;
