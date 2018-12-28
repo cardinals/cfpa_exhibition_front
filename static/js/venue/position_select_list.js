@@ -15,12 +15,13 @@ var vue = new Vue({
             dialogVisible: false,
             currentUuid: '',
             isExportDisabled: true,
+            shiroData: [],//当前用户信息
             yxzwData:[],
             //显示加载中样
             loading: false,
             lastEl:'',
             lastEvent:'',
-            blnbzwsj:'2019-12-24 15:22:34', //显示内部展位时间
+            blnbzwsj:'2019-12-27 9:25:34', //显示内部展位时间
             now:''
         }
     },
@@ -38,6 +39,8 @@ var vue = new Vue({
     },
     created: function () {
         this.getNow()
+        //登录用户
+        this.shiroData = shiroGlobal;
         this.currentUuid = getQueryString("uuid");
         if(this.currentUuid){
             this.getStage(this.currentUuid)
@@ -196,9 +199,6 @@ var vue = new Vue({
             })
 
         },
-
-
-        
         // 标绘工具
         initPlotArea() {
             if (viewerHandshake) {
@@ -246,7 +246,9 @@ var vue = new Vue({
         },
         handlerBusinessShapeSelected(data) {
             var msg=''
-            
+            if(this.shiroData.deptid!='ZSYH'){
+                return
+            }
             if(this.yxzwData.length>0){
                 var yxzwxx=''
                 for(let i=0;i<this.yxzwData.length;i++){

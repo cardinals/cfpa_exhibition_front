@@ -373,32 +373,59 @@ var vue = new Vue({
         //保存展馆展位数据
         savePlotData(data) {
             this.isDisabled = true
-            axios.post('/xfxhapi/zwjbxx/doInsertByVO', this.plot2back(data.businessData)).then(function (res) {
-                var params = {
-                    zgzwhbStr: data.jsonData,
-                    uuid: data.stageUuid,
-                    //zgzwhbtpStr: data.picData,
-                    xgrid: this.shiroData.userid,
-                    xgrmc: this.shiroData.realName,
-                }
-
-                axios.post('/xfxhapi/zgjbxx/doUpdateByVO', params).then(function (res) {
-                    this.$message({
+            var zgvo={}
+            zgvo.uuid=data.stageUuid
+            zgvo.zgzwhbStr=data.jsonData
+            //指定展位之前屏蔽此变量
+            //zgvo.zgzwhbtpStr=data.picData
+            var params = {
+                    zwjbxxVOs: this.plot2back(data.businessData),
+                    zgjbxxVO: zgvo
+            }
+            axios.post('/xfxhapi/zwjbxx/doInsertByVO',params).then(function (res) {
+                this.$message({
                         message: '保存展位成功',
                         type: 'success',
                         center: true
-                    });
-                    if (editorHandshake) {
+                });
+                if (editorHandshake) {
                         //销毁当前画布
-                        editorHandshake.destroy()
-                        editorHandshake = null
-                        this.getStage(data.stageUuid)
-                    }
-                    this.isDisabled = false
+                    editorHandshake.destroy()
+                    editorHandshake = null
+                    this.getStage(data.stageUuid)
+                }
+                this.isDisabled = false
 
-                }.bind(this), function (error) {
-                    console.log(error)
-                })
+
+
+
+            //无事物保存方案
+            //axios.post('/xfxhapi/zwjbxx/doInsertByVO', this.plot2back(data.businessData)).then(function (res) {
+                // var params = {
+                //     zgzwhbStr: data.jsonData,
+                //     uuid: data.stageUuid,
+                //     //zgzwhbtpStr: data.picData,
+                //     xgrid: this.shiroData.userid,
+                //     xgrmc: this.shiroData.realName,
+                // }
+
+                // axios.post('/xfxhapi/zgjbxx/doUpdateByVO', params).then(function (res) {
+                //     this.$message({
+                //         message: '保存展位成功',
+                //         type: 'success',
+                //         center: true
+                //     });
+                //     if (editorHandshake) {
+                //         //销毁当前画布
+                //         editorHandshake.destroy()
+                //         editorHandshake = null
+                //         this.getStage(data.stageUuid)
+                //     }
+                //     this.isDisabled = false
+
+                // }.bind(this), function (error) {
+                //     console.log(error)
+                // })
 
             }.bind(this), function (error) {
                 console.log(error)
