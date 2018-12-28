@@ -75,6 +75,7 @@ window.backToLast = function(){
 //urlRewrite
 window.urlRewrite = function(url){
     if(url=='/prediction/exhprediction_edit' || 
+    url=='/prediction/exhprediction_edit_ENG' ||
         url=='/signin/personal_edit' ||
         url=='/home' ||
         url=='/prediction/exhprediction_approve' ||
@@ -82,6 +83,8 @@ window.urlRewrite = function(url){
         url=='/statistical/statistical_area'
         ){
         return url;
+    }else if(url=='/plan/plan_ENG'){
+        return '/plan/plan_list';
     }else{
         return url + "_list"
     }
