@@ -16,7 +16,7 @@ new Vue({
     created: function () {
         this.shiroData = shiroGlobal;
         this.loading = true;
-        this.userid = getQueryString("userid");
+        this.userid = this.shiroData.userid;
         this.getJbxxData(this.userid);
     },
     methods: {
