@@ -7,10 +7,10 @@ $(function () {
     axios.get('/xfxhapi/shiro').then(function (res) {
         shiroGlobal = res.data;
         if (res.data != null && res.data != "") {
-            var flag = getQueryString("flag");
-            if(flag){
+            var url = getQueryString("url");
+            if(url == "/plan/plan"){
                 //动态加载main
-                loadDiv(flag);
+                loadDiv("plan/plan_list");
             }else{
                 //动态加载main
                 loadDiv("prediction/exhprediction_edit");
