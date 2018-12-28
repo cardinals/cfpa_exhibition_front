@@ -33,14 +33,17 @@ var vue = new Vue({
         }
     },
     created: function () {
-        /**面包屑 by li.xue 20180628*/
-        loadBreadcrumb("按产品类型统计", "按产品类型统计详情");
+        this.searchForm.cplx = getQueryString("cplx");
+        this.searchForm.zwmjfw = getQueryString("zwmjfw");
+        if (this.searchForm.cplx == null) {
+            loadBreadcrumb("按光地展位面积统计", "按光地展位面积统计详情");
+        } else if (this.searchForm.zwmjfw == null) {
+            loadBreadcrumb("按产品类型统计", "按产品类型统计详情");
+        }
         //table高度
         tableheight = tableheight10;
         //登录用户
         this.shiroData = shiroGlobal;
-        this.searchForm.cplx = getQueryString("cplx");
-        this.searchForm.zwmjfw = getQueryString("zwmjfw");
         this.getCplxData();//产品类型下拉框
         this.getZwmjfwData();
         this.searchClick();
@@ -80,7 +83,7 @@ var vue = new Vue({
             this.loading = true;//表格重新加载
             var params = {
                 cplx: this.searchForm.cplx,
-                zwmjfw:this.searchForm.zwmjfw,
+                zwmjfw: this.searchForm.zwmjfw,
                 pageSize: this.pageSize,
                 pageNum: this.currentPage,
                 orgUuid: this.shiroData.organizationVO.uuid,

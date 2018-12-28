@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>产品介绍</title>
+</head>
+<body class="fw f14 main-index-body">
+    <div id="app">
+        <div class="main-box">
+            
+            <div class="main-container" v-loading="loading" element-loading-text="加载中">
+                <div id="lib :: main_container_header('报名信息确认','报名信息确认')"></div>
+                <!-- 面包屑 -->
+                <div id="breadcrumb_box"></div>
+               
+                <div id="qycpjs" class="mb5" style="margin-top: 10px">
+                    <el-row class="mb10">
+                        <el-col :span="1">&nbsp;</el-col>
+                        <el-col :span="22">
+                            <el-form id="cpjs" v-if="cpjsData.length>0" :inline="true" style="width: 100%;" class="demo-form-inline">
+                                <el-form-item v-for="(cpjs,index) in cpjsData" style="width: 100%;">
+                                    <el-card class="mb10 card_style" id="cpjsImg">
+                                        <div slot="header" class="clearfix" style="height: 20px;">
+                                            <el-button style="float: right;color:red;padding: 5px 0" type="text">删除</el-button>                                            
+                                            <el-button style="float: right;margin-right:20px;padding: 5px 0" type="text">编辑</el-button>
+                                        </div>
+                                        <el-row class="h100">
+                                            <el-col :span="5" class="h100 tc">
+                                                <img v-if="cpjs.src!==''" :src="cpjs.imageUrl" @click="imgPreview(cpjs.imageUrl)"
+                                                    class="poi">
+                                                <img v-else src="../../static/images/noPic.png">
+                                            </el-col>
+                                            <el-col :span="19" style="line-height: 24px;" class="pl15">
+                                                <strong>产品类型：</strong>
+                                                <v-text v-text="cpjs.cplxmc||'无'"></v-text>
+                                                <br>
+                                                <strong>产品简介：</strong>
+                                                <v-text v-text="cpjs.cpjj||'无'"></v-text>
+                                                <br>
+                                                <strong>产品英文简介：</strong>
+                                                <v-text v-text="cpjs.reserve1||'无'"></v-text>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                </el-form-item>
+                            </el-form>
+                            <v-text v-else>暂无产品信息</v-text>
+                        </el-col>
+                    </el-row>
+                </div>
+             
+                <!--图片预览-->
+                <el-dialog id="previewImgDialog" :visible.sync="showPicVisible" :close-on-click-modal="false" size="tiny">
+                    <img :src="previewImg" width="100%" class="mt15"></img>
+                </el-dialog>
+            </div>
+
+        </div>
+        <!-- main-container -->
+    </div>
+    </div>
+   
+</body>
+
+<script src="../../static/js/common/config.js"></script>
+<script src="../../static/js/exhibitor/product_list.js"></script>
+
+</html>

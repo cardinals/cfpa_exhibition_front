@@ -229,7 +229,7 @@ var vue = new Vue({
 			if (r != null) return unescape(r[2]); return null;
 		},
 		exportClick:function(){
-			window.open("/xfxhapi/qyzwyx/doExportTjfx/gdzwmj");
+			window.open("/xfxhapi/qyzwyx/doExportTjfxByZwmjfw");
 		},
 		toCompanyList: function (val) {
 			var params = {
