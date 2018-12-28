@@ -40,11 +40,18 @@ var vue = new Vue({
             //修改界面是否显示
             editFormVisible: false,
             editLoading: false,
+            currentUuid: '',//当前修改展馆id
             //登陆用户
             shiroData: "",
             createModel: {
                 show: true,
                 loading: true
+            },
+            createFormRules: {
+                name: [
+                    { required: true, message: '请输入展馆名称', trigger: 'blur' },
+                    { min: 1, max: 5, message: '长度在 1到 5 ', trigger: 'blur' }
+                ]
             },
             createForm: {
                 name: null,
@@ -63,8 +70,7 @@ var vue = new Vue({
                 croppedImage: null,
                 imgWidth: 0,
                 imgHeight: 0
-            },
-            
+            }
         }
     },
     created: function () {
@@ -78,6 +84,22 @@ var vue = new Vue({
     },
 
     methods: {
+        //表格修改事件
+        editClick: function(val, index) {
+            this.editIndex = index;
+            this.dialogTitle = "展馆编辑";
+            this.editSearch(val);
+        },
+         //修改时查询方法
+         editSearch: function(val){
+            axios.get('/xfxhapi/zgjbxx/'+val.uuid).then(function(res) {
+                this.createForm.name = res.data.result.zgmc;
+                this.currentUuid=val.uuid
+                this.editFormVisible = true;
+            }.bind(this), function (error) {
+                console.log(error)
+            }) 
+        },
         //表格查询事件
         searchClick: function(type) {
             //按钮事件的选择
@@ -94,7 +116,6 @@ var vue = new Vue({
                 pageNum: this.currentPage
             }
             axios.post('/xfxhapi/zgjbxx/page', params).then(function (res) {
-                
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
@@ -109,6 +130,7 @@ var vue = new Vue({
             this.editFormVisible=true
             this.createForm.photoName=''
             this.createForm.name=''
+            this.currentUuid=''
         },
         // 选择图片
         handlerSelectedPhoto (e) {
@@ -145,17 +167,13 @@ var vue = new Vue({
                     return;
 
             } else {
-             
                 let imageObj = new Image()
                 let _THIS=this
                 imageObj.onload = function () {
                     _THIS.createForm.imgWidth = imageObj.width
                     _THIS.createForm.imgHeight = imageObj.height
-               
-                    if (_THIS.createForm.imgWidth < 1024 || _THIS.createForm.imgHeight < 1024){ 
-
+                    if (_THIS.createForm.imgWidth < 1024 || _THIS.createForm.imgHeight < 1024){
                         // _THIS.$alert('图片大小必须在1M以内', '提示', {confirmButtonText: '确定'}); 
-
                         const stageData = JSON.stringify(_THIS.createEmptyStageData({
                             width: _THIS.createForm.imgWidth,
                             height: _THIS.createForm.imgHeight,
@@ -163,23 +181,25 @@ var vue = new Vue({
                         }))
                         var params = {
                             zgmc: _THIS.createForm.name.replace(/%/g,"\\%"),
-                            zgtpStr: _THIS.createForm.selectedImage,
-                            zgzwhbStr: stageData,
-                            cjrid : _THIS.shiroData.userid,
-                            cjrmc : _THIS.shiroData.realName,
-                            
                         }
-    
-                        axios.post('/xfxhapi/zgjbxx/doInsertByVO', params).then(function (res) {
-                            
+                        params.zgtpStr=_THIS.createForm.selectedImage
+                        if(_THIS.currentUuid){
+                            //修改
+                            params.url='/xfxhapi/zgjbxx/doUpdateByVO'
+                            params.uuid=_THIS.currentUuid
+                        }else{
+                            //新增
+                            params.url='/xfxhapi/zgjbxx/doInsertByVO'
+                            params.zgzwhbStr=stageData;
+                            params.cjrid = _THIS.shiroData.userid;
+                            params.cjrmc = _THIS.shiroData.realName;
+                        }
+                        axios.post(params.url, params).then(function (res) {
                             _THIS.editFormVisible = false;
                             _THIS.searchClick('add');
-    
-                           
                         }.bind(_THIS), function (error) {
                             console.log(error)
                         })
-
                     } else{
 
                     _THIS.$message({
@@ -187,25 +207,34 @@ var vue = new Vue({
                         type: "error"
                         });
                     return;
-
                     }
-                   
                 }
                 //图片先创建之后才可以获取长宽
                 imageObj.src = this.createForm.selectedImage
-
-                if(this.createForm.selectedImage==null){
+                if(this.currentUuid==''&&this.createForm.selectedImage==null){
                     _THIS.$message({
                         message: "请确认是否选择了展馆平面图",
                         type: "error"
                         });
                     return;
-                   }
-                
+                }
+                if(this.currentUuid!=''&&this.createForm.selectedImage==null){
+                    var params = {
+                        zgmc: this.createForm.name.replace(/%/g,"\\%"),
+                    }
+                    //修改
+                    params.url='/xfxhapi/zgjbxx/doUpdateByVO'
+                    params.uuid=this.currentUuid
+                    axios.post(params.url, params).then(function (res) {
+                        this.editFormVisible = false;
+                        this.searchClick('edit');
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
+                }
             }
         },
         handlerSelectPhotoBtnClick () {
-         // 
             this.$refs.localImageInput.click()
         },
         //清空查询条件
