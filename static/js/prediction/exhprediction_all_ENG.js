@@ -7,9 +7,14 @@ $(function () {
     axios.get('/xfxhapi/shiro').then(function (res) {
         shiroGlobal = res.data;
         if (res.data != null && res.data != "") {
-            //动态加载main
-            loadDiv("prediction/exhprediction_edit_ENG");
-
+            var url = getQueryString("url");
+            if(url == "/plan/plan_ENG"){
+                //动态加载main
+                loadDiv("plan/plan_list");
+            }else{
+                //动态加载main
+                loadDiv("prediction/exhprediction_edit_ENG");
+            }
             //用户权限
             for (var i in res.data.permissions) {
                 permissions.push(res.data.permissions[i]);
