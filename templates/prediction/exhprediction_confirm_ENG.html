@@ -440,7 +440,11 @@
     })
     $(function () {
         $("#action").click(function () {
-            window.open(baseUrl + "/templates/prediction/exhprediction_all.html?1=1&userid=0A4527DBE21D4C0685D27D1CF31E714D&type=BJ&flag=plan/plan_list_EN");
+            //在当前页面打开  by li.xue 2018/12/28
+            window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/plan/plan_ENG";
+
+            //打开新页面 by li.xue 2018/12/28
+            //window.open(baseUrl + "/templates/prediction/exhprediction_all.html?1=1&userid=0A4527DBE21D4C0685D27D1CF31E714D&type=BJ&flag=plan/plan_list_EN");
             //location.href=baseUrl+"/templates/prediction/exhprediction_all.html?1=1&userid=0A4527DBE21D4C0685D27D1CF31E714D&type=BJ&flag=plan/plan_list_EN"
         })
     })
