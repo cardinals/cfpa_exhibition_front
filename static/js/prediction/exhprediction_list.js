@@ -241,6 +241,10 @@ var vue = new Vue({
 
             }
 
+        },
+        exportClick:function(){
+            var param = [this.searchForm.gsmc,this.searchForm.sjzt,this.searchForm.shzt]
+            window.open("/xfxhapi/qyjbxx/doExportJbxx/" + param);
         }
     }
 })

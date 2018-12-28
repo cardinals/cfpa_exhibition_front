@@ -98,6 +98,9 @@
                                     :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
                                 </el-pagination>
                             </el-col>
+                            <div class="ml10 mr5">
+                                <el-button type="success" icon="el-icon-download" size="small" @click="exportClick" class="r">导出</el-button>
+                            </div>
                         </el-row>
                     </div>
                 </div>
