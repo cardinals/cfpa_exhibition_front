@@ -159,7 +159,11 @@ var vue = new Vue({
         exportClick:function(){
             var param = this.exportForm.zwh+","+this.exportForm.zwzt+","+this.exportForm.qymc+","+this.exportForm.zwlb+","+this.exportForm.cklx;
             window.open("/xfxhapi/zwjbxx/doExport/"+param);
-		}
+        },
+        //展位分析功能 add by yushch 20181228
+        analysisClick:function(){
+            loadDivParam("venue/position_analysis");
+        },
     }
 
 })
