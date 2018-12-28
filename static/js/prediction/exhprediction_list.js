@@ -13,6 +13,7 @@ var vue = new Vue({
                 sjzt: '',
                 shzt: ''
             },
+            exportForm: [],
             tableData: [],
             shiroData: [],//当前用户信息
             shztData: [],//审核状态下拉框
@@ -88,7 +89,7 @@ var vue = new Vue({
             }
             this.loading = true;//表格重新加载
             var params = {
-                gsmc: this.searchForm.gsmc.replace(/%/g,"\\%"),
+                gsmc: this.searchForm.gsmc.replace(/%/g, "\\%"),
                 // yjdz: this.searchForm.yjdz,
                 shzt: this.searchForm.shzt,
                 sjzt: this.searchForm.sjzt,
@@ -101,6 +102,7 @@ var vue = new Vue({
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
+                this.exportForm = [this.searchForm.gsmc, this.searchForm.sjzt, this.searchForm.shzt];
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -242,9 +244,8 @@ var vue = new Vue({
             }
 
         },
-        exportClick:function(){
-            var param = [this.searchForm.gsmc,this.searchForm.sjzt,this.searchForm.shzt]
-            window.open("/xfxhapi/qyjbxx/doExportJbxx/" + param);
+        exportClick: function () {
+            window.open("/xfxhapi/qyjbxx/doExportJbxx/" + this.exportForm);
         }
     }
 })
