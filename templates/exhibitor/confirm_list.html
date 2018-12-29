@@ -18,11 +18,11 @@
                 <el-row class="mt20">
                     <el-card class="card_style">
                         <div slot="header" class="clearfix">
-                            <strong class="card_title_font lh36">邮寄信息确认</strong>
-                            <el-button v-if="jbxxEditFlag" @click="editJbxxClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit">修改</el-button>
+                            <strong class="card_title_font lh28">邮寄信息确认</strong>
+                            <el-button v-if="jbxxEditFlag" @click="editJbxxClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit" size="small">修改</el-button>
                             <div v-else class="r">
-                                <el-button @click="saveJbxxCancle('jbxxForm')" type="info" icon="el-icon-check">取消</el-button>
-                                <el-button @click="saveJbxxClick('jbxxForm')" type="success" icon="el-icon-check">保存</el-button>
+                                <el-button @click="saveJbxxCancle('jbxxForm')" type="info" icon="el-icon-close" size="small">取消</el-button>
+                                <el-button @click="saveJbxxClick('jbxxForm')" type="success" icon="el-icon-check" size="small">保存</el-button>
                             </div>
                         </div>
                         <el-row>
@@ -63,11 +63,11 @@
                 <el-row class="mt10">
                     <el-card class="card_style">
                         <div slot="header" class="clearfix">
-                            <strong class="card_title_font lh36">开票信息确认</strong>
-                            <el-button v-if="kpxxEditFlag" @click="editKpxxClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit">修改</el-button>
+                            <strong class="card_title_font lh28">开票信息确认</strong>
+                            <el-button v-if="kpxxEditFlag" @click="editKpxxClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit" size="small">修改</el-button>
                             <div v-else class="r">
-                                <el-button @click="saveKpxxCancle('kpxxForm')" type="info" icon="el-icon-check">取消</el-button>
-                                <el-button @click="saveKpxxClick('kpxxForm')" type="success" icon="el-icon-check">保存</el-button>
+                                <el-button @click="saveKpxxCancle('kpxxForm')" type="info" icon="el-icon-close" size="small">取消</el-button>
+                                <el-button @click="saveKpxxClick('kpxxForm')" type="success" icon="el-icon-check" size="small">保存</el-button>
                             </div>
                         </div>
                         <el-row>
