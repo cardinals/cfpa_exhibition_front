@@ -183,7 +183,7 @@ var vue = new Vue({
                     console.log(error)
                 })
             }).catch(() => {
-                this.$message.info('已取消删除');
+                // this.$message.info('已取消删除');
             });
         }
     }
