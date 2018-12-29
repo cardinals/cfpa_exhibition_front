@@ -10,7 +10,7 @@ var vue = new Vue({
                 zgmc: "",
                 zgtp: "",
                 zghb: "",
-                zgtpStr:""
+                zgtpStr: ""
             },
             //表数据
             tableData: [],
@@ -18,8 +18,8 @@ var vue = new Vue({
             //显示加载中样
             loading: false,
             //图片的显示  
-            showPicVisible: false, 
-            previewImg: '',       
+            showPicVisible: false,
+            previewImg: '',
             labelPosition: 'right',
             //多选值
             multipleSelection: [],
@@ -30,7 +30,7 @@ var vue = new Vue({
             //总记录数
             total: 0,
             // //表高度变量
-			// tableheight: 291,
+            // tableheight: 291,
             //序号
             indexData: 0,
             //Dialog Title
@@ -40,7 +40,7 @@ var vue = new Vue({
             //修改界面是否显示
             editFormVisible: false,
             editLoading: false,
-            currentUuid: '',//当前修改展馆id
+            currentUuid: '', //当前修改展馆id
             //登陆用户
             shiroData: "",
             createModel: {
@@ -48,9 +48,17 @@ var vue = new Vue({
                 loading: true
             },
             createFormRules: {
-                name: [
-                    { required: true, message: '请输入展馆名称', trigger: 'blur' },
-                    { min: 1, max: 5, message: '长度在 1到 5 ', trigger: 'blur' }
+                name: [{
+                        required: true,
+                        message: '请输入展馆名称',
+                        trigger: 'blur'
+                    },
+                    {
+                        min: 1,
+                        max: 5,
+                        message: '长度在 1到 5 ',
+                        trigger: 'blur'
+                    }
                 ]
             },
             createForm: {
@@ -74,7 +82,7 @@ var vue = new Vue({
         }
     },
     created: function () {
-		/**面包屑 by li.xue 20180628*/
+        /**面包屑 by li.xue 20180628*/
         loadBreadcrumb("展馆管理", "-1");
         //table高度
         tableheight = tableheight10;
@@ -85,33 +93,33 @@ var vue = new Vue({
 
     methods: {
         //表格修改事件
-        editClick: function(val, index) {
+        editClick: function (val, index) {
             this.editIndex = index;
             this.dialogTitle = "展馆编辑";
             this.editSearch(val);
         },
-         //修改时查询方法
-         editSearch: function(val){
-            axios.get('/xfxhapi/zgjbxx/'+val.uuid).then(function(res) {
+        //修改时查询方法
+        editSearch: function (val) {
+            axios.get('/xfxhapi/zgjbxx/' + val.uuid).then(function (res) {
                 this.createForm.name = res.data.result.zgmc;
-                this.currentUuid=val.uuid
+                this.currentUuid = val.uuid
                 this.editFormVisible = true;
             }.bind(this), function (error) {
                 console.log(error)
-            }) 
+            })
         },
         //表格查询事件
-        searchClick: function(type) {
+        searchClick: function (type) {
             //按钮事件的选择
-            if(type == 'page'){
+            if (type == 'page') {
                 this.tableData = [];
-            }else{
+            } else {
                 this.currentPage = 1;
             }
             var _self = this;
-            _self.loading = true;//表格重新加载
+            _self.loading = true; //表格重新加载
             var params = {
-                zgmc: this.searchForm.zgmc.replace(/%/g,"\\%"),
+                zgmc: this.searchForm.zgmc.replace(/%/g, "\\%"),
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
@@ -127,14 +135,14 @@ var vue = new Vue({
         //新增事件
         addClick: function () {
             this.dialogTitle = "展馆新增";
-            this.editFormVisible=true
-            this.createForm.photoName=''
-            this.createForm.name=''
-            this.currentUuid=''
+            this.editFormVisible = true
+            this.createForm.photoName = ''
+            this.createForm.name = ''
+            this.currentUuid = ''
         },
         // 选择图片
-        handlerSelectedPhoto (e) {
-            
+        handlerSelectedPhoto(e) {
+
             const file = e.target.files[0]
             if (!file.type.includes('image/')) {
                 alert('请选择图片文件！')
@@ -154,77 +162,69 @@ var vue = new Vue({
                 alert('您的浏览器版本太低，请升级。')
             }
         },
-         // 创建
-         handlerCreateModalOK () {
-            
-            if (!this.createForm.name ) {
+        // 创建
+        handlerCreateModalOK() {
+
+            if (!this.createForm.name) {
                 // 判断选择图片
                 // alert('请确认信息是否填写完整')
                 this.$message({
                     message: "请确认信息是否填写完整",
                     type: "error"
-                    });
-                    return;
+                });
+                return;
 
             } else {
                 let imageObj = new Image()
-                let _THIS=this
+                let _THIS = this
                 imageObj.onload = function () {
                     _THIS.createForm.imgWidth = imageObj.width
                     _THIS.createForm.imgHeight = imageObj.height
-                    if (_THIS.createForm.imgWidth < 1024 || _THIS.createForm.imgHeight < 1024){
-                        // _THIS.$alert('图片大小必须在1M以内', '提示', {confirmButtonText: '确定'}); 
-                        const stageData = JSON.stringify(_THIS.createEmptyStageData({
-                            width: _THIS.createForm.imgWidth,
-                            height: _THIS.createForm.imgHeight,
-                            backgroundImage: _THIS.createForm.selectedImage
-                        }))
-                        var params = {
-                            zgmc: _THIS.createForm.name.replace(/%/g,"\\%"),
-                        }
-                        params.zgtpStr=_THIS.createForm.selectedImage
-                        if(_THIS.currentUuid){
-                            //修改
-                            params.url='/xfxhapi/zgjbxx/doUpdateByVO'
-                            params.uuid=_THIS.currentUuid
-                        }else{
-                            //新增
-                            params.url='/xfxhapi/zgjbxx/doInsertByVO'
-                            params.zgzwhbStr=stageData;
-                            params.cjrid = _THIS.shiroData.userid;
-                            params.cjrmc = _THIS.shiroData.realName;
-                        }
-                        axios.post(params.url, params).then(function (res) {
-                            _THIS.editFormVisible = false;
-                            _THIS.searchClick('add');
-                        }.bind(_THIS), function (error) {
-                            console.log(error)
-                        })
-                    } else{
 
-                    _THIS.$message({
-                        message: "图片大小必须在1M以内",
-                        type: "error"
-                        });
-                    return;
+                    // _THIS.$alert('图片大小必须在1M以内', '提示', {confirmButtonText: '确定'}); 
+                    const stageData = JSON.stringify(_THIS.createEmptyStageData({
+                        width: _THIS.createForm.imgWidth,
+                        height: _THIS.createForm.imgHeight,
+                        backgroundImage: _THIS.createForm.selectedImage
+                    }))
+                    var params = {
+                        zgmc: _THIS.createForm.name.replace(/%/g, "\\%"),
                     }
+                    params.zgtpStr = _THIS.createForm.selectedImage
+                    if (_THIS.currentUuid) {
+                        //修改
+                        params.url = '/xfxhapi/zgjbxx/doUpdateByVO'
+                        params.uuid = _THIS.currentUuid
+                    } else {
+                        //新增
+                        params.url = '/xfxhapi/zgjbxx/doInsertByVO'
+                        params.zgzwhbStr = stageData;
+                        params.cjrid = _THIS.shiroData.userid;
+                        params.cjrmc = _THIS.shiroData.realName;
+                    }
+                    axios.post(params.url, params).then(function (res) {
+                        _THIS.editFormVisible = false;
+                        _THIS.searchClick('add');
+                    }.bind(_THIS), function (error) {
+                        console.log(error)
+                    })
                 }
                 //图片先创建之后才可以获取长宽
                 imageObj.src = this.createForm.selectedImage
-                if(this.currentUuid==''&&this.createForm.selectedImage==null){
+                if (this.currentUuid == '' && this.createForm.selectedImage == null) {
                     _THIS.$message({
                         message: "请确认是否选择了展馆平面图",
                         type: "error"
-                        });
+                    });
                     return;
                 }
-                if(this.currentUuid!=''&&this.createForm.selectedImage==null){
+                if (this.currentUuid != '' && this.createForm.selectedImage == null) {
                     var params = {
-                        zgmc: this.createForm.name.replace(/%/g,"\\%"),
+                        zgmc: this.createForm.name.replace(/%/g, "\\%"),
                     }
                     //修改
-                    params.url='/xfxhapi/zgjbxx/doUpdateByVO'
-                    params.uuid=this.currentUuid
+                    params.url = '/xfxhapi/zgjbxx/doUpdateByVO'
+                    params.uuid = this.currentUuid
                     axios.post(params.url, params).then(function (res) {
                         this.editFormVisible = false;
                         this.searchClick('edit');
@@ -234,15 +234,15 @@ var vue = new Vue({
                 }
             }
         },
-        handlerSelectPhotoBtnClick () {
+        handlerSelectPhotoBtnClick() {
             this.$refs.localImageInput.click()
         },
         //清空查询条件
         clearClick: function () {
             this.searchForm.id = "",
-            this.searchForm.zgmc = "",
-           
-            this.searchClick('reset');
+                this.searchForm.zgmc = "",
+
+                this.searchClick('reset');
         },
         //表格勾选事件
         selectionChange: function (val) {
@@ -251,7 +251,7 @@ var vue = new Vue({
             }
             this.multipleSelection = val;
         },
-        
+
         //表格重新加载数据
         loadingData: function () {
             var _self = this;
@@ -260,34 +260,34 @@ var vue = new Vue({
                 console.info("加载数据成功");
                 _self.loading = false;
             }, 300);
-        },        
+        },
         //获取复选框选中值
-        getCheckValue(val){
+        getCheckValue(val) {
             this.editFormSelect = val;
         },
         //删除所选，批量删除
         removeSelection: function () {
-            var params=[]
+            var params = []
             for (var i in this.multipleSelection) {
-                param={}
+                param = {}
                 param.xgrid = this.shiroData.userid;
                 param.xgrmc = this.shiroData.realName;
-                param.uuid= this.multipleSelection[i].uuid
+                param.uuid = this.multipleSelection[i].uuid
                 params.push(param);
             }
-            if(params.length<=0){
+            if (params.length <= 0) {
                 this.$message({
                     type: 'info',
                     message: '请勾选信息！'
                 });
-                return 
+                return
             }
             this.$confirm('确定删除已选中展馆信息?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                axios.post('/xfxhapi/zgjbxx/doDeleteJbxx',params).then(function (res) {
+                axios.post('/xfxhapi/zgjbxx/doDeleteJbxx', params).then(function (res) {
                     this.$message({
                         message: "成功删除" + res.data.result + "条展馆信息",
                         showClose: true,
@@ -309,11 +309,11 @@ var vue = new Vue({
             this.$refs["createForm"].resetFields();
         },
         //编辑页按钮显示
-        editFlagChange: function(){
-            if(this.editFlag){
+        editFlagChange: function () {
+            if (this.editFlag) {
                 this.editFlag = false;
-                this.editFlagText = "取消"; 
-            }else{
+                this.editFlagText = "取消";
+            } else {
                 this.editFlag = true;
                 this.editFlagText = "编辑";
                 this.editForm.username = this.editFormUsername;
@@ -325,7 +325,7 @@ var vue = new Vue({
             this.showPicVisible = true;
         },
         //创建空画布
-        createEmptyStageData: function(config) {
+        createEmptyStageData: function (config) {
             let stageData = {
                 "attrs": {
                     "width": 800,
@@ -357,7 +357,7 @@ var vue = new Vue({
             let stageWidth = 800
             let stageHeight = 800
             let stageFill = '#fff'
-        
+
             if (config) {
                 stageWidth = config.width
                 stageHeight = config.height
