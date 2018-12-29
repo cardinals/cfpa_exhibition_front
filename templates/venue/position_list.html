@@ -50,7 +50,8 @@
 									<el-col :span="12">
 										<el-form-item align="left">
 											<el-button type="success" icon="el-icon-download" size="small" @click="exportClick">导出</el-button>
-										</el-form-item>	
+											<el-button type="warning" icon="el-icon-document" size="small" @click="analysisClick">分析</el-button>
+										</el-form-item>
 									</el-col>
 									<el-col :span="12" class="btnSearchPlus">
 										<el-form-item>
@@ -63,9 +64,9 @@
 						</el-form>
 					</el-row>
 					<div class="table_container">
-						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" class="tableStyle"
-						 :height="tableheight" row-style="height:40px">
-						 <!-- modify by yushch 20181218
+						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" class="tableStyle" :height="tableheight"
+						 row-style="height:40px">
+							<!-- modify by yushch 20181218
 							<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
 							<el-table-column prop="zwh" show-overflow-tooltip label="展位编号" min-width="15%" align="center"></el-table-column>
 							<el-table-column prop="zwmc" show-overflow-tooltip label="展位名称" min-width="15%" align="center"></el-table-column>
@@ -94,7 +95,7 @@
 								<template slot-scope="scope">
 									<a v-if="scope.row.usertype == 'ENG'" v-text="scope.row.qymc" @click="qyDetails(scope.row)"></a>
 									<a v-else v-text="scope.row.qymc" @click="qyDetails(scope.row)"></a>
-								</template> 
+								</template>
 							</el-table-column>
 							<el-table-column prop="zwmj" show-overflow-tooltip label="展位面积" min-width="10%" align="center"></el-table-column>
 							<el-table-column prop="zwlb" show-overflow-tooltip label="展位类型" min-width="10%" align="center"></el-table-column>
@@ -103,12 +104,17 @@
 							<el-table-column prop="lxr" show-overflow-tooltip label="联系人名称" min-width="10%" align="center"></el-table-column>
 							<el-table-column prop="lxrsj" show-overflow-tooltip label="联系人电话" min-width="10%" align="center"></el-table-column>
 							<el-table-column prop="yjdzxx" show-overflow-tooltip label="联系地址" min-width="10%" align="center"></el-table-column>
+							<el-table-column label="操作" width="80" align="center">
+								<template slot-scope="scope">
+									<el-button type="text" @click="cancleVenue(scope.row)">取消指定</el-button>
+								</template>
+							</el-table-column>
 						</el-table>
 						<!--列表底部工具条和分页符-->
 						<el-row type="flex" justify="end">
 							<el-col :span="18">
-								<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage"
-								 :page-sizes="[10, 20, 30]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
+								<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30]"
+								 :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
 								</el-pagination>
 							</el-col>
 						</el-row>
@@ -120,4 +126,5 @@
 	</div>
 </body>
 <script src="../../static/js/venue/position_list.js"></script>
+
 </html>

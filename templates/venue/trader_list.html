@@ -80,14 +80,14 @@
 						<el-dialog  :title="dialogTitle" :visible.sync="editFormVisible"  @close="closeDialog(createForm)" :close-on-click-modal="false">
 							<el-form :model="createForm" label-width="150px"  :rules="createFormRules" ref="createForm">
 								<el-row>
-										<el-col :span="1">&nbsp;</el-col>
-										<el-col :span="22">
-											<el-form-item label="展馆名称" prop="name" >
-												<el-input maxlength="25" style="width:400px;" v-model="createForm.name" placeholder="请填写展馆名称..." size="small" auto-complete="off" clearable></el-input>
-											</el-form-item>
-										</el-col>
-										<el-col :span="1">&nbsp;</el-col>
+									<el-col :span="1">&nbsp;</el-col>
+									<el-col :span="12">
+										<el-form-item label="展馆名称" prop="name" >
+											<el-input maxlength="25" style="width:400px;" v-model="createForm.name" placeholder="请填写展馆名称..." size="small" auto-complete="off" clearable></el-input>
+										</el-form-item>
+									</el-col>
 								</el-row>
+								
 								<el-row>
 									<el-col :span="1">&nbsp;</el-col>
 									<el-col :span="22">
@@ -107,7 +107,6 @@
 												/>
 										</el-form-item>
 									</el-col>
-									<el-col :span="1">&nbsp;</el-col>
 								</el-row>
 								<!-- <FormItem label="展馆图片">
 									<br/>
