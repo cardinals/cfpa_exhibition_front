@@ -166,17 +166,25 @@ var vue = new Vue({
         },
         //取消指定
         cancleVenue: function (val) {
-            var params = {
-                uuid: val.uuid
-            }
-            axios.post('/xfxhapi/zwjbxx/doCancelByVO', params).then(function (res) {
-                if (res.data.result.qyid == null && res.data.result.zwzt == 'normal') {
-                    this.$message.success('展位' + res.data.result.zwh + '已成功取消指定');
-                    this.searchClick('page');
+            this.$confirm('展位 ' + val.zwh + ' 确定取消指定?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                var params = {
+                    uuid: val.uuid
                 }
-            }.bind(this), function (error) {
-                console.log(error)
-            })
+                axios.post('/xfxhapi/zwjbxx/doCancelByVO', params).then(function (res) {
+                    if (res.data.result.qyid == null && res.data.result.zwzt == 'normal') {
+                        this.$message.success('展位 ' + res.data.result.zwh + ' 已成功取消指定');
+                        this.searchClick('page');
+                    }
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }).catch(() => {
+                // this.$message.info('已取消删除');
+            });
         }
     }
 
