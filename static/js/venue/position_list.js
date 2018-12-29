@@ -16,7 +16,7 @@ var vue = new Vue({
                 zwzt: ""
             },
             //导出条件
-            exportForm:{
+            exportForm: {
                 zwh: "",
                 qymc: "",
                 zwlb: "",
@@ -38,7 +38,7 @@ var vue = new Vue({
             //总记录数
             total: 0,
             // //表高度变量
-			// tableheight: 291,
+            // tableheight: 291,
             //序号
             indexData: 0,
             //登陆用户
@@ -59,7 +59,7 @@ var vue = new Vue({
             //出口类型下拉框
             cklxData: [],
             //展位类型下拉框
-            zwlbData:[],
+            zwlbData: [],
         }
     },
     created: function () {
@@ -80,7 +80,7 @@ var vue = new Vue({
 
     methods: {
         //展位类别下拉框
-        getZwlb: function(){
+        getZwlb: function () {
             axios.get('/xfxhapi/codelist/getCodetype/ZWLX').then(function (res) {
                 this.zwlbData = res.data.result;
             }.bind(this), function (error) {
@@ -88,7 +88,7 @@ var vue = new Vue({
             })
         },
         //出口类型下拉框
-        getCklx: function(){
+        getCklx: function () {
             axios.get('/xfxhapi/codelist/getCodetype/CKLX').then(function (res) {
                 this.cklxData = res.data.result;
             }.bind(this), function (error) {
@@ -122,7 +122,7 @@ var vue = new Vue({
                 pageNum: this.currentPage
             }
             axios.post('/xfxhapi/zwjbxx/doSearchListQyByVO', params).then(function (res) {
-                
+
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
@@ -156,14 +156,28 @@ var vue = new Vue({
             }, 300);
         },
         //展位管理导出功能 add by yushch 20181219
-        exportClick:function(){
-            var param = this.exportForm.zwh+","+this.exportForm.zwzt+","+this.exportForm.qymc+","+this.exportForm.zwlb+","+this.exportForm.cklx;
-            window.open("/xfxhapi/zwjbxx/doExport/"+param);
+        exportClick: function () {
+            var param = this.exportForm.zwh + "," + this.exportForm.zwzt + "," + this.exportForm.qymc + "," + this.exportForm.zwlb + "," + this.exportForm.cklx;
+            window.open("/xfxhapi/zwjbxx/doExport/" + param);
         },
         //展位分析功能 add by yushch 20181228
-        analysisClick:function(){
+        analysisClick: function () {
             loadDivParam("venue/position_analysis");
         },
+        //取消指定
+        cancleVenue: function (val) {
+            var params = {
+                uuid: val.uuid
+            }
+            axios.post('/xfxhapi/zwjbxx/doCancelByVO', params).then(function (res) {
+                if (res.data.result.qyid == null && res.data.result.zwzt == 'normal') {
+                    this.$message.success('展位' + res.data.result.zwh + '已成功取消指定');
+                    this.searchClick('page');
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        }
     }
 
 })
