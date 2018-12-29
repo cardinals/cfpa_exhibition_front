@@ -296,9 +296,11 @@ var vue = new Vue({
                     this.lastEl.disabled=false;
                 }
                 var el = event.currentTarget;
-                this.lastEl=el
-                el.style.background="#666666";
-                el.disabled=true;
+                if(el){
+                    this.lastEl=el
+                    el.style.background="#666666";
+                    el.disabled=true;
+                }
             }
             var params = {
                 uuid: uuid
@@ -379,14 +381,14 @@ var vue = new Vue({
             //指定展位之前屏蔽此变量
             //zgvo.zgzwhbtpStr=data.picData
             var params = {
-                    zwjbxxVOs: this.plot2back(data.businessData),
-                    zgjbxxVO: zgvo
+                zwjbxxVOs: this.plot2back(data.businessData),
+                zgjbxxVO: zgvo
             }
             axios.post('/xfxhapi/zwjbxx/doInsertByVO',params).then(function (res) {
                 this.$message({
-                        message: '保存展位成功',
-                        type: 'success',
-                        center: true
+                    message: '保存展位成功',
+                    type: 'success',
+                    center: true
                 });
                 if (editorHandshake) {
                         //销毁当前画布
