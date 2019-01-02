@@ -15,6 +15,8 @@ new Vue({
             cpssfl_data: [],
             //要删除的图片路径list
             delPicList:[],
+            //未保存的图片路径list
+            unsavedPicList:[],
              //树结构配置
             defaultProps: {
                 children: 'children',
@@ -127,13 +129,14 @@ new Vue({
                 fileList.splice(-1, 1);
             }else{
                 //this.delPicList.push(this.delPicSrc);
+                this.delPicList.push(this.editForm.src);
             }
         },
          //产品图片上传成功回调方法
         cpjsPicSuccess: function (res, file) {
             this.editForm.src = res.src;
             this.editForm.imageUrl = URL.createObjectURL(file.raw);
-            //this.unsavedPicList.push(res.src);
+            this.unsavedPicList.push(res.src);
         },
         //点击编辑按钮
         editClick: function(val){
@@ -164,6 +167,14 @@ new Vue({
                         type: 'success',
                         message: '删除成功!'
                     });
+                    //删除图片
+                    var list = [];
+                    list.push(val.src);
+                    axios.post('/xfxhapi/qycpjs/delPic',list).then(function (res) {
+                        this.delPicList = [];
+                    }.bind(this), function (error) {
+                        console.log(error);
+                    })
                     //刷新产品列表
                     this.getCpjsData(this.qyid);
                 }.bind(this), function (error) {
@@ -190,8 +201,30 @@ new Vue({
             }
             
         },
+        //删除delPicList中的图片
+        deletePic: function(){
+            if(this.delPicList.length>0){
+                debugger;
+                axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
+                    this.delPicList = [];
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }
+        },
         //关闭编辑对话框
         closeDialog: function (val) {
+            //删除上传但未保存的图片
+            if(this.unsavedPicList.length>0){
+                axios.post('/xfxhapi/qycpjs/delPic',this.unsavedPicList).then(function (res) {
+                    this.unsavedPicList = [];
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }
+            //清空delPicList
+            this.delPicList = [];
+            //清空editForm
             this.editForm= {
                 uuid:'',
                 cplx:[],
@@ -199,7 +232,8 @@ new Vue({
                 reserve1:'',
                 src:'',
                 imageUrl:''
-            },
+            };
+            //编辑页隐藏
             this.editFormVisible = false;
         },
         //提交
@@ -230,12 +264,17 @@ new Vue({
                                         message: '成功保存产品信息',
                                         type: 'success'
                                     });
+                                    this.deletePic();
                                 }else{
                                     this.$message({
                                         message: '保存失败',
                                         type: 'warning'
                                     });
                                 }
+                                //清空unsavedPicList
+                                this.unsavedPicList = [];
+                                //清空delPicList
+                                this.delPicList = [];
                                 //关闭对话框
                                 this.closeDialog(this.editForm);
                                 //刷新产品列表
@@ -259,12 +298,17 @@ new Vue({
                                         message: '成功保存产品信息',
                                         type: 'success'
                                     });
+                                    this.deletePic();
                                 }else{
                                     this.$message({
                                         message: '保存失败',
                                         type: 'warning'
                                     });
                                 }
+                                //清空unsavedPicList
+                                this.unsavedPicList = [];
+                                //清空delPicList
+                                this.delPicList = [];
                                 //关闭对话框
                                 this.closeDialog(this.editForm);
                                 //刷新产品列表
