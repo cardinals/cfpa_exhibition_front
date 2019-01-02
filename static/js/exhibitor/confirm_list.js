@@ -217,6 +217,7 @@ var vm = new Vue({
                             this.$message.success('邮寄信息修改成功');
                         }
                         this.jbxxEditFlag = true;
+                        this.findInfoByUserid(this.shiroData.userid, 'init');
                         this.loading = false;
                     }.bind(this), function (error) {
                         console.log(error);
@@ -261,6 +262,7 @@ var vm = new Vue({
                             this.$message.success('开票信息修改成功');
                         }
                         this.kpxxEditFlag = true;
+                        this.findKpxxByQyid(this.qyid);
                         this.loading = false;
                     }.bind(this), function (error) {
                         console.log(error);
