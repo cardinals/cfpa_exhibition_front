@@ -279,30 +279,32 @@
                                     </el-row>
                                     <!-- </div> -->
                                 </el-tab-pane>
-                                <el-tab-pane label="企业产品介绍" name="forth" id="cpjs">
-                                    <el-form v-if="cpjsData.length>0" :inline="true" style="width: 100%;" class="demo-form-inline">
-                                        <el-form-item v-for="(cpjs,index) in cpjsData" style="width: 49%;">
-                                            <el-card class="mb10 card_style" id="cpjsImg">
-                                                <el-row class="h100">
-                                                    <el-col :span="5" class="h100 tc">
-                                                        <img v-if="cpjs.src!==''" :src="cpjs.imageUrl" @click="imgPreview(cpjs.imageUrl)" class="poi">
-                                                        <img v-else src="../../static/images/noPic.png">
-                                                    </el-col>
-                                                    <el-col :span="19" style="line-height: 24px;" class="pl15">
-                                                        <strong>产品类型：</strong>
-                                                        <v-text v-if="jbxxData.usertype === 'CHN'" v-text="cpjs.cplxmc||'无'"></v-text>
-                                                        <v-text v-if="jbxxData.usertype === 'ENG'" v-text="cpjs.cplxmc_ENG||'无'"></v-text>
-                                                        <br>
-                                                        <strong>产品简介：</strong>
-                                                        <v-text v-text="cpjs.cpjj||'无'"></v-text>
-                                                        <br>
-                                                        <strong>产品英文简介：</strong>
-                                                        <v-text v-text="cpjs.reserve1||'无'"></v-text>
-                                                    </el-col>
-                                                </el-row>
-                                            </el-card>
-                                        </el-form-item>
-                                    </el-form>
+                                <el-tab-pane label="企业产品介绍" name="forth">
+                                    <!-- <el-form v-if="cpjsData.length>0" :inline="true" style="width: 100%;" class="demo-form-inline">
+                                        <el-form-item v-for="(cpjs,index) in cpjsData" style="width: 49%;"> -->
+                                    <el-row v-if="cpjsData.length>0">
+                                        <el-card v-for="(cpjs,index) in cpjsData" class="mb10" id="cpjsImg">
+                                            <el-row class="h100">
+                                                <el-col :span="3" class="h100 tc">
+                                                    <img v-if="cpjs.src!==''" :src="cpjs.imageUrl" @click="imgPreview(cpjs.imageUrl)" class="poi">
+                                                    <img v-else src="../../static/images/noPic.png">
+                                                </el-col>
+                                                <el-col :span="21" class="pl15 lh24">
+                                                    <strong>产品类型：</strong>
+                                                    <v-text v-if="jbxxData.usertype === 'CHN'" v-text="cpjs.cplxmc||'无'"></v-text>
+                                                    <v-text v-if="jbxxData.usertype === 'ENG'" v-text="cpjs.cplxmc_ENG||'无'"></v-text>
+                                                    <br>
+                                                    <strong>产品简介：</strong>
+                                                    <v-text v-text="cpjs.cpjj||'无'"></v-text>
+                                                    <br>
+                                                    <strong>产品英文简介：</strong>
+                                                    <v-text v-text="cpjs.reserve1||'无'"></v-text>
+                                                </el-col>
+                                            </el-row>
+                                        </el-card>
+                                    </el-row>
+                                    <!-- </el-form-item>
+                                    </el-form> -->
                                     <v-text v-else>暂无产品信息</v-text>
                                 </el-tab-pane>
                                 <el-tab-pane label="企业参展展位需求意向" name="fifth">
@@ -315,42 +317,43 @@
                                         <v-text v-text="zwyxData.sngdzw==null?'无':zwyxData.sngdzw+' m²'"></v-text>
                                     </el-row>
                                     <el-row class="mb10">
-                                        <strong>室外光地展位(仅限消防<span style="color:red;">举高</span>车类)：</strong>
+                                        <strong>室外光地展位(仅限消防
+                                            <span style="color:red;">举高</span>车类)：</strong>
                                         <v-text v-text="zwyxData.swgdzw==null?'无':zwyxData.swgdzw+' m²'"></v-text>
                                     </el-row>
                                 </el-tab-pane>
                                 <el-tab-pane label="邮寄地址" name="sixth">
-                                        <el-card  class="card_style" style="width: 30%;">
-                                            <div  class="bottom clearfix">
-                                                <el-row class="mb10">
-                                                    <el-col :span="24">
-                                                        <strong>
-                                                            <v-text v-if="jbxxData.usertype === 'CHN'" v-text="jbxxData.zwgsmc||'无'"></v-text>
-                                                            <v-text v-else-if="jbxxData.usertype === 'ENG'" v-text="jbxxData.ywgsmc||'无'"></v-text>
-                                                        </strong>
-                                                    </el-col>
-                                                </el-row>
-                                                <el-row class="mb10" >
-                                                    <el-col :span="12">
-                                                        <strong>
-                                                            <v-text v-text="jbxxData.lxr||'无'"></v-text>
-                                                        </strong>
-                                                    </el-col>
-                                                    <el-col :span="12">
-                                                        <strong>
-                                                            <v-text v-text="jbxxData.lxrsj||'无'"></v-text>
-                                                        </strong>    
-                                                    </el-col>
-                                                </el-row>
-                                                <el-row class="mb10">
-                                                    <el-col :span="24">
-                                                        <strong>
-                                                            <v-text v-text="jbxxData.yjdz||'无'"></v-text>
-                                                        </strong>
-                                                    </el-col>
-                                                </el-row>
-                                            </div>
-                                        </el-card>     
+                                    <el-card class="card_style" style="width: 30%;">
+                                        <div class="bottom clearfix">
+                                            <el-row class="mb10">
+                                                <el-col :span="24">
+                                                    <strong>
+                                                        <v-text v-if="jbxxData.usertype === 'CHN'" v-text="jbxxData.zwgsmc||'无'"></v-text>
+                                                        <v-text v-else-if="jbxxData.usertype === 'ENG'" v-text="jbxxData.ywgsmc||'无'"></v-text>
+                                                    </strong>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="mb10">
+                                                <el-col :span="12">
+                                                    <strong>
+                                                        <v-text v-text="jbxxData.lxr||'无'"></v-text>
+                                                    </strong>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <strong>
+                                                        <v-text v-text="jbxxData.lxrsj||'无'"></v-text>
+                                                    </strong>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="mb10">
+                                                <el-col :span="24">
+                                                    <strong>
+                                                        <v-text v-text="jbxxData.yjdz||'无'"></v-text>
+                                                    </strong>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                    </el-card>
                                 </el-tab-pane>
                             </el-tabs>
                         </template>

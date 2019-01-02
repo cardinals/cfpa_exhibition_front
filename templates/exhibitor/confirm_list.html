@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>展会报名</title>
+    <link rel="icon" href="../../static/images/login/logo.png">
+    <link rel="stylesheet" type="text/css" href="../../static/css/exhibitor/confirm_list.css">
+</head>
+
+
+<body class="fw f14 main-index-body">
+    <div id="app">
+        <div class="main-box">
+            <div class="main-container" v-loading="loading" element-loading-text="加载中">
+                <!-- 面包屑 -->
+                <div id="breadcrumb_box"></div>
+                <!-- 邮寄信息确认 -->
+                <el-row class="mt20">
+                    <el-card class="card_style">
+                        <div slot="header" class="clearfix">
+                            <strong class="card_title_font lh28">邮寄信息确认</strong>
+                            <el-button v-if="jbxxEditFlag" @click="editJbxxClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit" size="small">修改</el-button>
+                            <div v-else class="r">
+                                <el-button @click="saveJbxxCancle('jbxxForm')" type="info" icon="el-icon-close" size="small">取消</el-button>
+                                <el-button @click="saveJbxxClick('jbxxForm')" type="success" icon="el-icon-check" size="small">保存</el-button>
+                            </div>
+                        </div>
+                        <el-row>
+                            <el-col :span="1">&nbsp;</el-col>
+                            <el-col :span="21">
+                                <el-form ref="jbxxForm" :model="jbxxForm" label-position="right" label-width="150px" :rules="jbxxRules">
+                                    <el-row>
+                                        <el-form-item prop="zwgsmc" label="中文公司名称：">
+                                            <span v-text="jbxxForm.zwgsmc"></span>
+                                            <!-- <el-input size="small" v-model="jbxxForm.zwgsmc" disabled></el-input> -->
+                                        </el-form-item>
+                                    </el-row>
+                                    <el-row>
+                                        <el-form-item prop="lxr" label="联系人：">
+                                            <span v-if="jbxxEditFlag" v-text="jbxxForm.lxr"></span>
+                                            <el-input v-else size="small" v-model="jbxxForm.lxr" placeholder="联系人"></el-input>
+                                        </el-form-item>
+                                    </el-row>
+                                    <el-row>
+                                        <el-form-item prop="lxrsj" label="联系人手机：">
+                                            <span v-if="jbxxEditFlag" v-text="jbxxForm.lxrsj"></span>
+                                            <el-input v-else size="small" v-model="jbxxForm.lxrsj" placeholder="手机"></el-input>
+                                        </el-form-item>
+                                    </el-row>
+                                    <el-row v-if="jbxxEditFlag">
+                                        <el-form-item prop="xzqh" label="邮寄地址：">
+                                            <span v-text="jbxxForm.yjdzshengmc+'/'+jbxxForm.yjdzshimc+' '+jbxxForm.yjdzxx"></span>
+                                        </el-form-item>
+                                    </el-row>
+                                    <el-row v-else>
+                                        <el-col :span="8">
+                                            <el-form-item prop="xzqh" label="邮寄地址：">
+                                                <el-cascader v-model="jbxxForm.xzqh" :options="xzqhDataTree" :props="defaultProps" size="small" placeholder="省/市" class="searchSelect"
+                                                    clearable show-all-levels></el-cascader>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="16">
+                                            <el-form-item prop="yjdzxx" id="yjdzxx">
+                                                <el-input size="small" v-model="jbxxForm.yjdzxx" placeholder="详细地址"></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                </el-form>
+                            </el-col>
+                        </el-row>
+                    </el-card>
+                </el-row>
+                <el-row class="mt10">
+                    <el-card class="card_style">
+                        <div slot="header" class="clearfix">
+                            <strong class="card_title_font lh28">开票信息确认</strong>
+                            <el-button v-if="kpxxEditFlag" @click="editKpxxClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit" size="small">修改</el-button>
+                            <div v-else class="r">
+                                <el-button @click="saveKpxxCancle('kpxxForm')" type="info" icon="el-icon-close" size="small">取消</el-button>
+                                <el-button @click="saveKpxxClick('kpxxForm')" type="success" icon="el-icon-check" size="small">保存</el-button>
+                            </div>
+                        </div>
+                        <el-row>
+                            <el-col :span="1">&nbsp;</el-col>
+                            <el-col :span="21">
+                                <el-form ref="kpxxForm" :model="kpxxForm" label-position="right" label-width="150px" :rules="kpxxRules">
+                                    <el-row>
+                                        <el-form-item prop="kplx" label="开票类型：">
+                                            <span v-if="kpxxEditFlag" v-text="kpxxForm.kplxmc"></span>
+                                            <el-radio-group v-else v-model="kpxxForm.kplx" size="small" auto-complete="off" @change="fplxChange">
+                                                <el-radio class="radio" :label="'1'">增值税专用发票</el-radio>
+                                                <el-radio class="radio" :label="'2'">增值税普通发票</el-radio>
+                                            </el-radio-group>
+                                        </el-form-item>
+                                    </el-row>
+                                    <el-row>
+                                        <el-form-item prop="kpgsmc" label="开票公司名称：">
+                                            <span v-if="kpxxEditFlag" v-text="kpxxForm.kpgsmc"></span>
+                                            <el-input v-else size="small" v-model="kpxxForm.kpgsmc" placeholder="开票公司名称"></el-input>
+                                        </el-form-item>
+                                    </el-row>
+                                    <el-row>
+                                        <el-form-item prop="tyshxydm" label="统一社会信用代码：" :onkeyup="addBlankXydm()">
+                                            <span v-if="kpxxEditFlag" v-text="kpxxForm.tyshxydm"></span>
+                                            <el-input v-else size="small" v-model="kpxxForm.tyshxydm" placeholder="统一社会信用代码"></el-input>
+                                        </el-form-item>
+                                    </el-row>
+                                    <el-row>
+                                        <el-form-item prop="gsdz" label="公司地址：" :rules="kpxxForm.kplx == '1'?kpxxRules.gsdz:[{ required: false, message: '请输入公司地址', trigger: 'blur' },{ min: 1, max: 150, message: '最多可输入150个字', trigger: 'blur' }]">
+                                            <span v-if="kpxxEditFlag" v-text="kpxxForm.gsdz"></span>
+                                            <el-input v-else size="small" v-model="kpxxForm.gsdz" placeholder="公司地址"></el-input>
+                                        </el-form-item>
+                                    </el-row>
+                                    <!-- 专用发票 -->
+                                    <el-row v-if="kpxxForm.kplx == '1'">
+                                        <el-row>
+                                            <el-form-item prop="dhhm" label="电话号码：">
+                                                <span v-if="kpxxEditFlag" v-text="kpxxForm.dhhm"></span>
+                                                <el-input v-else size="small" v-model="kpxxForm.dhhm" maxlength="50" placeholder="电话号码"></el-input>
+                                            </el-form-item>
+                                        </el-row>
+                                        <el-row>
+                                            <el-form-item prop="khyh" label="开户银行：">
+                                                <span v-if="kpxxEditFlag" v-text="kpxxForm.khyh"></span>
+                                                <el-input v-else size="small" v-model="kpxxForm.khyh" placeholder="开户银行"></el-input>
+                                            </el-form-item>
+                                        </el-row>
+                                        <el-row>
+                                            <el-form-item prop="yhzh" label="银行账号：" :onkeyup="addBlankYhzh()">
+                                                <span v-if="kpxxEditFlag" v-text="kpxxForm.yhzh"></span>
+                                                <el-input v-else size="small" v-model="kpxxForm.yhzh" placeholder="银行账号"></el-input>
+                                            </el-form-item>
+                                        </el-row>
+                                    </el-row>
+                                </el-form>
+                            </el-col>
+                        </el-row>
+                    </el-card>
+                </el-row>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="../../static/js/common/config.js"></script>
+<script src="../../static/js/exhibitor/confirm_list.js"></script>
+
+</html>
