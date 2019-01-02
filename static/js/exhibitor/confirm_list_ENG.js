@@ -14,76 +14,60 @@ var vm = new Vue({
             xzqhDataTree: [],
             //邮寄信息表单
             jbxxForm: {
-                zwgsmc: '',
-                yjdzsheng: '',
-                yjdzshi: '',
+                ywgsmc: '',
                 yjdzxx: '',
                 lxr: '',
-                lxrsj: '',
-                qrzt: ''
+                lxrsj: ''
             },
             //开票信息表单
             kpxxForm: {
-                kplx: '',
                 kpgsmc: '',
-                tyshxydm: '',
                 gsdz: '',
                 dhhm: '',
-                khyh: '',
                 yhzh: ''
             },
             jbxxRules: {
-                zwgsmc: [
-                    { required: true, message: '请输入中文公司名称', trigger: 'blur' },
-                    { min: 1, max: 100, message: '最多可输入100个字', trigger: 'blur' }
-                ],
-                xzqh: [
-                    { required: true, message: '请选择邮寄地址省市', trigger: 'change' }
+                ywgsmc: [
+                    { required: true, message: 'Company name is required', trigger: 'blur' },
+                    { pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only', trigger: 'blur' },
+                    { min: 1, max: 200, message: 'less than 200 characters', trigger: 'blur' }
                 ],
                 yjdzxx: [
-                    { required: true, message: '请输入详细地址', trigger: 'blur' },
-                    { min: 1, max: 100, message: '最多可输入100个字', trigger: 'blur' }
+                    { required: true, message: 'Company address is required', trigger: 'blur' },
+                    { pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only', trigger: 'blur' },
+                    { min: 1, max: 200, message: 'less than 200 characters', trigger: 'blur' }
                 ],
                 lxr: [
-                    { required: true, message: '请输入联系人', trigger: 'blur' },
-                    { min: 1, max: 25, message: '最多可输入25个字', trigger: 'blur' }
+                    { required: true, message: 'Contact Person is required', trigger: 'blur' },
+                    { pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only', trigger: 'blur' },
+                    { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                 ],
                 lxrsj: [
-                    { required: true, message: '请输入联系人手机号码', trigger: 'blur' },
-                    { pattern: /^[0-9]*$/, message: '只能输入数字', trigger: 'blur' },
-                    { min: 1, max: 30, message: '最多输入30个数字', trigger: 'blur' }
-                ]
+                    { required: true, message: "Contact Person's Phone is required", trigger: 'blur' },
+                    { pattern: /^[\d\-]+$/, message: 'Number and hyphen only', trigger: 'blur' },
+                    { min: 1, max: 30, message: 'less than 30 characters', trigger: 'blur' }
+                ],
             },
             kpxxRules: {
-                kplx: [
-                    { required: true, message: '请选择开票类型', trigger: 'change' }
-                ],
                 kpgsmc: [
-                    { required: true, message: '请输入开票公司名称', trigger: 'blur' },
-                    { min: 1, max: 100, message: '最多可输入100个字', trigger: 'blur' }
-                ],
-                tyshxydm: [
-                    { required: true, message: '请输入统一社会信用代码', trigger: 'blur' },
-                    { pattern: /^[A-Za-z0-9 ]+$/, message: '只能输入数字和字母', trigger: 'blur' },
-                    { min: 22, max: 22, message: '请输入18位统一社会信用代码（不包含空格）', trigger: 'blur' }
+                    { required: true, message: 'Company Name on the Invoice is required', trigger: 'blur' },
+                    { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only', trigger: 'blur' },
+                    { min: 1, max: 200, message: 'less than 200 characters', trigger: 'blur' }
                 ],
                 gsdz: [
-                    { required: true, message: '请输入公司地址', trigger: 'blur' },
-                    { min: 1, max: 150, message: '最多可输入150个字', trigger: 'blur' }
+                    { required: true, message: 'Customer Contact is required', trigger: 'blur' },
+                    { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only', trigger: 'blur' },
+                    { min: 1, max: 300, message: 'less than 300 characters', trigger: 'blur' }
                 ],
                 dhhm: [
-                    { required: true, message: '请输入电话号码', trigger: 'blur' },
-                    { pattern: /^[0-9]*$/, message: '只能输入数字', trigger: 'blur' },
-                    { min: 1, max: 50, message: '最多输入50个数字', trigger: 'blur' }
-                ],
-                khyh: [
-                    { required: true, message: '请输入开户银行', trigger: 'blur' },
-                    { min: 1, max: 50, message: '最多可输入50个字', trigger: 'blur' }
+                    { required: true, message: 'Phone Number is required', trigger: 'blur' },
+                    { pattern: /^[\d\-]+$/, message: 'Number and hyphen only', trigger: 'blur' },
+                    { min: 1, max: 30, message: 'less than 30 characters', trigger: 'blur' }
                 ],
                 yhzh: [
-                    { required: true, message: '请输入银行账号', trigger: 'blur' },
-                    { pattern: /^[0-9 ]*$/, message: '只能输入数字', trigger: 'blur' },
-                    { min: 0, max: 37, message: '最多可输入30位银行账号', trigger: 'blur' }
+                    { required: true, message: 'Fax is required', trigger: 'blur' },
+                    { pattern: /^[0-9 ]*$/, message: 'Number and blank only', trigger: 'blur' },
+                    { min: 1, max: 16, message: 'less than 16 characters', trigger: 'blur' }
                 ]
             },
             //树结构配置
@@ -95,7 +79,7 @@ var vm = new Vue({
         }
     },
     created: function () {
-        loadBreadcrumb("信息确认", "-1");
+        loadBreadcrumb("Confirm Information", "-1");
         this.shiroData = shiroGlobal;
         this.findInfoByUserid(this.shiroData.userid, 'init');
     },
@@ -179,23 +163,6 @@ var vm = new Vue({
                 console.log(error);
             })
         },
-        addBlankYhzh: function () {
-            if (this.kpxxForm.yhzh != undefined && this.kpxxForm.yhzh != '' && this.kpxxForm.yhzh != null) {
-                this.kpxxForm.yhzh = this.kpxxForm.yhzh.replace(/\s/g, '').replace(/(\w{4})(?=\w)/g, "$1 ");
-            }
-        },
-        addBlankXydm: function () {
-            if (this.kpxxForm.tyshxydm != undefined && this.kpxxForm.tyshxydm != '' && this.kpxxForm.tyshxydm != null) {
-                this.kpxxForm.tyshxydm = this.kpxxForm.tyshxydm.replace(/\s/g, '').replace(/(\w{4})(?=\w)/g, "$1 ");
-            }
-        },
-        fplxChange: function (val) {
-            if (val == "2") {//普通发票
-                this.kpxxForm.dhhm = "";
-                this.kpxxForm.khyh = "";
-                this.kpxxForm.yhzh = "";
-            }
-        },
         editJbxxClick: function () {
             this.jbxxEditFlag = false;
         },
@@ -205,8 +172,6 @@ var vm = new Vue({
                     this.loading = true;
                     var params = {
                         qyid: this.jbxxForm.qyid,
-                        yjdzsheng: this.jbxxForm.xzqh[0],
-                        yjdzshi: this.jbxxForm.xzqh[1],
                         yjdzxx: this.jbxxForm.yjdzxx,
                         lxr: this.jbxxForm.lxr,
                         lxrsj: this.jbxxForm.lxrsj,
@@ -215,7 +180,7 @@ var vm = new Vue({
                     }
                     axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
                         if (res.data.result > 0) {
-                            this.$message.success('邮寄信息修改成功');
+                            this.$message.success('Post Information has been saved !');
                         }
                         this.jbxxEditFlag = true;
                         this.findInfoByUserid(this.shiroData.userid, 'init');
@@ -240,27 +205,18 @@ var vm = new Vue({
         saveKpxxClick: function (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    var yhzh_str = null;
-                    if (this.kpxxForm.yhzh != null && this.kpxxForm.yhzh != '' && this.kpxxForm.yhzh != undefined) {
-                        yhzh_str = this.kpxxForm.yhzh.replace(/ /g, "");
-                    } else {
-                        yhzh_str = '';
-                    }
                     var params = {
                         uuid: this.kpxxForm.uuid,
-                        kplx: this.kpxxForm.kplx,
                         kpgsmc: this.kpxxForm.kpgsmc,
-                        tyshxydm: this.kpxxForm.tyshxydm.replace(/ /g, ""),
                         gsdz: this.kpxxForm.gsdz,
                         dhhm: this.kpxxForm.dhhm,
-                        khyh: this.kpxxForm.khyh,
-                        yhzh: yhzh_str,
+                        yhzh: this.kpxxForm.yhzh,
                         xgrid: this.shiroData.userid,
                         xgrmc: this.shiroData.username
                     }
                     axios.post('/xfxhapi/qykpxx/doUpdateByVO', params).then(function (res) {
                         if (res.data.result > 0) {
-                            this.$message.success('开票信息修改成功');
+                            this.$message.success('Invoice Information has been saved !');
                         }
                         this.kpxxEditFlag = true;
                         this.findKpxxByQyid(this.qyid);
@@ -289,7 +245,7 @@ var vm = new Vue({
                 }
                 axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
                     if (res.data.result > 0) {
-                        this.$message.success('信息已确认！');
+                        this.$message.success('Information has been comfirmed !');
                     }
                     this.findInfoByUserid(this.shiroData.userid, 'init');
                     this.loading = false;

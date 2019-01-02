@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>展会报名</title>
+    <link rel="icon" href="../../static/images/login/logo.png">
+    <link rel="stylesheet" type="text/css" href="../../static/css/exhibitor/confirm_list.css">
+</head>
+
+
+<body class="fw f14 main-index-body">
+    <div id="app">
+        <div class="main-box">
+            <div class="main-container" v-loading="loading" element-loading-text="加载中">
+                <!-- 面包屑 -->
+                <div id="breadcrumb_box"></div>
+                <!-- 邮寄信息确认状态条 -->
+                <el-row class="mt10 mb10">
+                    <el-button v-if="jbxxForm.qrzt!='Y'" type="danger" icon="el-icon-warning" class="w100">You have not yet confirmed the information.
+                        <i class="el-icon-warning"></i>
+                    </el-button>
+                    <el-button v-if="jbxxForm.qrzt=='Y'" type="success" icon="el-icon-warning" class="w100">The last time your information was confirmed was
+                        <span v-text="jbxxForm.qrsj"></span>
+                        <i class="el-icon-warning"></i>
+                    </el-button>
+                </el-row>
+                <!-- 邮寄地址确认 -->
+                <el-row>
+                    <el-card class="card_style">
+                        <div slot="header" class="clearfix">
+                            <strong class="card_title_font lh28">Confirm Post Address</strong>
+                            <el-button v-if="jbxxEditFlag" @click="editJbxxClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit" size="small">修改</el-button>
+                            <div v-else class="r">
+                                <el-button @click="saveJbxxCancle('jbxxForm')" type="info" icon="el-icon-close" size="small">Cancle</el-button>
+                                <el-button @click="saveJbxxClick('jbxxForm')" type="success" icon="el-icon-check" size="small">Save</el-button>
+                            </div>
+                        </div>
+                        <el-row>
+                            <el-col :span="22">
+                                <el-form ref="jbxxForm" :model="jbxxForm" label-position="right" label-width="260px" :rules="jbxxRules">
+                                    <el-row>
+                                        <el-form-item prop="ywgsmc" label="Company Name :">
+                                            <span v-text="jbxxForm.ywgsmc"></span>
+                                            <!-- <el-input size="small" v-model="jbxxForm.zwgsmc" disabled></el-input> -->
+                                        </el-form-item>
+                                    </el-row>
+                                    <el-row>
+                                        <el-form-item prop="lxr" label="Contact Person :">
+                                            <span v-if="jbxxEditFlag" v-text="jbxxForm.lxr"></span>
+                                            <el-input v-else size="small" v-model="jbxxForm.lxr" placeholder="Contact Person"></el-input>
+                                        </el-form-item>
+                                    </el-row>
+                                    <el-row>
+                                        <el-form-item prop="lxrsj" label="Contact Person's Phone :">
+                                            <span v-if="jbxxEditFlag" v-text="jbxxForm.lxrsj"></span>
+                                            <el-input v-else size="small" v-model="jbxxForm.lxrsj" placeholder="Contact Person's Phone"></el-input>
+                                        </el-form-item>
+                                    </el-row>
+                                    <el-row>
+                                        <el-form-item prop="yjdzxx" label="Company Address :">
+                                            <span v-if="jbxxEditFlag" v-text="jbxxForm.yjdzxx"></span>
+                                            <el-input v-else size="small" v-model="jbxxForm.yjdzxx" placeholder="Company Address"></el-input>
+                                        </el-form-item>
+                                    </el-row>
+                                </el-form>
+                            </el-col>
+                        </el-row>
+                    </el-card>
+                </el-row>
+                <!-- 开票信息确认 -->
+                <el-row>
+                    <el-card class="card_style">
+                        <div slot="header" class="clearfix">
+                            <strong class="card_title_font lh28">Confirm Invoice Information</strong>
+                            <el-button v-if="kpxxEditFlag" @click="editKpxxClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit" size="small">修改</el-button>
+                            <div v-else class="r">
+                                <el-button @click="saveKpxxCancle('kpxxForm')" type="info" icon="el-icon-close" size="small">Cancle</el-button>
+                                <el-button @click="saveKpxxClick('kpxxForm')" type="success" icon="el-icon-check" size="small">Save</el-button>
+                            </div>
+                        </div>
+                        <el-row>
+                            <el-col :span="22">
+                                <el-form ref="kpxxForm" :model="kpxxForm" label-position="right" label-width="260px" :rules="kpxxRules">
+                                    <el-row>
+                                        <el-form-item prop="kpgsmc" label="Company Name on the Invoice :">
+                                            <span v-if="kpxxEditFlag" v-text="kpxxForm.kpgsmc"></span>
+                                            <el-input v-else size="small" v-model="kpxxForm.kpgsmc" placeholder="Company Name on the Invoice"></el-input>
+                                        </el-form-item>
+                                    </el-row>
+                                    <!--公司地址字段存英文联系人-->
+                                    <el-row>
+                                        <el-form-item prop="gsdz" label="Customer Contact :">
+                                            <span v-if="kpxxEditFlag" v-text="kpxxForm.gsdz"></span>
+                                            <el-input v-else size="small" v-model="kpxxForm.gsdz" placeholder="Customer Contact"></el-input>
+                                        </el-form-item>
+                                    </el-row>
+                                    <!--电话号码字段存英文联系人电话-->
+                                    <el-row>
+                                        <el-form-item prop="dhhm" label="Phone Number :">
+                                            <span v-if="kpxxEditFlag" v-text="kpxxForm.dhhm"></span>
+                                            <el-input v-else size="small" v-model="kpxxForm.dhhm" maxlength="50" placeholder="Phone Number"></el-input>
+                                        </el-form-item>
+                                    </el-row>
+                                    <!--银行账号字段存英文传真-->
+                                    <el-row>
+                                        <el-form-item prop="yhzh" label="Fax :">
+                                            <span v-if="kpxxEditFlag" v-text="kpxxForm.yhzh"></span>
+                                            <el-input v-else size="small" v-model="kpxxForm.yhzh" placeholder="Fax"></el-input>
+                                        </el-form-item>
+                                    </el-row>
+                                </el-form>
+                            </el-col>
+                        </el-row>
+                    </el-card>
+                </el-row>
+                <el-row class="tc mt20">
+                    <!-- <el-button @click="qrztCancle" type="info" icon="el-icon-close" size="small">Cancle</el-button> -->
+                    <el-button @click="qrztSubmit" type="success" icon="el-icon-check" size="small">Confirm</el-button>
+                </el-row>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="../../static/js/common/config.js"></script>
+<script src="../../static/js/exhibitor/confirm_list_ENG.js"></script>
+
+</html>
