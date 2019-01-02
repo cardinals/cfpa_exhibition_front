@@ -296,6 +296,10 @@ var vm = new Vue({
                 }.bind(this), function (error) {
                     console.log(error);
                 })
+            } else if (!this.jbxxEditFlag) {
+                this.$message.warning('邮寄地址尚未保存！');
+            } else if (!this.kpxxEditFlag) {
+                this.$message.warning('开票信息尚未保存！');
             }
         },
         qrztCancle: function () {

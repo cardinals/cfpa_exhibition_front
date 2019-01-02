@@ -252,6 +252,10 @@ var vm = new Vue({
                 }.bind(this), function (error) {
                     console.log(error);
                 })
+            } else if (!this.jbxxEditFlag) {
+                this.$message.warning('Post Information has not been saved !');
+            } else if (!this.kpxxEditFlag) {
+                this.$message.warning('Invoice Information has not been saved !');
             }
         },
         qrztCancle: function () {
