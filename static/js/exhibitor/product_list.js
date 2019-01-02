@@ -204,7 +204,6 @@ new Vue({
         //删除delPicList中的图片
         deletePic: function(){
             if(this.delPicList.length>0){
-                debugger;
                 axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
                     this.delPicList = [];
                 }.bind(this), function (error) {
