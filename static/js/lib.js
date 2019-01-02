@@ -75,7 +75,7 @@ window.backToLast = function(){
 //urlRewrite
 window.urlRewrite = function(url){
     if(url=='/prediction/exhprediction_edit' || 
-    url=='/prediction/exhprediction_edit_ENG' ||
+        url=='/prediction/exhprediction_edit_ENG' ||
         url=='/signin/personal_edit' ||
         url=='/home' ||
         url=='/prediction/exhprediction_approve' ||
@@ -85,6 +85,8 @@ window.urlRewrite = function(url){
         return url;
     }else if(url=='/plan/plan_ENG'){
         return '/plan/plan_list';
+    }else if(url.indexOf("ENG") > -1){
+        return url.substr(0, url.lastIndexOf("ENG")-1) + "_list_ENG";
     }else{
         return url + "_list"
     }

@@ -8,13 +8,15 @@ $(function () {
         shiroGlobal = res.data;
         if (res.data != null && res.data != "") {
             var url = getQueryString("url");
-            if(url == "/plan/plan_ENG"){
-                //动态加载main
-                loadDiv("plan/plan_list");
-            }else{
-                //动态加载main
-                loadDiv("prediction/exhprediction_edit_ENG");
-            }
+            //动态加载main
+            loadDiv(urlRewrite(url))
+            // if(url == "/plan/plan_ENG"){
+            //     //动态加载main
+            //     
+            // }else{
+            //     //动态加载main
+            //     loadDiv("prediction/exhprediction_edit_ENG");
+            // }
             //用户权限
             for (var i in res.data.permissions) {
                 permissions.push(res.data.permissions[i]);
