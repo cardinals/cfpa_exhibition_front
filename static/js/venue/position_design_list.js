@@ -239,6 +239,7 @@ var vue = new Vue({
                 // yjdz: this.searchForm.yjdz,
                 //shzt: this.searchForm.shzt,
                 shzt: '03',
+                approveflag: 'y',
                 pageSize: this.pageSize,
                 pageNum: this.currentPage,
                 orgUuid: this.shiroData.organizationVO.uuid,
@@ -275,7 +276,11 @@ var vue = new Vue({
         //确认功能
         confirm(val) {
             this.currentBusinessData.tenantId = val.qyid
-            this.currentBusinessData.tenantName = val.zwgsmc
+            if(val.usertype=='CHN'){
+                this.currentBusinessData.tenantName = val.zwgsmc
+            }else{
+                this.currentBusinessData.tenantName = val.ywgsmc
+            }
             this.currentBusinessData.status = 'bespoke';
             editorHandshake.call('updateBusinessRecord', this.currentBusinessData)
             this.currentBusinessData.qyid = {}
