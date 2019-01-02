@@ -30,7 +30,7 @@
                     <el-card class="card_style">
                         <div slot="header" class="clearfix">
                             <strong class="card_title_font lh28">Confirm Post Address</strong>
-                            <el-button v-if="jbxxEditFlag" @click="editJbxxClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit" size="small">修改</el-button>
+                            <el-button v-if="jbxxEditFlag" @click="editJbxxClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit" size="small">Edit</el-button>
                             <div v-else class="r">
                                 <el-button @click="saveJbxxCancle('jbxxForm')" type="info" icon="el-icon-close" size="small">Cancle</el-button>
                                 <el-button @click="saveJbxxClick('jbxxForm')" type="success" icon="el-icon-check" size="small">Save</el-button>
@@ -73,7 +73,7 @@
                     <el-card class="card_style">
                         <div slot="header" class="clearfix">
                             <strong class="card_title_font lh28">Confirm Invoice Information</strong>
-                            <el-button v-if="kpxxEditFlag" @click="editKpxxClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit" size="small">修改</el-button>
+                            <el-button v-if="kpxxEditFlag" @click="editKpxxClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit" size="small">Edit</el-button>
                             <div v-else class="r">
                                 <el-button @click="saveKpxxCancle('kpxxForm')" type="info" icon="el-icon-close" size="small">Cancle</el-button>
                                 <el-button @click="saveKpxxClick('kpxxForm')" type="success" icon="el-icon-check" size="small">Save</el-button>
