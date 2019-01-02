@@ -8,11 +8,11 @@
 	<link rel="stylesheet" type="text/css" href="../../static\css\venue\positon_design.css">
 </head>
 
-<body class="fw f14 main-index-body" onload="location.replace()" >
-	<div id="app" >
+<body class="fw f14 main-index-body" onload="location.replace()">
+	<div id="app">
 
-		<div class="main-box" >
-			<div ref="ploterWrap"  v-loading="loading" element-loading-text="加载中" class="app-editor-ploter-wrap positionlist" :style="ploterStyle">
+		<div class="main-box">
+			<div ref="ploterWrap" v-loading="loading" element-loading-text="加载中" class="app-editor-ploter-wrap positionlist" :style="ploterStyle">
 				<div class="app-editor-ploter-navigation">
 
 					<div class="ploter-navigation-list">
@@ -90,10 +90,10 @@
 
 							<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
 							<el-table-column prop="zwgsmc" label="公司名称" show-overflow-tooltip min-width="25%" align="center">
-								<!-- <template slot-scope="scope">
-										<a v-if="scope.row.usertype == 'ENG'" v-text="scope.row.zwgsmc" @click="qyDetails(scope.row)"></a>
-										<a v-else v-text="scope.row.zwgsmc" @click="qyDetails(scope.row)"></a>
-									</template>  -->
+								<template slot-scope="scope">
+									<span v-if="scope.row.usertype == 'ENG'" v-text="scope.row.ywgsmc"></span>
+									<span v-else v-text="scope.row.zwgsmc"></span>
+								</template>
 							</el-table-column>
 							<el-table-column prop="tyshxydm" label="统一社会信用代码" show-overflow-tooltip min-width="20%" align="center" :formatter="tableLongNumFormat"></el-table-column>
 							<el-table-column prop="wz" label="公司网址" show-overflow-tooltip min-width="20%" align="center">
