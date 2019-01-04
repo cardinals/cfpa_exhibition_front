@@ -3,6 +3,8 @@ var vue = new Vue({
 	data: function () {
 		return {
 			dataRange: [],
+			date_start: '',
+			date_end: '',
 			//tabledata
 			tjfxtabledata: [],
 			//柱图
@@ -22,23 +24,24 @@ var vue = new Vue({
 		}
 	},
 	created: function () {
-		loadBreadcrumb("按是否信息确认统计", "-1");
+		loadBreadcrumb("按确认信息统计", "-1");
 		this.getAllData();//获取数据
 	},
 	methods: {
 		//获取数据
 		getAllData: function () {
-			var params = {};
+			this.date_start = '';
+			this.date_end = '';
 			if (this.dataRange != null && this.dataRange.length) {
 				var date = new Date(this.dataRange[0]);
-				var date_start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+				this.date_start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 				var date1 = new Date(this.dataRange[1]);
-				var date_end = date1.getFullYear() + '-' + (date1.getMonth() + 1) + '-' + date1.getDate() + ' ' + date1.getHours() + ':' + date1.getMinutes() + ':' + date1.getSeconds();
-				params = {
-					qrsj_start: date_start,
-					qrsj_end: date_end
-				};
+				this.date_end = date1.getFullYear() + '-' + (date1.getMonth() + 1) + '-' + date1.getDate() + ' ' + date1.getHours() + ':' + date1.getMinutes() + ':' + date1.getSeconds();
 			}
+			var params = {
+				qrsj_start: this.date_start,
+				qrsj_end: this.date_end
+			};
 			axios.post('/xfxhapi/qyjbxx/ifConfirmedTjfx', params).then(function (res) {
 				this.name_X = [];
 				this.value_Y = [];
@@ -85,7 +88,7 @@ var vue = new Vue({
 					top: '20',
 					bottom: '10',
 					left: '20',
-					right: '20',
+					right: '50',
 					containLabel: true
 				},
 				xAxis: [
@@ -198,29 +201,15 @@ var vue = new Vue({
 
 			myChart.setOption(option);
 		},
-		//表格重新加载数据
-		loadingData: function () {
-			var _self = this;
-			_self.loading = true;
-			setTimeout(function () {
-				console.info("加载数据成功");
-				_self.loading = false;
-			}, 300);
-		},
-		//根据参数部分和参数名来获取参数值 
-		GetQueryString: function (name) {
-			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-			var r = window.location.search.substr(1).match(reg);
-			if (r != null) return unescape(r[2]); return null;
-		},
 		exportClick: function () {
 			window.open("/xfxhapi/qyzwyx/doExportTjfxByZwmjfw");
 		},
 		toCompanyList: function (val) {
-			var params = {
-				zwmjfw: val.zwmjfw
-			}
-			loadDivParam("statistical/exhprediction_product", params);
+			// var params = {
+			// 	qrsj_start: this.date_start,
+			// 	qrsj_end: this.date_end
+			// };
+			// loadDivParam("statistical/exhprediction_confirm", params);
 		}
 	}
 })
