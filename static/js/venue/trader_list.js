@@ -175,8 +175,8 @@ var vue = new Vue({
                 return;
 
             } else {
-                let imageObj = new Image()
-                let _THIS = this
+                var imageObj = new Image()
+                var _THIS = this
                 imageObj.onload = function () {
                     _THIS.createForm.imgWidth = imageObj.width
                     _THIS.createForm.imgHeight = imageObj.height
@@ -326,7 +326,7 @@ var vue = new Vue({
         },
         //创建空画布
         createEmptyStageData: function (config) {
-            let stageData = {
+            var stageData = {
                 "attrs": {
                     "width": 800,
                     "height": 600,
@@ -354,9 +354,9 @@ var vue = new Vue({
             const shapesLayer = stageLayers.find(item => {
                 return item.attrs.name === 'shapesLayer'
             })
-            let stageWidth = 800
-            let stageHeight = 800
-            let stageFill = '#fff'
+            var stageWidth = 800
+            var stageHeight = 800
+            var stageFill = '#fff'
 
             if (config) {
                 stageWidth = config.width

@@ -329,7 +329,7 @@ var vue = new Vue({
             const me = this
             const ploterWrap = this.$refs.ploterWrap
             //初始化postmate插件
-            let postmate = new Postmate({
+            var postmate = new Postmate({
                 container: ploterWrap,
                 url: plotUrl,
                 model: {
@@ -362,7 +362,7 @@ var vue = new Vue({
                 zgid: this.zguuid
             }
             axios.post('/xfxhapi/zwjbxx/doSearchListByVO', params).then(function (res) {
-                let businessData = this.back2plot(res.data.result)
+                var businessData = this.back2plot(res.data.result)
 
                 // 外到里call 里到外emit
                 editorHandshake.call('updateBusinessData', businessData)
@@ -466,10 +466,10 @@ var vue = new Vue({
         },
         //展会后台数据转绘图工具数据
         back2plot(backData) {
-            let plotData = []
-            for (let i = 0; i < backData.length; i++) {
-                let bd = backData[i]
-                let pd = {}
+            var plotData = []
+            for (var i = 0; i < backData.length; i++) {
+                var bd = backData[i]
+                var pd = {}
                 pd.uuid = bd.uuid
                 pd.code = bd.zwh
                 pd.codeFontSize = bd.bhzh
@@ -502,11 +502,11 @@ var vue = new Vue({
         },
         //绘图工具数据转展会后台数据
         plot2back(plotData) {
-            let backData = []
+            var backData = []
 
-            for (let i = 0; i < plotData.length; i++) {
-                let pd = plotData[i]
-                let bd = {}
+            for (var i = 0; i < plotData.length; i++) {
+                var pd = plotData[i]
+                var bd = {}
                 bd.uuid = pd.uuid
                 bd.zwh = pd.code
                 bd.bhzh = pd.codeFontSize
