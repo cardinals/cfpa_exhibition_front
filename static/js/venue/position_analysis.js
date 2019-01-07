@@ -12,6 +12,7 @@ var vue = new Vue({
             shiroData: [],//当前用户信息
             zgData:[],//展馆名称
             selectedZg:[],//选中展馆
+            exportSelectedZg:[],//导出时选中的展馆号
             //显示加载中样
             loading: false,
             //当前页
@@ -53,6 +54,7 @@ var vue = new Vue({
                 pageNum: this.currentPage
             }
             axios.post('/xfxhapi/zwjbxx/doFindQyZwNumDesc', param).then(function (res) {
+                this.exportSelectedZg = this.selectedZg;
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
@@ -68,6 +70,17 @@ var vue = new Vue({
                 this.selectedZg.push(this.zgData[i].zgmc);
             }
             this.searchClick();
+        },
+        //导出 add by yushch 20190107
+        exportClick: function () {
+            var param = '';
+            for(var i in this.exportSelectedZg){
+                param += this.exportSelectedZg[i];
+                if(i < this.exportSelectedZg.length-1){
+                    param += ',';
+                }
+            }
+           window.open("/xfxhapi/zwjbxx/doExporTanalysis/" + param);
         },
     }
 })
