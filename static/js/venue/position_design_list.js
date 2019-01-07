@@ -275,16 +275,55 @@ var vue = new Vue({
         },
         //确认功能
         confirm(val) {
-            this.currentBusinessData.tenantId = val.qyid
-            if(val.usertype=='CHN'){
-                this.currentBusinessData.tenantName = val.zwgsmc
-            }else{
-                this.currentBusinessData.tenantName = val.ywgsmc
+            // this.currentBusinessData.tenantId = val.qyid
+            // if(val.usertype=='CHN'){
+            //     this.currentBusinessData.tenantName = val.zwgsmc
+            // }else{
+            //     this.currentBusinessData.tenantName = val.ywgsmc
+            // }
+            // this.currentBusinessData.status = 'bespoke';
+            // editorHandshake.call('updateBusinessRecord', this.currentBusinessData)
+            // this.currentBusinessData.qyid = {}
+            // this.dialogVisible = false
+
+            var params = {
+                uuid: this.currentBusinessData.uuid,
+                qyid: val.qyid
             }
-            this.currentBusinessData.status = 'bespoke';
-            editorHandshake.call('updateBusinessRecord', this.currentBusinessData)
-            this.currentBusinessData.qyid = {}
-            this.dialogVisible = false
+            axios.post('/xfxhapi/zwjbxx/doAssign', params).then(function (res) {
+                if(res.data.msg=='success'){
+                    var bp = []
+                    bp.push(res.data.result)
+                    var businessData = this.back2plot(bp)[0]
+                    //需要新增
+                    editorHandshake.call('updateBusinessRecord', businessData)
+                    this.currentBusinessData.qyid = {}
+                    this.dialogVisible = false
+
+                    this.$message({
+                        message: '展位指定成功',
+                        type: 'success',
+                        center: true
+                    });
+                }else{
+                    var msg=res.data.msg;
+                    if(!msg){
+                        msg="展位指定失败！"
+                    }
+                    var bp = []
+                    bp.push(res.data.result)
+                    var businessData = this.back2plot(bp)[0]
+                    //需要新增
+                    editorHandshake.call('updateBusinessRecord', businessData)
+                    this.$alert('<span style="color:red"><h3>'+msg+'</h3></span>', '注意', {
+                        confirmButtonText: '确定',
+                        type:'error',
+                        dangerouslyUseHTMLString:true
+                      });
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
         },
         //初始化当前页面
         init() {
@@ -329,7 +368,7 @@ var vue = new Vue({
             const me = this
             const ploterWrap = this.$refs.ploterWrap
             //初始化postmate插件
-            let postmate = new Postmate({
+            var postmate = new Postmate({
                 container: ploterWrap,
                 url: plotUrl,
                 model: {
@@ -353,6 +392,8 @@ var vue = new Vue({
                 handshake.on('evtNeedBusinessData', me.getBusinessData.bind(me))
                 handshake.on('evtSaveDataReady', me.savePlotData.bind(me))
                 handshake.on('evtBusinessDataAllot', me.allotBusinessData.bind(me))
+                handshake.on('evtBusinessDataUnAllot', me.evtBusinessDataUnAllot.bind(me))
+                
             })
             this.loading = false;
         },
@@ -362,7 +403,7 @@ var vue = new Vue({
                 zgid: this.zguuid
             }
             axios.post('/xfxhapi/zwjbxx/doSearchListByVO', params).then(function (res) {
-                let businessData = this.back2plot(res.data.result)
+                var businessData = this.back2plot(res.data.result)
 
                 // 外到里call 里到外emit
                 editorHandshake.call('updateBusinessData', businessData)
@@ -375,7 +416,30 @@ var vue = new Vue({
             this.dialogVisible = true
             this.searchClick('page')
             this.currentBusinessData = businessData
+        },
+        evtBusinessDataUnAllot(businessData){
+            var params = {
+                uuid: businessData.uuid
+            }
+            axios.post('/xfxhapi/zwjbxx/doCancelByVO', params).then(function (res) {
+                if(res.data.msg=='success'){
+                    var bp = []
+                    bp.push(res.data.result)
+                    var businessData = this.back2plot(bp)[0]
+                    //需要新增
+                    editorHandshake.call('updateBusinessRecord', businessData)
+                    this.currentBusinessData.qyid = {}
+                    this.dialogVisible = false
 
+                    this.$message({
+                        message: '展位取消指定成功',
+                        type: 'success',
+                        center: true
+                    });
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
         },
         //保存展馆展位数据
         savePlotData(data) {
@@ -456,7 +520,6 @@ var vue = new Vue({
             }
         },
         handlerCancelBtnClick() {
-
             if (editorHandshake) {
                 editorHandshake.destroy()
                 editorHandshake = null
@@ -466,10 +529,10 @@ var vue = new Vue({
         },
         //展会后台数据转绘图工具数据
         back2plot(backData) {
-            let plotData = []
-            for (let i = 0; i < backData.length; i++) {
-                let bd = backData[i]
-                let pd = {}
+            var plotData = []
+            for (var i = 0; i < backData.length; i++) {
+                var bd = backData[i]
+                var pd = {}
                 pd.uuid = bd.uuid
                 pd.code = bd.zwh
                 pd.codeFontSize = bd.bhzh
@@ -502,11 +565,11 @@ var vue = new Vue({
         },
         //绘图工具数据转展会后台数据
         plot2back(plotData) {
-            let backData = []
+            var backData = []
 
-            for (let i = 0; i < plotData.length; i++) {
-                let pd = plotData[i]
-                let bd = {}
+            for (var i = 0; i < plotData.length; i++) {
+                var pd = plotData[i]
+                var bd = {}
                 bd.uuid = pd.uuid
                 bd.zwh = pd.code
                 bd.bhzh = pd.codeFontSize

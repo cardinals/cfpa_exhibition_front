@@ -87,9 +87,9 @@ var vue = new Vue({
                         if(res.data.msg=='success'){
                             this.yxzwData=[]
                             this.getYxzwData()
-                            let bp = []
+                            var bp = []
                             bp.push(res.data.result)
-                            let businessData = this.back2plot(bp)[0]
+                            var businessData = this.back2plot(bp)[0]
                             //需要新增
                             viewerHandshake.call('updateBusinessRecord', businessData)
                             this.$message({
@@ -99,7 +99,7 @@ var vue = new Vue({
                             });
                             el.style.display="none";
                         }else{
-                            let msg=res.data.msg;
+                            var msg=res.data.msg;
                             if(!msg){
                                 msg="展位取消失败！"
                             }
@@ -209,7 +209,7 @@ var vue = new Vue({
             }
             const me = this
             const ploterWrap = this.$refs.ploterWrap
-            let postmate = new Postmate({
+            var postmate = new Postmate({
                 container: ploterWrap,
                 url: plotUrl,
                 model: {
@@ -239,7 +239,7 @@ var vue = new Vue({
                 zgid: this.zguuid
             }
             axios.post('/xfxhapi/zwjbxx/doSearchListByVO', params).then(function (res) {
-                let businessData = this.back2plot(res.data.result)
+                var businessData = this.back2plot(res.data.result)
                 viewerHandshake.call('updateBusinessData', businessData)
                 this.loading = false;
             }.bind(this), function (error) {
@@ -253,7 +253,7 @@ var vue = new Vue({
             }
             if(this.yxzwData.length>0){
                 var yxzwxx=''
-                for(let i=0;i<this.yxzwData.length;i++){
+                for(var i=0;i<this.yxzwData.length;i++){
                     if(i==0){
                         yxzwxx+=this.yxzwData[i].zwh
                     }else{
@@ -276,10 +276,10 @@ var vue = new Vue({
                 }
                 axios.post('/xfxhapi/zwjbxx/doUpdateByVO', params).then(function (res) {
                     if(res.data.msg=='success'){
-                        let bp = []
+                        var bp = []
                         bp.push(res.data.result)
                         this.yxzwData.push(bp[0])
-                        let businessData = this.back2plot(bp)[0]
+                        var businessData = this.back2plot(bp)[0]
                         //需要新增
                         viewerHandshake.call('updateBusinessRecord', businessData)
                         this.$message({
@@ -288,13 +288,13 @@ var vue = new Vue({
                             center: true
                         });
                     }else{
-                        let msg=res.data.msg;
+                        var msg=res.data.msg;
                         if(!msg){
                             msg="选择展位失败！"
                         }
-                        let bp = []
+                        var bp = []
                         bp.push(res.data.result)
-                        let businessData = this.back2plot(bp)[0]
+                        var businessData = this.back2plot(bp)[0]
                         //需要新增
                         viewerHandshake.call('updateBusinessRecord', businessData)
                         this.$alert('<span style="color:red"><h3>'+msg+'</h3></span>', '注意', {
@@ -315,10 +315,10 @@ var vue = new Vue({
               });
         },
         back2plot(backData) {
-            let plotData = []
-            for (let i = 0; i < backData.length; i++) {
-                let bd = backData[i]
-                let pd = {}
+            var plotData = []
+            for (var i = 0; i < backData.length; i++) {
+                var bd = backData[i]
+                var pd = {}
                 pd.uuid = bd.uuid
                 pd.code = bd.zwh
                 pd.codeFontSize = bd.bhzh
@@ -372,10 +372,10 @@ var vue = new Vue({
             return ((new Date(d1.replace(/-/g,"\/"))) > (new Date(d2.replace(/-/g,"\/"))));
         },
         plot2back(plotData) {
-            let backData = []
-            for (let i = 0; i < plotData.length; i++) {
-                let pd = plotData[i]
-                let bd = {}
+            var backData = []
+            for (var i = 0; i < plotData.length; i++) {
+                var pd = plotData[i]
+                var bd = {}
                 bd.uuid = pd.uuid
                 bd.zwh = pd.code
                 bd.bhzh = pd.codeFontSize

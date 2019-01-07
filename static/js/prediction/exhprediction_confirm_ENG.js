@@ -120,7 +120,7 @@ new Vue({
             axios.post('/xfxhapi/zwjbxx/getSelectedPos').then(function (res) {
                 if (res.data.result.length  > 0) {
                     var datas = res.data.result;
-                    for(let i=0;i<datas.length;i++){
+                    for(var i=0;i<datas.length;i++){
                         if(i==0){
                             this.yxzwxx+=datas[i].zwh
                         }else{
