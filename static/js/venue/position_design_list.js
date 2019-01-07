@@ -195,9 +195,6 @@ var vue = new Vue({
         closeleft: function () {
             document.getElementById("menu-toggle-btn").style.right = "-26px";
             document.getElementById("menu-toggle-btn").style.transform = "rotateY(180deg)";
-            // if( history.previous != history.current ){
-            //     window.location.reload(); 
-            //    };
             var left = $('.left-sidebar'),
                 main = $('.main-box'),
                 $this = $(this);
@@ -214,12 +211,10 @@ var vue = new Vue({
                     $this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
                 }, 300);
             }
-
         },
-
         // tab的按键
         handleClick(tab, event) {
-            console.log(tab, event);
+            //console.log(tab, event);
         },
         /**
          *选择企业信息
@@ -275,17 +270,6 @@ var vue = new Vue({
         },
         //确认功能
         confirm(val) {
-            // this.currentBusinessData.tenantId = val.qyid
-            // if(val.usertype=='CHN'){
-            //     this.currentBusinessData.tenantName = val.zwgsmc
-            // }else{
-            //     this.currentBusinessData.tenantName = val.ywgsmc
-            // }
-            // this.currentBusinessData.status = 'bespoke';
-            // editorHandshake.call('updateBusinessRecord', this.currentBusinessData)
-            // this.currentBusinessData.qyid = {}
-            // this.dialogVisible = false
-
             var params = {
                 uuid: this.currentBusinessData.uuid,
                 qyid: val.qyid
@@ -467,38 +451,6 @@ var vue = new Vue({
                     this.getStage(data.stageUuid)
                 }
                 this.isDisabled = false
-
-
-
-
-            //无事物保存方案
-            //axios.post('/xfxhapi/zwjbxx/doInsertByVO', this.plot2back(data.businessData)).then(function (res) {
-                // var params = {
-                //     zgzwhbStr: data.jsonData,
-                //     uuid: data.stageUuid,
-                //     //zgzwhbtpStr: data.picData,
-                //     xgrid: this.shiroData.userid,
-                //     xgrmc: this.shiroData.realName,
-                // }
-
-                // axios.post('/xfxhapi/zgjbxx/doUpdateByVO', params).then(function (res) {
-                //     this.$message({
-                //         message: '保存展位成功',
-                //         type: 'success',
-                //         center: true
-                //     });
-                //     if (editorHandshake) {
-                //         //销毁当前画布
-                //         editorHandshake.destroy()
-                //         editorHandshake = null
-                //         this.getStage(data.stageUuid)
-                //     }
-                //     this.isDisabled = false
-
-                // }.bind(this), function (error) {
-                //     console.log(error)
-                // })
-
             }.bind(this), function (error) {
                 console.log(error)
             })
