@@ -37,6 +37,9 @@ var vue = new Vue({
         getZgmc: function (){
             axios.get('/xfxhapi/zgjbxx/getZgmc').then(function (res) {
                 this.zgData = res.data.result;
+                this.zgData.push({
+                    zgmc:"W3"
+                });
             }.bind(this), function (error) {
                 console.log(error);
             })
