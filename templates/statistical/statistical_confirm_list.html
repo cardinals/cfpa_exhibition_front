@@ -35,7 +35,7 @@
                                 <!-- <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column> -->
                                 <el-table-column prop="qrztmc" label="是否进行信息确认" show-overflow-tooltip min-width="30%" align="center">
                                     <template slot-scope="scope">
-                                        <a v-text="scope.row.qrztmc" @click="toCompanyList"></a>
+                                        <a v-text="scope.row.qrztmc" @click="toCompanyList(scope.row)"></a>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="qrztsl" label="企业数量" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
