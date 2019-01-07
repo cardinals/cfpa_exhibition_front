@@ -417,6 +417,7 @@ var vue = new Vue({
             this.searchClick('page')
             this.currentBusinessData = businessData
         },
+        //取消指定
         evtBusinessDataUnAllot(businessData){
             var params = {
                 uuid: businessData.uuid

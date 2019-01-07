@@ -21,7 +21,7 @@ var vue = new Vue({
             loading: false,
             lastEl:'',
             lastEvent:'',
-            blnbzwsj:'2019-12-27 9:25:34', //显示内部展位时间
+            blnbzwsj:'2018-12-27 9:25:34', //显示内部展位时间
             now:''
         }
     },
