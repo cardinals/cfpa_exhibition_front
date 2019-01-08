@@ -157,7 +157,13 @@ new Vue({
         },
         //点击删除按钮
         deleteClick: function(val){
-            this.$confirm('此操作将永久删除该产品, 是否继续?', '提示', {
+            if(this.cpjsData.length <= 1){
+                this.$message({
+                    type: 'error',
+                    message: '您需要保留至少一条产品信息'
+                  });
+            }else{
+                this.$confirm('此操作将永久删除该产品, 是否继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
@@ -187,6 +193,8 @@ new Vue({
                   message: '已取消删除'
                 });          
               });
+            }
+            
         },
         //新增
         addClick: function(){
