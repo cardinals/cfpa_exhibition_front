@@ -3,14 +3,14 @@
 <link rel="stylesheet" type="text/css" href="../../static/css/exhibitor/product_list.css">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>产品介绍</title>
+    <title>Products</title>
 </head>
 <body class="fw f14 main-index-body">
     <div id="app">
         <div class="main-box">
             
-            <div class="main-container" v-loading="loading" element-loading-text="加载中">
-                <div id="lib :: main_container_header('产品介绍','产品介绍')"></div>
+            <div class="main-container" v-loading="loading" element-loading-text="loading">
+                <div id="lib :: main_container_header('Products','Products')"></div>
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
                 <!--产品介绍-->
@@ -19,7 +19,7 @@
                         <el-col :span="24">
                             <el-form>
                                 <el-form-item align="left">
-                                    <el-button type="success" icon="el-icon-plus" size="small" @click="addClick()">新增</el-button>
+                                    <el-button type="success" icon="el-icon-plus" size="small" @click="addClick()">add</el-button>
                                 </el-form-item>
                             </el-form>
                             <el-form id="cpjs" v-if="cpjsData.length>0" :inline="true" style="width: 100%;" class="demo-form-inline">
@@ -27,8 +27,8 @@
                                     <el-card class="mb10 card_style" id="cpjsImg">
                                         <div slot="header" class="clearfix">
                                             <div class="r">
-                                                <el-button type="danger" size="small" icon="el-icon-delete" @click="deleteClick(cpjs)">删除</el-button>                                            
-                                                <el-button type="primary" size="small" icon="el-icon-edit" @click="editClick(cpjs)">修改</el-button>
+                                                <el-button type="danger" size="small" icon="el-icon-delete" @click="deleteClick(cpjs)">delete</el-button>                                            
+                                                <el-button type="primary" size="small" icon="el-icon-edit" @click="editClick(cpjs)">edit</el-button>
                                             </div>
                                         </div>
                                         <el-row class="h100">
@@ -38,39 +38,36 @@
                                                 <img v-else src="../../static/images/noPic.png">
                                             </el-col>
                                             <el-col :span="19" style="line-height: 24px" class="pl15 mb10">
-                                                <strong>产品类型：</strong>
-                                                <v-text v-text="cpjs.cplxmc||'无'"></v-text>
+                                                <strong>Category of the Product：</strong>
+                                                <v-text v-text="cpjs.cplxmc_ENG||'无'"></v-text>
                                                 <br>
-                                                <strong>产品简介：</strong>
-                                                <v-text v-text="cpjs.cpjj||'无'"></v-text>
-                                                <br>
-                                                <strong>产品英文简介：</strong>
-                                                <v-text v-text="cpjs.reserve1||'无'"></v-text>
+                                                <strong>Product Introduction：</strong>
+                                                <v-text v-text="cpjs.cpjj||'no'"></v-text>
                                             </el-col>
                                         </el-row>
                                     </el-card>
                                 </el-form-item>
                             </el-form>
-                            <v-text v-else>暂无产品信息</v-text>
+                            <v-text v-else>Have no product information</v-text>
                         </el-col>
                     </el-row>
                 </div>
                 <!--产品编辑-->
 				<el-dialog :title="dialogTitle" :visible.sync="editFormVisible" @close="closeDialog(editForm)" :close-on-click-modal="false">
-					<el-form :model="editForm" label-width="110px" :rules="editFormRules" ref="editForm">
+					<el-form :model="editForm" label-width="200px" :rules="editFormRules" ref="editForm">
 						<el-row>
-                            <el-form-item label="产品图片" style="text-align: left" class="is-required">
+                            <el-form-item label="Product Photo" style="text-align: left" class="is-required">
                                 <el-upload class="avatar-uploader" ref="uploadCpPics" action="/xfxhapi/qycpjs/upload" :on-success="cpjsPicSuccess" :before-upload="CpPicsChange"
                                         :show-file-list="false" :data="CpjsUpLoadData">
                                     <img v-if="editForm.src!=='' && editForm.src!==null" :src="editForm.imageUrl" class="avatar">
                                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                                    <div class="el-upload__tip" slot="tip" style="line-height:0px">jpg/png文件，且小于2MB</div>
+                                    <div class="el-upload__tip" slot="tip" style="line-height:0px">jpg/png,less than 2MB</div>
                                 </el-upload>
                             </el-form-item>
                         </el-row>
                         <el-row>
-                            <el-form-item prop="cplx" label="产品所属分类">
-                                <el-cascader :options="cpssfl_data" :props="defaultProps" size="small" v-model="editForm.cplx" placeholder="产品所属分类" class="searchSelect"
+                            <el-form-item prop="cplx" label="Category of the Product">
+                                <el-cascader :options="cpssfl_data" :props="defaultProps" size="small" v-model="editForm.cplx" placeholder="Category of the Product" class="searchSelect"
                                             clearable show-all-levels></el-cascader>
                             </el-form-item>
                         </el-row>
@@ -78,25 +75,18 @@
                             <div class="el-upload__tip"></div>
                         </el-row>
                         <el-row id="cpjsArea">
-                            <el-form-item prop="cpjj" label="产品简介">
-                                <el-input type="textarea" maxlength="150" :rows="2" placeholder="产品简介" v-model="editForm.cpjj"></el-input>
+                            <el-form-item prop="cpjj" label="Product Introduction">
+                                <el-input type="textarea" maxlength="300" :rows="2" placeholder="Product Introduction" 
+                                v-model="editForm.cpjj" onkeyup="value=value.replace(/[^\w\.\@\#\~\^\:\;\$\%\&\*\'\<\>\(\)\[\]\{\}\\\|\-\_\+\=\`\,\!\?\/ ]/ig,'')"></el-input>
                             </el-form-item>
                         </el-row>
                         <el-row>
-                            <div class="el-upload__tip" style="float: right;">最多可输入150字</div>
-                        </el-row>
-                        <el-row>
-                            <el-form-item prop="reserve1" label="产品英文简介">
-                                <el-input type="textarea" maxlength="400" :rows="2" placeholder="产品英文简介" v-model="editForm.reserve1" onkeyup="value=value.replace(/[^\w\.\r\n\@\#\$\%\&\*\'\<\>\(\)\（\）\[\]\,\，\!\?\/ ]/ig,'')"></el-input>
-                            </el-form-item>
-                        </el-row>
-                        <el-row>
-                            <div class="el-upload__tip" style="float: right;">最多可输入400个英文字符（符号需要为英文输入法下的符号）</div>
+                            <div class="el-upload__tip" style="float: right;">less than 300 characters</div>
                         </el-row>
 						<el-row class="mt35 mb20">
 							<el-col :span="24" style="text-align: center">
-								<el-button type="clear" icon="el-icon-close" size="small" class="btn_submit" @click="closeDialog(editForm)"> 取消</el-button>
-								<el-button type="success" icon="el-icon-check" size="small" class="btn_save" @click="editSubmit(editForm)">保存</el-button>
+								<el-button type="clear" icon="el-icon-close" size="small" class="btn_submit" @click="closeDialog(editForm)"> Cancel</el-button>
+								<el-button type="success" icon="el-icon-check" size="small" class="btn_save" @click="editSubmit(editForm)">Submit</el-button>
 							</el-col>
 						</el-row>
 					</el-form>
@@ -115,6 +105,6 @@
 </body>
 
 <script src="../../static/js/common/config.js"></script>
-<script src="../../static/js/exhibitor/product_list.js"></script>
+<script src="../../static/js/exhibitor/product_list_ENG.js"></script>
 
 </html>
