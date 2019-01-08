@@ -321,11 +321,11 @@ var vue = new Vue({
                 var pd = {}
                 pd.uuid = bd.uuid
                 pd.code = bd.zwh
-                pd.codeFontSize = bd.bhzh
+                pd.codeFontSize = parseInt(bd.bhzh)
                 pd.codeFontStyle = bd.bhzc
                 pd.codeFontFamily = bd.bhzt
                 pd.name = bd.zwmc
-                pd.nameFontSize = bd.mczh
+                pd.nameFontSize = parseInt(bd.mczh)
                 pd.nameFontStyle = bd.mczc
                 pd.nameFontFamily = bd.mczt
                 //展位类型
