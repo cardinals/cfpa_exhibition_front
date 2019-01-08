@@ -77,7 +77,7 @@ var vm = new Vue({
             userInforRules: {
                 username: [
                     { required: true, message: 'Please input a email.', trigger: 'blur' },
-                    { pattern: /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/, message: 'The email format is not correct.', trigger: 'blur' }
+                    { pattern: /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/, message: 'The email format is not correct.', trigger: 'blur' }
                 ],
                 messageCode: [
                     { type: "number", required: true, message: 'Please input the verification code.', trigger: 'blur' },

@@ -24,7 +24,7 @@ new Vue({
                 value: 'codeValue'
             },
             //编辑（新增）页面对话框标题
-            dialogTitle: "产品编辑",
+            dialogTitle: "Edit Product",
             //编辑页面显示flag
             editFormVisible: false,
             //产品图片上传参数
@@ -43,21 +43,18 @@ new Vue({
             //表单验证
             editFormRules: {
                 cplx: [
-                    { required: true, message: '请选择产品类型', trigger: 'change' }
+                    { required: true, message: 'Category of the Product is required', trigger: 'change' }
                 ],
                 cpjj: [
-                    { required: true, message: '请输入产品简介', trigger: 'blur' },
-                    { min: 1, max: 150, message: '最多可输入100个字', trigger: 'blur' }
-                ],
-                reserve1: [
-                    { required: false, message: '请输入产品英文简介', trigger: 'blur' },
-                    { min: 0, max: 400, message: '最多可输入400个字符', trigger: 'blur' }
-                ],
+                    { required: true, message: 'Product Introduction is required', trigger: 'blur' },
+                    { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
+                    { min: 1, max: 300, message: 'less than 300 characters', trigger: 'blur' }
+                ]
             },
         }
     },
     created: function () {
-        loadBreadcrumb("产品介绍", "-1");
+        loadBreadcrumb("Products", "-1");
         this.shiroData = shiroGlobal;
         this.loading = true;
         this.userid = this.shiroData.userid;
@@ -68,7 +65,7 @@ new Vue({
     methods: {
         //根据代码集获取产品所属分类
         getCpssfl: function(){
-            axios.get('/xfxhapi/codelist/getDzlxTree/CPLX').then(function (res) {
+            axios.get('/xfxhapi/codelist/getDzlxTree/CPLX_EN').then(function (res) {
                 this.cpssfl_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -122,10 +119,10 @@ new Vue({
             const isJpg = fileFormat.toLowerCase() == "jpg";
             const isLt2M = file.size / 1024 /1024 <= 2; 
             if(!isPng && !isJpg){
-                this.$message.error('只能上传jpg、png格式的图片');
+                this.$message.error('Picture has to be endswith png or jpg');
                 fileList.splice(-1, 1);
             }else if(!isLt2M){
-                this.$message.error('上传图片大小须小于2MB!');
+                this.$message.error('Picture has to be less than 2MB!');
                 fileList.splice(-1, 1);
             }else{
                 //this.delPicList.push(this.delPicSrc);
@@ -140,7 +137,7 @@ new Vue({
         },
         //点击编辑按钮
         editClick: function(val){
-            this.dialogTitle= "产品编辑";
+            this.dialogTitle= "Edit Product";
             //产品类型准换成级联下拉数组
             var cplxArray = [];
             cplxArray.push(val.cplx.substr(0, 1) + "000");
@@ -160,18 +157,18 @@ new Vue({
             if(this.cpjsData.length <= 1){
                 this.$message({
                     type: 'error',
-                    message: '您需要保留至少一条产品信息'
+                    message: 'Please fill out at least one product example'
                   });
             }else{
-                this.$confirm('此操作将永久删除该产品, 是否继续?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
+                this.$confirm('Do you confirm deletion?', 'Warning', {
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
                 type: 'warning'
               }).then(() => {
                 axios.post('/xfxhapi/qycpjs/doDeleteCpxx', val).then(function (res) {
                     this.$message({
                         type: 'success',
-                        message: '删除成功!'
+                        message: 'deleted successfully!'
                     });
                     //删除图片
                     var list = [];
@@ -190,20 +187,19 @@ new Vue({
               }).catch(() => {
                 this.$message({
                   type: 'info',
-                  message: '已取消删除'
+                  message: 'Delete canceled!'
                 });          
               });
             }
-            
         },
         //新增
         addClick: function(){
             if(this.cpjsData.length<6){
-                this.dialogTitle= "产品新增";
+                this.dialogTitle= "Add Product";
                 this.editFormVisible = true;
             }else{
                 this.$message({
-                    message: '最多可添加6个产品，您已达到最大数量',
+                    message: 'You can add at most 6 product Examples',
                     type: 'warning'
                 });
             }
@@ -249,7 +245,7 @@ new Vue({
                 if (valid) {
                     if(this.editForm.src == null || this.editForm.src == ""){
                         this.$message({
-                            message: '请上传产品图片',
+                            message: 'Product Photo is required',
                             type: 'warning'
                         });
                         console.log('error submit!!');
@@ -268,13 +264,13 @@ new Vue({
                             axios.post('/xfxhapi/qycpjs/doUpdateByVO', params).then(function (res) {
                                 if (res.data.result > 0) {
                                     this.$message({
-                                        message: '成功保存产品信息',
+                                        message: 'Save successful',
                                         type: 'success'
                                     });
                                     this.deletePic();
                                 }else{
                                     this.$message({
-                                        message: '保存失败',
+                                        message: 'Save failed',
                                         type: 'warning'
                                     });
                                 }
@@ -302,13 +298,13 @@ new Vue({
                             axios.post('/xfxhapi/qycpjs/doInsertCpxx', params).then(function (res) {
                                 if (res.data.result > 0) {
                                     this.$message({
-                                        message: '成功保存产品信息',
+                                        message: 'Save successful',
                                         type: 'success'
                                     });
                                     this.deletePic();
                                 }else{
                                     this.$message({
-                                        message: '保存失败',
+                                        message: 'Save failed',
                                         type: 'warning'
                                     });
                                 }

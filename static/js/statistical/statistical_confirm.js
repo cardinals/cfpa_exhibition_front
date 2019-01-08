@@ -32,16 +32,21 @@ var vue = new Vue({
 		getAllData: function () {
 			this.date_start = '';
 			this.date_end = '';
-			if (this.dataRange != null && this.dataRange.length) {
+			var params = {};
+			if (this.dataRange != null && this.dataRange.length > 0) {
+				//往详情页传的参数
+				this.date_start = this.dataRange[0];
+				this.date_end = this.dataRange[1];
+				//查询用参数
 				var date = new Date(this.dataRange[0]);
-				this.date_start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-				var date1 = new Date(this.dataRange[1]);
-				this.date_end = date1.getFullYear() + '-' + (date1.getMonth() + 1) + '-' + date1.getDate() + ' ' + date1.getHours() + ':' + date1.getMinutes() + ':' + date1.getSeconds();
+				var date1 = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+				var date2 = new Date(this.dataRange[1]);
+				var date3 = date2.getFullYear() + '-' + (date2.getMonth() + 1) + '-' + date2.getDate() + ' ' + date2.getHours() + ':' + date2.getMinutes() + ':' + date2.getSeconds();
+				var params = {
+					qrsj_start: date1,
+					qrsj_end: date3
+				};
 			}
-			var params = {
-				qrsj_start: this.date_start,
-				qrsj_end: this.date_end
-			};
 			axios.post('/xfxhapi/qyjbxx/ifConfirmedTjfx', params).then(function (res) {
 				this.name_X = [];
 				this.value_Y = [];
@@ -205,11 +210,12 @@ var vue = new Vue({
 			window.open("/xfxhapi/qyzwyx/doExportTjfxByZwmjfw");
 		},
 		toCompanyList: function (val) {
-			// var params = {
-			// 	qrsj_start: this.date_start,
-			// 	qrsj_end: this.date_end
-			// };
-			// loadDivParam("statistical/exhprediction_confirm", params);
+			var params = {
+				qrsj_start: this.date_start,
+				qrsj_end: this.date_end,
+				qrzt: val.qrzt
+			};
+			loadDivParam("statistical/exhprediction_confirm", params);
 		}
 	}
 })

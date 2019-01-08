@@ -17,9 +17,8 @@
                     <el-row class="mb5">
                         <el-form>
                             <el-form-item label="确认时间">
-                                <el-date-picker v-model="dataRange" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" size="small">
+                                <el-date-picker v-model="dataRange" @change="getAllData" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" size="small">
                                 </el-date-picker>
-                                <el-button type="primary" icon="el-icon-search" size="small" @click="getAllData">查询</el-button>
                             </el-form-item>
                         </el-form>
                     </el-row>
@@ -35,7 +34,7 @@
                                 <!-- <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column> -->
                                 <el-table-column prop="qrztmc" label="是否进行信息确认" show-overflow-tooltip min-width="30%" align="center">
                                     <template slot-scope="scope">
-                                        <a v-text="scope.row.qrztmc" @click="toCompanyList"></a>
+                                        <a v-text="scope.row.qrztmc" @click="toCompanyList(scope.row)"></a>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="qrztsl" label="企业数量" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
