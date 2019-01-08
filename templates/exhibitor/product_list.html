@@ -16,17 +16,20 @@
                 <!--产品介绍-->
                 <div id="qycpjs" class="mb5" style="margin-top: 10px">
                     <el-row class="mb10">
-                        <el-col :span="1">&nbsp;</el-col>
-                        <el-col :span="22">
-                            
-                            <el-button style="float: right;padding: 9px;margin-bottom: 10px" type="primary" icon="el-icon-plus" size="small" @click="addClick()">新增</el-button>
-                        
+                        <el-col :span="24">
+                            <el-form>
+                                <el-form-item align="left">
+                                    <el-button type="success" icon="el-icon-plus" size="small" @click="addClick()">新增</el-button>
+                                </el-form-item>
+                            </el-form>
                             <el-form id="cpjs" v-if="cpjsData.length>0" :inline="true" style="width: 100%;" class="demo-form-inline">
                                 <el-form-item v-for="(cpjs,index) in cpjsData" style="width: 100%;">
                                     <el-card class="mb10 card_style" id="cpjsImg">
-                                        <div slot="header" class="clearfix" style="height: 20px;">
-                                            <el-button style="float: right;color:red;padding: 5px 0" type="text" @click="deleteClick(cpjs)">删除</el-button>                                            
-                                            <el-button style="float: right;margin-right:20px;padding: 5px 0" type="text" @click="editClick(cpjs)">修改</el-button>
+                                        <div slot="header" class="clearfix">
+                                            <div class="r">
+                                                <el-button type="danger" size="small" icon="el-icon-delete" @click="deleteClick(cpjs)">删除</el-button>                                            
+                                                <el-button type="primary" size="small" icon="el-icon-edit" @click="editClick(cpjs)">修改</el-button>
+                                            </div>
                                         </div>
                                         <el-row class="h100">
                                             <el-col :span="5" class="h100 tc">

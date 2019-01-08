@@ -41,3 +41,6 @@ input[type=file] {
 #cpjsArea .el-form-item__error {
   padding-top: 8px;
 }
+#cpjs .el-form-item__content{
+  line-height: 30px;
+}
