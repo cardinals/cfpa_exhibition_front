@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<title>展位选择</title>
+	<link rel="stylesheet" type="text/css" href="../../static\css\venue\positon_select.css">
+	<script src="../../static\js\common\config.js"></script>
+</head>
+<style>
+	
+</style>
+<body class="fw f14 main-index-body">
+	<div id="app">
+		
+		<div class="main-box">
+
+			<div ref="ploterWrap"  v-loading="loading" element-loading-text="加载中" class="app-viewer-ploter-wrap positionlist" :style="ploterStyle">
+				<div class="app-viewer-ploter-navigation">
+					<div class="ploter-navigation-list">
+						<el-button id="n" v-for="data in tableData" @click="getStage(data.uuid,$event)" v-if="ploter.show" class="app-ploter-tools-graphs-menu-item">
+							{{data.zgmc}}
+						</el-button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="/static/js/zzzlib/vue.min.js"></script>
+<script src="/static/js/zzzlib/jquery-3.2.1.min.js"></script>
+<script src="/static/js/zzzlib/axios.min.js"></script>
+<script src="/static/js/lib.js"></script>
+<script src="../../static\js\zzzlib\postmate.js"></script>
+<script src="../../static\js\common\config.js"></script>
+<script src="../../static/js/venue/position_select_list_anon.js"></script>
+</html>
