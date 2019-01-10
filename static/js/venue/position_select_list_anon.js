@@ -38,7 +38,7 @@ var vue = new Vue({
         }
         setInterval(() => {
             this.refresh()
-        }, 30000)
+        }, 120000)
     },
     methods: {
         refresh: function () {
@@ -52,6 +52,10 @@ var vue = new Vue({
             })
         },
         getStage(uuid,event) {
+            if (viewerHandshake) {
+                viewerHandshake.destroy()
+                viewerHandshake = null
+            }
             if(event){
                 this.lastEvent=event
                 if(this.lastEl){
@@ -110,7 +114,6 @@ var vue = new Vue({
                 handshake.frame.className = 'app-viewer-ploter-iframe'
                 handshake.on('evtNeedBusinessData', me.getBusinessData.bind(me))
             })
-            
         },
         getBusinessData(stageUuid) {
             var params = {

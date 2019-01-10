@@ -34,9 +34,9 @@
         @media(max-width:960px) {}
 
         .zgzw{
-            background:rgb(146, 2, 22);
+           
             color:#fff !important;
-            font-size:25px;
+            font-size:18px;
             padding: 8px;
             border-radius: 5px;
             font-weight: bold;
@@ -54,6 +54,7 @@
                 <div class="QRCode" ></div>
                 <div class="lanz">
                     <p><a class="lan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a><span class="lana" @click="changeLanguage()">中文</span><a class="lan">&nbsp;&nbsp;|&nbsp;&nbsp;</a><span class="lanb">English</span></p>
+                    <p style="margin-top:20px;margin-left:5px;background:rgb(146, 2, 22); padding: 8px;color:#fff;"><span class="lana"><a class="lana" style="color:#fff;" href="/templates/plan/plan_list_EN_anon.html">View Booth Reservations</a></span></p>
                     <p style="height:15px;"></p>
                     <p>
                         <span class="lana  zgzw">
@@ -61,6 +62,7 @@
                             <img class="sc" src="/static/images/btn/zgtudownload.png"/>
                         </span>
                     </p>
+                    
                 </div>
                 <div class="Login">
                     <div id="login" class="Login_n" v-show="formFlag=='loginFlag'||formFlag=='bakFlag'">
