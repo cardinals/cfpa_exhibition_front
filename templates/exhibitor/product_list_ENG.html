@@ -19,7 +19,7 @@
                         <el-col :span="24">
                             <el-form>
                                 <el-form-item align="left">
-                                    <el-button type="success" icon="el-icon-plus" size="small" @click="addClick()">add</el-button>
+                                    <el-button type="success" icon="el-icon-plus" size="small" @click="addClick()">Add</el-button>
                                 </el-form-item>
                             </el-form>
                             <el-form id="cpjs" v-if="cpjsData.length>0" :inline="true" style="width: 100%;" class="demo-form-inline">
@@ -27,8 +27,8 @@
                                     <el-card class="mb10 card_style" id="cpjsImg">
                                         <div slot="header" class="clearfix">
                                             <div class="r">
-                                                <el-button type="danger" size="small" icon="el-icon-delete" @click="deleteClick(cpjs)">delete</el-button>                                            
-                                                <el-button type="primary" size="small" icon="el-icon-edit" @click="editClick(cpjs)">edit</el-button>
+                                                <el-button type="danger" size="small" icon="el-icon-delete" @click="deleteClick(cpjs)">Delete</el-button>                                            
+                                                <el-button type="primary" size="small" icon="el-icon-edit" @click="editClick(cpjs)">Edit</el-button>
                                             </div>
                                         </div>
                                         <el-row class="h100">
