@@ -307,3 +307,25 @@ window.validateSession = function(){
         console.log(error)
     });
 }
+
+//关闭左侧菜单
+window.closeleft = function () {
+    document.getElementById("menu-toggle-btn").style.right = "-26px";
+    document.getElementById("menu-toggle-btn").style.transform = "rotateY(180deg)";
+    var left = $('.left-sidebar'),
+        main = $('.main-box'),
+        $this = $(this);
+    if (left.hasClass('damin')) {
+        left.removeClass('damin').css('left', '0');
+        main.css('padding-left', '240px');
+        setTimeout(function () {
+            $this.removeClass('menu-toggle-bg').css({ "right": "0", "transform": "rotateY(0)" });
+        }, 300);
+    } else {
+        left.addClass('damin').css('left', '-240px');
+        main.css('padding-left', 0);
+        setTimeout(function () {
+            $this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
+        }, 300);
+    }
+}
