@@ -15,7 +15,8 @@ var vue = new Vue({
             dataRange: [],
             tableData: [],//列表信息
             shiroData: [],//当前用户信息
-            tableQrzt: '',
+            exportForm: [],
+            // tableQrzt: '',
             //显示加载中样
             loading: false,
             //当前页
@@ -56,7 +57,7 @@ var vue = new Vue({
                 var date2 = new Date(this.dataRange[1]);
                 this.searchForm.qrsj_end = date2.getFullYear() + '-' + (date2.getMonth() + 1) + '-' + date2.getDate() + ' ' + date2.getHours() + ':' + date2.getMinutes() + ':' + date2.getSeconds();
             }
-            this.tableQrzt = this.searchForm.qrzt;
+            // this.tableQrzt = this.searchForm.qrzt;
             var params = {
                 qrsj_start: this.searchForm.qrsj_start,
                 qrsj_end: this.searchForm.qrsj_end,
@@ -70,6 +71,7 @@ var vue = new Vue({
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
+                this.exportForm = [this.searchForm.qrzt, this.searchForm.qrsj_start, this.searchForm.qrsj_end];
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -83,6 +85,9 @@ var vue = new Vue({
             }
             this.searchForm.qrzt = getQueryString("qrzt");
             this.searchClick('reset');
+        },
+        exportClick: function () {
+            window.open("/xfxhapi/qyjbxx/doExportConfirmDetail/" + this.exportForm);
         }
     }
 })

@@ -60,12 +60,12 @@
                             </el-table-column>
                             <el-table-column prop="lxr" label="联系人" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
                             <el-table-column prop="lxrsj" label="联系人手机" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
-                            <el-table-column prop="qrzt" label="确认状态" show-overflow-tooltip min-width="10%" align="center">
+                            <!-- <el-table-column prop="qrzt" label="确认状态" show-overflow-tooltip min-width="10%" align="center">
                                 <template slot-scope="scope">
                                     <span v-if="tableQrzt == '1'" style="color:#42D885">已确认</span>
                                     <span v-else style="color:#e40613">未确认</span>
                                 </template>
-                            </el-table-column>
+                            </el-table-column> -->
                             <el-table-column prop="qrsj" label="上次确认时间" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
                         </el-table>
 
@@ -76,6 +76,9 @@
                                     :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
                                 </el-pagination>
                             </el-col>
+                            <div class="ml10 mr5">
+                                <el-button type="success" icon="el-icon-download" size="small" @click="exportClick" class="r">导出</el-button>
+                            </div>
                         </el-row>
                     </div>
                 </div>
