@@ -242,6 +242,8 @@ new Vue({
             };
             //编辑页隐藏
             this.editFormVisible = false;
+            //重置校验
+            this.$refs["editForm"].resetFields();
         },
         //提交
         editSubmit: function(val){

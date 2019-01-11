@@ -54,7 +54,7 @@ new Vue({
         }
     },
     created: function () {
-        loadBreadcrumb("Products", "-1");
+        loadBreadcrumb("Product Introduction", "-1");
         this.shiroData = shiroGlobal;
         this.loading = true;
         this.userid = this.shiroData.userid;
@@ -238,6 +238,8 @@ new Vue({
             };
             //编辑页隐藏
             this.editFormVisible = false;
+            //重置校验
+            this.$refs["editForm"].resetFields();
         },
         //提交
         editSubmit: function(val){
