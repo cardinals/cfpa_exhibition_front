@@ -82,6 +82,8 @@ var vue = new Vue({
             if (getQueryString("qrsj_start") != null && getQueryString("qrsj_start") != '' && getQueryString("qrsj_start") != undefined &&
                 getQueryString("qrsj_end") != null && getQueryString("qrsj_end") != '' && getQueryString("qrsj_end") != undefined) {
                 this.dataRange = [getQueryString("qrsj_start"), getQueryString("qrsj_end")];
+            } else {
+                this.dataRange = [];
             }
             this.searchForm.qrzt = getQueryString("qrzt");
             this.searchClick('reset');
