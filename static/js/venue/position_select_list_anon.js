@@ -36,9 +36,9 @@ var vue = new Vue({
         if(this.currentUuid){
             this.getStage(this.currentUuid)
         }
-        setInterval(() => {
-            this.refresh()
-        }, 120000)
+        // setInterval(() => {
+        //     this.refresh()
+        // }, 120000)
     },
     methods: {
         refresh: function () {
