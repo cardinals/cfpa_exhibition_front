@@ -34,6 +34,8 @@ var vm = new Vue({
             delPicSrc:'',
             //上传后未保存的图片list
             unsavedPicList:[],
+            //曾用公司名称
+            cygsmc:'',
             //基本信息表单
             baseInforForm: {
                 ywgsmc:'',
@@ -338,6 +340,8 @@ var vm = new Vue({
                             this.isYbh = true;
                         }
                         this.baseInforForm = res.data.result;
+                        //曾用公司名称 记录当前英文公司名称
+                        this.cygsmc = res.data.result.ywgsmc;
                         this.baseInforForm.dzyx1 = this.baseInforForm.dzyx;
                         if(this.baseInforForm.wz == ''||this.baseInforForm.wz == null){
                             this.noWebsit = true;
@@ -650,23 +654,46 @@ var vm = new Vue({
                             console.log('error submit!!');
                             return false;
                         }else{
-                            var params = {
-                                qyid: this.baseInforForm.qyid,
-                                ywgsmc: this.baseInforForm.ywgsmc,
-                                frdb: this.baseInforForm.frdb,
-                                frdbdh: this.baseInforForm.frdbdh,
-                                yjdzxx: this.baseInforForm.yjdzxx,
-                                bgdh: this.baseInforForm.bgdh,
-                                cz: this.baseInforForm.cz,
-                                lxr: this.baseInforForm.lxr,
-                                lxrsj: this.baseInforForm.lxrsj,
-                                wz: this.baseInforForm.wz,
-                                dzyx: this.baseInforForm.dzyx1,
-                                email:this.baseInforForm.email,
-                                reserve2:this.baseInforForm.reserve2,
-                                xgrid: this.shiroData.userid,
-                                xgrmc: this.shiroData.username
+                            //判断当前公司名称是否修改
+                            if(this.cygsmc == this.baseInforForm.ywgsmc){//未修改
+                                var params = {
+                                    qyid: this.baseInforForm.qyid,
+                                    ywgsmc: this.baseInforForm.ywgsmc,
+                                    frdb: this.baseInforForm.frdb,
+                                    frdbdh: this.baseInforForm.frdbdh,
+                                    yjdzxx: this.baseInforForm.yjdzxx,
+                                    bgdh: this.baseInforForm.bgdh,
+                                    cz: this.baseInforForm.cz,
+                                    lxr: this.baseInforForm.lxr,
+                                    lxrsj: this.baseInforForm.lxrsj,
+                                    wz: this.baseInforForm.wz,
+                                    dzyx: this.baseInforForm.dzyx1,
+                                    email:this.baseInforForm.email,
+                                    reserve2:this.baseInforForm.reserve2,
+                                    xgrid: this.shiroData.userid,
+                                    xgrmc: this.shiroData.username
+                                }
+                            }else{//修改了公司名称，传参cygsmc
+                                var params = {
+                                    qyid: this.baseInforForm.qyid,
+                                    ywgsmc: this.baseInforForm.ywgsmc,
+                                    frdb: this.baseInforForm.frdb,
+                                    frdbdh: this.baseInforForm.frdbdh,
+                                    yjdzxx: this.baseInforForm.yjdzxx,
+                                    bgdh: this.baseInforForm.bgdh,
+                                    cz: this.baseInforForm.cz,
+                                    lxr: this.baseInforForm.lxr,
+                                    lxrsj: this.baseInforForm.lxrsj,
+                                    wz: this.baseInforForm.wz,
+                                    dzyx: this.baseInforForm.dzyx1,
+                                    email:this.baseInforForm.email,
+                                    reserve2:this.baseInforForm.reserve2,
+                                    xgrid: this.shiroData.userid,
+                                    xgrmc: this.shiroData.username,
+                                    cygsmc:this.cygsmc
+                                }
                             }
+                            
                             axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
                                 this.upLoadData.qyid = this.baseInforForm.qyid;
                                 this.$message({

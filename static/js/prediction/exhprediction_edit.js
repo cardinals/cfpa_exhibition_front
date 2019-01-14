@@ -161,6 +161,8 @@ var vm = new Vue({
             hyxydj_data: [],
             //产品所属分类
             cpssfl_data: [],
+            //曾用公司名称
+            cygsmc:'',
             //手机验证表单
             sjform:{
                 sjh:'',
@@ -413,6 +415,8 @@ var vm = new Vue({
                             this.isYbh = true;
                         }
                         this.baseInforForm = res.data.result;
+                        //曾用公司名称 记录当前中文公司名称
+                        this.cygsmc = res.data.result.zwgsmc;
                         if(this.baseInforForm.src !== null && this.baseInforForm.src !== ''){
                             this.baseInforForm.imageUrl = baseUrl + "/upload/" + this.baseInforForm.src;
                         }
@@ -824,26 +828,52 @@ var vm = new Vue({
                         }
                         else{
                             this.loading = true;
-                            var params = {
-                                qyid: this.baseInforForm.qyid,
-                                zwgsmc: this.baseInforForm.zwgsmc,
-                                ywgsmc: this.baseInforForm.ywgsmc,
-                                frdb: this.baseInforForm.frdb,
-                                frdbdh: this.baseInforForm.frdbdh,
-                                yjdzsheng: this.baseInforForm.xzqh[0],
-                                yjdzshi: this.baseInforForm.xzqh[1],
-                                yjdzxx: this.baseInforForm.yjdzxx,
-                                bgdh: this.baseInforForm.bgdh,
-                                cz: this.baseInforForm.cz,
-                                lxr: this.baseInforForm.lxr,
-                                lxrsj: this.baseInforForm.lxrsj,
-                                wz: this.baseInforForm.wz,
-                                dzyx: this.baseInforForm.dzyx1,
-                                //yyzz:this.baseInforForm.yyzz,
-                                xgrid: this.shiroData.userid,
-                                xgrmc: this.shiroData.username,
-                                src: this.baseInforForm.src,
-                                yyzzgs:this.baseInforForm.yyzzgs
+                            //判断当前公司名称是否修改
+                            if(this.cygsmc == this.baseInforForm.zwgsmc){//未修改
+                                var params = {
+                                    qyid: this.baseInforForm.qyid,
+                                    zwgsmc: this.baseInforForm.zwgsmc,
+                                    ywgsmc: this.baseInforForm.ywgsmc,
+                                    frdb: this.baseInforForm.frdb,
+                                    frdbdh: this.baseInforForm.frdbdh,
+                                    yjdzsheng: this.baseInforForm.xzqh[0],
+                                    yjdzshi: this.baseInforForm.xzqh[1],
+                                    yjdzxx: this.baseInforForm.yjdzxx,
+                                    bgdh: this.baseInforForm.bgdh,
+                                    cz: this.baseInforForm.cz,
+                                    lxr: this.baseInforForm.lxr,
+                                    lxrsj: this.baseInforForm.lxrsj,
+                                    wz: this.baseInforForm.wz,
+                                    dzyx: this.baseInforForm.dzyx1,
+                                    //yyzz:this.baseInforForm.yyzz,
+                                    xgrid: this.shiroData.userid,
+                                    xgrmc: this.shiroData.username,
+                                    src: this.baseInforForm.src,
+                                    yyzzgs:this.baseInforForm.yyzzgs
+                                }
+                            }else{//修改了公司名称，传参cygsmc
+                                var params = {
+                                    qyid: this.baseInforForm.qyid,
+                                    zwgsmc: this.baseInforForm.zwgsmc,
+                                    ywgsmc: this.baseInforForm.ywgsmc,
+                                    frdb: this.baseInforForm.frdb,
+                                    frdbdh: this.baseInforForm.frdbdh,
+                                    yjdzsheng: this.baseInforForm.xzqh[0],
+                                    yjdzshi: this.baseInforForm.xzqh[1],
+                                    yjdzxx: this.baseInforForm.yjdzxx,
+                                    bgdh: this.baseInforForm.bgdh,
+                                    cz: this.baseInforForm.cz,
+                                    lxr: this.baseInforForm.lxr,
+                                    lxrsj: this.baseInforForm.lxrsj,
+                                    wz: this.baseInforForm.wz,
+                                    dzyx: this.baseInforForm.dzyx1,
+                                    //yyzz:this.baseInforForm.yyzz,
+                                    xgrid: this.shiroData.userid,
+                                    xgrmc: this.shiroData.username,
+                                    src: this.baseInforForm.src,
+                                    yyzzgs:this.baseInforForm.yyzzgs,
+                                    cygsmc:this.cygsmc
+                                }
                             }
                             axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
                                 this.$message({
