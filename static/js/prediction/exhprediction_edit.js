@@ -876,6 +876,7 @@ var vm = new Vue({
                                 }
                             }
                             axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
+                                this.cygsmc = this.baseInforForm.zwgsmc;
                                 this.$message({
                                     message: '企业基本信息暂存成功',
                                     type: 'success'

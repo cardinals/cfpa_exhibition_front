@@ -695,6 +695,7 @@ var vm = new Vue({
                             }
                             
                             axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
+                                this.cygsmc = this.baseInforForm.ywgsmc;
                                 this.upLoadData.qyid = this.baseInforForm.qyid;
                                 this.$message({
                                     message: 'Brief Company Information has been saved!',
