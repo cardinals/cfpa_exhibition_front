@@ -59,7 +59,13 @@ var vue = new Vue({
             //出口类型下拉框
             cklxData: [],
             //展位类型下拉框
-            zwlbData: [],
+            zwlbData: [{
+                name:'标准展位'
+                
+            },{
+                name:'光地'
+                
+            }],
         }
     },
     created: function () {
@@ -70,7 +76,7 @@ var vue = new Vue({
         //登录用户
         this.shiroData = shiroGlobal;
         //展位类型
-        this.getZwlb();
+        //this.getZwlb();
         //出口类型
         this.getCklx();
         this.searchClick('click');
@@ -80,6 +86,7 @@ var vue = new Vue({
 
     methods: {
         //展位类别下拉框
+        /*光地区分室内室外，不查代码集
         getZwlb: function () {
             axios.get('/xfxhapi/codelist/getCodetype/ZWLX').then(function (res) {
                 this.zwlbData = res.data.result;
@@ -87,6 +94,7 @@ var vue = new Vue({
                 console.log(error);
             })
         },
+        */
         //出口类型下拉框
         getCklx: function () {
             axios.get('/xfxhapi/codelist/getCodetype/CKLX').then(function (res) {

@@ -27,7 +27,7 @@
 								<el-col :span="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">展位类型</label>
 									<el-select size="small" v-model="searchForm.zwlb" placeholder="全部" class="searchSelect" clearable>
-										<el-option v-for="item in zwlbData" :key="item.codeValue" :label="item.codeName" :value="item.codeName"></el-option>
+										<el-option v-for="item in zwlbData" :key="item.name" :label="item.name" :value="item.name"></el-option>
 									</el-select>
 								</el-col>
 							</el-row>
