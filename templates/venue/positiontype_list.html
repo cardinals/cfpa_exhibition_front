@@ -54,10 +54,25 @@
 						 @selection-change="selectionChange">
 							<el-table-column type="selection" width="35"></el-table-column>
 							<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-							<el-table-column prop="zwflmc" show-overflow-tooltip label="展位类型" min-width="10%" align="center"></el-table-column>
-							<el-table-column prop="kkflmc" show-overflow-tooltip label="出口类型" min-width="10%" align="center"></el-table-column>
-							<el-table-column prop="flmj" show-overflow-tooltip label="单位面积(㎡)" min-width="10%" align="center"></el-table-column>
-							<el-table-column prop="fljg" show-overflow-tooltip label="单位面积价格(rmb)" min-width="10%" align="center"></el-table-column>
+							<el-table-column prop="zwflmc" show-overflow-tooltip label="展位类型" min-width="25%" align="center"></el-table-column>
+							<el-table-column prop="kkflmc" show-overflow-tooltip label="出口类型" min-width="15%" align="center"></el-table-column>
+							<!-- <el-table-column prop="flmj" show-overflow-tooltip label="单位面积(㎡)" min-width="10%" align="center"></el-table-column> -->
+							<el-table-column show-overflow-tooltip label="单位面积价格(RMB)" min-width="25%" align="center">
+								<template slot-scope="scope">
+									<strong v-text="scope.row.fljg"></strong>
+									<span>RMB/
+										<strong v-if="scope.row.zwfl=='1'" v-text="scope.row.flmj"></strong>㎡
+									</span>
+								</template>
+							</el-table-column>
+							<el-table-column show-overflow-tooltip label="单位面积价格(USB)" min-width="25%" align="center">
+								<template slot-scope="scope">
+									<strong v-text="scope.row.fljgEng"></strong>
+									<span>USB/
+										<strong v-if="scope.row.zwfl=='1'" v-text="scope.row.flmj"></strong>㎡
+									</span>
+								</template>
+							</el-table-column>
 							<el-table-column label="操作" width="80" align="center">
 								<template slot-scope="scope">
 									<el-button type="text" @click="editClick(scope.row)">编辑</el-button>
@@ -75,9 +90,9 @@
 					</div>
 					<!-- 编辑-->
 					<el-dialog :title="dialogTitle" :visible.sync="editFormVisible" @close="closeDialog('editForm')" :close-on-click-modal="false">
-						<el-form :model="editForm" label-width="180px" :rules="editFormRules" ref="editForm">
+						<el-form :model="editForm" label-width="200px" :rules="editFormRules" ref="editForm">
 							<el-row class="mt20">
-								<el-col :span="21">
+								<el-col :span="18">
 									<el-form-item label="展位类型" prop="zwfl">
 										<el-radio-group v-model="editForm.zwfl" size="small" @change="zwflChange">
 											<el-radio v-for="item in zwlbData" class="radio" :label="item.codeValue">{{item.codeName}}</el-radio>
@@ -86,34 +101,38 @@
 								</el-col>
 							</el-row>
 							<el-row>
-								<el-col :span="21">
-									<el-form-item v-if="isBzzw" label="出口类型">
-										<el-radio-group v-model="editForm.kkfl" size="small" disabled>
-											<el-radio v-for="item in cklxData" class="radio" :label="item.codeValue">{{item.codeName}}</el-radio>
-										</el-radio-group>
-									</el-form-item>
-									<el-form-item v-else-if="!isBzzw" label="出口类型" prop="kkfl">
+								<el-col :span="18">
+									<el-form-item v-if="isSngd" label="出口类型" prop="kkfl">
 										<el-radio-group v-model="editForm.kkfl" size="small">
 											<el-radio v-for="item in cklxData" class="radio" :label="item.codeValue">{{item.codeName}}</el-radio>
 										</el-radio-group>
 									</el-form-item>
-								</el-col>
-							</el-row>
-							<el-row>
-								<el-col :span="21">
-									<el-form-item label="单位面积" prop="flmj">
-										<el-input-number v-model="editForm.flmj" :min="0" :max="12" :precision="0" size="small" disabled></el-input-number>
+									<el-form-item v-else-if="!isSngd" label="出口类型">
+										<el-radio-group v-model="editForm.kkfl" size="small" disabled>
+											<el-radio v-for="item in cklxData" class="radio" :label="item.codeValue">{{item.codeName}}</el-radio>
+										</el-radio-group>
 									</el-form-item>
 								</el-col>
-								<el-col :span="1" style="line-height: 40px;">（㎡）</el-col>
 							</el-row>
 							<el-row>
-								<el-col :span="21">
+								<el-col :span="18">
 									<el-form-item label="单位面积价格" prop="fljg">
 										<el-input-number v-model="editForm.fljg" :min="0" :max="99999999.99" :precision="2" size="small"></el-input-number>
 									</el-form-item>
 								</el-col>
-								<el-col :span="1" style="line-height: 40px;">（rmb）</el-col>
+								<el-col :span="5" style="line-height: 40px;">（RMB/
+									<span v-if="editForm.zwfl=='1'" v-text="editForm.flmj"></span>㎡）
+								</el-col>
+							</el-row>
+							<el-row>
+								<el-col :span="18">
+									<el-form-item label="" prop="fljgEng">
+										<el-input-number v-model="editForm.fljgEng" :min="0" :max="99999999.99" :precision="2" size="small"></el-input-number>
+									</el-form-item>
+								</el-col>
+								<el-col :span="5" style="line-height: 40px;">（USB/
+									<span v-if="editForm.zwfl=='1'" v-text="editForm.flmj"></span>㎡）
+								</el-col>
 							</el-row>
 							<el-row class="mt35 mb20 tc">
 								<el-button type="clear" icon="el-icon-close" size="small" class="btn_submit" @click="closeDialog('editForm')"> 取消</el-button>

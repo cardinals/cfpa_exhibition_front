@@ -36,8 +36,9 @@ var vue = new Vue({
                 kkfl: '',
                 flmj: '',
                 fljg: '',
+                fljgEng: ''
             },
-            isBzzw: false,
+            isSngd: true,//是否室内光地
             editFormRules: {
                 zwfl: [
                     { required: true, message: '请选择展位类型', trigger: 'change' }
@@ -49,7 +50,10 @@ var vue = new Vue({
                     { required: true, message: '请输入单位面积', trigger: 'blur' },
                 ],
                 fljg: [
-                    { required: true, message: '请输入单位面积价格', trigger: 'blur' },
+                    { required: true, message: '请输入单位面积价格(元)', trigger: 'blur' },
+                ],
+                fljgEng: [
+                    { required: true, message: '请输入单位面积价格(美元)', trigger: 'blur' },
                 ]
             }
         }
@@ -117,11 +121,15 @@ var vue = new Vue({
         },
         zwflChange: function (val) {
             if (val == '1') {
-                this.isBzzw = true;
+                this.isSngd = false;
                 this.editForm.kkfl = '';
                 this.editForm.flmj = 12;
             } else if (val == '2') {
-                this.isBzzw = false;
+                this.isSngd = true;
+                this.editForm.flmj = 1;
+            }else if (val == '3') {
+                this.isSngd = false;
+                this.editForm.kkfl = '';
                 this.editForm.flmj = 1;
             }
         },
@@ -166,6 +174,7 @@ var vue = new Vue({
                 this.editForm.kkfl = res.data.result.kkfl;
                 this.editForm.flmj = res.data.result.flmj;
                 this.editForm.fljg = res.data.result.fljg;
+                this.editForm.fljgEng = res.data.result.fljgEng;
                 if (this.editForm.zwfl == '1') {
                     this.isBzzw = true;
                 } else {
@@ -186,6 +195,7 @@ var vue = new Vue({
                             kkfl: this.editForm.kkfl,
                             flmj: this.editForm.flmj,
                             fljg: this.editForm.fljg,
+                            fljgEng: this.editForm.fljgEng,
                             cjrid: this.shiroData.userid,
                             cjrmc: this.shiroData.realName
                         }
@@ -207,6 +217,7 @@ var vue = new Vue({
                             kkfl: this.editForm.kkfl,
                             flmj: this.editForm.flmj,
                             fljg: this.editForm.fljg,
+                            fljgEng: this.editForm.fljgEng,
                             xgrid: this.shiroData.userid,
                             xgrmc: this.shiroData.realName
                         }
@@ -222,13 +233,11 @@ var vue = new Vue({
                             console.log(error)
                         })
                     }
-
                 } else {
                     console.log('error submit!!');
                     return false;
                 }
             });
-
         },
         closeDialog: function (val) {
             this.editForm = {
@@ -236,6 +245,7 @@ var vue = new Vue({
                 kkfl: '',
                 flmj: '',
                 fljg: '',
+                fljgEng: ''
             };
             this.$refs[val].resetFields();
             this.selectUuid = '';
