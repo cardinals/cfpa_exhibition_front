@@ -54,25 +54,11 @@
 						 @selection-change="selectionChange">
 							<el-table-column type="selection" width="35"></el-table-column>
 							<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-							<el-table-column prop="zwflmc" show-overflow-tooltip label="展位类型" min-width="25%" align="center"></el-table-column>
+							<el-table-column prop="zwflmc" show-overflow-tooltip label="展位类型" min-width="20%" align="center"></el-table-column>
 							<el-table-column prop="kkflmc" show-overflow-tooltip label="出口类型" min-width="15%" align="center"></el-table-column>
-							<!-- <el-table-column prop="flmj" show-overflow-tooltip label="单位面积(㎡)" min-width="10%" align="center"></el-table-column> -->
-							<el-table-column show-overflow-tooltip label="单位面积价格(RMB)" min-width="25%" align="center">
-								<template slot-scope="scope">
-									<strong v-text="scope.row.fljg"></strong>
-									<span>RMB/
-										<strong v-if="scope.row.zwfl=='1'" v-text="scope.row.flmj"></strong>㎡
-									</span>
-								</template>
-							</el-table-column>
-							<el-table-column show-overflow-tooltip label="单位面积价格(USB)" min-width="25%" align="center">
-								<template slot-scope="scope">
-									<strong v-text="scope.row.fljgEng"></strong>
-									<span>USB/
-										<strong v-if="scope.row.zwfl=='1'" v-text="scope.row.flmj"></strong>㎡
-									</span>
-								</template>
-							</el-table-column>
+							<el-table-column prop="flmj" show-overflow-tooltip label="单位面积(㎡)" min-width="15%" align="center"></el-table-column>
+							<el-table-column prop="fljg" show-overflow-tooltip label="单位面积价格(元)" min-width="20%" align="center"></el-table-column>
+							<el-table-column prop="fljgEng" show-overflow-tooltip label="单位面积价格(美元)" min-width="20%" align="center"></el-table-column>
 							<el-table-column label="操作" width="80" align="center">
 								<template slot-scope="scope">
 									<el-button type="text" @click="editClick(scope.row)">编辑</el-button>
