@@ -175,10 +175,10 @@ var vue = new Vue({
                 this.editForm.flmj = res.data.result.flmj;
                 this.editForm.fljg = res.data.result.fljg;
                 this.editForm.fljgEng = res.data.result.fljgEng;
-                if (this.editForm.zwfl == '1') {
-                    this.isBzzw = true;
+                if (this.editForm.zwfl == '2') {
+                    this.isSngd = true;
                 } else {
-                    this.isBzzw = false;
+                    this.isSngd = false;
                 }
                 this.editFormVisible = true;
             }.bind(this), function (error) {

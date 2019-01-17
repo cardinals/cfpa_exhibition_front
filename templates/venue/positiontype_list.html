@@ -76,47 +76,43 @@
 					</div>
 					<!-- 编辑-->
 					<el-dialog :title="dialogTitle" :visible.sync="editFormVisible" @close="closeDialog('editForm')" :close-on-click-modal="false">
-						<el-form :model="editForm" label-width="200px" :rules="editFormRules" ref="editForm">
+						<el-form :model="editForm" label-width="180px" :rules="editFormRules" ref="editForm">
 							<el-row class="mt20">
-								<el-col :span="18">
-									<el-form-item label="展位类型" prop="zwfl">
-										<el-radio-group v-model="editForm.zwfl" size="small" @change="zwflChange">
-											<el-radio v-for="item in zwlbData" class="radio" :label="item.codeValue">{{item.codeName}}</el-radio>
-										</el-radio-group>
-									</el-form-item>
-								</el-col>
+								<el-form-item label="展位类型" prop="zwfl">
+									<el-radio-group v-model="editForm.zwfl" size="small" @change="zwflChange">
+										<el-radio v-for="item in zwlbData" class="radio" :label="item.codeValue">{{item.codeName}}</el-radio>
+									</el-radio-group>
+								</el-form-item>
 							</el-row>
 							<el-row>
-								<el-col :span="18">
-									<el-form-item v-if="isSngd" label="出口类型" prop="kkfl">
-										<el-radio-group v-model="editForm.kkfl" size="small">
-											<el-radio v-for="item in cklxData" class="radio" :label="item.codeValue">{{item.codeName}}</el-radio>
-										</el-radio-group>
-									</el-form-item>
-									<el-form-item v-else-if="!isSngd" label="出口类型">
-										<el-radio-group v-model="editForm.kkfl" size="small" disabled>
-											<el-radio v-for="item in cklxData" class="radio" :label="item.codeValue">{{item.codeName}}</el-radio>
-										</el-radio-group>
-									</el-form-item>
-								</el-col>
+								<el-form-item v-if="isSngd" label="出口类型" prop="kkfl">
+									<el-radio-group v-model="editForm.kkfl" size="small">
+										<el-radio v-for="item in cklxData" class="radio" :label="item.codeValue">{{item.codeName}}</el-radio>
+									</el-radio-group>
+								</el-form-item>
+								<el-form-item v-else-if="!isSngd" label="出口类型">
+									<el-radio-group v-model="editForm.kkfl" size="small" disabled>
+										<el-radio v-for="item in cklxData" class="radio" :label="item.codeValue">{{item.codeName}}</el-radio>
+									</el-radio-group>
+								</el-form-item>
 							</el-row>
 							<el-row>
-								<el-col :span="18">
+								<el-col :span="19">
 									<el-form-item label="单位面积价格" prop="fljg">
 										<el-input-number v-model="editForm.fljg" :min="0" :max="99999999.99" :precision="2" size="small"></el-input-number>
 									</el-form-item>
 								</el-col>
-								<el-col :span="5" style="line-height: 40px;">（RMB/
+								<el-col :span="4" style="line-height: 40px;">（RMB/
 									<span v-if="editForm.zwfl=='1'" v-text="editForm.flmj"></span>㎡）
 								</el-col>
 							</el-row>
 							<el-row>
-								<el-col :span="18">
+								<el-col :span="19">
 									<el-form-item label="" prop="fljgEng">
 										<el-input-number v-model="editForm.fljgEng" :min="0" :max="99999999.99" :precision="2" size="small"></el-input-number>
 									</el-form-item>
 								</el-col>
-								<el-col :span="5" style="line-height: 40px;">（USB/
+								<el-col :span="4" style="line-height: 40px;">（USB/
 									<span v-if="editForm.zwfl=='1'" v-text="editForm.flmj"></span>㎡）
 								</el-col>
 							</el-row>
