@@ -119,7 +119,8 @@ var vue = new Vue({
         //企业详情跳转
         qyDetails: function (val) {
             var params = {
-                id: val.qyid
+                id: val.qyid,
+                type: 'search'
             }
             loadDivParam("prediction/exhprediction_detail", params);
         },

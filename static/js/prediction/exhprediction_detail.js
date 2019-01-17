@@ -4,6 +4,7 @@ new Vue({
         return {
             activeName: "first",
             loading: false,
+            shiroData: [],
             showPicVisible: false,
             isENG: false,
             previewImg: '',
@@ -49,12 +50,23 @@ new Vue({
             bzzwData: [],
             //光地展位data
             gdzwData: [],
+            approveFormVisible: false,
+            //审批表单
+            approveForm: {
+                shzt: -1,
+                reserve1: ""
+            },
+            isReject: false,//未通过flag
         }
     },
     created: function () {
         var type = getQueryString("type");
-        loadBreadcrumb("展会报名管理", "展会报名详情");
-
+        if (type == 'search') {
+            loadBreadcrumb("展会报名管理", "展会报名详情");
+        } else if (type == 'approve') {
+            loadBreadcrumb("展会报名审核", "展会报名详情");
+        }
+        this.shiroData = shiroGlobal;
         this.loading = true;
         this.qyid = getQueryString("id");
         this.getJbxxData(this.qyid);
@@ -154,7 +166,7 @@ new Vue({
         getQyjsData: function (val) {
             axios.get('/xfxhapi/qyjs/doFindQyjsById/' + val).then(function (res) {
                 if (res.data.result != null) {
-                    
+
                     this.qyjsData = res.data.result;
                     this.qyjsData.imageUrl = baseUrl + "/upload/" + this.qyjsData.src;
                 }
@@ -194,13 +206,13 @@ new Vue({
         },
 
         //获取企业选择的标准展位信息
-        getSelectedBzzw: function(){
-            var param={
-                qyid:this.qyid,
-                zwlb:"标准展位"
+        getSelectedBzzw: function () {
+            var param = {
+                qyid: this.qyid,
+                zwlb: "标准展位"
             }
             axios.post('/xfxhapi/zwjbxx/doFindZwAndJgByVo', param).then(function (res) {
-                if (res.data.result.length >0) {
+                if (res.data.result.length > 0) {
                     this.bzzwData = res.data.result;
                 }
             }.bind(this), function (error) {
@@ -208,18 +220,96 @@ new Vue({
             })
         },
         //获取企业选择的光地展位信息
-        getSelectedGdzw: function(){
-            var param={
-                qyid:this.qyid,
-                zwlb:"光地"
+        getSelectedGdzw: function () {
+            var param = {
+                qyid: this.qyid,
+                zwlb: "光地"
             }
             axios.post('/xfxhapi/zwjbxx/doFindZwAndJgByVo', param).then(function (res) {
-                if (res.data.result.length >0) {
+                if (res.data.result.length > 0) {
                     this.gdzwData = res.data.result;
                 }
             }.bind(this), function (error) {
                 console.log(error)
             })
-        }
+        },
+        //审核点击事件
+        approveClick: function () {
+            this.approveForm = {
+                shzt: this.jbxxData.shzt,
+                sjzt: this.jbxxData.sjzt,
+                reserve1: this.jbxxData.reserve1
+            };
+            this.approveFormVisible = true;
+        },
+        //审核提交事件
+        approveSubmit: function (val) {
+            if (this.approveForm.shzt == '01') {
+                this.$message({
+                    message: "请选择审核状态",
+                    type: "error",
+                    showClose: true
+                });
+            } else if (this.isReject == true && (this.approveForm.reserve1 == null || this.approveForm.reserve1 == '')) {
+                this.$message({
+                    message: "请填写审核意见",
+                    type: "error",
+                    showClose: true
+                });
+            } else {
+                //审核状态改变才调用后台approveByVO方法
+                if (this.approveForm.shzt == this.jbxxData.shzt && this.approveForm.reserve1 == this.jbxxData.reserve1) {
+                    this.$message({
+                        message: "审核状态及审核意见未改变",
+                        type: "error",
+                        showClose: true
+                    });
+                } else {
+                    if (this.approveForm.shzt == '02') {//未通过
+                        this.approveForm.sjzt = '04';
+                    } else if (this.approveForm.shzt == '03') {//已通过
+                        this.approveForm.sjzt = '05';
+                    }
+                    var params = {
+                        qyid: this.qyid,
+                        shzt: this.approveForm.shzt,
+                        sjzt: this.approveForm.sjzt,
+                        reserve1: this.approveForm.reserve1,//审核意见
+                        shrid: this.shiroData.userid,
+                        shrmc: this.shiroData.realName,
+                        shsj: '1'
+                    };
+                    axios.post('/xfxhapi/qyjbxx/updateByVO', params).then(function (res) {
+                        if (res.data.result == 1) {
+                            this.approveFormVisible = false;
+                            this.$message.success('已审核');
+                            var type = getQueryString("type");
+                            if (type == 'search') {
+                                loadDivParam("prediction/exhprediction_list");
+                            } else if (type == 'approve') {
+                                loadDivParam("prediction/exhprediction_approve");
+                            }
+                        }
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
+                }
+            }
+        },
+        //审核状态为未通过时审核意见显示*代表必填
+        radioChange: function () {
+            if (this.approveForm.shzt == '02')
+                this.isReject = true;
+            else
+                this.isReject = false;
+        },
+        closeDialog: function (val) {
+            this.approveForm = {
+                shzt: -1,
+                reserve1: ""
+            };
+            this.$refs[val].resetFields();
+            this.approveFormVisible = false;
+        },
     }
 })

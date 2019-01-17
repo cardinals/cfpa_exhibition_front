@@ -44,9 +44,10 @@ var vue = new Vue({
         //登录用户
         this.shiroData = shiroGlobal;
         this.getShztData();//审核状态下拉框
+        this.searchClick('click');//条件查询
     },
     mounted: function () {
-        this.searchClick('click');//条件查询
+        
     },
 
     methods: {
@@ -69,7 +70,7 @@ var vue = new Vue({
             }
             this.loading = true;//表格重新加载
             var params = {
-                gsmc: this.searchForm.gsmc.replace(/%/g,"\\%"),
+                gsmc: this.searchForm.gsmc.replace(/%/g, "\\%"),
                 // yjdz: this.searchForm.yjdz,
                 shzt: this.searchForm.shzt,
                 approveflag: 'y',
@@ -97,7 +98,8 @@ var vue = new Vue({
         //企业详情跳转
         qyDetails: function (val) {
             var params = {
-                id: val.qyid
+                id: val.qyid,
+                type: 'approve'
             }
             loadDivParam("prediction/exhprediction_detail", params);
         },
@@ -178,11 +180,11 @@ var vue = new Vue({
                     axios.post('/xfxhapi/qyjbxx/updateByVO', params).then(function (res) {
                         if (res.data.result == 1) {
                             this.tableData[this.selectIndex].shzt = val.shzt;
-                            if(this.tableData[this.selectIndex].shzt=='01'){
+                            if (this.tableData[this.selectIndex].shzt == '01') {
                                 this.tableData[this.selectIndex].shztmc = '待审核';
-                            }else if(this.tableData[this.selectIndex].shzt=='02'){
+                            } else if (this.tableData[this.selectIndex].shzt == '02') {
                                 this.tableData[this.selectIndex].shztmc = '未通过';
-                            }else if(this.tableData[this.selectIndex].shzt=='03'){
+                            } else if (this.tableData[this.selectIndex].shzt == '03') {
                                 this.tableData[this.selectIndex].shztmc = '已通过';
                             }
                         }

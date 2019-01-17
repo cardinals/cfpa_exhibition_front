@@ -28,8 +28,9 @@
                                 <div class="dib" id="basic-Inform-Title">
                                     <div>
                                         <h3 class="dib inform-h3">
-                                            <v-text v-if="jbxxData.usertype === 'CHN'" v-text="jbxxData.zwgsmc||'无'"></v-text>
-                                            <v-text v-else-if="jbxxData.usertype === 'ENG'" v-text="jbxxData.ywgsmc||'无'"></v-text>
+                                            <v-text v-if="jbxxData.usertype === 'CHN'" v-text="jbxxData.zwgsmc||'无'" class="mr20"></v-text>
+                                            <v-text v-else-if="jbxxData.usertype === 'ENG'" v-text="jbxxData.ywgsmc||'无'" class="mr20"></v-text>
+                                            <el-button type="primary" icon="el-icon-document" class="r" size="small" @click="approveClick">审核</el-button>
                                         </h3>
                                     </div>
                                     <dl>
@@ -55,8 +56,6 @@
                                 <br>营业执照
                             </el-col>
                         </el-row>
-
-
                         <!-- <div v-if="!isENG" class="r tc">
                             <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
                                 class="detail_picture_top poi">
@@ -420,6 +419,7 @@
                                         </el-col>
                                     </el-row>
                                 </el-tab-pane>
+
                             </el-tabs>
                         </template>
                     </div>
@@ -427,8 +427,47 @@
                     <el-dialog id="previewImgDialog" :visible.sync="showPicVisible" :close-on-click-modal="false" size="tiny">
                         <img :src="previewImg" width="100%" class="mt15"></img>
                     </el-dialog>
+                    <!--审批界面-->
+                    <el-dialog title="展会报名审核" :visible.sync="approveFormVisible" :close-on-click-modal="false">
+                        <el-row>
+                            <el-form :model="approveForm" label-width="100px" ref="approveForm">
+                                <el-row>
+                                    <el-col :span="23">
+                                        <el-form-item label="审核状态" prop="shzt">
+                                            <el-radio-group class="yash_radio" v-model="approveForm.shzt" auto-complete="off" @change="radioChange">
+                                                <el-radio :label="'01'" disabled>未审核</el-radio>
+                                                <el-radio :label="'02'">未通过</el-radio>
+                                                <el-radio :label="'03'">已通过</el-radio>
+                                            </el-radio-group>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :span="23">
+                                        <el-form-item label="审核意见" prop="reserve1">
+                                            <el-input type="textarea" maxlength="200" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="approveForm.reserve1"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="1">
+                                        <v-text v-show="isReject" style="color: red">&nbsp;
+                                            <strong>*</strong>
+                                        </v-text>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="mt10 mb20">
+                                    <el-form :inline="true" class="el-form demo-form-inline">
+                                        <el-row>
+                                            <el-col :xs="23" :sm="23" :md="23" :lg="23" :xl="23" class="editform-button">
+                                                <el-button type="clear" icon="el-icon-close" size="small" class="btn_submit" @click.native="closeDialog('approveForm')">取消</el-button>
+                                                <el-button type="success" icon="el-icon-check" size="small" class="btn_submit" @click.native="approveSubmit('approveForm')">审核</el-button>
+                                            </el-col>
+                                        </el-row>
+                                    </el-form>
+                                </el-row>
+                            </el-form>
+                        </el-row>
+                    </el-dialog>
                 </div>
-
             </div>
             <!-- main-container -->
         </div>
