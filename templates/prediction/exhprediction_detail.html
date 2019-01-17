@@ -322,11 +322,11 @@
                                         <v-text v-text="zwyxData.swgdzw==null?'无':zwyxData.swgdzw+' m²'"></v-text>
                                     </el-row>
                                 </el-tab-pane>
-                                <el-tab-pane label="邮寄地址" name="sixth">
+                                <el-tab-pane label="合同所需信息" name="sixth">
                                     <el-row>
-                                        <el-col :span="12">
+                                        <el-col :span="8">
                                             <el-row>
-                                                <el-card class="card_style" style="width: 60%;">
+                                                <el-card class="card_style" style="width: 90%;">
                                                     <div class="bottom clearfix">
                                                         <el-row class="mb10">
                                                             <el-col :span="24">
@@ -359,7 +359,7 @@
                                                 </el-card>
                                             </el-row>
                                             <el-row>
-                                                <el-card class="card_style" style="width: 60%;">
+                                                <el-card class="card_style" style="width: 90%;">
                                                     <div class="bottom clearfix">
                                                         <el-row class="mb10">
                                                             <el-col :span="24">
@@ -381,7 +381,7 @@
                                                 </el-card>
                                             </el-row>
                                         </el-col>
-                                        <el-col :span="12">
+                                        <el-col :span="16">
                                             <el-card class="card_style" style="width: 100%" v-if="this.bzzwData.length>0">
                                                 <div slot="header" class="clearfix">
                                                     <strong>标准展位</strong>
@@ -401,7 +401,7 @@
                                             </el-card>
                                             <el-card class="card_style" style="width: 100%" v-if="this.gdzwData.length>0">
                                                 <div slot="header" class="clearfix">
-                                                    <strong>光地</strong>
+                                                    <strong>光地展位</strong>
                                                 </div>
                                                 <div class="bottom clearfix">
                                                     <el-row class="mb10">
