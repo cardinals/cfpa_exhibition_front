@@ -11,6 +11,7 @@ var vm = new Vue({
             shztFlag: false,
             jbxxEditFlag: true,
             kpxxEditFlag: true,
+            gsjcEditFlag: true,
             xzqhDataTree: [],
             //邮寄信息表单
             jbxxForm: {
@@ -20,7 +21,8 @@ var vm = new Vue({
                 yjdzxx: '',
                 lxr: '',
                 lxrsj: '',
-                qrzt: ''
+                qrzt: '',
+                gsjc: ''
             },
             //开票信息表单
             kpxxForm: {
@@ -32,6 +34,7 @@ var vm = new Vue({
                 khyh: '',
                 yhzh: ''
             },
+            gsjc: '',
             jbxxRules: {
                 zwgsmc: [
                     { required: true, message: '请输入中文公司名称', trigger: 'blur' },
@@ -114,6 +117,7 @@ var vm = new Vue({
                 if (res.data.result != null && res.data.result != "") {
                     if (res.data.result.sjzt == "05" && res.data.result.shzt == "03") {//数据状态-已审核，审核状态-已通过
                         this.jbxxForm = res.data.result;
+                        this.gsjc = res.data.result.gsjc;
                         this.qyid = res.data.result.qyid;
                         //行政区划级联下拉处理
                         var xzqhArray = [];
@@ -279,11 +283,37 @@ var vm = new Vue({
             this.kpxxEditFlag = true;
             this.findKpxxByQyid(this.qyid);
         },
+        editGsjcClick: function () {
+            this.gsjcEditFlag = false;
+        },
+        saveGsjcClick: function () {
+            this.loading = true;
+            var params = {
+                qyid: this.jbxxForm.qyid,
+                gsjc: this.jbxxForm.gsjc,
+                xgrid: this.shiroData.userid,
+                xgrmc: this.shiroData.username
+            }
+            axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
+                if (res.data.result > 0) {
+                    this.$message.success('公司简称修改成功');
+                }
+                this.gsjcEditFlag = true;
+                this.loading = false;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        saveGsjcCancle: function () {
+            this.gsjcEditFlag = true;
+            this.jbxxForm.gsjc = this.gsjc;
+        },
         qrztSubmit: function () {
-            if (this.jbxxEditFlag && this.kpxxEditFlag) {
+            if (this.jbxxEditFlag && this.kpxxEditFlag && this.gsjcEditFlag) {
                 var params = {
                     qyid: this.jbxxForm.qyid,
                     qrzt: 'Y',
+                    qrsj: '1',
                     xgrid: this.shiroData.userid,
                     xgrmc: this.shiroData.username
                 }
@@ -300,6 +330,8 @@ var vm = new Vue({
                 this.$message.warning('邮寄地址尚未保存！');
             } else if (!this.kpxxEditFlag) {
                 this.$message.warning('开票信息尚未保存！');
+            } else if (!this.gsjcEditFlag) {
+                this.$message.warning('公司简称尚未保存！');
             }
         },
         qrztCancle: function () {

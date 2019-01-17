@@ -114,9 +114,34 @@
                         </el-row>
                     </el-card>
                 </el-row>
+                <!-- 公司简称确认 -->
+                <el-row>
+                    <el-card class="card_style">
+                        <div slot="header" class="clearfix">
+                            <strong class="card_title_font lh28">Company Short Name</strong>
+                            <span style="color:red;">（If the standard booth has been selected, please fill in the company short name. This short name
+                                only be used to display on the booth map.）</span>
+                            <el-button v-if="gsjcEditFlag" @click="editGsjcClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit" size="small">Edit</el-button>
+                            <div v-else class="r">
+                                <el-button @click="saveGsjcCancle" type="info" icon="el-icon-close" size="small">Cancle</el-button>
+                                <el-button @click="saveGsjcClick" type="success" icon="el-icon-check" size="small">Save</el-button>
+                            </div>
+                        </div>
+                        <el-row>
+                            <el-form label-position="right" label-width="260px">
+                                <el-row>
+                                    <el-form-item label="Company Short Name :">
+                                        <span v-if="gsjcEditFlag" v-text="jbxxForm.gsjc||'no'"></span>
+                                        <el-input v-else size="small" v-model="jbxxForm.gsjc" placeholder="Company Short Name" maxlength="12"></el-input>
+                                    </el-form-item>
+                                </el-row>
+                            </el-form>
+                        </el-row>
+                    </el-card>
+                </el-row>
                 <el-row class="tc mt20">
                     <!-- <el-button @click="qrztCancle" type="info" icon="el-icon-close" size="small">Cancle</el-button> -->
-                    <el-button @click="qrztSubmit" type="success" icon="el-icon-check" size="small">Confirm</el-button>
+                    <el-button @click="qrztSubmit" type="success" icon="el-icon-check" size="small">All Confirm</el-button>
                 </el-row>
             </div>
         </div>

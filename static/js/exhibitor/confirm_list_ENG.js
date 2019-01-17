@@ -11,13 +11,15 @@ var vm = new Vue({
             shztFlag: false,
             jbxxEditFlag: true,
             kpxxEditFlag: true,
+            gsjcEditFlag: true,
             xzqhDataTree: [],
             //邮寄信息表单
             jbxxForm: {
                 ywgsmc: '',
                 yjdzxx: '',
                 lxr: '',
-                lxrsj: ''
+                lxrsj: '',
+                gsjc: ''
             },
             //开票信息表单
             kpxxForm: {
@@ -26,6 +28,7 @@ var vm = new Vue({
                 dhhm: '',
                 yhzh: ''
             },
+            gsjc: '',
             jbxxRules: {
                 ywgsmc: [
                     { required: true, message: 'Company name is required', trigger: 'blur' },
@@ -98,6 +101,7 @@ var vm = new Vue({
                 if (res.data.result != null && res.data.result != "") {
                     if (res.data.result.sjzt == "05" && res.data.result.shzt == "03") {//数据状态-已审核，审核状态-已通过
                         this.jbxxForm = res.data.result;
+                        this.gsjc = res.data.result.gsjc;
                         this.qyid = res.data.result.qyid;
                         //行政区划级联下拉处理
                         var xzqhArray = [];
@@ -235,8 +239,33 @@ var vm = new Vue({
             this.kpxxEditFlag = true;
             this.findKpxxByQyid(this.qyid);
         },
+        editGsjcClick: function () {
+            this.gsjcEditFlag = false;
+        },
+        saveGsjcClick: function () {
+            this.loading = true;
+            var params = {
+                qyid: this.jbxxForm.qyid,
+                gsjc: this.jbxxForm.gsjc,
+                xgrid: this.shiroData.userid,
+                xgrmc: this.shiroData.username
+            }
+            axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
+                if (res.data.result > 0) {
+                    this.$message.success('Company short name has been saved !');
+                }
+                this.gsjcEditFlag = true;
+                this.loading = false;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        saveGsjcCancle: function () {
+            this.gsjcEditFlag = true;
+            this.jbxxForm.gsjc = this.gsjc;
+        },
         qrztSubmit: function () {
-            if (this.jbxxEditFlag && this.kpxxEditFlag) {
+            if (this.jbxxEditFlag && this.kpxxEditFlag && this.gsjcEditFlag) {
                 var params = {
                     qyid: this.jbxxForm.qyid,
                     qrzt: 'Y',
@@ -256,6 +285,8 @@ var vm = new Vue({
                 this.$message.warning('Post Information has not been saved !');
             } else if (!this.kpxxEditFlag) {
                 this.$message.warning('Invoice Information has not been saved !');
+            } else if (!this.gsjcEditFlag) {
+                this.$message.warning('Company short name has not been saved !');
             }
         },
         qrztCancle: function () {

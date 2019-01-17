@@ -39,7 +39,7 @@
                         <el-row>
                             <el-col :span="1">&nbsp;</el-col>
                             <el-col :span="21">
-                                <el-form ref="jbxxForm" :model="jbxxForm" label-position="right" label-width="150px" :rules="jbxxRules">
+                                <el-form ref="jbxxForm" :model="jbxxForm" label-position="right" label-width="160px" :rules="jbxxRules">
                                     <el-row>
                                         <el-form-item prop="zwgsmc" label="中文公司名称：">
                                             <span v-text="jbxxForm.zwgsmc"></span>
@@ -95,7 +95,7 @@
                         <el-row>
                             <el-col :span="1">&nbsp;</el-col>
                             <el-col :span="21">
-                                <el-form ref="kpxxForm" :model="kpxxForm" label-position="right" label-width="150px" :rules="kpxxRules">
+                                <el-form ref="kpxxForm" :model="kpxxForm" label-position="right" label-width="160px" :rules="kpxxRules">
                                     <el-row>
                                         <el-form-item prop="kplx" label="开票类型：">
                                             <span v-if="kpxxEditFlag" v-text="kpxxForm.kplxmc"></span>
@@ -106,25 +106,49 @@
                                         </el-form-item>
                                     </el-row>
                                     <el-row>
-                                        <el-form-item prop="kpgsmc" label="开票公司名称：">
-                                            <span v-if="kpxxEditFlag" v-text="kpxxForm.kpgsmc"></span>
-                                            <el-input v-else size="small" v-model="kpxxForm.kpgsmc" placeholder="开票公司名称"></el-input>
-                                        </el-form-item>
+                                        <el-col :span="12">
+                                            <el-form-item prop="kpgsmc" label="开票公司名称：">
+                                                <span v-if="kpxxEditFlag" v-text="kpxxForm.kpgsmc"></span>
+                                                <el-input v-else size="small" v-model="kpxxForm.kpgsmc" placeholder="开票公司名称"></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="12" v-if="kpxxForm.kplx == '1'">
+                                            <el-form-item prop="dhhm" label="电话号码：">
+                                                <span v-if="kpxxEditFlag" v-text="kpxxForm.dhhm"></span>
+                                                <el-input v-else size="small" v-model="kpxxForm.dhhm" maxlength="50" placeholder="电话号码"></el-input>
+                                            </el-form-item>
+                                        </el-col>
                                     </el-row>
                                     <el-row>
-                                        <el-form-item prop="tyshxydm" label="统一社会信用代码：" :onkeyup="addBlankXydm()">
-                                            <span v-if="kpxxEditFlag" v-text="kpxxForm.tyshxydm"></span>
-                                            <el-input v-else size="small" v-model="kpxxForm.tyshxydm" placeholder="统一社会信用代码"></el-input>
-                                        </el-form-item>
+                                        <el-col :span="12">
+                                            <el-form-item prop="tyshxydm" label="统一社会信用代码：" :onkeyup="addBlankXydm()">
+                                                <span v-if="kpxxEditFlag" v-text="kpxxForm.tyshxydm"></span>
+                                                <el-input v-else size="small" v-model="kpxxForm.tyshxydm" placeholder="统一社会信用代码"></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="12" v-if="kpxxForm.kplx == '1'">
+                                            <el-form-item prop="khyh" label="开户银行：">
+                                                <span v-if="kpxxEditFlag" v-text="kpxxForm.khyh"></span>
+                                                <el-input v-else size="small" v-model="kpxxForm.khyh" placeholder="开户银行"></el-input>
+                                            </el-form-item>
+                                        </el-col>
                                     </el-row>
                                     <el-row>
-                                        <el-form-item prop="gsdz" label="公司地址：" :rules="kpxxForm.kplx == '1'?kpxxRules.gsdz:[{ required: false, message: '请输入公司地址', trigger: 'blur' },{ min: 1, max: 150, message: '最多可输入150个字', trigger: 'blur' }]">
-                                            <span v-if="kpxxEditFlag" v-text="kpxxForm.gsdz"></span>
-                                            <el-input v-else size="small" v-model="kpxxForm.gsdz" placeholder="公司地址"></el-input>
-                                        </el-form-item>
+                                        <el-col :span="12">
+                                            <el-form-item prop="gsdz" label="公司地址：" :rules="kpxxForm.kplx == '1'?kpxxRules.gsdz:[{ required: false, message: '请输入公司地址', trigger: 'blur' },{ min: 1, max: 150, message: '最多可输入150个字', trigger: 'blur' }]">
+                                                <span v-if="kpxxEditFlag" v-text="kpxxForm.gsdz"></span>
+                                                <el-input v-else size="small" v-model="kpxxForm.gsdz" placeholder="公司地址"></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="12" v-if="kpxxForm.kplx == '1'">
+                                            <el-form-item prop="yhzh" label="银行账号：" :onkeyup="addBlankYhzh()">
+                                                <span v-if="kpxxEditFlag" v-text="kpxxForm.yhzh"></span>
+                                                <el-input v-else size="small" v-model="kpxxForm.yhzh" placeholder="银行账号"></el-input>
+                                            </el-form-item>
+                                        </el-col>
                                     </el-row>
                                     <!-- 专用发票 -->
-                                    <el-row v-if="kpxxForm.kplx == '1'">
+                                    <!-- <el-row v-if="kpxxForm.kplx == '1'">
                                         <el-row>
                                             <el-form-item prop="dhhm" label="电话号码：">
                                                 <span v-if="kpxxEditFlag" v-text="kpxxForm.dhhm"></span>
@@ -143,6 +167,33 @@
                                                 <el-input v-else size="small" v-model="kpxxForm.yhzh" placeholder="银行账号"></el-input>
                                             </el-form-item>
                                         </el-row>
+                                    </el-row> -->
+                                </el-form>
+                            </el-col>
+                        </el-row>
+                    </el-card>
+                </el-row>
+                <!-- 公司简称确认 -->
+                <el-row>
+                    <el-card class="card_style">
+                        <div slot="header" class="clearfix">
+                            <strong class="card_title_font lh28">公司简称确认</strong>
+                            <span style="color:red;">（如已选择标准展位，请填写公司简称，此简称只用于展位图上显示公司名称。）</span>
+                            <el-button v-if="gsjcEditFlag" @click="editGsjcClick" :disabled="shztFlag" class="r" type="primary" icon="el-icon-edit" size="small">修改</el-button>
+                            <div v-else class="r">
+                                <el-button @click="saveGsjcCancle" type="info" icon="el-icon-close" size="small">取消</el-button>
+                                <el-button @click="saveGsjcClick" type="success" icon="el-icon-check" size="small">保存</el-button>
+                            </div>
+                        </div>
+                        <el-row>
+                            <el-col :span="1">&nbsp;</el-col>
+                            <el-col :span="21">
+                                <el-form label-position="right" label-width="160px">
+                                    <el-row>
+                                        <el-form-item label="公司简称：">
+                                            <span v-if="gsjcEditFlag" v-text="jbxxForm.gsjc||'无'"></span>
+                                            <el-input v-else size="small" v-model="jbxxForm.gsjc" placeholder="公司简称" maxlength="6"></el-input>
+                                        </el-form-item>
                                     </el-row>
                                 </el-form>
                             </el-col>
@@ -151,7 +202,7 @@
                 </el-row>
                 <el-row class="tc mt20">
                     <!-- <el-button @click="qrztCancle" type="info" icon="el-icon-close" size="small">取消</el-button> -->
-                    <el-button @click="qrztSubmit" type="success" icon="el-icon-check" size="small">确认</el-button>
+                    <el-button @click="qrztSubmit" type="success" icon="el-icon-check" size="small">全部确认</el-button>
                 </el-row>
             </div>
         </div>
