@@ -323,37 +323,102 @@
                                     </el-row>
                                 </el-tab-pane>
                                 <el-tab-pane label="邮寄地址" name="sixth">
-                                    <el-card class="card_style" style="width: 30%;">
-                                        <div class="bottom clearfix">
-                                            <el-row class="mb10">
-                                                <el-col :span="24">
-                                                    <strong>
-                                                        <v-text v-if="jbxxData.usertype === 'CHN'" v-text="jbxxData.zwgsmc||'无'"></v-text>
-                                                        <v-text v-else-if="jbxxData.usertype === 'ENG'" v-text="jbxxData.ywgsmc||'无'"></v-text>
-                                                    </strong>
-                                                </el-col>
+                                    <el-row>
+                                        <el-col :span="12">
+                                            <el-row>
+                                                <el-card class="card_style" style="width: 60%;">
+                                                    <div class="bottom clearfix">
+                                                        <el-row class="mb10">
+                                                            <el-col :span="24">
+                                                                <strong>
+                                                                    <v-text v-if="jbxxData.usertype === 'CHN'" v-text="jbxxData.zwgsmc||'无'"></v-text>
+                                                                    <v-text v-else-if="jbxxData.usertype === 'ENG'" v-text="jbxxData.ywgsmc||'无'"></v-text>
+                                                                </strong>
+                                                            </el-col>
+                                                        </el-row>
+                                                        <el-row class="mb10">
+                                                            <el-col :span="12">
+                                                                <strong>
+                                                                    <v-text v-text="jbxxData.lxr||'无'"></v-text>
+                                                                </strong>
+                                                            </el-col>
+                                                            <el-col :span="12">
+                                                                <strong>
+                                                                    <v-text v-text="jbxxData.lxrsj||'无'"></v-text>
+                                                                </strong>
+                                                            </el-col>
+                                                        </el-row>
+                                                        <el-row class="mb10">
+                                                            <el-col :span="24">
+                                                                <strong>
+                                                                    <v-text v-text="jbxxData.yjdz||'无'"></v-text>
+                                                                </strong>
+                                                            </el-col>
+                                                        </el-row>
+                                                    </div>
+                                                </el-card>
                                             </el-row>
-                                            <el-row class="mb10">
-                                                <el-col :span="12">
-                                                    <strong>
-                                                        <v-text v-text="jbxxData.lxr||'无'"></v-text>
-                                                    </strong>
-                                                </el-col>
-                                                <el-col :span="12">
-                                                    <strong>
-                                                        <v-text v-text="jbxxData.lxrsj||'无'"></v-text>
-                                                    </strong>
-                                                </el-col>
+                                            <el-row>
+                                                <el-card class="card_style" style="width: 60%;">
+                                                    <div class="bottom clearfix">
+                                                        <el-row class="mb10">
+                                                            <el-col :span="24">
+                                                                <strong>
+                                                                    办公电话：
+                                                                    <v-text v-text="jbxxData.bgdh||'无'"></v-text>
+                                                                </strong>
+                                                            </el-col>
+                                                        </el-row>
+                                                        <el-row class="mb10">
+                                                            <el-col :span="24">
+                                                                <strong>
+                                                                    传真：
+                                                                    <v-text v-text="jbxxData.cz||'无'"></v-text>
+                                                                </strong>
+                                                            </el-col>
+                                                        </el-row>
+                                                    </div>
+                                                </el-card>
                                             </el-row>
-                                            <el-row class="mb10">
-                                                <el-col :span="24">
-                                                    <strong>
-                                                        <v-text v-text="jbxxData.yjdz||'无'"></v-text>
-                                                    </strong>
-                                                </el-col>
-                                            </el-row>
-                                        </div>
-                                    </el-card>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-card class="card_style" style="width: 100%" v-if="this.bzzwData.length>0">
+                                                <div slot="header" class="clearfix">
+                                                    <strong>标准展位</strong>
+                                                </div>
+                                                <div class="bottom clearfix">
+                                                    <el-row class="mb10">
+                                                        <el-col :span="24">
+                                                            <el-table :data="this.bzzwData" border show-summary style="width: 100%">
+                                                                <el-table-column prop="zwh" label="展位号" width="120"></el-table-column>
+                                                                <el-table-column prop="zwmj" label="面积（㎡）"> </el-table-column>
+                                                                <el-table-column v-if="jbxxData.usertype === 'CHN'" prop="zwjg" label="价格（元）"> </el-table-column>
+                                                                <el-table-column v-if="jbxxData.usertype === 'ENG'" prop="zwjg_eng" label="价格（美元）"> </el-table-column>
+                                                            </el-table>
+                                                        </el-col>
+                                                    </el-row>
+                                                </div>
+                                            </el-card>
+                                            <el-card class="card_style" style="width: 100%" v-if="this.gdzwData.length>0">
+                                                <div slot="header" class="clearfix">
+                                                    <strong>光地</strong>
+                                                </div>
+                                                <div class="bottom clearfix">
+                                                    <el-row class="mb10">
+                                                        <el-col :span="24">
+                                                            <el-table :data="this.gdzwData" border show-summary style="width: 100%">
+                                                                <el-table-column prop="zwh" label="展位号" width="120"></el-table-column>
+                                                                <el-table-column prop="cklx" label="开口类型"></el-table-column>
+                                                                <el-table-column prop="zwmj" label="面积（㎡）"> </el-table-column>
+                                                                <el-table-column v-if="jbxxData.usertype === 'CHN'" prop="zwjg" label="价格（元）"> </el-table-column>
+                                                                <el-table-column v-if="jbxxData.usertype === 'ENG'" prop="zwjg_eng" label="价格（美元）"> </el-table-column>
+                                                            </el-table>
+                                                        </el-col>
+                                                    </el-row>
+                                                </div>
+                                            </el-card>
+                                        </el-col>
+                                    </el-row>
                                 </el-tab-pane>
                             </el-tabs>
                         </template>

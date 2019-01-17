@@ -45,6 +45,10 @@ new Vue({
             cpjsData: [],
             //展位需求意向
             zwyxData: {},
+            //企业选择的标准展位data
+            bzzwData: [],
+            //光地展位data
+            gdzwData: [],
         }
     },
     created: function () {
@@ -59,6 +63,8 @@ new Vue({
         this.getQyjsData(this.qyid);
         this.getCpjsData(this.qyid);
         this.getZwyxData(this.qyid);
+        this.getSelectedBzzw();
+        this.getSelectedGdzw();
     },
 
     methods: {
@@ -185,6 +191,35 @@ new Vue({
         imgPreview: function (val) {
             this.previewImg = val;
             this.showPicVisible = true;
+        },
+
+        //获取企业选择的标准展位信息
+        getSelectedBzzw: function(){
+            var param={
+                qyid:this.qyid,
+                zwlb:"标准展位"
+            }
+            axios.post('/xfxhapi/zwjbxx/doFindZwAndJgByVo', param).then(function (res) {
+                if (res.data.result.length >0) {
+                    this.bzzwData = res.data.result;
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //获取企业选择的光地展位信息
+        getSelectedGdzw: function(){
+            var param={
+                qyid:this.qyid,
+                zwlb:"光地"
+            }
+            axios.post('/xfxhapi/zwjbxx/doFindZwAndJgByVo', param).then(function (res) {
+                if (res.data.result.length >0) {
+                    this.gdzwData = res.data.result;
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
         }
     }
 })
