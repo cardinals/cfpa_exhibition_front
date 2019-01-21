@@ -60,7 +60,7 @@
                                     </el-row>
                                     <el-row v-if="jbxxEditFlag">
                                         <el-form-item prop="xzqh" label="邮寄地址：">
-                                            <span v-text="jbxxForm.yjdzshengmc+'/'+jbxxForm.yjdzshimc+' '+jbxxForm.yjdzxx"></span>
+                                            <span v-text="jbxxForm.yjdzshengmc+jbxxForm.yjdzshimc+' '+jbxxForm.yjdzxx"></span>
                                         </el-form-item>
                                     </el-row>
                                     <el-row v-else>

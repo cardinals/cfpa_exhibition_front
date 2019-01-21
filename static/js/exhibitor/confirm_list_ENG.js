@@ -116,30 +116,42 @@ var vm = new Vue({
                     } else {
                         this.shztFlag = true;
                         this.loading = false;
-                        this.$confirm('您尚未通过审核！', '提示', {
-                            confirmButtonText: '去查看',
-                            cancelButtonText: '取消',
-                            type: 'warning'
-                        }).then(() => {
-                            window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit";
-                            // loadDivParam("prediction/exhprediction_edit");
-                        }).catch(() => {
-
+                        this.$alert('You have not passed the audit yet!', 'reminder', {
+                            confirmButtonText: 'check out',
+                            callback: action => {
+                                window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit";
+                            }
                         });
+                        // this.$confirm('您尚未通过审核！', '提示', {
+                        //     confirmButtonText: '去查看',
+                        //     cancelButtonText: '取消',
+                        //     type: 'warning'
+                        // }).then(() => {
+                        //     window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit";
+                        //     // loadDivParam("prediction/exhprediction_edit");
+                        // }).catch(() => {
+
+                        // });
                     }
                 } else {//未报名
                     this.shztFlag = true;
                     this.loading = false;
-                    this.$confirm('您尚未报名！', '提示', {
-                        confirmButtonText: '去报名',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    }).then(() => {
-                        window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit";
-                        // loadDivParam("prediction/exhprediction_edit");
-                    }).catch(() => {
-
+                    this.$alert('You haven’t signed up yet!', 'reminder', {
+                        confirmButtonText: 'sign up',
+                        callback: action => {
+                            window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit";
+                        }
                     });
+                    // this.$confirm('您尚未报名！', '提示', {
+                    //     confirmButtonText: '去报名',
+                    //     cancelButtonText: '取消',
+                    //     type: 'warning'
+                    // }).then(() => {
+                    //     window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit";
+                    //     // loadDivParam("prediction/exhprediction_edit");
+                    // }).catch(() => {
+
+                    // });
                 }
             }.bind(this), function (error) {
                 console.log(error)
