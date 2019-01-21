@@ -409,7 +409,7 @@ var vm = new Vue({
                 alert("The verification code can not be empty!")
             } else {
                 if (this.FPBmailCode == this.FPBmailCodeReal) {
-                    axios.get('/xfxhapi/signin/findByUsername/' + "/static").then(function (res) {
+                    axios.get('/xfxhapi/signin/findByUsername/' + this.FPBmail + "/static").then(function (res) {
                         this.changeForm('FPDFlag');
                         this.FPDregisterData = res.data.result;
                         this.FPDusername = this.FPDregisterData[0].username;
