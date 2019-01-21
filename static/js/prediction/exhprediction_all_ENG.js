@@ -152,7 +152,7 @@ var vm = new Vue({
             this.userForm.messageCodeText = "sending...";
             this.userForm.messageBtnFlag = true;
 
-            axios.get('/xfxhapi/signin/getMailNumENG/' + this.userForm.username).then(function (res) {
+            axios.get('/xfxhapi/signin/getMailNumENG/' + this.userForm.username + "/static").then(function (res) {
                 if (res.data.result != 0) {
                     this.$message({
                         message: 'The email is registered!',
