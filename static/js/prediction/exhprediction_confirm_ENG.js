@@ -130,7 +130,7 @@ new Vue({
                         if(datas[i].zwlb=='标准展位'){
                             datas[i].zwlb='Standard booth'
                         }
-                        if(datas[i].zwlb=='室外光地展位'){
+                        if(datas[i].zwlb=='光地'){
                             datas[i].zwlb='Raw space'
                         }
                         if(datas[i].cklx=='一面开'){
