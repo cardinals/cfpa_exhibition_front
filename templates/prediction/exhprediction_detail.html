@@ -30,7 +30,6 @@
                                         <h3 class="dib inform-h3">
                                             <v-text v-if="jbxxData.usertype === 'CHN'" v-text="jbxxData.zwgsmc||'无'" class="mr20"></v-text>
                                             <v-text v-else-if="jbxxData.usertype === 'ENG'" v-text="jbxxData.ywgsmc||'无'" class="mr20"></v-text>
-                                            <el-button type="primary" icon="el-icon-document" class="r" size="small" @click="approveClick">审核</el-button>
                                         </h3>
                                     </div>
                                     <dl>
@@ -54,6 +53,8 @@
                                 <img v-if="jbxxData.src!==''" :src="jbxxData.imageUrl" @click="imgPreview(jbxxData.imageUrl)" class="detail_picture_top poi">
                                 <img v-else src="../../static/images/noPic.png" style="width:100px;">
                                 <br>营业执照
+                                <br>
+                                <el-button type="danger" icon="el-icon-document" class="tc" size="small" @click="approveClick">审核</el-button>
                             </el-col>
                         </el-row>
                         <!-- <div v-if="!isENG" class="r tc">
