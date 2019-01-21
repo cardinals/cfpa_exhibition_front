@@ -47,7 +47,8 @@ new Vue({
                 ],
                 cpjj: [
                     { required: true, message: 'Product Introduction is required', trigger: 'blur' },
-                    { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
+                    { pattern: /^[\da-zA-Z \!\?\r\n\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-\。\·\…\！\、\“\”\‘\’\《\》\<\>\【\】\：\；\？]*$/, message: 'Characters and Symbols only',trigger: 'blur' },
+                   // { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
                     { min: 1, max: 300, message: 'less than 300 characters', trigger: 'blur' }
                 ]
             },
@@ -330,6 +331,15 @@ new Vue({
                 }
             });
             
+        },
+        //剩余多少个字
+        checkWord:function(text,name,maxlength){
+            var length = text.length;
+            var curr = maxlength - length;
+            var ele =  document.getElementById(name);
+            if(ele != null){
+                document.getElementById(name).innerHTML=curr.toString();
+            }
         },
     }
 })
