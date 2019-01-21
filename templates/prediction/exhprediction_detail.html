@@ -53,9 +53,10 @@
                                 <img v-if="jbxxData.src!==''" :src="jbxxData.imageUrl" @click="imgPreview(jbxxData.imageUrl)" class="detail_picture_top poi">
                                 <img v-else src="../../static/images/noPic.png" style="width:100px;">
                                 <br>营业执照
-                                <br>
-                                <el-button type="danger" icon="el-icon-check" class="tc" size="small" @click="approveClick">审核</el-button>
                             </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-button type="danger" icon="el-icon-check" class="r" size="small" @click="approveClick">审核</el-button>
                         </el-row>
                         <!-- <div v-if="!isENG" class="r tc">
                             <img v-if="jbxxData.yyzzBase64!==''" :src="'data:image/png;base64,'+jbxxData.yyzzBase64" @click="imgPreview(jbxxData.yyzzBase64)"
@@ -434,7 +435,7 @@
                             <el-form :model="approveForm" label-width="100px" ref="approveForm">
                                 <el-row>
                                     <el-col :span="23">
-                                        <el-form-item label="审核状态" prop="shzt">
+                                        <el-form-item label="审核状态" prop="shzt" class="is-required">
                                             <el-radio-group class="yash_radio" v-model="approveForm.shzt" auto-complete="off" @change="radioChange">
                                                 <el-radio :label="'01'" disabled>未审核</el-radio>
                                                 <el-radio :label="'02'">未通过</el-radio>
@@ -444,15 +445,13 @@
                                     </el-col>
                                 </el-row>
                                 <el-row>
+                                    <!-- <el-col :span="1" class="tr">&nbsp;
+                                        <strong v-show="isReject" style="color: red" class="r">*</strong>
+                                    </el-col> -->
                                     <el-col :span="23">
-                                        <el-form-item label="审核意见" prop="reserve1">
+                                        <el-form-item label="审核意见" prop="reserve1" class="is-required">
                                             <el-input type="textarea" maxlength="200" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="approveForm.reserve1"></el-input>
                                         </el-form-item>
-                                    </el-col>
-                                    <el-col :span="1">
-                                        <v-text v-show="isReject" style="color: red">&nbsp;
-                                            <strong>*</strong>
-                                        </v-text>
                                     </el-col>
                                 </el-row>
                                 <el-row class="mt10 mb20">
