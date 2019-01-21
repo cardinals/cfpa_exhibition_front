@@ -242,7 +242,7 @@ var vue = new Vue({
                         return false;
                     }
                 }else if(this.editForm.usertype == 'ENG'){
-                    var emailReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+                    var emailReg = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/;
                     if (!emailReg.test(this.editForm.username)){
                         this.$message.error({
                             message: '请输入正确邮箱！',

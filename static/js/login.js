@@ -374,7 +374,7 @@ var vm = new Vue({
         },
         //忘记用户名
         FUmailCheck: function () {
-            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.FUmail))) {
+            if (!(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/.test(this.FUmail))) {
                 alert("邮箱格式不正确");
                 return false;
             } else {
@@ -386,7 +386,7 @@ var vm = new Vue({
             if (this.FUmailCheck()) {
                 this.FUmailCodeText = "发送中...";
                 this.FUmailBtnDisabled = true;
-                axios.get('/xfxhapi/signin/getMailNum/' + this.FUmail.replace(".", "_")).then(function (res) {
+                axios.get('/xfxhapi/signin/getMailNum/' + this.FUmail + "/static").then(function (res) {
                     if (res.data.result == 0) {
                         alert("该邮箱未注册！");
                         this.FUmailCodeText = "获取验证码";
@@ -423,11 +423,11 @@ var vm = new Vue({
                 alert("验证码不能为空！")
             } else {
                 if (this.FUmailCode == this.FUmailCodeReal) {
-                    axios.get('/xfxhapi/signin/getMailNum/' + this.FUmail.replace(".", "_")).then(function (res) {
+                    axios.get('/xfxhapi/signin/getMailNum/' + this.FUmail + "/static").then(function (res) {
                         if (res.data.result == 0) {
                             alert("该邮箱未注册！");
                         } else if (res.data.result == 1) {
-                            axios.get('/xfxhapi/signin/getUsernameByMail/' + this.FUmail.replace(".", "_")).then(function (res) {
+                            axios.get('/xfxhapi/signin/getUsernameByMail/' + this.FUmail + "/static").then(function (res) {
                                 alert("用户名找回成功！");
                                 this.username = res.data;
                                 this.changeForm('loginFlag');
@@ -513,7 +513,7 @@ var vm = new Vue({
         },
         //B
         FPBmailCheck: function () {
-            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.FPBmail))) {
+            if (!(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/.test(this.FPBmail))) {
                 alert("邮箱格式不正确");
                 return false;
             } else {
@@ -525,7 +525,7 @@ var vm = new Vue({
             if (this.FPBmailCheck()) {
                 this.FPBmailCodeText = "发送中...";
                 this.FPBmailBtnDisabled = true;
-                axios.get('/xfxhapi/signin/getMailNum/' + this.FPBmail.replace(".", "_")).then(function (res) {
+                axios.get('/xfxhapi/signin/getMailNum/' + this.FPBmail + "/static").then(function (res) {
                     if (res.data.result == 0) {
                         alert("该邮箱未注册！");
                         this.FPBmailCodeText = "获取验证码";
@@ -562,7 +562,7 @@ var vm = new Vue({
                 alert("验证码不能为空！")
             } else {
                 if (this.FPBmailCode == this.FPBmailCodeReal) {
-                    axios.get('/xfxhapi/signin/findByMail/' + this.FPBmail.replace(".", "_")).then(function (res) {
+                    axios.get('/xfxhapi/signin/findByMail/' + this.FPBmail + "/static").then(function (res) {
                         this.changeForm('FPDFlag');
                         this.FPDregisterData = res.data.result;
                         this.FPDusername = this.FPDregisterData[0].username;
@@ -629,7 +629,7 @@ var vm = new Vue({
                 alert("验证码不能为空！")
             } else {
                 if (this.FPCmessageCode == this.FPCmessageCodeReal) {
-                    axios.get('/xfxhapi/signin/findByUsername/' + this.FPCmobile).then(function (res) {
+                    axios.get('/xfxhapi/signin/findByUsername/' + this.FPCmobile + "/static").then(function (res) {
                         this.changeForm('FPDFlag');
                         this.FPDregisterData = res.data.result;
                         this.FPDusername = this.FPDregisterData[0].username;
