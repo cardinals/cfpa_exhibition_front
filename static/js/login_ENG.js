@@ -176,7 +176,7 @@ var vm = new Vue({
         },
         //注册
         mailCheck: function () {
-            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.mail))) {
+            if (!(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/.test(this.mail))) {
                 // 邮箱格式不正确
                 this.mailAlertFlag = true;
                 return false;
@@ -280,7 +280,7 @@ var vm = new Vue({
         },
         //忘记用户名
         FUmailCheck: function () {
-            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.FUmail))) {
+            if (!(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/.test(this.FUmail))) {
                 // 邮箱格式不正确
                 alert("The email format is not correct");
                 return false;
@@ -356,7 +356,7 @@ var vm = new Vue({
         //忘记密码
         //B
         FPBmailCheck: function () {
-            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.FPBmail))) {
+            if (!(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/.test(this.FPBmail))) {
                 //邮箱格式不正确
                 alert("The email format is not correct");
                 return false;
