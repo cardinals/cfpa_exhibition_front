@@ -370,7 +370,6 @@ var vm = new Vue({
                 this.FPBmailCodeText = "Sending...";
                 this.FPBmailBtnDisabled = true;
                 axios.get('/xfxhapi/signin/getUsernameNum/' + this.FPBmail + "/static").then(function (res) {
-                    debugger;
                     if (res.data.result == 0) {
                         //该邮箱未注册！
                         alert("The email is not registered!");
