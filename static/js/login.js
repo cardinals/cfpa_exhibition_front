@@ -374,7 +374,7 @@ var vm = new Vue({
         },
         //忘记用户名
         FUmailCheck: function () {
-            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.FUmail))) {
+            if (!(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/.test(this.FUmail))) {
                 alert("邮箱格式不正确");
                 return false;
             } else {
@@ -513,7 +513,7 @@ var vm = new Vue({
         },
         //B
         FPBmailCheck: function () {
-            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.FPBmail))) {
+            if (!(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/.test(this.FPBmail))) {
                 alert("邮箱格式不正确");
                 return false;
             } else {
