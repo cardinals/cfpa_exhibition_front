@@ -79,19 +79,22 @@
                         </el-row>
                         <el-row id="cpjsArea">
                             <el-form-item prop="cpjj" label="产品简介">
-                                <el-input type="textarea" maxlength="150" :rows="2" placeholder="产品简介" v-model="editForm.cpjj"></el-input>
+                                <el-input type="textarea" maxlength="150" :rows="2" placeholder="产品简介" v-model="editForm.cpjj" :onkeyup="checkWord(editForm.cpjj,'cpjs_span','150')"></el-input>
                             </el-form-item>
                         </el-row>
                         <el-row>
-                            <div class="el-upload__tip" style="float: right;">最多可输入150字</div>
+                            <div class="el-upload__tip" style="float: right;">最多可输入<span style="color: red" id="cpjs_span">{{150-editForm.cpjj.length}}</span>字</div>
                         </el-row>
-                        <el-row>
+                        <el-row id="cpjsArea">
                             <el-form-item prop="reserve1" label="产品英文简介">
-                                <el-input type="textarea" maxlength="400" :rows="2" placeholder="产品英文简介" v-model="editForm.reserve1" onkeyup="value=value.replace(/[^\w\.\r\n\@\#\$\%\&\*\'\<\>\(\)\（\）\[\]\,\，\!\?\/ ]/ig,'')"></el-input>
+                                <el-input type="textarea" maxlength="400" :rows="2" placeholder="产品英文简介" v-model="editForm.reserve1" onkeyup="checkWord(editForm.reserve1,'cpjsEng_span','400')"></el-input>
                             </el-form-item>
                         </el-row>
                         <el-row>
-                            <div class="el-upload__tip" style="float: right;">最多可输入400个英文字符（符号需要为英文输入法下的符号）</div>
+                            <div class="el-upload__tip" style="float: right;">最多可输入
+                                <span v-if="editForm.reserve1!=null" style="color: red" id="cpjsEng_span">{{400-editForm.reserve1.length}}</span>
+                                <span v-else style="color: red" id="cpjsEng_span">400</span>
+                                个英文字符</div>
                         </el-row>
 						<el-row class="mt35 mb20">
 							<el-col :span="24" style="text-align: center">
@@ -102,7 +105,7 @@
 					</el-form>
 				</el-dialog>
                 <!--图片预览-->
-                <el-dialog id="previewImgDialog" :visible.sync="showPicVisible" :close-on-click-modal="false" size="tiny">
+                <el-dialog id="previewImgDialog" v-if="true" :visible.sync="showPicVisible" :close-on-click-modal="false" size="tiny">
                     <img :src="previewImg" width="100%" class="mt15"></img>
                 </el-dialog>
             </div>

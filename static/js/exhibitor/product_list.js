@@ -51,6 +51,7 @@ new Vue({
                 ],
                 reserve1: [
                     { required: false, message: '请输入产品英文简介', trigger: 'blur' },
+                    { pattern: /^[\da-zA-Z \!\?\r\n\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-\。\·\…\！\、\“\”\‘\’\《\》\<\>\【\】\：\；\？]*$/, message: '只能输入字母、数字和英文符号',trigger: 'blur' },
                     { min: 0, max: 400, message: '最多可输入400个字符', trigger: 'blur' }
                 ],
             },
@@ -334,6 +335,15 @@ new Vue({
                 }
             });
             
+        },
+        //剩余多少个字
+        checkWord:function(text,name,maxlength){
+            var length = text.length;
+            var curr = maxlength - length;
+            var ele =  document.getElementById(name);
+            if(ele != null){
+                document.getElementById(name).innerHTML=curr.toString();
+            }
         },
     }
 })
