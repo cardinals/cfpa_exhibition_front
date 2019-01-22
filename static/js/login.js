@@ -285,7 +285,7 @@ var vm = new Vue({
             if (this.mobileCheck()) {
                 this.messageCodeText = "发送中...";
                 this.mobileBtnDisabled = true;
-                axios.get('/xfxhapi/signin/getUsernameNum/' + this.mobile).then(function (res) {
+                axios.get('/xfxhapi/signin/getUsernameNum/' + this.mobile + "/static").then(function (res) {
                     if (res.data.result != 0) {
                         alert("用户名已存在！");
                         this.messageCodeText = "获取验证码";
@@ -592,7 +592,7 @@ var vm = new Vue({
             if (this.FPCmobileCheck()) {
                 this.FPCmessageCodeText = "发送中...";
                 this.FPCmobileBtnDisabled = true;
-                axios.get('/xfxhapi/signin/getUsernameNum/' + this.FPCmobile).then(function (res) {
+                axios.get('/xfxhapi/signin/getUsernameNum/' + this.FPCmobile + "/static").then(function (res) {
                     if (res.data.result == 0) {
                         alert("用户名不存在！");
                         this.FPCmessageCodeText = "获取验证码";
