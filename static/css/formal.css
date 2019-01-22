@@ -57,13 +57,6 @@ body{height:100%;overflow:hidden;}
     margin-top: 15px;
     margin-left: 65px;
 }
-/*.single-search-left{
-
-}
-.double-search-left{
-  
-}*/
-
 .companyStatus {
 	padding: 0px 5px;
 	display: none;
@@ -211,6 +204,9 @@ body{height:100%;overflow:hidden;}
 }
 .el-card__body{
     padding: 13px 15px;    
+}
+.el-table .cell{
+    line-height: 35px;
 }
 .detailPic {
     position: absolute;
