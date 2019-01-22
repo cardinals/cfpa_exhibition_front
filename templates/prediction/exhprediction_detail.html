@@ -55,7 +55,7 @@
                                 <br>营业执照
                             </el-col>
                         </el-row>
-                        <el-row>
+                        <el-row class="mb10" v-if="hasPermission('prediction/exhprediction_approve:approve')">
                             <el-button type="danger" icon="el-icon-check" class="r" size="small" @click="approveClick">审核</el-button>
                         </el-row>
                         <!-- <div v-if="!isENG" class="r tc">

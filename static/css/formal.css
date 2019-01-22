@@ -206,7 +206,7 @@ body{height:100%;overflow:hidden;}
     padding: 13px 15px;    
 }
 .el-table .cell{
-    line-height: 35px;
+    line-height: 33px;
 }
 .detailPic {
     position: absolute;
