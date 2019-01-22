@@ -301,7 +301,21 @@ var vm = new Vue({
                 reserve1:[
                     { pattern: /^[\da-zA-Z \!\?\r\n\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-]*$/, message: '只能输入字母、数字和英文符号',trigger: 'blur' },
                     { min: 1, max: 500, message: '最多可输入500个字符', trigger: 'blur' }
-                ]
+                ],
+                cpjj: [{ required: true, message: '请输入产品简介', trigger: 'blur' }],
+                reserve1:[
+                    { pattern: /^[\da-zA-Z \!\?\r\n\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-\。\·\…\！\、\“\”\‘\’\《\》\<\>\【\】\：\；\？]*$/, message: '只能输入字母、数字和英文符号',trigger: 'blur' },
+                ],
+                cplx:[{
+                    validator: (rule, value, callback) => {
+                        if (value.length == 0) {
+                            callback(new Error("请选择产品所属分类"));
+                        } else {
+                            callback();
+                        }
+
+                    }, trigger: 'change'
+                }],
             },
             cpjsRules: {
                 cplx: [
@@ -769,41 +783,50 @@ var vm = new Vue({
                                 yyzzgs:this.baseInforForm.yyzzgs
                             }
                             axios.post('/xfxhapi/qyjbxx/doInsertByVo', params).then(function (res) {
-                                this.$message({
-                                    message: '企业基本信息暂存成功',
-                                    type: 'success'
-                                });
-                                this.loading = false;
-                                this.active = 1;
-                                this.isJbxxShow = false;
-                                this.isKpxxShow = true;
-                                this.jbxxStatus = 1;
-                                this.qyid = res.data.result.qyid;
-                                this.baseInforForm.qyid = res.data.result.qyid;
-                                this.upLoadData.qyid = res.data.result.qyid;
-                                if(this.qyid != null && this.qyid != ''){
-                                    this.findKpxxByQyid(this.qyid);
-                                }
-                                //删除旧营业执照
-                                if(this.delPicList.length>0){
-                                    axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
-                                        this.delPicList = [];
+                                if(res.data.result != null && res.data.result != ""){
+                                    this.$message({
+                                        message: '企业基本信息暂存成功',
+                                        type: 'success'
+                                    });
+                                    this.loading = false;
+                                    this.active = 1;
+                                    this.isJbxxShow = false;
+                                    this.isKpxxShow = true;
+                                    this.jbxxStatus = 1;
+                                    this.qyid = res.data.result.qyid;
+                                    this.baseInforForm.qyid = res.data.result.qyid;
+                                    this.upLoadData.qyid = res.data.result.qyid;
+                                    if(this.qyid != null && this.qyid != ''){
+                                        this.findKpxxByQyid(this.qyid);
+                                    }
+                                    //删除旧营业执照
+                                    if(this.delPicList.length>0){
+                                        axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
+                                            this.delPicList = [];
+                                        }.bind(this), function (error) {
+                                            console.log(error);
+                                        })
+                                    }
+                                    this.unsavedPicList = [];
+                                    //给营业执照移动到qyid文件夹中
+                                    var params ={
+                                        qyid:this.qyid,
+                                        src:this.baseInforForm.src,
+                                        yyzzgs:this.baseInforForm.yyzzgs
+                                    }
+                                    axios.post('/xfxhapi/qyjbxx/movePic',params).then(function (res) {
+                                        this.baseInforForm.src = res.data.src;
                                     }.bind(this), function (error) {
                                         console.log(error);
                                     })
+                                }else{
+                                    this.$message({
+                                        message: '企业基本信息暂存失败',
+                                        type: 'error'
+                                    });
+                                    this.loading = false;
                                 }
-                                this.unsavedPicList = [];
-                                //给营业执照移动到qyid文件夹中
-                                var params ={
-                                    qyid:this.qyid,
-                                    src:this.baseInforForm.src,
-                                    yyzzgs:this.baseInforForm.yyzzgs
-                                }
-                                axios.post('/xfxhapi/qyjbxx/movePic',params).then(function (res) {
-                                    this.baseInforForm.src = res.data.src;
-                                }.bind(this), function (error) {
-                                    console.log(error);
-                                })
+                                
                             }.bind(this), function (error) {
                                 console.log(error);
                             })
@@ -876,26 +899,34 @@ var vm = new Vue({
                                 }
                             }
                             axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
-                                this.cygsmc = this.baseInforForm.zwgsmc;
-                                this.$message({
-                                    message: '企业基本信息暂存成功',
-                                    type: 'success'
-                                });
-                                this.loading = false;
-                                this.active = 1;
-                                this.isJbxxShow = false;
-                                this.isKpxxShow = true;
-                                if(this.qyid != null && this.qyid != ''){
-                                    this.findKpxxByQyid(this.qyid);
+                                if(res.data.result > 0){
+                                    this.cygsmc = this.baseInforForm.zwgsmc;
+                                    this.$message({
+                                        message: '企业基本信息暂存成功',
+                                        type: 'success'
+                                    });
+                                    this.loading = false;
+                                    this.active = 1;
+                                    this.isJbxxShow = false;
+                                    this.isKpxxShow = true;
+                                    if(this.qyid != null && this.qyid != ''){
+                                        this.findKpxxByQyid(this.qyid);
+                                    }
+                                    if(this.delPicList.length>0){
+                                        axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
+                                            this.delPicList = [];
+                                        }.bind(this), function (error) {
+                                            console.log(error);
+                                        })
+                                    }
+                                    this.unsavedPicList = [];
+                                }else{
+                                    this.$message({
+                                        message: '企业基本信息暂存失败',
+                                        type: 'error'
+                                    });
+                                    this.loading = false;
                                 }
-                                if(this.delPicList.length>0){
-                                    axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
-                                        this.delPicList = [];
-                                    }.bind(this), function (error) {
-                                        console.log(error);
-                                    })
-                                }
-                                this.unsavedPicList = [];
                             }.bind(this), function (error) {
                                 console.log(error);
                             })
@@ -935,18 +966,27 @@ var vm = new Vue({
                             cjrmc: this.shiroData.username
                         }
                         axios.post('/xfxhapi/qykpxx/doInsertByVo', params).then(function (res) {
-                            this.$message({
-                                message: '企业开票信息暂存成功',
-                                type: 'success'
-                            });
-                            this.loading = false;
-                            this.active = 2;
-                            this.isKpxxShow = false;
-                            this.isWjdcShow = true;
-                            this.kpxxStatus = 1;
-                            if(this.qyid != null && this.qyid != ''){
-                                this.findWjdcByQyid(this.qyid);
+                            if(res.data.result > 0){
+                                this.$message({
+                                    message: '企业开票信息暂存成功',
+                                    type: 'success'
+                                });
+                                this.loading = false;
+                                this.active = 2;
+                                this.isKpxxShow = false;
+                                this.isWjdcShow = true;
+                                this.kpxxStatus = 1;
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findWjdcByQyid(this.qyid);
+                                }
+                            }else{
+                                this.$message({
+                                    message: '企业开票信息暂存失败',
+                                    type: 'error'
+                                });
+                                this.loading = false;
                             }
+                            
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -965,17 +1005,26 @@ var vm = new Vue({
                             xgrmc: this.shiroData.username
                         }
                         axios.post('/xfxhapi/qykpxx/doUpdateByVO', params).then(function (res) {
-                            this.$message({
-                                message: '企业开票信息暂存成功',
-                                type: 'success'
-                            });
-                            this.loading = false;
-                            this.active = 2;
-                            this.isKpxxShow = false;
-                            this.isWjdcShow = true;
-                            if(this.qyid != null && this.qyid != ''){
-                                this.findWjdcByQyid(this.qyid);
+                            if(res.data.result > 0){
+                                this.$message({
+                                    message: '企业开票信息暂存成功',
+                                    type: 'success'
+                                });
+                                this.loading = false;
+                                this.active = 2;
+                                this.isKpxxShow = false;
+                                this.isWjdcShow = true;
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findWjdcByQyid(this.qyid);
+                                }
+                            }else{
+                                this.$message({
+                                    message: '企业开票信息暂存失败',
+                                    type: 'error'
+                                });
+                                this.loading = false;
                             }
+                            
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -1018,18 +1067,27 @@ var vm = new Vue({
                             reserve1: reserve1.substr(0,reserve1.length-1),//eg.1001消防车
                         }
                         axios.post('/xfxhapi/qywjdc/doInsertByVo', params).then(function (res) {
-                            this.$message({
-                                message: '企业问卷调查暂存成功',
-                                type: 'success'
-                            });
-                            this.loading = false;
-                            this.active = 3;
-                            this.isWjdcShow = false;
-                            this.isCpjsShow = true;
-                            this.wjdcStatus = 1;
-                            if(this.qyid != null && this.qyid != ''){
-                                this.findQyjsByQyid(this.qyid);
+                            if(res.data.result >0){
+                                this.$message({
+                                    message: '企业问卷调查暂存成功',
+                                    type: 'success'
+                                });
+                                this.loading = false;
+                                this.active = 3;
+                                this.isWjdcShow = false;
+                                this.isCpjsShow = true;
+                                this.wjdcStatus = 1;
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findQyjsByQyid(this.qyid);
+                                }
+                            }else{
+                                this.$message({
+                                    message: '企业问卷调查暂存失败',
+                                    type: 'error'
+                                });
+                                this.loading = false;
                             }
+                            
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -1061,17 +1119,26 @@ var vm = new Vue({
                             reserve1: reserve1.substr(0,reserve1.length-1),//eg.1001消防车
                         }
                         axios.post('/xfxhapi/qywjdc/doUpdateByVO', params).then(function (res) {
-                            this.$message({
-                                message: '企业问卷调查暂存成功',
-                                type: 'success'
-                            });
-                            this.loading = false;
-                            this.active = 3;
-                            this.isWjdcShow = false;
-                            this.isCpjsShow = true;
-                            if(this.qyid != null && this.qyid != ''){
-                                this.findQyjsByQyid(this.qyid);
+                            if(res.data.result >0){
+                                this.$message({
+                                    message: '企业问卷调查暂存成功',
+                                    type: 'success'
+                                });
+                                this.loading = false;
+                                this.active = 3;
+                                this.isWjdcShow = false;
+                                this.isCpjsShow = true;
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findQyjsByQyid(this.qyid);
+                                }
+                            }else{
+                                this.$message({
+                                    message: '企业问卷调查暂存失败',
+                                    type: 'error'
+                                });
+                                this.loading = false;
                             }
+                            
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -1124,6 +1191,7 @@ var vm = new Vue({
                             tempList.push(obj_temp);
                         }
                         if(this.cpjsStatus == 0){//新增
+                            this.loading = true;
                             var params = {
                                 qyid: this.qyid,
                                 qyjj: this.qyjsForm.qyjj,
@@ -1135,27 +1203,37 @@ var vm = new Vue({
                                 cjrmc: this.shiroData.username
                             }
                             axios.post('/xfxhapi/qyjs/doInsertByVo', params).then(function (res) {
-                                //this.upLoadLogoData.uuid = res.data.result.uuid;
-                                //this.$refs.uploadLogo.submit();
-                                this.$message({
-                                    message: '企业产品介绍暂存成功',
-                                    type: 'success'
-                                });
-                                this.active = 4;
-                                this.isCpjsShow = false;
-                                this.isXqyxShow = true;
-                                this.cpjsStatus = 1;
-                                if(this.qyid != null && this.qyid != ''){
-                                    this.findXqyxByQyid(this.qyid);
+                                if(res.data.result != null && res.data.result != ""){
+                                    //this.upLoadLogoData.uuid = res.data.result.uuid;
+                                    //this.$refs.uploadLogo.submit();
+                                    this.$message({
+                                        message: '企业产品介绍暂存成功',
+                                        type: 'success'
+                                    });
+                                    this.loading = false;
+                                    this.active = 4;
+                                    this.isCpjsShow = false;
+                                    this.isXqyxShow = true;
+                                    this.cpjsStatus = 1;
+                                    if(this.qyid != null && this.qyid != ''){
+                                        this.findXqyxByQyid(this.qyid);
+                                    }
+                                    if(this.delPicList.length>0){
+                                        axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
+                                            this.delPicList = [];
+                                        }.bind(this), function (error) {
+                                            console.log(error);
+                                        })
+                                    }
+                                    this.unsavedPicList = [];
+                                }else{
+                                    this.$message({
+                                        message: '企业产品介绍暂存失败',
+                                        type: 'error'
+                                    });
+                                    this.loading = false;
                                 }
-                                if(this.delPicList.length>0){
-                                    axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
-                                        this.delPicList = [];
-                                    }.bind(this), function (error) {
-                                        console.log(error);
-                                    })
-                                }
-                                this.unsavedPicList = [];
+                                
                             }.bind(this), function (error) {
                                 console.log(error);
                             })
@@ -1172,27 +1250,37 @@ var vm = new Vue({
                                 xgrmc: this.shiroData.username
                             }
                             axios.post('/xfxhapi/qyjs/doUpdateQyCpByVO', params).then(function (res) {
-                                //this.upLoadLogoData.uuid = res.data.result.uuid;
-                                //this.$refs.uploadLogo.submit();
-                                this.$message({
-                                    message: '企业产品介绍暂存成功',
-                                    type: 'success'
-                                });
-                                this.active = 4;
-                                this.isCpjsShow = false;
-                                this.isXqyxShow = true;
-                                this.cpjsStatus = 1;
-                                if(this.qyid != null && this.qyid != ''){
-                                    this.findXqyxByQyid(this.qyid);
+                                if(res.data.result != null && res.data.result != ""){
+                                    //this.upLoadLogoData.uuid = res.data.result.uuid;
+                                    //this.$refs.uploadLogo.submit();
+                                    this.$message({
+                                        message: '企业产品介绍暂存成功',
+                                        type: 'success'
+                                    });
+                                    this.loading = false;
+                                    this.active = 4;
+                                    this.isCpjsShow = false;
+                                    this.isXqyxShow = true;
+                                    this.cpjsStatus = 1;
+                                    if(this.qyid != null && this.qyid != ''){
+                                        this.findXqyxByQyid(this.qyid);
+                                    }
+                                    if(this.delPicList.length>0){
+                                        axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
+                                            this.delPicList = [];
+                                        }.bind(this), function (error) {
+                                            console.log(error);
+                                        })
+                                    }
+                                    this.unsavedPicList = [];
+                                }else{
+                                    this.$message({
+                                        message: '企业产品介绍暂存失败',
+                                        type: 'error'
+                                    });
+                                    this.loading = false;
                                 }
-                                if(this.delPicList.length>0){
-                                    axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
-                                        this.delPicList = [];
-                                    }.bind(this), function (error) {
-                                        console.log(error);
-                                    })
-                                }
-                                this.unsavedPicList = [];
+                                
                             }.bind(this), function (error) {
                                 console.log(error);
                             })
@@ -1219,14 +1307,23 @@ var vm = new Vue({
                         cjrmc: this.shiroData.username
                     }
                     axios.post('/xfxhapi/qyzwyx/doInsertByVo', params).then(function (res) {
-                        this.$message({
-                            message: '企业参展展位需求意向暂存成功',
-                            type: 'success'
-                        });
-                        this.loading = false;
-                        this.active = 5;
-                        this.xqyxStatus = 1;
-                        this.submit();
+                        if(res.data.result > 0){
+                            this.$message({
+                                message: '企业参展展位需求意向暂存成功',
+                                type: 'success'
+                            });
+                            this.loading = false;
+                            this.active = 5;
+                            this.xqyxStatus = 1;
+                            this.submit();
+                        }else{
+                            this.$message({
+                                message: '企业参展展位需求意向暂存失败',
+                                type: 'error'
+                            });
+                            this.loading = false;
+                        }
+                        
                     }.bind(this), function (error) {
                         console.log(error);
                     })
@@ -1241,14 +1338,23 @@ var vm = new Vue({
                         xgrmc: this.shiroData.username
                     }
                     axios.post('/xfxhapi/qyzwyx/doUpdateByVO', params).then(function (res) {
-                        this.$message({
-                            message: '企业参展展位需求意向暂存成功',
-                            type: 'success'
-                        });
-                        this.loading = false;
-                        this.active = 5;
-                        //提交展位预报名信息
-                        this.submit();
+                        if(res.data.result > 0){
+                            this.$message({
+                                message: '企业参展展位需求意向暂存成功',
+                                type: 'success'
+                            });
+                            this.loading = false;
+                            this.active = 5;
+                            //提交展位预报名信息
+                            this.submit();
+                        }else{
+                            this.$message({
+                                message: '企业参展展位需求意向暂存失败',
+                                type: 'error'
+                            });
+                            this.loading = false;
+                        }
+                        
                     }.bind(this), function (error) {
                         console.log(error);
                     })
@@ -1555,13 +1661,15 @@ var vm = new Vue({
             }
         },
         //剩余多少个字
-        /*
-        keypress:function(text,name,maxlength){
+        checkWord:function(text,name,maxlength){
             var length = text.length;
             var curr = maxlength - length;
-            document.getElementById(name).innerHTML=curr.toString();
+            var ele =  document.getElementById(name);
+            if(ele != null){
+                document.getElementById(name).innerHTML=curr.toString();
+            }
         },
-        */
+        
     },
 
 })

@@ -126,3 +126,6 @@ input[type=file] {
     background: url(../../images/alarm.png) no-repeat;
     background-size:cover;
 }
+#cpjsArea .el-form-item__error {
+    padding-top: 8px;
+  }

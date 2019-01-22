@@ -173,12 +173,14 @@ var vm = new Vue({
             baseInforRules: {
                 ywgsmc: [
                   { required: true, message: 'Company name is required', trigger: 'blur' },
-                  { pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only',trigger: 'blur' },
+                  //{ pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only',trigger: 'blur' },
+                  { pattern: /^[\da-zA-Z \!\?\r\n\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-\。\·\…\！\、\“\”\‘\’\《\》\<\>\【\】\：\；\？]*$/, message: 'Characters and number only',trigger: 'blur' },
                   { min: 1, max: 200, message: 'less than 200 characters', trigger: 'blur' }
                 ],
                 yjdzxx: [
                   { required: true, message: 'Company address is required', trigger: 'blur' },
-                  { pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only',trigger: 'blur' },
+                  //{ pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only',trigger: 'blur' },
+                  { pattern: /^[\da-zA-Z \!\?\r\n\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-\。\·\…\！\、\“\”\‘\’\《\》\<\>\【\】\：\；\？]*$/, message: 'Characters and number only',trigger: 'blur' },
                   { min: 1, max: 200, message: 'less than 200 characters', trigger: 'blur' }
                 ],
                 bgdh: [
@@ -187,7 +189,8 @@ var vm = new Vue({
                   ],
                 frdb: [
                     { required: true, message: 'Legal Representative is required', trigger: 'blur' },
-                    { pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only',trigger: 'blur' },
+                    //{ pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only',trigger: 'blur' },
+                    { pattern: /^[\da-zA-Z \!\?\r\n\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-\。\·\…\！\、\“\”\‘\’\《\》\<\>\【\】\：\；\？]*$/, message: 'Characters and number only',trigger: 'blur' },
                     { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                   ],
                 frdbdh: [
@@ -197,7 +200,8 @@ var vm = new Vue({
                   ],
                 lxr: [
                     { required: true, message: 'Contact Person is required', trigger: 'blur' },
-                    { pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only',trigger: 'blur' },
+                   // { pattern: /^[a-z\d\.\,\|\- ]+$/i, message: 'Characters and number and blank and ,.-| only',trigger: 'blur' },
+                    { pattern: /^[\da-zA-Z \!\?\r\n\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-\。\·\…\！\、\“\”\‘\’\《\》\<\>\【\】\：\；\？]*$/, message: 'Characters and number only',trigger: 'blur' },
                     { min: 1, max: 50, message: 'less than 50 characters', trigger: 'blur' }
                   ],
                 lxrsj: [
@@ -207,7 +211,8 @@ var vm = new Vue({
                   ],
                 wz: [
                     { required: false, message: 'Company Website is required', trigger: 'blur' },
-                    { pattern: /^[a-z\d\.\,\@\#\*\|\- ]+$/i, message: 'Characters and number and blank only',trigger: 'blur' },
+                    //{ pattern: /^[a-z\d\.\,\@\#\*\|\- ]+$/i, message: 'Characters and number and blank only',trigger: 'blur' },
+                    { pattern: /^[\da-zA-Z \!\?\r\n\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-\。\·\…\！\、\“\”\‘\’\《\》\<\>\【\】\：\；\？]*$/, message: 'Characters and number only',trigger: 'blur' },
                     { min: 1, max: 100, message: 'less than 100 characters', trigger: 'blur' }
                   ],
                 dzyx1: [
@@ -236,12 +241,14 @@ var vm = new Vue({
             kpxxRules: {
                 kpgsmc: [
                   { required: true, message: 'Company Name on the Invoice is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
+                 // { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
+                  { pattern: /^[\da-zA-Z \!\?\r\n\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-\。\·\…\！\、\“\”\‘\’\《\》\<\>\【\】\：\；\？]*$/, message: 'Characters and number only',trigger: 'blur' },
                   { min: 1, max: 200, message: 'less than 200 characters', trigger: 'blur' }
                 ],
                 gsdz: [
                   { required: true, message: 'Customer Contact is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
+                  { pattern: /^[\da-zA-Z \!\?\r\n\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-\。\·\…\！\、\“\”\‘\’\《\》\<\>\【\】\：\；\？]*$/, message: 'Characters and number only',trigger: 'blur' },
+                 // { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
                   { min: 1, max: 300, message: 'less than 300 characters', trigger: 'blur' }
                 ],
                 dhhm: [
@@ -263,19 +270,25 @@ var vm = new Vue({
             qyjsRules: {
                 qyjj: [
                   { required: true, message: 'Company Introduction is required', trigger: 'blur' },
-                  { pattern: /^[\da-zA-Z !?|<>.,;:'"@#$￥=+_—%^&*()\[\]{}\\\/~`-]*$/, message: 'Characters and number and symbol only',trigger: 'blur' },
+                  //{ pattern: /^[\da-zA-Z !?|<>.,;:'"@#$￥=+_—%^&*()\[\]{}\\\/~`-]*$/, message: 'Characters and number and symbol only',trigger: 'blur' },
+                  { pattern: /^[\da-zA-Z \!\?\r\n\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-\。\·\…\！\、\“\”\‘\’\《\》\<\>\【\】\：\；\？]*$/, message: 'Characters and number only',trigger: 'blur' },
                   { min: 1, max: 400, message: 'less than 400 characters', trigger: 'blur' }
                 ],
-            },
-            cpjsRules: {
-                cplx: [
-                  { required: true, message: 'Category of the Product is required', trigger: 'change' }
-                ],
+                cplx:[{
+                    validator: (rule, value, callback) => {
+                        if (value.length == 0) {
+                            callback(new Error("Category of the Product is required"));
+                        } else {
+                            callback();
+                        }
+
+                    }, trigger: 'change'
+                }],
                 cpjj: [
-                  { required: true, message: 'Product Introduction is required', trigger: 'blur' },
-                  { pattern: /^[A-Za-z0-9 ]+$/, message: 'Characters and number and blank only',trigger: 'blur' },
-                  { min: 1, max: 300, message: 'less than 300 characters', trigger: 'blur' }
-                ]
+                    { required: true, message: 'Product Introduction is required', trigger: 'blur' },
+                    { pattern: /^[\da-zA-Z \!\?\r\n\|\<\>\.\,\，\;\:\'\"\@\#\$\￥\=\+\_\—\%\^\&\*\(\)\（\）\[\]\{\}\\\/\~\`\-\。\·\…\！\、\“\”\‘\’\《\》\<\>\【\】\：\；\？]*$/, message: 'Characters and number only',trigger: 'blur' },
+                ],
+
             },
             emailRules:{
                 email:[
@@ -605,6 +618,7 @@ var vm = new Vue({
                             return false;
                         }
                         else{
+                            this.loading=true;
                             var params = {
                                 userid: this.shiroData.userid,
                                 ywgsmc: this.baseInforForm.ywgsmc,
@@ -625,19 +639,28 @@ var vm = new Vue({
                                 reserve2:this.baseInforForm.reserve2//邮政编码
                             }
                             axios.post('/xfxhapi/qyjbxx/doInsertByVo', params).then(function (res) {
-                                //this.upLoadData.qyid = res.data.result.qyid;
-                                //this.$refs.uploadPics.submit();
-                                this.$message({
-                                    message: 'Brief Company Information has been saved!',
-                                    type: 'success'
-                                });
-                                this.active = 1;
-                                this.isJbxxShow = false;
-                                this.isKpxxShow = true;
-                                this.jbxxStatus = 1;
-                                this.qyid = res.data.result.qyid;
-                                if(this.qyid != null && this.qyid != ''){
-                                    this.findKpxxByQyid(this.qyid);
+                                if(res.data.result != null && res.data.result != ""){
+                                    //this.upLoadData.qyid = res.data.result.qyid;
+                                    //this.$refs.uploadPics.submit();
+                                    this.$message({
+                                        message: 'Brief Company Information has been saved!',
+                                        type: 'success'
+                                    });
+                                    this.loading = false;
+                                    this.active = 1;
+                                    this.isJbxxShow = false;
+                                    this.isKpxxShow = true;
+                                    this.jbxxStatus = 1;
+                                    this.qyid = res.data.result.qyid;
+                                    if(this.qyid != null && this.qyid != ''){
+                                        this.findKpxxByQyid(this.qyid);
+                                    }
+                                }else{
+                                    this.$message({
+                                        message: 'Brief Company Information save failed!',
+                                        type: 'error'
+                                    });
+                                    this.loading = false;
                                 }
                             }.bind(this), function (error) {
                                 console.log(error);
@@ -654,6 +677,7 @@ var vm = new Vue({
                             console.log('error submit!!');
                             return false;
                         }else{
+                            this.loading = true;
                             //判断当前公司名称是否修改
                             if(this.cygsmc == this.baseInforForm.ywgsmc){//未修改
                                 var params = {
@@ -695,17 +719,26 @@ var vm = new Vue({
                             }
                             
                             axios.post('/xfxhapi/qyjbxx/doUpdateByVO', params).then(function (res) {
-                                this.cygsmc = this.baseInforForm.ywgsmc;
-                                this.upLoadData.qyid = this.baseInforForm.qyid;
-                                this.$message({
-                                    message: 'Brief Company Information has been saved!',
-                                    type: 'success'
-                                });
-                                this.active = 1;
-                                this.isJbxxShow = false;
-                                this.isKpxxShow = true;
-                                if(this.qyid != null && this.qyid != ''){
-                                    this.findKpxxByQyid(this.qyid);
+                                if(res.data.result > 0){
+                                    this.loading = false;
+                                    this.cygsmc = this.baseInforForm.ywgsmc;
+                                    this.upLoadData.qyid = this.baseInforForm.qyid;
+                                    this.$message({
+                                        message: 'Brief Company Information has been saved!',
+                                        type: 'success'
+                                    });
+                                    this.active = 1;
+                                    this.isJbxxShow = false;
+                                    this.isKpxxShow = true;
+                                    if(this.qyid != null && this.qyid != ''){
+                                        this.findKpxxByQyid(this.qyid);
+                                    }
+                                }else{
+                                    this.$message({
+                                        message: 'Brief Company Information save failed',
+                                        type: 'error'
+                                    });
+                                    this.loading = false;
                                 }
                             }.bind(this), function (error) {
                                 console.log(error);
@@ -725,6 +758,7 @@ var vm = new Vue({
         submitKpxx: function(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    this.loading = true;
                     if(this.kpxxStatus == 0){//新增
                         var params={
                             qyid: this.qyid,
@@ -737,16 +771,25 @@ var vm = new Vue({
                             cjrmc: this.shiroData.username
                         }
                         axios.post('/xfxhapi/qykpxx/doInsertByVo', params).then(function (res) {
-                            this.$message({
-                                message: 'Invoice Information has been saved!',
-                                type: 'success'
-                            });
-                            this.active = 2;
-                            this.isKpxxShow = false;
-                            this.isWjdcShow = true;
-                            this.kpxxStatus = 1;
-                            if(this.qyid != null && this.qyid != ''){
-                                this.findWjdcByQyid(this.qyid);
+                            if(res.data.result > 0){
+                                this.$message({
+                                    message: 'Invoice Information has been saved!',
+                                    type: 'success'
+                                });
+                                this.loading = false;
+                                this.active = 2;
+                                this.isKpxxShow = false;
+                                this.isWjdcShow = true;
+                                this.kpxxStatus = 1;
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findWjdcByQyid(this.qyid);
+                                }
+                            }else{
+                                this.$message({
+                                    message: 'Invoice Information save failed',
+                                    type: 'error'
+                                });
+                                this.loading = false;
                             }
                         }.bind(this), function (error) {
                             console.log(error);
@@ -763,15 +806,24 @@ var vm = new Vue({
                             xgrmc: this.shiroData.username
                         }
                         axios.post('/xfxhapi/qykpxx/doUpdateByVO', params).then(function (res) {
-                            this.$message({
-                                message: 'Invoice Information has been saved!',
-                                type: 'success'
-                            });
-                            this.active = 2;
-                            this.isKpxxShow = false;
-                            this.isWjdcShow = true;
-                            if(this.qyid != null && this.qyid != ''){
-                                this.findWjdcByQyid(this.qyid);
+                            if(res.data.result > 0){
+                                this.$message({
+                                    message: 'Invoice Information has been saved!',
+                                    type: 'success'
+                                });
+                                this.loading = false;
+                                this.active = 2;
+                                this.isKpxxShow = false;
+                                this.isWjdcShow = true;
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findWjdcByQyid(this.qyid);
+                                }
+                            }else{
+                                this.$message({
+                                    message: 'Invoice Information save failed',
+                                    type: 'error'
+                                });
+                                this.loading = false;
                             }
                         }.bind(this), function (error) {
                             console.log(error);
@@ -787,6 +839,7 @@ var vm = new Vue({
         submitWjdc: function(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    this.loading = true;
                     if(this.wjdcStatus == 0){//新增
                         var zycp = "";
                         var reserve1 = "";
@@ -804,16 +857,25 @@ var vm = new Vue({
                             reserve1: reserve1.substr(0,reserve1.length-1),//eg.1001消防车
                         }
                         axios.post('/xfxhapi/qywjdc/doInsertByVo', params).then(function (res) {
-                            this.$message({
-                                message: 'Major Product Information has been saved!',
-                                type: 'success'
-                            });
-                            this.active = 3;
-                            this.isWjdcShow = false;
-                            this.isCpjsShow = true;
-                            this.wjdcStatus = 1;
-                            if(this.qyid != null && this.qyid != ''){
-                                this.findQyjsByQyid(this.qyid);
+                            if(res.data.result >0){
+                                this.$message({
+                                    message: 'Major Product Information has been saved!',
+                                    type: 'success'
+                                });
+                                this.loading = false;
+                                this.active = 3;
+                                this.isWjdcShow = false;
+                                this.isCpjsShow = true;
+                                this.wjdcStatus = 1;
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findQyjsByQyid(this.qyid);
+                                }
+                            }else{
+                                this.$message({
+                                    message: 'Major Product Information save failed',
+                                    type: 'error'
+                                });
+                                this.loading = false;
                             }
                         }.bind(this), function (error) {
                             console.log(error);
@@ -836,15 +898,24 @@ var vm = new Vue({
                             reserve1: reserve1.substr(0,reserve1.length-1),//eg.1001消防车
                         }
                         axios.post('/xfxhapi/qywjdc/doUpdateByVO', params).then(function (res) {
-                            this.$message({
-                                message: 'Major Product Information has been saved!',
-                                type: 'success'
-                            });
-                            this.active = 3;
-                            this.isWjdcShow = false;
-                            this.isCpjsShow = true;
-                            if(this.qyid != null && this.qyid != ''){
-                                this.findQyjsByQyid(this.qyid);
+                            if(res.data.result >0){
+                                this.$message({
+                                    message: 'Major Product Information has been saved!',
+                                    type: 'success'
+                                });
+                                this.loading = false;
+                                this.active = 3;
+                                this.isWjdcShow = false;
+                                this.isCpjsShow = true;
+                                if(this.qyid != null && this.qyid != ''){
+                                    this.findQyjsByQyid(this.qyid);
+                                }
+                            }else{
+                                this.$message({
+                                    message: 'Major Product Information save failed',
+                                    type: 'error'
+                                });
+                                this.loading = false;
                             }
                         }.bind(this), function (error) {
                             console.log(error);
@@ -859,7 +930,6 @@ var vm = new Vue({
         },
         //产品介绍提交（下一步）
         submitCpjs: function(formName){
-            this.loading = true;
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     var cp = this.qyjsForm.qycpjsVOList[this.qyjsForm.qycpjsVOList.length - 1];
@@ -906,6 +976,7 @@ var vm = new Vue({
                             tempList.push(obj_temp);
                         }
                         if(this.cpjsStatus == 0){//新增
+                            this.loading = true;
                             var params = {
                                 qyid: this.qyid,
                                 qyjj: this.qyjsForm.qyjj,
@@ -916,32 +987,41 @@ var vm = new Vue({
                                 cjrmc: this.shiroData.username
                             }
                             axios.post('/xfxhapi/qyjs/doInsertByVo', params).then(function (res) {
-                                //this.upLoadLogoData.uuid = res.data.result.uuid;
-                                //this.$refs.uploadLogo.submit();
-                                this.$message({
-                                    message: 'Company Information Details and Product Examples has been saved!',
-                                    type: 'success'
-                                });
-                                this.loading = false;
-                                this.active = 4;
-                                this.isCpjsShow = false;
-                                this.isXqyxShow = true;
-                                this.cpjsStatus = 1;
-                                if(this.qyid != null && this.qyid != ''){
-                                    this.findXqyxByQyid(this.qyid);
+                                if(res.data.result != null && res.data.result != ""){
+                                    //this.upLoadLogoData.uuid = res.data.result.uuid;
+                                    //this.$refs.uploadLogo.submit();
+                                    this.$message({
+                                        message: 'Company Information Details and Product Examples has been saved!',
+                                        type: 'success'
+                                    });
+                                    this.loading = false;
+                                    this.active = 4;
+                                    this.isCpjsShow = false;
+                                    this.isXqyxShow = true;
+                                    this.cpjsStatus = 1;
+                                    if(this.qyid != null && this.qyid != ''){
+                                        this.findXqyxByQyid(this.qyid);
+                                    }
+                                    if(this.delPicList.length>0){
+                                        axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
+                                            this.delPicList = [];
+                                        }.bind(this), function (error) {
+                                            console.log(error);
+                                        })
+                                    }
+                                    this.unsavedPicList = [];
+                                }else{
+                                    this.$message({
+                                        message: 'Company Information Details and Product Examples save failed',
+                                        type: 'error'
+                                    });
+                                    this.loading = false;
                                 }
-                                if(this.delPicList.length>0){
-                                    axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
-                                        this.delPicList = [];
-                                    }.bind(this), function (error) {
-                                        console.log(error);
-                                    })
-                                }
-                                this.unsavedPicList = [];
                             }.bind(this), function (error) {
                                 console.log(error);
                             })
                         }else{//修改
+                            this.loading = true;
                             var params = {
                                 uuid: this.qyUuid,
                                 qyid: this.qyid,
@@ -952,28 +1032,36 @@ var vm = new Vue({
                                 xgrmc: this.shiroData.username
                             }
                             axios.post('/xfxhapi/qyjs/doUpdateQyCpByVO', params).then(function (res) {
-                                //this.upLoadLogoData.uuid = res.data.result.uuid;
-                                //this.$refs.uploadLogo.submit();
-                                this.$message({
-                                    message: 'Company Information Details and Product Examples has been saved!',
-                                    type: 'success'
-                                });
-                                this.loading = false;
-                                this.active = 4;
-                                this.isCpjsShow = false;
-                                this.isXqyxShow = true;
-                                this.cpjsStatus = 1;
-                                if(this.qyid != null && this.qyid != ''){
-                                    this.findXqyxByQyid(this.qyid);
+                                if(res.data.result != null && res.data.result != ""){
+                                    //this.upLoadLogoData.uuid = res.data.result.uuid;
+                                    //this.$refs.uploadLogo.submit();
+                                    this.$message({
+                                        message: 'Company Information Details and Product Examples has been saved!',
+                                        type: 'success'
+                                    });
+                                    this.loading = false;
+                                    this.active = 4;
+                                    this.isCpjsShow = false;
+                                    this.isXqyxShow = true;
+                                    this.cpjsStatus = 1;
+                                    if(this.qyid != null && this.qyid != ''){
+                                        this.findXqyxByQyid(this.qyid);
+                                    }
+                                    if(this.delPicList.length>0){
+                                        axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
+                                            this.delPicList = [];
+                                        }.bind(this), function (error) {
+                                            console.log(error);
+                                        })
+                                    }
+                                    this.unsavedPicList = [];
+                                }else{
+                                    this.$message({
+                                        message: 'Company Information Details and Product Examples save failed',
+                                        type: 'error'
+                                    });
+                                    this.loading = false;
                                 }
-                                if(this.delPicList.length>0){
-                                    axios.post('/xfxhapi/qycpjs/delPic',this.delPicList).then(function (res) {
-                                        this.delPicList = [];
-                                    }.bind(this), function (error) {
-                                        console.log(error);
-                                    })
-                                }
-                                this.unsavedPicList = [];
                             }.bind(this), function (error) {
                                 console.log(error);
                             })
@@ -988,6 +1076,7 @@ var vm = new Vue({
         //需求意向提交
         submitXqyx: function(){
             if(this.xqyxForm.bzzwgs >0 || this.xqyxForm.sngdzw >0|| this.xqyxForm.swgdzw >0){
+                this.loading = true;
                 if(this.xqyxStatus == 0){//新增
                     var params = {
                         qyid: this.qyid,
@@ -999,13 +1088,22 @@ var vm = new Vue({
                         cjrmc: this.shiroData.username
                     }
                     axios.post('/xfxhapi/qyzwyx/doInsertByVo', params).then(function (res) {
-                        this.$message({
-                            message: 'Questionnaire on your Booth Requirement has been saved!',
-                            type: 'success'
-                        });
-                        this.active = 5;
-                        this.xqyxStatus = 1;
-                        this.submit();
+                        if(res.data.result > 0){
+                            this.$message({
+                                message: 'Questionnaire on your Booth Requirement has been saved!',
+                                type: 'success'
+                            });
+                            this.loading = false;
+                            this.active = 5;
+                            this.xqyxStatus = 1;
+                            this.submit();
+                        }else{
+                            this.$message({
+                                message: 'Questionnaire on your Booth Requirement save failed',
+                                type: 'error'
+                            });
+                            this.loading = false;
+                        }
                     }.bind(this), function (error) {
                         console.log(error);
                     })
@@ -1020,13 +1118,22 @@ var vm = new Vue({
                         xgrmc: this.shiroData.username
                     }
                     axios.post('/xfxhapi/qyzwyx/doUpdateByVO', params).then(function (res) {
-                        this.$message({
-                            message: 'Questionnaire on your Booth Requirement has been saved!',
-                            type: 'success'
-                        });
-                        this.active = 5;
-                        //提交展位预报名信息
-                        this.submit();
+                        if(res.data.result > 0){
+                            this.$message({
+                                message: 'Questionnaire on your Booth Requirement has been saved!',
+                                type: 'success'
+                            });
+                            this.loading = false;
+                            this.active = 5;
+                            //提交展位预报名信息
+                            this.submit();
+                        }else{
+                            this.$message({
+                                message: 'Questionnaire on your Booth Requirement save failed',
+                                type: 'error'
+                            });
+                            this.loading = false;
+                        }
                     }.bind(this), function (error) {
                         console.log(error);
                     })
@@ -1038,6 +1145,7 @@ var vm = new Vue({
                     type: 'warning'
                 });
                 console.log('error submit!!');
+                this.loading = false;
                 return false;
             }
             
@@ -1249,7 +1357,7 @@ var vm = new Vue({
         },
         //邮箱修改验证
         openYxYz: function(){
-            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.baseInforForm.dzyx1))) {
+            if (!(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/.test(this.baseInforForm.dzyx1))) {
                 this.$message({
                     message: 'error email',
                     type: 'warning'
@@ -1300,7 +1408,7 @@ var vm = new Vue({
             }
         },
         getEMessageCode:function(){
-            if (!(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/.test(this.emailform.email))) {
+            if (!(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/.test(this.emailform.email))) {
                 this.$message({
                     message: 'Error Email',
                     type: 'warning'
@@ -1362,6 +1470,16 @@ var vm = new Vue({
                 this.phoneCheck = false;
             }
         },*/
+        //剩余多少个字
+        checkWord:function(text,name,maxlength){
+            var length = text.length;
+            var curr = maxlength - length;
+            var ele =  document.getElementById(name);
+            if(ele != null){
+                document.getElementById(name).innerHTML=curr.toString();
+            }
+        },
     },
+    
 
 })

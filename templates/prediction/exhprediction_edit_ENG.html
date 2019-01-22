@@ -10,7 +10,7 @@
 <body class="fw f14 main-index-body">
 	<div id="app">
 		<div class="main-box">
-			<div class="main-container" v-loading="loading" element-loading-text="加载中">
+			<div class="main-container" v-loading="loading" element-loading-text="loading">
                 <div id="lib :: main_container_header('报名信息新增','报名信息新增')"></div>
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
@@ -282,69 +282,66 @@
                                 </el-form-item>
                             </el-col>
                             <!-- <el-col :span="1">&nbsp;</el-col> -->
-                            <el-col :span="14" style="margin-left: -10%" id="qycpArea">
+                            <el-col :span="14" style="margin-left: -7%" id="qycpArea">
                                 <el-form-item prop="qyjj" style="text-align: left" label="Company Introduction">
-                                    <el-input type="textarea" :rows="5" placeholder="Company Introduction" v-model="qyjsForm.qyjj" maxlength="400" onkeyup="value=value.replace(/[^\w\.\@\~\^\\\|\`\:\;\_\-\+\=\#\$\%\&\*\'\<\>\(\)\[\]\{\}\,\!\?\/ ]/ig,'')"></el-input>
+                                    <el-input type="textarea" :rows="5" placeholder="Company Introduction" v-model="qyjsForm.qyjj" maxlength="400" :onkeyup="checkWord(qyjsForm.qyjj,'qyjsLength','400')"></el-input>
                                 </el-form-item>
                                 <el-row>
-                                    <div class="el-upload__tip">less than 400 characters</div>
+                                    <div class="el-upload__tip">less than <span style="color: red" id="qyjsLength">{{400-qyjsForm.qyjj.length}}</span> characters</div>
                                 </el-row>
                             </el-col>
                             <el-col :span="1">&nbsp;</el-col>
                         </el-row>
-                    </el-form>
-                    <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
-                        <el-col :span="12">
-                            <strong style="color: #463132;">Product Examples(at least 1,at most 6)</strong>
-                        </el-col>
-                        <el-col :span="12" class="pb1">
-                            <el-button type="primary" icon="el-icon-plus" size="small" class="r" @click="addDomain">Add Product</el-button>
-                        </el-col>
-                    </el-row>
-                    <el-row class="mt15 mb20" style="overflow-x: hidden">
-                        <el-form class="el-form demo-form-inline" ref="qyjsForm.qycpjsVOList" :model="qyjsForm.qycpjsVOList" label-width="220px"
-                            label-position="right">
-                            <el-form-item v-for="(domain, index) in qyjsForm.qycpjsVOList" :key="domain.key" label-position="right" style="margin-left: -220px;">
-                                <el-card class="card_style" id="cp_card">
-                                    <div slot="header" class="clearfix">
-                                        <strong class="card_title_font">
-                                            Product NO.{{index+1}}</strong>
-                                        <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 4px -15px 0px 0px">Del Product</el-button>
-                                    </div>
-                                    <el-row class="tr">
-                                        <el-col :span="9">
-                                            <el-form-item label="Product Photo" style="text-align: left" class="is-required">
-                                                <el-upload class="avatar-uploader" ref="uploadCpPics" action="/xfxhapi/qycpjs/upload" :on-success="cpjsPicSuccess" :before-upload="CpPicsChange"
-                                                    :show-file-list="false" :data="CpjsUpLoadData">
-                                                    <img @click="getIndex(index,domain.src)" v-if="domain.src!=='' && domain.src!==null" :src="domain.imageUrl" class="avatar">
-                                                    <i v-else class="el-icon-plus avatar-uploader-icon" @click="getIndex(index)"></i>
-                                                    <div class="el-upload__tip" slot="tip">jpg/png,less than 2MB</div>
-                                                </el-upload>
+                    
+                        <el-row class="mb5" style="border-bottom:1px solid #463132;line-height: 29px;">
+                            <el-col :span="12">
+                                <strong style="color: #463132;">Product Examples(at least 1,at most 6)</strong>
+                            </el-col>
+                            <el-col :span="12" class="pb1">
+                                <el-button type="primary" icon="el-icon-plus" size="small" class="r" @click="addDomain">Add Product</el-button>
+                            </el-col>
+                        </el-row>
+                        <el-row class="mt15 mb20" style="overflow-x: hidden">
+                            <el-card class="card_style" id="cp_card" v-for="(domain, index) in qyjsForm.qycpjsVOList" :key="index">
+                                <div slot="header" class="clearfix">
+                                    <strong class="card_title_font">Product NO.{{index+1}}</strong>
+                                    <el-button type="danger" icon="el-icon-minus" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin: 4px -15px 0px 0px">Del Product</el-button>
+                                </div>
+                                <el-row class="tr">
+                                    <el-col :span="10">
+                                        <el-form-item label="Product Photo" style="text-align: left" class="is-required">
+                                            <el-upload class="avatar-uploader" ref="uploadCpPics" action="/xfxhapi/qycpjs/upload" :on-success="cpjsPicSuccess" :before-upload="CpPicsChange"
+                                                        :show-file-list="false" :data="CpjsUpLoadData">
+                                                <img @click="getIndex(index,domain.src)" v-if="domain.src!=='' && domain.src!==null" :src="domain.imageUrl" class="avatar">
+                                                <i v-else class="el-icon-plus avatar-uploader-icon" @click="getIndex(index)"></i>
+                                                <div class="el-upload__tip" slot="tip">jpg/png,less than 2MB</div>
+                                            </el-upload>
+                                         </el-form-item>
+                                    </el-col>
+                                    <el-col :span="14" style="margin-left: -10%">
+                                        <el-row>
+                                            <el-form-item label="Category of the Product" class="is-required" :prop = "'qycpjsVOList.' + index + '.cplx'" :rules="qyjsRules.cplx">
+                                                <el-cascader :options="cpssfl_data" :props="defaultProps" size="small" v-model="domain.cplx" placeholder="Category of the Product" class="searchSelect"
+                                                            clearable :show-all-levels="false"></el-cascader>
                                             </el-form-item>
-                                        </el-col>
-                                        <!-- <el-col :span="1">&nbsp;</el-col> -->
-                                        <el-col :span="14" style="margin-left: -10%">
-                                            <el-row>
-                                                <el-form-item prop="cplx" label="Category of the Product" class="is-required">
-                                                    <el-cascader :options="cpssfl_data" :props="defaultProps" size="small" v-model="domain.cplx" placeholder="Category of the Product" class="searchSelect"
-                                                        clearable :show-all-levels="false"></el-cascader>
-                                                </el-form-item>
-                                            </el-row>
-                                            <el-row>
-                                                <el-form-item prop="cpjj" label="Product Introduction" class="is-required">
-                                                    <el-input type="textarea" :rows="2" placeholder="Product Introduction" 
-                                                    v-model="domain.cpjj" maxlength="300" onkeyup="value=value.replace(/[^\w\.\@\#\~\^\:\;\$\%\&\*\'\<\>\(\)\[\]\{\}\\\|\-\_\+\=\`\,\!\?\/ ]/ig,'')"></el-input>
-                                                </el-form-item>
-                                            </el-row>
-                                            <el-row>
-                                                <div class="el-upload__tip">less than 300 characters</div>
-                                            </el-row>
-                                        </el-col>
-                                    </el-row>
-                                </el-card>
-                            </el-form-item>
-                        </el-form>
-                    </el-row>
+                                        </el-row>
+                                        <el-row>
+                                            <div class="el-upload__tip"></div>
+                                        </el-row>
+                                        <el-row id="cpjsArea">
+                                            <el-form-item label="Product Introduction" :prop = "'qycpjsVOList.' + index + '.cpjj'" :rules="qyjsRules.cpjj">
+                                                <el-input type="textarea" :rows="2" placeholder="Product Introduction" 
+                                                        v-model="domain.cpjj" maxlength="300" :onkeyup="checkWord(domain.cpjj,index+100,'300')"></el-input>
+                                            </el-form-item>
+                                        </el-row>
+                                        <el-row>
+                                            <div class="el-upload__tip">less than <span style="color: red" :id="index+100">{{300-domain.cpjj.length}}</span> characters</div>
+                                        </el-row>
+                                    </el-col>
+                                </el-row>
+                            </el-card>
+                        </el-row>
+                    </el-form>
                     <el-row class="mt15 mb20">
                         <el-form class="el-form demo-form-inline">
                             <el-row>
