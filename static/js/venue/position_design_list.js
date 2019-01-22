@@ -508,8 +508,15 @@ var vue = new Vue({
                 //绘图工具展位ID
                 pd.shapeUuid = bd.reserve1
                 pd.tenantId = bd.qyid
+                debugger
                 if(!pd.name&&pd.tenantName){
-                    pd.name=pd.tenantName
+                    //pd.name=pd.tenantName
+                    if(bd.gsjc!=null&&parseInt(bd.zwmj)<=12){
+                        pd.name=bd.gsjc
+                        pd.tenantName=bd.gsjc
+                    }else{
+                        pd.name=pd.tenantName
+                    }
                 }
                 plotData.push(pd)
             }

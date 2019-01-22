@@ -154,8 +154,14 @@ var vue = new Vue({
                 pd.stageUuid = bd.zgid
                 pd.shapeUuid = bd.reserve1
                 pd.tenantId = bd.qyid
+                debugger
                 if(pd.tenantName){
-                    pd.name=pd.tenantName
+                    if(bd.gsjc!=null&&parseInt(bd.zwmj)<=12){
+                        pd.name=bd.gsjc
+                        pd.tenantName=bd.gsjc
+                    }else{
+                        pd.name=pd.tenantName
+                    }
                 }
                 plotData.push(pd)
             }

@@ -342,7 +342,12 @@ var vue = new Vue({
                 pd.shapeUuid = bd.reserve1
                 pd.tenantId = bd.qyid
                 if(pd.tenantName){
-                    pd.name=pd.tenantName
+                    if(bd.gsjc!=null&&parseInt(bd.zwmj)<=12){
+                        pd.name=bd.gsjc
+                        pd.tenantName=bd.gsjc
+                    }else{
+                        pd.name=pd.tenantName
+                    }
                 }
                 // blnbzwsj 显示内部展位时间
                 if(this.compareDate(this.blnbzwsj,this.now)){
