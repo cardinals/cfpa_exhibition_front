@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>展位日志管理</title>
+</head>
+
+<body class="fw f14 main-index-body">
+	<div id="app">
+		<div class="main-box">
+			<div class="main-container" v-loading="loading" element-loading-text="加载中">
+				<!-- 面包屑 -->
+				<div id="breadcrumb_box"></div>
+				<div id="tableView">
+					<el-row>
+						<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+							<el-row>
+								<el-col :span="1">&nbsp;</el-col>
+								<el-col :span="9" class="searchInline">
+									<label class="el-form-item__label searchLabel">展位编码</label>
+									<el-input size="small" v-model="searchForm.zwh" placeholder="全部" clearable></el-input>
+								</el-col>
+								<el-col :span="2">&nbsp;</el-col>
+								<el-col :span="9" class="searchInline">
+									<label class="el-form-item__label searchLabel">企业名称</label>
+									<el-input size="small" v-model="searchForm.qymc" placeholder="全部" clearable></el-input>
+								</el-col>
+							</el-row>
+							<div>
+								<el-form>
+									<el-col :span="12">
+										<el-form-item align="left">
+											<el-button type="danger" icon="el-icon-delete" size="small" @click="deleteClick">清空日志</el-button>
+										</el-form-item>
+									</el-col>
+									<el-col :span="12" class="btnSearchPlus">
+										<el-form-item>
+											<el-button type="primary" icon="el-icon-search" size="small" @click="searchClick">查询</el-button>
+											<el-button type="clear" icon="el-icon-refresh" size="small" @click="clearClick">重置</el-button>
+										</el-form-item>
+									</el-col>
+								</el-form>
+							</div>
+						</el-form>
+					</el-row>
+					<div class="table_container">
+						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" class="tableStyle" :height="tableheight"
+						 row-style="height:40px">
+							<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
+							<el-table-column prop="zwh" show-overflow-tooltip label="展位号" min-width="10%" align="center"></el-table-column>
+							<el-table-column prop="qymc" show-overflow-tooltip label="企业名称" min-width="15%" align="center"></el-table-column>
+							<el-table-column prop="czlx" show-overflow-tooltip label="操作类型" min-width="10%" align="center"></el-table-column>
+							<el-table-column prop="czrmc" show-overflow-tooltip label="操作人" min-width="10%" align="center"></el-table-column>
+							<el-table-column prop="czsjStr" show-overflow-tooltip label="操作时间" min-width="15%" align="center"></el-table-column>
+							<el-table-column prop="rzsjStr" show-overflow-tooltip label="日志时间" min-width="15%" align="center"></el-table-column>
+						</el-table>
+						<!--列表底部工具条和分页符-->
+						<el-row type="flex" justify="end">
+							<el-col :span="18">
+								<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30]"
+								 :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
+								</el-pagination>
+							</el-col>
+						</el-row>
+					</div>
+					<!-- 清空日志-->
+					<el-dialog title="清空日志" :visible.sync="deleteFormVisible" @close="closeDialog('deleteForm')" :close-on-click-modal="false">
+						<el-form :model="deleteForm" label-width="120px" :rules="deleteFormRules" ref="deleteForm" label-position="right">
+							<el-row class="mt20">
+								<el-col :span="22">
+									<el-form-item label="日志时间" prop="rzsj">
+										<el-date-picker style="width:100%;" v-model="deleteForm.rzsj" type="daterange" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']">
+										</el-date-picker>
+									</el-form-item>
+								</el-col>
+							</el-row>
+							<el-row class="mt35 mb20 tc">
+								<el-button type="clear" icon="el-icon-close" size="small" @click="closeDialog('deleteForm')">取消</el-button>
+								<el-button type="success" icon="el-icon-delete" size="small" @click="deleteSubmit('deleteForm')">清空</el-button>
+							</el-row>
+						</el-form>
+					</el-dialog>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+<script src="../../static/js/venue/position_log_list.js"></script>
+
+</html>
