@@ -119,7 +119,7 @@ var vm = new Vue({
                         this.$alert('You have not passed the audit yet!', 'reminder', {
                             confirmButtonText: 'check out',
                             callback: action => {
-                                window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit";
+                                window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit_ENG";
                             }
                         });
                         // this.$confirm('您尚未通过审核！', '提示', {
@@ -127,8 +127,8 @@ var vm = new Vue({
                         //     cancelButtonText: '取消',
                         //     type: 'warning'
                         // }).then(() => {
-                        //     window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit";
-                        //     // loadDivParam("prediction/exhprediction_edit");
+                        //     window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit_ENG";
+                        //     // loadDivParam("prediction/exhprediction_edit_ENG");
                         // }).catch(() => {
 
                         // });
@@ -139,7 +139,7 @@ var vm = new Vue({
                     this.$alert('You haven’t signed up yet!', 'reminder', {
                         confirmButtonText: 'sign up',
                         callback: action => {
-                            window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit";
+                            window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit_ENG";
                         }
                     });
                     // this.$confirm('您尚未报名！', '提示', {
@@ -147,8 +147,8 @@ var vm = new Vue({
                     //     cancelButtonText: '取消',
                     //     type: 'warning'
                     // }).then(() => {
-                    //     window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit";
-                    //     // loadDivParam("prediction/exhprediction_edit");
+                    //     window.location.href = baseUrl + "/templates/prediction/exhprediction_all.html?url=/prediction/exhprediction_edit_ENG";
+                    //     // loadDivParam("prediction/exhprediction_edit_ENG");
                     // }).catch(() => {
 
                     // });
