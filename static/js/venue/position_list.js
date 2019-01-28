@@ -193,7 +193,54 @@ var vue = new Vue({
             }).catch(() => {
                 // this.$message.info('已取消删除');
             });
-        }
+        },
+        changePaid: function (val,operation) {
+            //完成付款
+            if(operation == '1'){
+                this.$confirm('展位 ' + val.zwh + ' 确定修改展位状态为【已确定展位】?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    var params = {
+                        uuid: val.uuid,
+                        zwzt:'completed',
+                    }
+                    axios.post('/xfxhapi/zwjbxx/changePaid', params).then(function (res) {
+                        if (res.data.result.zwzt == 'completed') {
+                            this.$message.success('展位 ' + res.data.result.zwh + ' 展位状态修改成功');
+                            this.searchClick('page');
+                        }
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
+                }).catch(() => {
+                    // this.$message.info('已取消删除');
+                });
+            }else{//取消付款
+                this.$confirm('展位 ' + val.zwh + ' 确定修改展位状态为【已预定展位】?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    var params = {
+                        uuid: val.uuid,
+                        zwzt:'bespoke',
+                    }
+                    axios.post('/xfxhapi/zwjbxx/changePaid', params).then(function (res) {
+                        if (res.data.result.zwzt == 'bespoke') {
+                            this.$message.success('展位 ' + res.data.result.zwh + ' 展位状态修改成功');
+                            this.searchClick('page');
+                        }
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
+                }).catch(() => {
+                    // this.$message.info('已取消删除');
+                });
+            }
+            
+        },
     }
 
 })

@@ -100,10 +100,27 @@
 							<el-table-column prop="zwmj" show-overflow-tooltip label="展位面积" min-width="10%" align="center"></el-table-column>
 							<el-table-column prop="zwlb" show-overflow-tooltip label="展位类型" min-width="10%" align="center"></el-table-column>
 							<el-table-column prop="cklx" show-overflow-tooltip label="出口类型" min-width="10%" align="center"></el-table-column>
-							<el-table-column prop="zwztmc" show-overflow-tooltip label="展位状态" min-width="10%" align="center"></el-table-column>
+							<el-table-column prop="zwztmc" show-overflow-tooltip label="展位状态" min-width="10%" align="center">
+								<template slot-scope="scope">
+                                    <div>
+                                        <span v-if="scope.row.zwzt == 'normal'" v-text="scope.row.zwztmc" style="color:#e40613"></span>
+                                        <span v-else-if="scope.row.zwzt == 'bespoke'" v-text="scope.row.zwztmc" style="color:#f7962f"></span>
+                                        <span v-else-if="scope.row.zwzt == 'completed'" v-text="scope.row.zwztmc" style="color:#42D885"></span>
+                                        <span v-else v-text="scope.row.zwztmc"></span>
+                                    </div>
+                                </template>
+							</el-table-column>
+							<!--
 							<el-table-column prop="lxr" show-overflow-tooltip label="联系人名称" min-width="10%" align="center"></el-table-column>
 							<el-table-column prop="lxrsj" show-overflow-tooltip label="联系人电话" min-width="10%" align="center"></el-table-column>
 							<el-table-column prop="yjdzxx" show-overflow-tooltip label="联系地址" min-width="10%" align="center"></el-table-column>
+							-->
+							<el-table-column label="付款操作" width="80" align="center">
+								<template slot-scope="scope">
+									<el-button v-if="scope.row.zwzt=='bespoke'" type="text" @click="changePaid(scope.row,'1')">付款</el-button>
+									<el-button v-if="scope.row.zwzt=='completed'" type="text" @click="changePaid(scope.row,'2')">取消付款</el-button>
+								</template>
+							</el-table-column>
 							<el-table-column label="操作" width="80" align="center">
 								<template slot-scope="scope">
 									<el-button v-if="scope.row.zwzt=='bespoke'" type="text" @click="cancleVenue(scope.row)">取消指定</el-button>
