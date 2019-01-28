@@ -103,10 +103,7 @@
 							<el-table-column prop="zwztmc" show-overflow-tooltip label="展位状态" min-width="10%" align="center">
 								<template slot-scope="scope">
                                     <div>
-                                        <span v-if="scope.row.zwzt == 'normal'" v-text="scope.row.zwztmc" style="color:#e40613"></span>
-                                        <span v-else-if="scope.row.zwzt == 'bespoke'" v-text="scope.row.zwztmc" style="color:#f7962f"></span>
-                                        <span v-else-if="scope.row.zwzt == 'completed'" v-text="scope.row.zwztmc" style="color:#42D885"></span>
-                                        <span v-else v-text="scope.row.zwztmc"></span>
+										<span v-text="scope.row.zwztmc" :style="changeFontColor(scope.row)"></span>
                                     </div>
                                 </template>
 							</el-table-column>

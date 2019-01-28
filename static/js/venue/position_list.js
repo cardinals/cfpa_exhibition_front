@@ -194,6 +194,17 @@ var vue = new Vue({
                 // this.$message.info('已取消删除');
             });
         },
+        //更改字体颜色
+        changeFontColor: function(val){
+            if(val.zwzt == 'normal'){
+                return 'color:#e40613';
+            }else if(val.zwzt == 'bespoke'){
+                return 'color:#f7962f';
+            }else if(val.zwzt == 'completed'){
+                return 'color:#42D885';
+            }
+        },
+        //更改付款状态
         changePaid: function (val,operation) {
             //完成付款
             if(operation == '1'){
@@ -209,6 +220,9 @@ var vue = new Vue({
                     axios.post('/xfxhapi/zwjbxx/changePaid', params).then(function (res) {
                         if (res.data.result.zwzt == 'completed') {
                             this.$message.success('展位 ' + res.data.result.zwh + ' 展位状态修改成功');
+                            this.searchClick('page');
+                        }else{
+                            this.$message.error('展位 ' + res.data.result.zwh + ' 展位状态修改失败');
                             this.searchClick('page');
                         }
                     }.bind(this), function (error) {
@@ -230,6 +244,9 @@ var vue = new Vue({
                     axios.post('/xfxhapi/zwjbxx/changePaid', params).then(function (res) {
                         if (res.data.result.zwzt == 'bespoke') {
                             this.$message.success('展位 ' + res.data.result.zwh + ' 展位状态修改成功');
+                            this.searchClick('page');
+                        }else{
+                            this.$message.error('展位 ' + res.data.result.zwh + ' 展位状态修改失败');
                             this.searchClick('page');
                         }
                     }.bind(this), function (error) {
