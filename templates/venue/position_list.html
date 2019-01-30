@@ -90,16 +90,16 @@
 							</el-table-column>
 						-->
 							<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-							<el-table-column prop="zwh" show-overflow-tooltip label="展位编号" min-width="10%" align="center"></el-table-column>
-							<el-table-column prop="qymc" show-overflow-tooltip label="公司名称" min-width="12%" align="center">
+							<el-table-column prop="zwh" show-overflow-tooltip label="展位编号" min-width="8%" align="center"></el-table-column>
+							<el-table-column prop="qymc" show-overflow-tooltip label="公司名称" min-width="20%" align="center">
 								<template slot-scope="scope">
 									<a v-if="scope.row.usertype == 'ENG'" v-text="scope.row.qymc" @click="qyDetails(scope.row)"></a>
 									<a v-else v-text="scope.row.qymc" @click="qyDetails(scope.row)"></a>
 								</template>
 							</el-table-column>
-							<el-table-column prop="zwmj" show-overflow-tooltip label="展位面积" min-width="10%" align="center"></el-table-column>
-							<el-table-column prop="zwlb" show-overflow-tooltip label="展位类型" min-width="10%" align="center"></el-table-column>
-							<el-table-column prop="cklx" show-overflow-tooltip label="出口类型" min-width="10%" align="center"></el-table-column>
+							<el-table-column prop="zwmj" show-overflow-tooltip label="展位面积" min-width="8%" align="center"></el-table-column>
+							<el-table-column prop="zwlb" show-overflow-tooltip label="展位类型" min-width="8%" align="center"></el-table-column>
+							<el-table-column prop="cklx" show-overflow-tooltip label="出口类型" min-width="8%" align="center"></el-table-column>
 							<el-table-column prop="zwztmc" show-overflow-tooltip label="展位状态" min-width="10%" align="center">
 								<template slot-scope="scope">
                                     <div>
