@@ -81,9 +81,9 @@ var vue = new Vue({
         deleteSubmit: function (val) {
             this.$refs[val].validate((valid) => {
                 if (valid) {
-                    var date = new Date(this.deleteForm.rzsj[0]);
+                    var date = new Date(this.deleteForm.fssj[0]);
                     var date1 = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-                    var date2 = new Date(this.deleteForm.rzsj[1]);
+                    var date2 = new Date(this.deleteForm.fssj[1]);
                     var date3 = date2.getFullYear() + '-' + (date2.getMonth() + 1) + '-' + date2.getDate() + ' ' + date2.getHours() + ':' + date2.getMinutes() + ':' + date2.getSeconds();
                     this.$confirm('确定清空' + date1 + '至' + date3 + '发送的日志信息?', '提示', {
                         confirmButtonText: '确定',
