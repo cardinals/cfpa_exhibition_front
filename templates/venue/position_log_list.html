@@ -18,7 +18,7 @@
 							<el-row>
 								<el-col :span="1">&nbsp;</el-col>
 								<el-col :span="9" class="searchInline">
-									<label class="el-form-item__label searchLabel">展位编码</label>
+									<label class="el-form-item__label searchLabel">展位号</label>
 									<el-input size="small" v-model="searchForm.zwh" placeholder="全部" clearable></el-input>
 								</el-col>
 								<el-col :span="2">&nbsp;</el-col>
@@ -49,7 +49,7 @@
 						 row-style="height:40px">
 							<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
 							<el-table-column prop="zwh" show-overflow-tooltip label="展位号" min-width="10%" align="center"></el-table-column>
-							<el-table-column prop="qymc" show-overflow-tooltip label="企业名称" min-width="15%" align="center"></el-table-column>
+							<el-table-column prop="qymc" show-overflow-tooltip label="企业名称" min-width="20%" align="center"></el-table-column>
 							<el-table-column prop="czlx" show-overflow-tooltip label="操作类型" min-width="10%" align="center"></el-table-column>
 							<el-table-column prop="czrmc" show-overflow-tooltip label="操作人" min-width="10%" align="center"></el-table-column>
 							<el-table-column prop="czsjStr" show-overflow-tooltip label="操作时间" min-width="15%" align="center"></el-table-column>
@@ -70,7 +70,8 @@
 							<el-row class="mt20">
 								<el-col :span="22">
 									<el-form-item label="日志时间" prop="rzsj">
-										<el-date-picker style="width:100%;" v-model="deleteForm.rzsj" type="daterange" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']">
+										<el-date-picker style="width:100%;" v-model="deleteForm.rzsj" type="daterange" size="small" start-placeholder="开始日期" end-placeholder="结束日期"
+										 :default-time="['00:00:00', '23:59:59']">
 										</el-date-picker>
 									</el-form-item>
 								</el-col>

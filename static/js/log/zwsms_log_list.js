@@ -8,6 +8,7 @@ var vue = new Vue({
             searchForm: {
                 zwh: "",
                 qymc: "",
+                sjhm: ""
             },
             //表数据
             tableData: [],
@@ -55,6 +56,7 @@ var vue = new Vue({
             var params = {
                 zwh: this.searchForm.zwh,
                 qymc: this.searchForm.qymc,
+                sjhm: this.searchForm.sjhm,
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
@@ -71,6 +73,7 @@ var vue = new Vue({
         clearClick: function () {
             this.searchForm.zwh = "";
             this.searchForm.qymc = "";
+            this.searchForm.sjhm = "";
             this.searchClick('reset');
         },
         //点击清空日志
