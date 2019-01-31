@@ -505,7 +505,10 @@
                                         </el-form-item>
                                     </el-row>
                                     <el-row>
-                                        <div class="el-upload__tip" >还可输入<span style="color: red" :id="index+200">{{400-domain.reserve1.length}}</span>个英文字符</div>
+                                        <div class="el-upload__tip" >还可输入
+                                            <span v-if="domain.reserve1!=null" style="color: red" :id="index+200">{{400-domain.reserve1.length}}</span>
+                                            <span v-else style="color: red" :id="index+200">400</span>
+                                            个英文字符</div>
                                     </el-row>
                                 </el-col>
                             </el-row>

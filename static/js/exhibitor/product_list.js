@@ -338,11 +338,13 @@ new Vue({
         },
         //剩余多少个字
         checkWord:function(text,name,maxlength){
-            var length = text.length;
-            var curr = maxlength - length;
-            var ele =  document.getElementById(name);
-            if(ele != null){
-                document.getElementById(name).innerHTML=curr.toString();
+            if(text != "" && text != null && text != undefined){
+                var length = text.length;
+                var curr = maxlength - length;
+                var ele =  document.getElementById(name);
+                if(ele != null){
+                    document.getElementById(name).innerHTML=curr.toString();
+                }
             }
         },
     }
