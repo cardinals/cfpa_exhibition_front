@@ -46,7 +46,7 @@
         cursor: pointer;
     }
 
-    .adTitle {
+    /* .adTitle {
         font-weight: bolder;
         text-align: center;
         position: absolute;
@@ -55,7 +55,7 @@
         z-index: 999;
         color: #b70b0b;
 
-    }
+    } */
 
     /* @keyframes change {
                 0%{ text-shadow: 0 0 4px #f00}
@@ -71,7 +71,39 @@
                 <div id="lib :: main_container_header('报名信息确认','报名信息确认')"></div>
                 <!-- 面包屑 -->
                 <div id="breadcrumb_box"></div>
-                <div id="remark" class="remark redFont" v-if="editPage==false">
+                <el-row id="btnB">
+                    <el-button type="danger" v-if="editPage==false" class="redFont topScroll remark">
+                        (1) Booth Requirement Information we collect in Part 5 will be used as references for the booth design.
+                        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It is Your Booth Selection at our going-to-open online Booth
+                        selection process that will be your final choice.
+                        <br>(2) The information of legal representative and contact person you have filled in will only be used
+                        as references for censors of our commission,
+                        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in order to guarantee all exhibitors are from the fire and safety
+                        industry.
+                        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Company introduction, product introduction and related information
+                        will be displayed in the company list and product list on our website,
+                        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;which targets to provide a longer promotion period through website
+                        channel for our exhibitors.
+                        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If you have any concern about this, please contact the commission.
+                    </el-button>
+                    <el-button type="success" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='00'" class="topScroll remark">
+                        Your information has been approved
+                        <!-- ，请进行展位选择。 -->
+                        <i class="el-icon-warning"></i>
+                    </el-button>
+                    <el-button type="warning" icon="el-icon-warning" v-if="editPage&&jbxxData.shzt==='01'" class="topScroll remark">
+                        Your information has been submitted, please waiting for the audit. The audited time will take about 5 working days.
+                        <i class="el-icon-warning"></i>
+                    </el-button>
+                    <el-button type="danger" icon="el-icon-warning" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='01'" class="topScroll remark">
+                        You have selected Booths of
+                        <v-text v-text="yxzwxx"></v-text>. Please wait for the committee to send you booth contract through fireexpo@cfpa.cn.
+                        </br>
+                        If you have any concerns, pleasd feel free to contact us at this email.
+                        <i class="el-icon-warning"></i>
+                    </el-button>
+                </el-row>
+                <!-- <div id="remark" class="remark redFont" v-if="editPage==false">
                     (1) Booth Requirement Information we collect in Part 5 will be used as references for the booth design. It is Your Booth
                     Selection at our going-to-open online Booth selection process that will be your final choice.
                     <br>(2) The information of legal representative and contact person you have filled in will only be used as
@@ -79,8 +111,8 @@
                     safety industry. Company introduction, product introduction and related information will be displayed
                     in the company list and product list on our website, which targets to provide a longer promotion period
                     through website channel for our exhibitors. If you have any concern about this, please contact the commission.
-                </div>
-                <div id="steps" v-if="editPage==false" style="margin-top:135px;">
+                </div> -->
+                <div id="steps" v-if="editPage==false" style="margin-top:170px;">
                     <el-steps :active="5" align-center finish-status="success" class="pt10">
                         <el-step title="Brief Information"></el-step>
                         <el-step title="Invoice"></el-step>
@@ -90,10 +122,8 @@
                         <el-step title="confirmation and Submission"></el-step>
                     </el-steps>
                 </div>
-                <el-button id="remark" type="success" icon="el-icon-warning" class="topScroll remark tc mt5" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='00'">
-                    <!-- Your information has been approved, please wait for system notification for booth selection. -->
+                <!-- <el-button id="remark" type="success" icon="el-icon-warning" class="topScroll remark tc mt5" v-if="editPage&&jbxxData.shzt==='03'&&zwxzzt==='00'">
                     Your information has been approved
-                    <!-- , please select the booth. -->
                     <i class="el-icon-warning"></i>
                 </el-button>
                 <el-button id="remark" type="warning" icon="el-icon-warning" class="topScroll remark tc mt5" v-if="editPage&&jbxxData.shzt==='01'">
@@ -106,7 +136,7 @@
                     </br>
                     If you have any concerns, pleasd feel free to contact us at this email.
                     <i class="el-icon-warning"></i>
-                </el-button>
+                </el-button> -->
                 <div id="qyjbxx" class="mb5">
                     <el-row class="mb10" v-if="editPage==false" style="border-bottom:1px solid #463132;line-height: 29px;">
                         <strong style="color: #463132;" class="f15">Brief Company Information</strong>
@@ -370,20 +400,20 @@
 <script src="../../static/js/common/config.js"></script>
 <script src="../../static/js/prediction/exhprediction_confirm_ENG.js"></script>
 <script>
-        var i=1;
-        $(document).ready(function () {
-           $('#menu-toggle-btn').click(function (m) {
-               var e = document.getElementsByClassName("topScroll"); 
-               if((i%2)==1){
-                   e[0].style.width= "calc(100% - 60px)"; 
-                   i++;
-               }else{
-                   e[0].style.width= "calc(100% - 300px)"; 
-                   i++;
-               }
-   
-           })
-       })
+    var i = 1;
+    $(document).ready(function () {
+        $('#menu-toggle-btn').click(function (m) {
+            var e = document.getElementsByClassName("topScroll");
+            if ((i % 2) == 1) {
+                e[0].style.width = "calc(100% - 60px)";
+                i++;
+            } else {
+                e[0].style.width = "calc(100% - 300px)";
+                i++;
+            }
+
+        })
+    })
 </script>
 <script>
     // 漂浮广告JS
