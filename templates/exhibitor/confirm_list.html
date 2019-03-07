@@ -17,11 +17,11 @@
                 <div id="breadcrumb_box"></div>
                 <!-- 邮寄信息确认状态条 -->
                 <el-row class="mt10 mb10">
-                    <el-button v-if="jbxxForm.qrzt!='Y'" type="danger" icon="el-icon-warning" class="w100">您尚未进行信息确认
+                    <el-button v-if="jbxxForm.qrzt!='Y'" type="danger" icon="el-icon-warning" class="w100" style="font-size: 20px">您尚未进行信息确认
                         <i class="el-icon-warning"></i>
                     </el-button>
-                    <el-button v-if="jbxxForm.qrzt=='Y'" type="success" icon="el-icon-warning" class="w100">您上次信息确认时间为
-                        <span v-text="jbxxForm.qrsj"></span>
+                    <el-button v-if="jbxxForm.qrzt=='Y'" type="success" icon="el-icon-warning" class="w100" style="font-size: 20px">您上次信息确认时间为
+                        <span v-text="jbxxForm.qrsj"></span>，如需修改可再次修改确认
                         <i class="el-icon-warning"></i>
                     </el-button>
                 </el-row>
