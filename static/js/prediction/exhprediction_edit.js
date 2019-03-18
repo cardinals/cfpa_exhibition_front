@@ -244,7 +244,7 @@ var vm = new Vue({
                 ],
                 dhhm: [
                   { required: true, message: '请输入电话号码', trigger: 'blur' },
-                  { pattern: /^[0-9]*$/, message: '只能输入数字',trigger: 'blur' },
+                  //{ pattern: /^[0-9]*$/, message: '只能输入数字',trigger: 'blur' },
                   { min: 1, max: 50, message: '最多输入50个数字', trigger: 'blur' }
                 ],
                 khyh: [
