@@ -38,7 +38,8 @@ var vue = new Vue({
                 fljg: '',
                 fljgEng: ''
             },
-            isSngd: true,//是否室内光地
+            //isSngd: true,//是否室内光地
+            isBzzw: false,//是否是标准展位 add by yushch 光地展位可选出口类型 20190417
             editFormRules: {
                 zwfl: [
                     { required: true, message: '请选择展位类型', trigger: 'change' }
@@ -121,15 +122,18 @@ var vue = new Vue({
         },
         zwflChange: function (val) {
             if (val == '1') {
-                this.isSngd = false;
+                //this.isSngd = false;
+                this.isBzzw = true;
                 this.editForm.kkfl = '';
                 this.editForm.flmj = 12;
             } else if (val == '2') {
-                this.isSngd = true;
+                //this.isSngd = true;
+                this.isBzzw = false;
                 this.editForm.flmj = 1;
             }else if (val == '3') {
-                this.isSngd = false;
-                this.editForm.kkfl = '';
+                //this.isSngd = false;
+                //this.editForm.kkfl = '';
+                this.isBzzw = false;
                 this.editForm.flmj = 1;
             }
         },
@@ -175,10 +179,12 @@ var vue = new Vue({
                 this.editForm.flmj = res.data.result.flmj;
                 this.editForm.fljg = res.data.result.fljg;
                 this.editForm.fljgEng = res.data.result.fljgEng;
-                if (this.editForm.zwfl == '2') {
-                    this.isSngd = true;
+                if (this.editForm.zwfl == '1') {
+                    //this.isSngd = true;
+                    this.isBzzw = true;
                 } else {
-                    this.isSngd = false;
+                    //this.isSngd = false;
+                    this.isBzzw = false;
                 }
                 this.editFormVisible = true;
             }.bind(this), function (error) {
