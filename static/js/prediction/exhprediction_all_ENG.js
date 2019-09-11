@@ -80,7 +80,7 @@ var vm = new Vue({
                     { pattern: /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)+$/, message: 'The email format is not correct.', trigger: 'blur' }
                 ],
                 messageCode: [
-                    { type: "number", required: true, message: 'Please input the verification code.', trigger: 'blur' },
+                    { required: true, message: 'Please input the verification code.', trigger: 'blur' },
                 ],
                 password: [
                     { required: true, message: 'Please input a password.', trigger: 'blur' },
@@ -200,10 +200,10 @@ var vm = new Vue({
                     var params = {
                         userid: this.userForm.userid
                     }
-                    if(!this.usernameFlag){
+                    if(this.userForm.usernameFlag){
                         params.username = this.userForm.username;
                     }
-                    if(!this.passwordFlag){
+                    if(this.userForm.passwordFlag){
                         params.password = this.userForm.password;
                     }
                     axios.post('/xfxhapi/account/updateByVO', params).then(function (res) {

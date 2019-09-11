@@ -73,7 +73,7 @@ var vm = new Vue({
                     { pattern: /^1[34578]\d{9}$/, message: '请填写正确的手机号码', trigger: 'blur' }
                 ],
                 messageCode: [
-                    { type: "number", required: true, message: '请输入验证码', trigger: 'blur' },
+                    { required: true, message: '请输入验证码', trigger: 'blur' },
                 ],
                 password: [
                     { required: true, message: '请输入密码', trigger: 'blur' },
@@ -188,10 +188,10 @@ var vm = new Vue({
                     var params = {
                         userid: this.userForm.userid
                     }
-                    if(!this.usernameFlag){
+                    if(this.userForm.usernameFlag){
                         params.username = this.userForm.username;
                     }
-                    if(!this.passwordFlag){
+                    if(this.userForm.passwordFlag){
                         params.password = this.userForm.password;
                     }
                     axios.post('/xfxhapi/account/updateByVO', params).then(function (res) {

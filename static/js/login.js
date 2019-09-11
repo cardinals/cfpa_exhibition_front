@@ -706,6 +706,8 @@ var vm = new Vue({
                 this.REAmobileBtnDisabled = true;
                 axios.get('/xfxhapi/signin/sendMessage?phone=' + this.REAmobile).then(function (res) {
                     this.REAmessageCodeReal = res.data.msg;
+                    console.log(1111111111);
+                    console.log(res.data.msg);
                     var count = this.time;
                     this.REAtimer = setInterval(() => {
                         if (count == 0) {
@@ -734,7 +736,7 @@ var vm = new Vue({
             }
         },
         REApassword1Check: function () {
-            if (!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/.test(this.password1))) {
+            if (!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/.test(this.REApassword1))) {
                 this.REApassword1TipFlag = false;
                 this.REApassword1AlertFlag = true;
                 return false;
