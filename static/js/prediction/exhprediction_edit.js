@@ -1646,7 +1646,9 @@ var vm = new Vue({
         },
         //邮箱change判断需不需要重新验证
         dzyxChange: function(){
-            if(this.checkedMailAddress != this.baseInforForm.dzyx1 && this.checkedMailAddress != ""){
+            if(this.shiroData.username == 'admin'){
+                this.mailCheck = true;
+            }else if(this.checkedMailAddress != this.baseInforForm.dzyx1 && this.checkedMailAddress != ""){
                 this.mailCheck = false;
             }
         },
